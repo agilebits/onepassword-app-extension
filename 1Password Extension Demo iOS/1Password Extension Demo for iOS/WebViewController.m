@@ -71,8 +71,8 @@
 
 - (void)lookupLoginIn1PasswordForURLString:(NSString *)URLString collectedPageDetails:(NSString *)collectedPageDetails {
 	NSDictionary *item = @{ OPLoginURLStringKey: URLString,
-							collectedPageDetails: @"pageDetails"};
-	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFindLoginAction]; //(NSString *)kUTTypePropertyList];
+							@"pageDetails": collectedPageDetails};
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFillWebViewAction];
 	
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
@@ -110,10 +110,11 @@
 			}
 			
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				NSString *username = item[OPLoginUsernameKey];
-				NSString *password = item[OPLoginPasswordKey];
+				NSString *fillScript = item[@"fillScript"];
 				
-				[weakSelf executeFillScriptWithUsername:username password:password];
+				NSLog(@"Fill script from 1P: <%@>", fillScript);
+				
+				[weakSelf executeFillScript:fillScript];
 			});
 		}];
 	}
@@ -149,13 +150,11 @@
 
 #pragma mark - Convenience Methods
 
-- (void)executeFillScriptWithUsername:(NSString *)username password:(NSString *)password {
-	NSString *fillScriptJSONFrom1PasswordExtension = [self rudimentaryFillScriptForUsername:username password:password];
-	
-	NSLog(@"Fill script from 1Password: <%@>", fillScriptJSONFrom1PasswordExtension);
+- (void)executeFillScript:(NSString *)fillScript {
+	NSLog(@"Fill script from 1Password: <%@>", fillScript);
 	
 	NSMutableString *scriptSource = [[self loadUserScriptSourceNamed:@"fill_lib.min"] mutableCopy];
-	[scriptSource appendFormat:@"%@('%@');", [self loadUserScriptSourceNamed:@"fill"], fillScriptJSONFrom1PasswordExtension];
+	[scriptSource appendFormat:@"%@('%@');", [self loadUserScriptSourceNamed:@"fill"], fillScript];
 	[self.webView evaluateJavaScript:scriptSource completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
 			NSLog(@"ERROR evaulating fill script: %@", error);
