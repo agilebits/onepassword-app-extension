@@ -25,7 +25,7 @@
 -(void)viewDidLoad {
 	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
 	[self addUserScriptsToUserContentController:configuration.userContentController];
-	
+
 	self.webView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds configuration:configuration];
 	self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	self.webView.navigationDelegate = self;
@@ -33,88 +33,52 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-	[self loadURLString:@"https://mobile.twitter.com/session/new"];
+	[self loadURLString:@"https://www.acmebrowser.com"]; // Ensure the URLString is set to your actual service URL, so that user will find your actual Login information in 1Password.;
 }
 
-#pragma mark - Actions
+#pragma mark - Invoking the 1Password Extension 
 
-- (IBAction)goBack:(id)sender {
-	[self.webView goBack];
-}
-
-- (IBAction)goForward:(id)sender {
-	[self.webView goForward];
-}
-
-- (IBAction)fillUsing1Password:(id)sender {
-	NSMutableString *collectPageInfoScript = [[self loadUserScriptSourceNamed:@"collect_lib.min"] mutableCopy];
-	[collectPageInfoScript appendString:[self loadUserScriptSourceNamed:@"collect"]];
-	
-	NSLog(@"collectPageInfoScript=<%@>", collectPageInfoScript);
-	
-	[self.webView evaluateJavaScript:collectPageInfoScript completionHandler:^(NSString *result, NSError *error) {
-		
-		if (!result) {
-			NSLog(@"Error executing collect page info script: %@", error);
-			return;
-		}
-		
-		NSLog(@"Collected page information: <%@>", result);
-		
-		[self lookupLoginIn1PasswordForURLString:@"https://twitter.com" collectedPageDetails:result];
-		
-// TESTING w/o extension		[self executeFillScriptWithUsername:@"RadTweeter" password:@"SuperPassword!!!!!"];
-	}];
-}
-
-#pragma mark - Extension Share Sheet
-
-- (void)lookupLoginIn1PasswordForURLString:(NSString *)URLString collectedPageDetails:(NSString *)collectedPageDetails {
+- (void)findLoginIn1PasswordForURLString:(NSString *)URLString collectedPageDetails:(NSString *)collectedPageDetails {
 	NSDictionary *item = @{ OPLoginURLStringKey: URLString,
 							@"pageDetails": collectedPageDetails};
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFillWebViewAction];
 	
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
-	
+
 	__weak typeof (self) miniMe = self;
-	
+
 	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
 	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-		
 		// NOTE: returnedItems is nil after the second call. radar://17669995
-		
 		if (!completed) {
-			NSLog(@"Error contacting 1Password Extension: %@", activityError);
-			return;
+			for (NSExtensionItem *extensionItem in returnedItems) {
+				[miniMe processExtensionItem:extensionItem];
+			}
 		}
-		
-		for (NSExtensionItem *extensionItem in returnedItems) {
-			[miniMe processExtensionItem:extensionItem];
+		else {
+			NSLog(@"Error contacting the 1Password Extension: <%@>", activityError);
 		}
 	};
-	
+
 	[self presentViewController:controller animated:YES completion:nil];
 }
 
-
-#pragma mark - Item Provider Callback
+#pragma mark - ItemProvider Callback
 
 - (void)processItemProvider:(NSItemProvider *)itemProvider {
 	if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
-		__weak typeof (self) weakSelf = self;
+		__weak typeof (self) miniMe = self;
 		[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *item, NSError *error) {
-			if (!item) {
-				NSLog(@"Failed to parse item provider result: <%@>", error);
-				return;
-			}
-			
-			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				NSString *fillScript = item[@"fillScript"];
-				
-				NSLog(@"Fill script from 1P: <%@>", fillScript);
-				
-				[weakSelf executeFillScript:fillScript];
+			// We need to have 0.5 delay to allow the fillscript to fill the webviews form
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				if (item) {
+					NSString *fillScript = item[@"fillScript"];
+					[miniMe executeFillScript:fillScript];
+				}
+				else {
+					NSLog(@"Failed to parse item provider result: <%@>", error);
+				}
 			});
 		}];
 	}
@@ -126,6 +90,28 @@
 	}
 }
 
+#pragma mark - Actions
+
+- (IBAction)fillUsing1Password:(id)sender {
+	NSMutableString *collectPageInfoScript = [[self loadUserScriptSourceNamed:@"collect_lib.min"] mutableCopy];
+	[collectPageInfoScript appendString:[self loadUserScriptSourceNamed:@"collect"]];
+	[self.webView evaluateJavaScript:collectPageInfoScript completionHandler:^(NSString *result, NSError *error) {
+		if (result) {
+			[self findLoginIn1PasswordForURLString:self.searchBar.text collectedPageDetails:result];
+		}
+		else {
+			NSLog(@"Error executing collect page info script: <%@>", error);
+		}
+	}];
+}
+
+- (IBAction)goBack:(id)sender {
+	[self.webView goBack];
+}
+
+- (IBAction)goForward:(id)sender {
+	[self.webView goForward];
+}
 
 #pragma mark - UISearchBarDelegate
 
@@ -147,27 +133,37 @@
 	[searchBar resignFirstResponder];
 }
 
+#pragma mark - WKNavigationDelegate
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+	self.searchBar.text = webView.URL.absoluteString;
+}
 
 #pragma mark - Convenience Methods
 
 - (void)executeFillScript:(NSString *)fillScript {
-	NSLog(@"Fill script from 1Password: <%@>", fillScript);
-	
+	if (!fillScript) {
+		NSLog(@"Fill script from the 1Password Extension is null");
+		return;
+	}
+
 	NSMutableString *scriptSource = [[self loadUserScriptSourceNamed:@"fill_lib.min"] mutableCopy];
+
 	[scriptSource appendFormat:@"%@('%@');", [self loadUserScriptSourceNamed:@"fill"], fillScript];
+
 	[self.webView evaluateJavaScript:scriptSource completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
-			NSLog(@"ERROR evaulating fill script: %@", error);
+			NSLog(@"Failed to evaulate the fill script: <%@>", error);
 			return;
 		}
-		
+
 		NSLog(@"Result from execute fill script: %@", result);
 	}];
 }
 
 - (NSString *)rudimentaryFillScriptForUsername:(NSString *)username password:(NSString *)password {
 	NSString *simpleFillScript = [NSString stringWithFormat:@"{\"script\":[{\"operation\":\"fill_by_query\",\"parameters\":[\"input[type=email],input[type=text]\",\"%@\"]},{\"operation\":\"fill_by_query\",\"parameters\":[\"input[type=password]\",\"%@\"]}]}", username, password];
-	
+
 	return simpleFillScript;
 }
 
@@ -175,17 +171,15 @@
 	if (![URLString hasPrefix:@"http"]) {
 		URLString = [NSString stringWithFormat:@"https://%@", URLString];
 	}
-	
+
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:URLString]];
 	[self.webView loadRequest:request];
-	
+
 	self.searchBar.text = URLString;
 }
 
 - (void)addUserScriptsToUserContentController:(WKUserContentController *)userContentController {
-	
 	// TODO: WKUserScript is never called. Radar #
-	
 	NSString *autosaveScriptString = @"Array.prototype.forEach.call(document.querySelectorAll('header'), function(el){el.style.display='none'});"; // [self loadUserScriptSourceNamed:@"autosave"];
 	WKUserScript *autosaveUserScript = [[WKUserScript alloc] initWithSource:autosaveScriptString injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
 	[userContentController addUserScript:autosaveUserScript];
@@ -195,17 +189,13 @@
 	NSError *error = nil;
 	NSURL *scriptURL = [[NSBundle mainBundle] URLForResource:filename withExtension:@"js"];
 	NSString *scriptString = [NSString stringWithContentsOfURL:scriptURL encoding:NSUTF8StringEncoding error:&error];
-	
+
 	if (!scriptString) {
-		NSLog(@"Error loading %@: %@", scriptURL, error);
+		NSLog(@"Error loading %@: <%@>", scriptURL, error);
 		return nil;
 	}
-	
-	return scriptString;
-}
 
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-	self.searchBar.text = webView.URL.absoluteString;
+	return scriptString;
 }
 
 @end

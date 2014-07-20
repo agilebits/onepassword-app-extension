@@ -12,8 +12,6 @@
 
 // You should only ask for login information of your own service. Giving a URL for a service which you do not own or support may seriously break the customer's trust in your service/app.
 
-NSString *kServiceURL = @"https://wwww.twitter.com"; // URL for the 1Password Login.
-
 @interface SignInViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -24,20 +22,48 @@ NSString *kServiceURL = @"https://wwww.twitter.com"; // URL for the 1Password Lo
 
 @implementation SignInViewController
 
+
+#pragma mark - Actions
+
+- (IBAction)findLoginFrom1Password:(id)sender {
+	NSDictionary *item = @{ OPLoginURLStringKey : @"https://www.acmebrowser.com" }; // Ensure the URLString is set to your actual service URL, so that user will find your actual Login information in 1Password.
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFindLoginAction];
+
+	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
+	extensionItem.attachments = @[ itemProvider ];
+
+	__weak typeof (self) miniMe = self;
+
+	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
+	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+
+		// returnedItems is nil after the second call. radar://17669995
+		if (!completed) {
+			for (NSExtensionItem *extensionItem in returnedItems) {
+				[miniMe processExtensionItem:extensionItem];
+			}
+		}
+		else {
+			NSLog(@"Error contacting the 1Password Extension: <%@>", activityError);
+		}
+	};
+
+	[self presentViewController:controller animated:YES completion:nil];
+}
+
+#pragma mark - ItemProvider Callback
+
 - (void)processItemProvider:(NSItemProvider *)itemProvider {
 	if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
-		__weak typeof (self) weakSelf = self;
+		__weak typeof (self) miniMe = self;
 		[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *item, NSError *error) {
-			if (!item) {
-				NSLog(@"Failed to parse item : <%@>", error);
-				return;
-			}
-
 			dispatch_async(dispatch_get_main_queue(), ^{
-				__strong typeof(self) strongSelf = weakSelf;
-				if (strongSelf) {
-					strongSelf.usernameTextField.text = item[OPLoginUsernameKey];
-					strongSelf.passwordTextField.text = item[OPLoginPasswordKey];
+				if (item) {
+					miniMe.usernameTextField.text = item[OPLoginUsernameKey];
+					miniMe.passwordTextField.text = item[OPLoginPasswordKey];
+				}
+				else {
+					NSLog(@"Failed to parse item provider result: <%@>", error);
 				}
 			});
 		}];
@@ -48,33 +74,6 @@ NSString *kServiceURL = @"https://wwww.twitter.com"; // URL for the 1Password Lo
 	for (NSItemProvider *itemProvider in extensionItem.attachments) {
 		[self processItemProvider:itemProvider];
 	}
-}
-
-#pragma mark - Actions
-
-- (IBAction)lookupLogin:(id)sender {
-	self.usernameTextField.text = @"";
-	self.passwordTextField.text = @"";
-
-	NSDictionary *item = @{ OPLoginURLStringKey : kServiceURL };
-	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFindLoginAction];
-
-	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
-	extensionItem.attachments = @[ itemProvider ];
-
-	__weak typeof (self) weakSelf = self;
-
-	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
-	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-		// returnedItems is nil after the second call. radar://17669995
-		if (completed && (returnedItems.count > 0)) {
-			for (NSExtensionItem *extensionItem in returnedItems) {
-				[weakSelf processExtensionItem:extensionItem];
-			}
-		}
-	};
-
-	[self presentViewController:controller animated:YES completion:nil];
 }
 
 @end
