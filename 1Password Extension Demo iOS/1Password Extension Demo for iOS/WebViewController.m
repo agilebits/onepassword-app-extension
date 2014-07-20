@@ -33,7 +33,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-	[self loadURLString:@"https://mobile.twitter.com/login"];
+	[self loadURLString:@"https://mobile.twitter.com/session/new"];
 }
 
 #pragma mark - Actions
@@ -61,7 +61,9 @@
 		
 		NSLog(@"Collected page information: <%@>", result);
 		
-		[self lookupLoginIn1PasswordForURLString:@"https://mobile.twitter.com/session/new" collectedPageDetails:result];
+		[self lookupLoginIn1PasswordForURLString:@"https://twitter.com" collectedPageDetails:result];
+		
+// TESTING w/o extension		[self executeFillScriptWithUsername:@"RadTweeter" password:@"SuperPassword!!!!!"];
 	}];
 }
 
@@ -107,26 +109,11 @@
 				return;
 			}
 			
-			NSLog(@">>>>>>>> JSON: %@", item);
-			
-			dispatch_async(dispatch_get_main_queue(), ^{
-				__strong typeof(self) strongSelf = weakSelf;
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				NSString *username = item[OPLoginUsernameKey];
+				NSString *password = item[OPLoginPasswordKey];
 				
-				NSString *fillScriptJSONFrom1PasswordExtension = [strongSelf rudimentaryFillScriptForUsername:item[OPLoginUsernameKey] password:item[OPLoginPasswordKey]];
-				
-				NSLog(@"Fill script from 1Password: <%@>", fillScriptJSONFrom1PasswordExtension);
-				
-				NSMutableString *scriptSource = [[self loadUserScriptSourceNamed:@"fill_lib.min"] mutableCopy];
-				[scriptSource appendFormat:@"%@('%@');", [strongSelf loadUserScriptSourceNamed:@"fill"], fillScriptJSONFrom1PasswordExtension];
-				[self.webView evaluateJavaScript:scriptSource completionHandler:^(NSString *result, NSError *error) {
-					if (!result) {
-						NSLog(@"ERROR evaulating fill script: %@", error);
-						return;
-					}
-					
-					NSLog(@"Result from execute fill script: %@", result);
-				}];
-
+				[weakSelf executeFillScriptWithUsername:username password:password];
 			});
 		}];
 	}
@@ -161,6 +148,23 @@
 
 
 #pragma mark - Convenience Methods
+
+- (void)executeFillScriptWithUsername:(NSString *)username password:(NSString *)password {
+	NSString *fillScriptJSONFrom1PasswordExtension = [self rudimentaryFillScriptForUsername:username password:password];
+	
+	NSLog(@"Fill script from 1Password: <%@>", fillScriptJSONFrom1PasswordExtension);
+	
+	NSMutableString *scriptSource = [[self loadUserScriptSourceNamed:@"fill_lib.min"] mutableCopy];
+	[scriptSource appendFormat:@"%@('%@');", [self loadUserScriptSourceNamed:@"fill"], fillScriptJSONFrom1PasswordExtension];
+	[self.webView evaluateJavaScript:scriptSource completionHandler:^(NSString *result, NSError *error) {
+		if (!result) {
+			NSLog(@"ERROR evaulating fill script: %@", error);
+			return;
+		}
+		
+		NSLog(@"Result from execute fill script: %@", result);
+	}];
+}
 
 - (NSString *)rudimentaryFillScriptForUsername:(NSString *)username password:(NSString *)password {
 	NSString *simpleFillScript = [NSString stringWithFormat:@"{\"script\":[{\"operation\":\"fill_by_query\",\"parameters\":[\"input[type=email],input[type=text]\",\"%@\"]},{\"operation\":\"fill_by_query\",\"parameters\":[\"input[type=password]\",\"%@\"]}]}", username, password];
