@@ -1,0 +1,6 @@
+.DS_Store
+xcuserdata
+.xcuserdatad
+xcschememanagement.plist
+/1Password Extension Demo iOS/1Password Extension Demo for iOS.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/UserInterfaceState.xcuserstate
+/1Password Extension Demo iOS/1Password Extension Demo for iOS.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/WorkspaceSettings.xcsettings
