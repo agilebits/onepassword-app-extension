@@ -51,14 +51,14 @@ If all goes well, ACME Browser will launch and you'll be able to test the 1Passw
 
 ## Integrating 1Password With Your App
 
-Now let's get our hands dirty, open the hood, and see how to add 1Password into your app. 
+Now let's open the hood and get our hands dirty so we can see how to add 1Password to your app. 
 
 Be forewarned, however, that there is not much code to get dirty with. If you were looking for an SDK to waste days of your life on, you'll be sorely disappointed.
 
 
 ### Add 1Password Files to Your Project
 
-Drag the Resources folder into your project
+Drag the Resources folder into your project.
 
 
 ### Scenario 1: Signin
@@ -92,25 +92,121 @@ Using this code you can hide the 1Password UIButton when 1Password is not instal
 }
 ```
 
+#### 2. Set the 1Password Button's Action
 
+Wire up your 1Password Button to call the the button to an IBAction similar to this:
 
-2. Wire the button to an IBaction similar to this. 
-3. Create an Item Provider by providing the required info. This will instruct iOS to open the Share Sheet. (detail how to hide the other apps so just the actions show)
-4. Create an Item Provider callback as follows:
-5. Extract the username and password and insert them into your UITextField-s.
+```
+- (IBAction)findLoginFrom1Password:(id)sender {
+	NSDictionary *item = @{ OPLoginURLStringKey : @"https://www.acmebrowser.com" }; 
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFindLoginAction];
 
-Note: if you are using a Web View to authorize users (for example, OAuth), you will want to follow the steps in _Scenario 3_ to integrate with Web Views.
+	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
+	extensionItem.attachments = @[ itemProvider ];
+
+	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
+	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+		// Process Result
+	};
+
+	[self presentViewController:controller animated:YES completion:nil];
+}
+```
+
+This code creates an NSItemProvider and specifies that it wants to find an existing login within 1Password by specifying the `kUTTypeNSExtensionFindLoginAction` type identifier. To help the user quickly find the login they need, we pass in a URL string that our service is using. For example, if your app required a Twitter login, you would pass in @"https://twitter.com" for the `OPLoginURLStringKey`.
+
+We then create an `UIActivityViewController`, initialize it with our `NSExtensionItem`, and then ask iOS to present the share sheet view controller.
+
+#### 3. Wait
+
+At this point, there is nothing for you to do but wait. The user will be presented with the share sheet and will need to select the 1Password extension. If it is the first time using the 1Password extension they will need to enable it by tapping the More button.
+
+Once the user selects 1Password, a list of saved logins for your app will be shown (this is why it's so important for you to specify a good `OPLoginURLStringKey`) and the user will be able to select one. 
+
+Once an item is selected, control will return to your `UIActivityViewController`'s  `completionWithItemsHandler`.
+
+#### 4. Process the 1Password Result
+
+Here's an example completion handler for your `UIActivityViewController`:
+
+```
+controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+	if (completed) {
+		__strong typeof(self) strongSelf = weakSelf;
+		for (NSExtensionItem *extensionItem in returnedItems) {
+			[strongSelf processExtensionItem:extensionItem];
+		}
+	}
+}
+```
+
+Apple's design makes it possible to return multiple `NSExtensionItem`, so we loop over all of them and process them in turn, calling the `processExtensionItem`:
+
+```
+- (void)processExtensionItem:(NSExtensionItem *)extensionItem {
+	for (NSItemProvider *itemProvider in extensionItem.attachments) {
+		[self processItemProvider:itemProvider];
+	}
+}
+```
+
+As you can see, each extension item is allowed to have multiple attachments, so we once again loop over each of them in turn, passing them into `processItemProvider`:
+
+```
+- (void)processItemProvider:(NSItemProvider *)itemProvider {
+	if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
+		__weak typeof (self) miniMe = self;
+		[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *login, NSError *error) {
+			dispatch_async(dispatch_get_main_queue(), ^{
+				__strong typeof(self) strongMe = miniMe;
+				strongMe.usernameTextField.text = item[OPLoginUsernameKey];
+				strongMe.passwordTextField.text = item[OPLoginPasswordKey];
+			});
+		}];
+	}
+}
+```
+
+Once we're done unwinding the multiple `NSExtensionItem`s and `NSItemProvider`s, we can find the data sent to use by 1Password within the `login` dictionary. This dictionary contains the keys `OPLoginUsernameKey` and `OPLoginPasswordKey` for the username and password values, respectively.
+
+Extract the username and password values and update your UI accordingly.
+
 
 ### Scenario 2: New User Signup
 
 Allow your users to generate strong, unique passwords when signing up to your service. 
 
-0. Determine if 1Password is installed.
-1. Add a UIButton to your view. Use an existing image from the Resources/Images folder.
-2. Wire the button to an IBaction similar to this. 
-3. Create an Item Provider by providing the required info. This will instruct iOS to open the Share Sheet. (detail how to hide the other apps so just the actions show)
-4. Create an Item Provider callback as follows:
-5. Extract the password and insert them into your UITextField-s.
+Adding 1Password to your Signup Screen is very similar to adding 1Password to your Login Screen. The only difference is how you create the `NSExtensionItem` and `NSItemProvider`:
+
+```
+NSDictionary *item = @{
+	OPLoginURLStringKey : @"https://www.acmebrowser.com",
+	OPLoginTitleKey : @"ACME Browser",
+	OPLoginUsernameKey : self.usernameTextField.text ? : @"",
+	OPLoginPasswordKey : self.passwordTextField.text ? : @"",
+	OPLoginNotesKey : @"Saved with the ACME app",
+	OPLoginSectionTitleKey : @"User Details",
+	OPLoginFieldsKey : @{
+			@"firstname" : self.firstnameTextField.text ? : @"",
+			@"lastname" : self.lastnameTextField.text ? : @""
+	}
+};
+
+NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionSaveLoginAction];
+
+NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
+extensionItem.attachments = @[ itemProvider ];
+
+UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
+controller.completionWithItemsHandler = ...
+[self presentViewController:controller animated:YES completion:nil];
+```
+
+First, you'll notice that we're passing in all the information the user entered to 1Password. This is because at the end of the password generation process, 1Password will create a brand new login and save it. It's not possible for 1Password to ask your app for this data later, so we pass in everything we can before showing the password generator screen.
+
+Second, you'll notice we're using a new `kUTTypeNSExtensionSaveLoginAction` type identifier. This instructs 1Password that we're in a Save Login scenario. 
+
+An important thing to notice is the `OPLoginURLStringKey` is set to the exact same value we used in the Signin scenario. This allows users to quickly find the login they saved for your app the next time they need to sign in.
 
 ### Scenario 3: Web View Support
 
@@ -126,6 +222,11 @@ Steps to integrate.
 * Ensure your URL is set to your actual service so your users can easily find their logins within the main 1Password app
 * Use our provided icons so users are familiar with what it will do. Contact us if you'd like additional sizes or have other special requirements 
 * Enable users to set 1Password as their default browser for external web links.
+
+## References 
+
+Apple Extension Guide
+NSItemProvider, NSExtensionItem, UIActivityViewController class references.
 
 ## Contact Us
 

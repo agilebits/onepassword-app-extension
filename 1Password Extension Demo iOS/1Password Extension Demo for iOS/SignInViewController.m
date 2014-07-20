@@ -66,12 +66,12 @@
 - (void)processItemProvider:(NSItemProvider *)itemProvider {
 	if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
 		__weak typeof (self) miniMe = self;
-		[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *item, NSError *error) {
+		[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *login, NSError *error) {
 			dispatch_async(dispatch_get_main_queue(), ^{
-				if (item) {
+				if (login) {
 					__strong typeof(self) strongMe = miniMe;
-					strongMe.usernameTextField.text = item[OPLoginUsernameKey];
-					strongMe.passwordTextField.text = item[OPLoginPasswordKey];
+					strongMe.usernameTextField.text = login[OPLoginUsernameKey];
+					strongMe.passwordTextField.text = login[OPLoginPasswordKey];
 				}
 				else {
 					NSLog(@"Failed to parse item provider result: <%@>", error);

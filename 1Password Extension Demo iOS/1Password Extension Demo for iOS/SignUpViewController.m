@@ -39,7 +39,7 @@
 						   OPLoginUsernameKey : self.usernameTextField.text ? : @"",
 						   OPLoginPasswordKey : self.passwordTextField.text ? : @"",
 						   OPLoginNotesKey : @"Saved with the ACME app",
-						   OPLoginSectionTitleKey : @"Registration Info",
+						   OPLoginSectionTitleKey : @"ACME Browser",
 						   OPLoginFieldsKey : @{
 								   @"firstname" : self.firstnameTextField.text ? : @"",
 								   @"lastname" : self.lastnameTextField.text ? : @""
