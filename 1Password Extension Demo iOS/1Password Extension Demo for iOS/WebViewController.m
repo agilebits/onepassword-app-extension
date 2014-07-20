@@ -12,6 +12,7 @@
 
 @interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *onepasswordFillButton;
 @property (weak, nonatomic) IBOutlet UIView *webViewContainer;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) WKWebView *webView;
@@ -34,6 +35,12 @@
 
 -(void)viewDidAppear:(BOOL)animated {
 	[self loadURLString:@"https://www.acmebrowser.com"]; // Ensure the URLString is set to your actual service URL, so that user will find your actual Login information in 1Password.;
+
+	[self.onepasswordFillButton setHidden:![self is1PasswordExtensionAvailable]];
+}
+
+- (BOOL)is1PasswordExtensionAvailable {
+	return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"onepassword-extension://fill"]];
 }
 
 #pragma mark - Invoking the 1Password Extension 
@@ -52,8 +59,9 @@
 	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		// NOTE: returnedItems is nil after the second call. radar://17669995
 		if (!completed) {
+			__strong typeof(self) strongMe = miniMe;
 			for (NSExtensionItem *extensionItem in returnedItems) {
-				[miniMe processExtensionItem:extensionItem];
+				[strongMe processExtensionItem:extensionItem];
 			}
 		}
 		else {

@@ -11,6 +11,8 @@
 
 @interface SignUpViewController ()
 
+@property (weak, nonatomic) IBOutlet UIButton *onepasswordSignupButton;
+
 @property (weak, nonatomic) IBOutlet UITextField *firstnameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -20,14 +22,23 @@
 
 @implementation SignUpViewController
 
+
+- (BOOL)is1PasswordExtensionAvailable {
+	return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"onepassword-extension://fill"]];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+	[self.onepasswordSignupButton setHidden:![self is1PasswordExtensionAvailable]];
+}
+
 - (IBAction)saveLoginTo1Password:(id)sender {
 	NSDictionary *item = @{
 						   // Ensure the URLString is set to your actual service URL, so that user will find your actual Login information in 1Password.
-						   OPLoginURLStringKey : @"https://wwww.twitter.com",
-						   OPLoginTitleKey : @"Twitter - Demo",
+						   OPLoginURLStringKey : @"https://www.acmebrowser.com",
+						   OPLoginTitleKey : @"ACME",
 						   OPLoginUsernameKey : self.usernameTextField.text ? : @"",
 						   OPLoginPasswordKey : self.passwordTextField.text ? : @"",
-						   OPLoginNotesKey : @"Saved with 1Password Extension Demo app",
+						   OPLoginNotesKey : @"Saved with the ACME app",
 						   OPLoginSectionTitleKey : @"Registration Info",
 						   OPLoginFieldsKey : @{
 								   @"firstname" : self.firstnameTextField.text ? : @"",
@@ -47,8 +58,9 @@
 	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		// returnedItems is nil after the second call. radar://17669995
 		if (completed) {
+			__strong typeof(self) strongMe = miniMe;
 			for (NSExtensionItem *extensionItem in returnedItems) {
-				[miniMe processExtensionItem:extensionItem];
+				[strongMe processExtensionItem:extensionItem];
 			}
 		}
 		else {
@@ -66,9 +78,10 @@
 		__weak typeof (self) miniMe = self;
 		[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *item, NSError *error) {
 			dispatch_async(dispatch_get_main_queue(), ^{
+				__strong typeof(self) strongMe = miniMe;
 				if (item) {
-					miniMe.usernameTextField.text = item[OPLoginUsernameKey] ? : miniMe.usernameTextField.text;
-					miniMe.passwordTextField.text = item[OPLoginPasswordKey] ? : miniMe.usernameTextField.text;
+					strongMe.usernameTextField.text = item[OPLoginUsernameKey] ? : strongMe.usernameTextField.text;
+					strongMe.passwordTextField.text = item[OPLoginPasswordKey] ? : strongMe.usernameTextField.text;
 				}
 				else {
 					NSLog(@"Failed to parse item provider result: <%@>", error);
