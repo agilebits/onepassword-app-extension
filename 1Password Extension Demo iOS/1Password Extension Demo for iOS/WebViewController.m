@@ -8,6 +8,8 @@
 
 #import "WebViewController.h"
 
+#import "OPExtensionConstants.h"
+
 @interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *webViewContainer;
@@ -34,13 +36,143 @@
 	[self loadURLString:@"https://mobile.twitter.com/login"];
 }
 
+#pragma mark - Actions
+
+- (IBAction)goBack:(id)sender {
+	[self.webView goBack];
+}
+
+- (IBAction)goForward:(id)sender {
+	[self.webView goForward];
+}
+
+- (IBAction)fillUsing1Password:(id)sender {
+	NSMutableString *collectPageInfoScript = [[self loadUserScriptSourceNamed:@"collect_lib.min"] mutableCopy];
+	[collectPageInfoScript appendString:[self loadUserScriptSourceNamed:@"collect"]];
+	
+	NSLog(@"collectPageInfoScript=<%@>", collectPageInfoScript);
+	
+	[self.webView evaluateJavaScript:collectPageInfoScript completionHandler:^(NSString *result, NSError *error) {
+		
+		if (!result) {
+			NSLog(@"Error executing collect page info script: %@", error);
+			return;
+		}
+		
+		NSLog(@"Collected page information: <%@>", result);
+		
+		[self lookupLoginIn1PasswordForURLString:@"https://mobile.twitter.com/session/new" collectedPageDetails:result];
+	}];
+}
+
+#pragma mark - Extension Share Sheet
+
+- (void)lookupLoginIn1PasswordForURLString:(NSString *)URLString collectedPageDetails:(NSString *)collectedPageDetails {
+	NSDictionary *item = @{ OPLoginURLStringKey: URLString,
+							collectedPageDetails: @"pageDetails"};
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFindLoginAction]; //(NSString *)kUTTypePropertyList];
+	
+	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
+	extensionItem.attachments = @[ itemProvider ];
+	
+	__weak typeof (self) miniMe = self;
+	
+	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
+	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+		
+		// NOTE: returnedItems is nil after the second call. radar://17669995
+		
+		if (!completed) {
+			NSLog(@"Error contacting 1Password Extension: %@", activityError);
+			return;
+		}
+		
+		for (NSExtensionItem *extensionItem in returnedItems) {
+			[miniMe processExtensionItem:extensionItem];
+		}
+	};
+	
+	[self presentViewController:controller animated:YES completion:nil];
+}
+
+
+#pragma mark - Item Provider Callback
+
+- (void)processItemProvider:(NSItemProvider *)itemProvider {
+	if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
+		__weak typeof (self) weakSelf = self;
+		[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *item, NSError *error) {
+			if (!item) {
+				NSLog(@"Failed to parse item provider result: <%@>", error);
+				return;
+			}
+			
+			NSLog(@">>>>>>>> JSON: %@", item);
+			
+			dispatch_async(dispatch_get_main_queue(), ^{
+				__strong typeof(self) strongSelf = weakSelf;
+				
+				NSString *fillScriptJSONFrom1PasswordExtension = [strongSelf rudimentaryFillScriptForUsername:item[OPLoginUsernameKey] password:item[OPLoginPasswordKey]];
+				
+				NSLog(@"Fill script from 1Password: <%@>", fillScriptJSONFrom1PasswordExtension);
+				
+				NSMutableString *scriptSource = [[self loadUserScriptSourceNamed:@"fill_lib.min"] mutableCopy];
+				[scriptSource appendFormat:@"%@('%@');", [strongSelf loadUserScriptSourceNamed:@"fill"], fillScriptJSONFrom1PasswordExtension];
+				[self.webView evaluateJavaScript:scriptSource completionHandler:^(NSString *result, NSError *error) {
+					if (!result) {
+						NSLog(@"ERROR evaulating fill script: %@", error);
+						return;
+					}
+					
+					NSLog(@"Result from execute fill script: %@", result);
+				}];
+
+			});
+		}];
+	}
+}
+
+- (void)processExtensionItem:(NSExtensionItem *)extensionItem {
+	for (NSItemProvider *itemProvider in extensionItem.attachments) {
+		[self processItemProvider:itemProvider];
+	}
+}
+
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+	[self loadURLString:searchBar.text];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+	[self loadURLString:searchBar.text];
+}
+
+- (void)handleSearch:(UISearchBar *)searchBar {
+	[self loadURLString:searchBar.text];
+	[searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
+	[self loadURLString:searchBar.text];
+	[searchBar resignFirstResponder];
+}
+
+
 #pragma mark - Convenience Methods
+
+- (NSString *)rudimentaryFillScriptForUsername:(NSString *)username password:(NSString *)password {
+	NSString *simpleFillScript = [NSString stringWithFormat:@"{\"script\":[{\"operation\":\"fill_by_query\",\"parameters\":[\"input[type=email],input[type=text]\",\"%@\"]},{\"operation\":\"fill_by_query\",\"parameters\":[\"input[type=password]\",\"%@\"]}]}", username, password];
+	
+	return simpleFillScript;
+}
 
 - (void)loadURLString:(NSString *)URLString {
 	if (![URLString hasPrefix:@"http"]) {
 		URLString = [NSString stringWithFormat:@"https://%@", URLString];
 	}
-
+	
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:URLString]];
 	[self.webView loadRequest:request];
 	
@@ -71,43 +203,6 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
 	self.searchBar.text = webView.URL.absoluteString;
-}
-
-
-#pragma mark - UISearchBarDelegate -
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	[self loadURLString:searchBar.text];
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-	[self loadURLString:searchBar.text];
-}
-
-- (void)handleSearch:(UISearchBar *)searchBar {
-	[self loadURLString:searchBar.text];
-	[searchBar resignFirstResponder];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
-	[self loadURLString:searchBar.text];
-	[searchBar resignFirstResponder];
-}
-
-#pragma mark - Actions -
-
-- (IBAction)goBack:(id)sender {
-	[self.webView goBack];
-}
-
-- (IBAction)goForward:(id)sender {
-	[self.webView goForward];
-}
-
-- (IBAction)fillUsing1Password:(id)sender {
-	[self.webView evaluateJavaScript:@"Array.prototype.forEach.call(document.querySelectorAll('header'), function(el){el.style.display='none'});" completionHandler:^(id result, NSError *error) {
-		NSLog(@"DONE! %@", error);
-	}];
 }
 
 @end

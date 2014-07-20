@@ -7,16 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		553BD881197C226C001C85F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553BD87A197C226C001C85F9 /* Images.xcassets */; };
+		553BD882197C226C001C85F9 /* collect.js in Resources */ = {isa = PBXBuildFile; fileRef = 553BD87D197C226C001C85F9 /* collect.js */; };
+		553BD883197C226C001C85F9 /* collect_lib.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 553BD87E197C226C001C85F9 /* collect_lib.min.js */; };
+		553BD884197C226C001C85F9 /* fill.js in Resources */ = {isa = PBXBuildFile; fileRef = 553BD87F197C226C001C85F9 /* fill.js */; };
+		553BD885197C226C001C85F9 /* fill_lib.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 553BD880197C226C001C85F9 /* fill_lib.min.js */; };
 		C0047EA2197C0183002CE658 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA1197C0183002CE658 /* AppDelegate.m */; };
 		C0047EA9197C01C9002CE658 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA4197C01C9002CE658 /* SignInViewController.m */; };
 		C0047EAA197C01C9002CE658 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA6197C01C9002CE658 /* SignUpViewController.m */; };
 		C0047EAB197C01C9002CE658 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA8197C01C9002CE658 /* WebViewController.m */; };
-		C0047EB2197C0213002CE658 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0047EB0197C0213002CE658 /* Images.xcassets */; };
 		C03CE9A2197C030600942843 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C03CE9A0197C030600942843 /* main.m */; };
 		C03CE9A4197C0CC800942843 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0047EAC197C0200002CE658 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		553BD87A197C226C001C85F9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		553BD87B197C226C001C85F9 /* OPExtensionConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPExtensionConstants.h; sourceTree = "<group>"; };
+		553BD87D197C226C001C85F9 /* collect.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = collect.js; sourceTree = "<group>"; };
+		553BD87E197C226C001C85F9 /* collect_lib.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = collect_lib.min.js; sourceTree = "<group>"; };
+		553BD87F197C226C001C85F9 /* fill.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fill.js; sourceTree = "<group>"; };
+		553BD880197C226C001C85F9 /* fill_lib.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fill_lib.min.js; sourceTree = "<group>"; };
 		C0047EA0197C0183002CE658 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "1Password Extension Demo for iOS/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
 		C0047EA1197C0183002CE658 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "1Password Extension Demo for iOS/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
 		C0047EA3197C01C9002CE658 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignInViewController.h; path = "1Password Extension Demo for iOS/SignInViewController.h"; sourceTree = SOURCE_ROOT; };
@@ -26,8 +36,6 @@
 		C0047EA7197C01C9002CE658 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = "1Password Extension Demo for iOS/WebViewController.h"; sourceTree = SOURCE_ROOT; };
 		C0047EA8197C01C9002CE658 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = "1Password Extension Demo for iOS/WebViewController.m"; sourceTree = SOURCE_ROOT; };
 		C0047EAD197C0200002CE658 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "1Password Extension Demo for iOS/Base.lproj/Main.storyboard"; sourceTree = SOURCE_ROOT; };
-		C0047EB0197C0213002CE658 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Resources/Images.xcassets; sourceTree = "<group>"; };
-		C0047EB1197C0213002CE658 /* OPExtensionConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OPExtensionConstants.h; path = ../Resources/OPExtensionConstants.h; sourceTree = "<group>"; };
 		C03CE99F197C030600942843 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "1Password Extension Demo for iOS/Info.plist"; sourceTree = SOURCE_ROOT; };
 		C03CE9A0197C030600942843 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "1Password Extension Demo for iOS/main.m"; sourceTree = SOURCE_ROOT; };
 		C0FA52971974821100570166 /* 1Password Extension Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1Password Extension Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,14 +52,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C0047EAF197C0213002CE658 /* Resources */ = {
+		553BD879197C226C001C85F9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C0047EB0197C0213002CE658 /* Images.xcassets */,
-				C0047EB1197C0213002CE658 /* OPExtensionConstants.h */,
+				553BD87A197C226C001C85F9 /* Images.xcassets */,
+				553BD87B197C226C001C85F9 /* OPExtensionConstants.h */,
+				553BD87C197C226C001C85F9 /* Scripts */,
 			);
 			name = Resources;
-			path = ../../Resources;
+			path = ../Resources;
+			sourceTree = SOURCE_ROOT;
+		};
+		553BD87C197C226C001C85F9 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				553BD87D197C226C001C85F9 /* collect.js */,
+				553BD87E197C226C001C85F9 /* collect_lib.min.js */,
+				553BD87F197C226C001C85F9 /* fill.js */,
+				553BD880197C226C001C85F9 /* fill_lib.min.js */,
+			);
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 		C0FA528E1974821100570166 = {
@@ -82,7 +102,7 @@
 				C0047EA7197C01C9002CE658 /* WebViewController.h */,
 				C0047EA8197C01C9002CE658 /* WebViewController.m */,
 				C0047EAC197C0200002CE658 /* Main.storyboard */,
-				C0047EAF197C0213002CE658 /* Resources */,
+				553BD879197C226C001C85F9 /* Resources */,
 				C0FA529A1974821100570166 /* Supporting Files */,
 			);
 			path = "1Password Extension Demo";
@@ -154,8 +174,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0047EB2197C0213002CE658 /* Images.xcassets in Resources */,
+				553BD882197C226C001C85F9 /* collect.js in Resources */,
+				553BD885197C226C001C85F9 /* fill_lib.min.js in Resources */,
 				C03CE9A4197C0CC800942843 /* Main.storyboard in Resources */,
+				553BD881197C226C001C85F9 /* Images.xcassets in Resources */,
+				553BD883197C226C001C85F9 /* collect_lib.min.js in Resources */,
+				553BD884197C226C001C85F9 /* fill.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

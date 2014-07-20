@@ -43,6 +43,10 @@ Before jumping into the code, let's ensure everything is setup correctly by runn
 
 ## Adding 1Password to Your App
 
+### Add 1Password Files to Your Project
+
+Drag the Resources folder into your project
+
 ### Scenario 1: Signin
 
 Allow existing users to fill their credentials into your signin form. 
@@ -87,3 +91,4 @@ Steps to integrate.
 Contact us, please! We'd love to hear from you about how you integrated 1Password with you app, and how we can improve it further. 
 
 You can reach us at support+opxdemo@agilebits.com, or if you prefer, [@1PasswordBeta](https://twitter.com/1PasswordBeta) on Twitter.
+
