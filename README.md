@@ -210,12 +210,42 @@ An important thing to notice is the `OPLoginURLStringKey` is set to the exact sa
 
 ### Scenario 3: Web View Support
 
-Inspired by Apple's Safari Extension architecture. 
+The 1Password Extension is not limited to filling native UIs. With just a little bit of extra code, you can fill `UIWebView`s and `WKWebView`s as well.
 
-0. Determine if 1Password is installed.
+#### Inspiration From Apple
 
-Steps to integrate.
+We will not be creating a Safari Extension in this project, but the approach we used was heavily influenced by the implementation Apple used for Safari Extensions.
 
+To enable interaction between an extension and the HTML page within Safari on iOS, Apple defined an extension preprocessing JavaScript protocol called ExtensionPreprocessingJS. By default the file is named `ExtensionPreprocessing.js` and it has these two methods:
+
+```
+ExtensionPreprocessingJS.prototype.run
+ExtensionPreprocessingJS.prototype.finalize
+```
+
+The run method is run before calling the extension, giving you a chance to collect all the information you need from the window. Your extension works with this data and then sends Safari back a result, which is passed into the finalize method. 
+
+Since the run and finalize methods are both running within the context of the page, your extension has the aboility to collect all the information it needs about the window, and modify the DOM accordingly.
+
+The 1Password Safari Extension makes great use of the ExtensionPreprocessingJS design, and we'll need you to call our scripts at the appropriate times in order to integrate with your web views.
+
+#### Step 1: Collect Page Information
+
+Before invoking 1Password, collect information about the page by executing a piece of JavaScript within your web view:
+
+You'll need to inject the `collect_fields.js` User Script into the current page. The collect fields script will return a simple NSString that you'll treat as an opaque token and pass it into the next step.
+
+#### Step 2: Invoke 1Password Extension
+
+Pass collected page information to 1Password's extension, and retreive the resulting fill script.
+
+Run the 1Password Extension to allow the user to select an item to fill, and store the resulting fill script. The result is simply an NSString that contains the required operations to fill the user selected item.
+
+#### Step 3: Execute Fill Script
+
+Run the fill User Script within your WKWebKit window, passing in the fill script from the previous step.
+
+Inject the `execute_fill_script.js` User Script into the current page and pass in the JSON from the previous step.
 
 ## Best Practices
 
