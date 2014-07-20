@@ -11,10 +11,9 @@
 		C0047EA9197C01C9002CE658 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA4197C01C9002CE658 /* SignInViewController.m */; };
 		C0047EAA197C01C9002CE658 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA6197C01C9002CE658 /* SignUpViewController.m */; };
 		C0047EAB197C01C9002CE658 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA8197C01C9002CE658 /* WebViewController.m */; };
-		C0047EAE197C0200002CE658 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0047EAC197C0200002CE658 /* Main.storyboard */; };
 		C0047EB2197C0213002CE658 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0047EB0197C0213002CE658 /* Images.xcassets */; };
-		C03CE9A1197C030600942843 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C03CE99F197C030600942843 /* Info.plist */; };
 		C03CE9A2197C030600942843 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C03CE9A0197C030600942843 /* main.m */; };
+		C03CE9A4197C0CC800942843 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0047EAC197C0200002CE658 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,9 +100,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C0FA52961974821100570166 /* 1Password Extension Demo for iOS */ = {
+		C0FA52961974821100570166 /* ACME Browser */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C0FA52B71974821100570166 /* Build configuration list for PBXNativeTarget "1Password Extension Demo for iOS" */;
+			buildConfigurationList = C0FA52B71974821100570166 /* Build configuration list for PBXNativeTarget "ACME Browser" */;
 			buildPhases = (
 				C0FA52931974821100570166 /* Sources */,
 				C0FA52941974821100570166 /* Frameworks */,
@@ -113,7 +112,7 @@
 			);
 			dependencies = (
 			);
-			name = "1Password Extension Demo for iOS";
+			name = "ACME Browser";
 			productName = "1Password Extension Demo";
 			productReference = C0FA52971974821100570166 /* 1Password Extension Demo for iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -145,7 +144,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C0FA52961974821100570166 /* 1Password Extension Demo for iOS */,
+				C0FA52961974821100570166 /* ACME Browser */,
 			);
 		};
 /* End PBXProject section */
@@ -155,9 +154,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0047EAE197C0200002CE658 /* Main.storyboard in Resources */,
 				C0047EB2197C0213002CE658 /* Images.xcassets in Resources */,
-				C03CE9A1197C030600942843 /* Info.plist in Resources */,
+				C03CE9A4197C0CC800942843 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,7 +298,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C0FA52B71974821100570166 /* Build configuration list for PBXNativeTarget "1Password Extension Demo for iOS" */ = {
+		C0FA52B71974821100570166 /* Build configuration list for PBXNativeTarget "ACME Browser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C0FA52B81974821100570166 /* Debug */,
