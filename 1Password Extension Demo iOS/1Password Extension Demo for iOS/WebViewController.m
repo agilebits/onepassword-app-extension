@@ -173,12 +173,6 @@
 	}];
 }
 
-- (NSString *)rudimentaryFillScriptForUsername:(NSString *)username password:(NSString *)password {
-	NSString *simpleFillScript = [NSString stringWithFormat:@"{\"script\":[{\"operation\":\"fill_by_query\",\"parameters\":[\"input[type=email],input[type=text]\",\"%@\"]},{\"operation\":\"fill_by_query\",\"parameters\":[\"input[type=password]\",\"%@\"]}]}", username, password];
-
-	return simpleFillScript;
-}
-
 - (void)loadURLString:(NSString *)URLString {
 	if (![URLString hasPrefix:@"http"]) {
 		URLString = [NSString stringWithFormat:@"https://%@", URLString];
