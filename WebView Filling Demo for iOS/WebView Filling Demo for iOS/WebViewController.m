@@ -24,6 +24,8 @@
 #pragma mark - Life Cycle
 
 -(void)viewDidLoad {
+	//[self.onepasswordFillButton setHidden:![self is1PasswordExtensionAvailable]];
+
 	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
 	[self addUserScriptsToUserContentController:configuration.userContentController];
 
@@ -31,11 +33,10 @@
 	self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	self.webView.navigationDelegate = self;
 	[self.webViewContainer addSubview:self.webView];
-}
 
--(void)viewDidAppear:(BOOL)animated {
-	[self loadURLString:@"https://www.acmebrowser.com"];
-	[self.onepasswordFillButton setHidden:![self is1PasswordExtensionAvailable]];
+	NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"Welcome" ofType:@"html"];
+	NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+	[self.webView loadHTMLString:htmlString baseURL:nil];
 }
 
 - (BOOL)is1PasswordExtensionAvailable {

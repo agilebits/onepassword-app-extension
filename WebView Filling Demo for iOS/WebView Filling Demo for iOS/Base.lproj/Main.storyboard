@@ -22,7 +22,7 @@
                             </view>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Gvr-ci-v7c">
                                 <rect key="frame" x="86" y="19" width="394" height="44"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="google"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="search"/>
                                 <connections>
                                     <outlet property="delegate" destination="PEy-hN-KRP" id="htm-12-hzg"/>
                                 </connections>
