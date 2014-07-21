@@ -34,8 +34,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-	[self loadURLString:@"https://www.acmebrowser.com"]; // Ensure the URLString is set to your actual service URL, so that user will find your actual Login information in 1Password.;
-
+	[self loadURLString:@"https://www.acmebrowser.com"];
 	[self.onepasswordFillButton setHidden:![self is1PasswordExtensionAvailable]];
 }
 
@@ -62,7 +61,7 @@
 
 	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		// NOTE: returnedItems is nil after the second call. radar://17669995
-		if (!completed) {
+		if (completed) {
 			__strong typeof(self) strongMe = miniMe;
 			for (NSExtensionItem *extensionItem in returnedItems) {
 				[strongMe processExtensionItem:extensionItem];

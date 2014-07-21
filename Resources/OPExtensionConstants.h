@@ -55,4 +55,4 @@
 #define OPWebViewPageFillScript @"fillScript"
 
 // NSItemProviders of type kUTTypeNSExtensionFillWebViewAction can use this key to pass the page details to the 1Password Extension.
-#define OPWebViewPageDetails @"pageDetails";
+#define OPWebViewPageDetails @"pageDetails"
