@@ -26,7 +26,7 @@ Inside the downloaded folder, you'll find the resources needed to integrate with
 The sample project depends upon having the latest version of Xcode 6, as well as the 1Password Beta installed on your iOS device.
 
 <!---
-If you are developing for OS X, you can enable betas within the 1Password > Preferences > Updates window (as shown [here](i.agilebits.com/Preferences_197C0C6B.png)) and enabling the _Include beta builds_ checkbox. Mac App Store users should [download the webstore version](https://agilebits.com/downloads) in order to enable betas.
+If you are developing for OS X, you can enable betas within the 1Password > Preferences > Updates window (as shown [here](i.agilebits.com/Preferences_197C0C6B.png)) and enabling the _Include beta builds_ checkbox. Mac App Store users should [download the web store version](https://agilebits.com/downloads) in order to enable betas.
 -->
 
 To join the 1Password Beta, you will need to [enroll in the 1Password for iOS Beta program](https://agilebits.com/beta_signups/signup). Be sure to mention in your application that you are an app developer and planning to add 1Password support.
@@ -114,9 +114,9 @@ Wire up your 1Password Button to call an IBAction similar to this:
 }
 ```
 
-This code creates an `NSItemProvider` and specifies that it wants to find an existing login within 1Password by specifying the `kUTTypeNSExtensionFindLoginAction` type identifier. This type identifier also causes the presented action sheet to only display extensions that conform to this type. To help the user quickly find the login they need, we pass in a URL string that our service is using. For example, if your app required a Twitter login, you would pass in @"https://twitter.com" for the `OPLoginURLStringKey`.
+This code creates an `NSItemProvider` and specifies that it wants to find an existing login within 1Password by specifying the `kUTTypeNSExtensionFindLoginAction` type identifier. This type identifier causes the presented share sheet to only display extensions that conform to this type. To help the user quickly find the login they need, we pass in a URL string that our service is using. For example, if your app required a Twitter login, you would pass in `@"https://twitter.com"` for the `OPLoginURLStringKey`.
 
-We then create an `UIActivityViewController`, initialize it with our `NSExtensionItem`, and then ask iOS to present the share sheet view controller.
+We then create a `UIActivityViewController`, initialize it with our `NSExtensionItem`, and ask iOS to present it.
 
 #### 3. Wait
 
@@ -141,7 +141,7 @@ controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed
 }
 ```
 
-Apple's design makes it possible to return multiple `NSExtensionItem`, so we loop over all of them and process them in turn, calling the `processExtensionItem`:
+Apple's design makes it possible to return multiple `NSExtensionItem`s, so we loop over all of them and process them in turn, calling the `processExtensionItem`:
 
 ```objective-c
 - (void)processExtensionItem:(NSExtensionItem *)extensionItem {
@@ -168,7 +168,7 @@ As you can see, each extension item is allowed to have multiple attachments, so 
 }
 ```
 
-Once we're done unwinding the multiple `NSExtensionItem`s and `NSItemProvider`s, we can find the data sent to use by 1Password within the `login` dictionary. This dictionary contains the keys `OPLoginUsernameKey` and `OPLoginPasswordKey` for the username and password values, respectively.
+Once we're done unwinding the multiple `NSExtensionItem`s and `NSItemProvider`s, we can find the data sent by 1Password within the `login` dictionary. This dictionary contains the keys `OPLoginUsernameKey` and `OPLoginPasswordKey` for the username and password values, respectively.
 
 Extract the username and password values and update your UI accordingly.
 
@@ -177,7 +177,7 @@ Extract the username and password values and update your UI accordingly.
 
 Allow your users to generate strong, unique passwords when signing up to your service.
 
-Adding 1Password to your Signup Screen is very similar to adding 1Password to your Login Screen. The only difference is how you create the `NSExtensionItem` and `NSItemProvider`:
+Adding 1Password to your signup screen is very similar to adding 1Password to your login screen. The only difference is how you create the `NSExtensionItem` and `NSItemProvider`:
 
 ```objective-c
 NSDictionary *item = @{
@@ -227,7 +227,7 @@ ExtensionPreprocessingJS.prototype.finalize
 
 The run method is run before calling the extension, giving you a chance to collect all the information you need from the window. Your extension works with this data and then sends Safari back a result, which is passed into the finalize method.
 
-Since the run and finalize methods are both running within the context of the page, your extension has the aboility to collect all the information it needs about the window, and modify the DOM accordingly.
+Since the run and finalize methods are both running within the context of the page, your extension has the ability to collect all the information it needs about the window, and modify the DOM accordingly.
 
 The 1Password Safari Extension makes great use of the ExtensionPreprocessingJS design, and we'll need you to call our scripts at the appropriate times in order to integrate with your web views.
 
