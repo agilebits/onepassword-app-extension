@@ -45,8 +45,8 @@
 
 #pragma mark - Invoking the 1Password Extension 
 
-- (void)findLoginIn1PasswordForURLString:(NSString *)URLString collectedPageDetails:(NSString *)collectedPageDetails {
-	NSDictionary *item = @{ OPLoginURLStringKey: URLString,
+- (void)findLoginIn1PasswordWithCollectedPageDetails:(NSString *)collectedPageDetails {
+	NSDictionary *item = @{ OPLoginURLStringKey: self.searchBar.text,
 							@"pageDetails": collectedPageDetails};
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFillWebViewAction];
 	
@@ -109,7 +109,7 @@
 	[collectPageInfoScript appendString:[self loadUserScriptSourceNamed:@"collect"]];
 	[self.webView evaluateJavaScript:collectPageInfoScript completionHandler:^(NSString *result, NSError *error) {
 		if (result) {
-			[self findLoginIn1PasswordForURLString:self.searchBar.text collectedPageDetails:result];
+			[self findLoginIn1PasswordWithCollectedPageDetails:result];
 		}
 		else {
 			NSLog(@"Error executing collect page info script: <%@>", error);
