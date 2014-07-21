@@ -24,7 +24,7 @@
 #pragma mark - Life Cycle
 
 -(void)viewDidLoad {
-	//[self.onepasswordFillButton setHidden:![self is1PasswordExtensionAvailable]];
+	[self.onepasswordFillButton setHidden:![self is1PasswordExtensionAvailable]];
 
 	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
 	[self addUserScriptsToUserContentController:configuration.userContentController];
