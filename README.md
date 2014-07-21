@@ -318,7 +318,7 @@ The JavaScript source from the `fill.js` script library will parse the data retu
 ## Known Issues
 
 * Web pages never finish loading when the debugger is attached. After installing an updated app, you need to kill the process from XCode and then restart ACME Browser directly from your device.
-* You can only invoke the 1Password extension once per app launch. Subsequent calls to [UIActivityViewController presentViewController], will always have a nil `returnedItems` in the completion handler. radar://17669995
+* You can only invoke the 1Password extension once per app launch. Subsequent calls to `[UIActivityViewController presentViewController]`, will always have a nil `returnedItems` in the completion handler. radar://17669995
 
 
 ## References 
