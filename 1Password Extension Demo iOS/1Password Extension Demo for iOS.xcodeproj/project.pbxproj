@@ -15,7 +15,7 @@
 		C0047EA2197C0183002CE658 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA1197C0183002CE658 /* AppDelegate.m */; };
 		C0047EA9197C01C9002CE658 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA4197C01C9002CE658 /* SignInViewController.m */; };
 		C0047EAA197C01C9002CE658 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA6197C01C9002CE658 /* SignUpViewController.m */; };
-		C0047EAB197C01C9002CE658 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0047EA8197C01C9002CE658 /* WebViewController.m */; };
+		C03B2779197D743000B367EC /* ThankYouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C03B2778197D743000B367EC /* ThankYouViewController.m */; };
 		C03CE9A2197C030600942843 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C03CE9A0197C030600942843 /* main.m */; };
 		C03CE9A4197C0CC800942843 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0047EAC197C0200002CE658 /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -33,9 +33,9 @@
 		C0047EA4197C01C9002CE658 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignInViewController.m; path = "1Password Extension Demo for iOS/SignInViewController.m"; sourceTree = SOURCE_ROOT; };
 		C0047EA5197C01C9002CE658 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignUpViewController.h; path = "1Password Extension Demo for iOS/SignUpViewController.h"; sourceTree = SOURCE_ROOT; };
 		C0047EA6197C01C9002CE658 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignUpViewController.m; path = "1Password Extension Demo for iOS/SignUpViewController.m"; sourceTree = SOURCE_ROOT; };
-		C0047EA7197C01C9002CE658 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = "1Password Extension Demo for iOS/WebViewController.h"; sourceTree = SOURCE_ROOT; };
-		C0047EA8197C01C9002CE658 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = "1Password Extension Demo for iOS/WebViewController.m"; sourceTree = SOURCE_ROOT; };
 		C0047EAD197C0200002CE658 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "1Password Extension Demo for iOS/Base.lproj/Main.storyboard"; sourceTree = SOURCE_ROOT; };
+		C03B2777197D743000B367EC /* ThankYouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThankYouViewController.h; path = "1Password Extension Demo for iOS/ThankYouViewController.h"; sourceTree = SOURCE_ROOT; };
+		C03B2778197D743000B367EC /* ThankYouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThankYouViewController.m; path = "1Password Extension Demo for iOS/ThankYouViewController.m"; sourceTree = SOURCE_ROOT; };
 		C03CE99F197C030600942843 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "1Password Extension Demo for iOS/Info.plist"; sourceTree = SOURCE_ROOT; };
 		C03CE9A0197C030600942843 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "1Password Extension Demo for iOS/main.m"; sourceTree = SOURCE_ROOT; };
 		C0FA52971974821100570166 /* 1Password Extension Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1Password Extension Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,8 +99,8 @@
 				C0047EA4197C01C9002CE658 /* SignInViewController.m */,
 				C0047EA5197C01C9002CE658 /* SignUpViewController.h */,
 				C0047EA6197C01C9002CE658 /* SignUpViewController.m */,
-				C0047EA7197C01C9002CE658 /* WebViewController.h */,
-				C0047EA8197C01C9002CE658 /* WebViewController.m */,
+				C03B2777197D743000B367EC /* ThankYouViewController.h */,
+				C03B2778197D743000B367EC /* ThankYouViewController.m */,
 				C0047EAC197C0200002CE658 /* Main.storyboard */,
 				553BD879197C226C001C85F9 /* Resources */,
 				C0FA529A1974821100570166 /* Supporting Files */,
@@ -120,9 +120,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C0FA52961974821100570166 /* ACME Browser */ = {
+		C0FA52961974821100570166 /* ACME */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C0FA52B71974821100570166 /* Build configuration list for PBXNativeTarget "ACME Browser" */;
+			buildConfigurationList = C0FA52B71974821100570166 /* Build configuration list for PBXNativeTarget "ACME" */;
 			buildPhases = (
 				C0FA52931974821100570166 /* Sources */,
 				C0FA52941974821100570166 /* Frameworks */,
@@ -132,7 +132,7 @@
 			);
 			dependencies = (
 			);
-			name = "ACME Browser";
+			name = ACME;
 			productName = "1Password Extension Demo";
 			productReference = C0FA52971974821100570166 /* 1Password Extension Demo for iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -164,7 +164,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C0FA52961974821100570166 /* ACME Browser */,
+				C0FA52961974821100570166 /* ACME */,
 			);
 		};
 /* End PBXProject section */
@@ -191,8 +191,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0047EA9197C01C9002CE658 /* SignInViewController.m in Sources */,
+				C03B2779197D743000B367EC /* ThankYouViewController.m in Sources */,
 				C0047EA2197C0183002CE658 /* AppDelegate.m in Sources */,
-				C0047EAB197C01C9002CE658 /* WebViewController.m in Sources */,
 				C03CE9A2197C030600942843 /* main.m in Sources */,
 				C0047EAA197C01C9002CE658 /* SignUpViewController.m in Sources */,
 			);
@@ -322,7 +322,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C0FA52B71974821100570166 /* Build configuration list for PBXNativeTarget "ACME Browser" */ = {
+		C0FA52B71974821100570166 /* Build configuration list for PBXNativeTarget "ACME" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C0FA52B81974821100570166 /* Debug */,
