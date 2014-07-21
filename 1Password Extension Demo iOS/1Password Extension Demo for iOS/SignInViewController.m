@@ -25,7 +25,7 @@
 
 
 - (BOOL)is1PasswordExtensionAvailable {
-	return YES;//[[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"onepassword-extension://fill"]];
+	return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"onepassword-extension://fill"]];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

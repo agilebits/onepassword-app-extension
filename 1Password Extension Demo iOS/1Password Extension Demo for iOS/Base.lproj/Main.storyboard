@@ -175,15 +175,6 @@
                                     <segue destination="Jfe-MB-qwB" kind="show" id="LtI-cY-syG"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new Twitter account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1U-jl-pri">
-                                <rect key="frame" x="137" y="94" width="208" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="208" id="wEk-ZX-nLa"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="auP-WD-mbm" userLabel="1Password Button">
                                 <rect key="frame" x="358" y="248" width="32" height="32"/>
                                 <state key="normal" image="tab-pass-gen">
@@ -193,6 +184,15 @@
                                     <action selector="saveLoginTo1Password:" destination="A1b-Kh-Nlq" eventType="touchDown" id="le6-YC-Kg2"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new ACME Browser account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1U-jl-pri">
+                                <rect key="frame" x="130" y="94" width="222" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="222" id="wEk-ZX-nLa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -212,7 +212,7 @@
                             <constraint firstItem="auP-WD-mbm" firstAttribute="leading" secondItem="Tad-KG-Pea" secondAttribute="trailing" constant="8" id="W0D-wi-I7p"/>
                             <constraint firstItem="fwb-0l-b5N" firstAttribute="leading" secondItem="tjm-G7-GAO" secondAttribute="leading" id="WQ8-5W-VSt"/>
                             <constraint firstItem="fwb-0l-b5N" firstAttribute="trailing" secondItem="tjm-G7-GAO" secondAttribute="trailing" id="XTJ-F0-unw"/>
-                            <constraint firstItem="A1U-jl-pri" firstAttribute="leading" secondItem="fwb-0l-b5N" secondAttribute="leading" constant="7" id="ZAf-rO-tjP"/>
+                            <constraint firstItem="A1U-jl-pri" firstAttribute="leading" secondItem="fwb-0l-b5N" secondAttribute="leading" id="ZAf-rO-tjP"/>
                             <constraint firstItem="Tad-KG-Pea" firstAttribute="top" secondItem="b1j-uQ-34p" secondAttribute="bottom" constant="8" symbolic="YES" id="apE-IJ-teX"/>
                             <constraint firstItem="fwb-0l-b5N" firstAttribute="top" secondItem="A1U-jl-pri" secondAttribute="bottom" constant="20" id="jiN-Qg-TJk"/>
                             <constraint firstItem="ztj-5O-7fa" firstAttribute="leading" secondItem="RZx-uT-PhH" secondAttribute="leading" constant="20" symbolic="YES" id="y7v-61-coi"/>
