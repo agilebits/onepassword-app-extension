@@ -95,7 +95,7 @@ Using this code you can hide the 1Password UIButton when 1Password is not instal
 
 #### 2. Set the 1Password Button's Action
 
-Wire up your 1Password Button to call the the button to an IBAction similar to this:
+Wire up your 1Password Button to call an IBAction similar to this:
 
 ```objective-c
 - (IBAction)findLoginFrom1Password:(id)sender {
@@ -114,7 +114,7 @@ Wire up your 1Password Button to call the the button to an IBAction similar to t
 }
 ```
 
-This code creates an NSItemProvider and specifies that it wants to find an existing login within 1Password by specifying the `kUTTypeNSExtensionFindLoginAction` type identifier. To help the user quickly find the login they need, we pass in a URL string that our service is using. For example, if your app required a Twitter login, you would pass in @"https://twitter.com" for the `OPLoginURLStringKey`.
+This code creates an `NSItemProvider` and specifies that it wants to find an existing login within 1Password by specifying the `kUTTypeNSExtensionFindLoginAction` type identifier. This type identifier also causes the presented action sheet to only display extensions that conform to this type. To help the user quickly find the login they need, we pass in a URL string that our service is using. For example, if your app required a Twitter login, you would pass in @"https://twitter.com" for the `OPLoginURLStringKey`.
 
 We then create an `UIActivityViewController`, initialize it with our `NSExtensionItem`, and then ask iOS to present the share sheet view controller.
 

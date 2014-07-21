@@ -16,15 +16,15 @@
 	extensionItem.attachments = @[ itemProvider ];
  */
 #define kUTTypeNSExtensionFindLoginAction @"org.nsextension.find-login-action"
-#define kUTTypeNSExtensionSaveLoginAction @"org.nsextension.register-action" // TODO: Change to org.nsextension.save-login-action
+#define kUTTypeNSExtensionSaveLoginAction @"org.nsextension.save-login-action"
 #define kUTTypeNSExtensionFillWebViewAction @"org.nsextension.fill-webview-action"
 
 /**
  These constants define the item types supported by the 1Password extension. These types are used to build the item dictionary that is passed to the NSItemProvider:
 
 	NSDictionary *item = @{ kURLString : @"https://yourawesomedomain.com",
- kUsername : @"WendyAppleseed",
- kPassword: nil};
+							kUsername : @"WendyAppleseed",
+							kPassword: nil};
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionRegisterAction];
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
