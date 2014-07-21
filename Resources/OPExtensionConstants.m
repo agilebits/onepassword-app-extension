@@ -1,13 +1,12 @@
 //
-//  OPExtensionConstants.h
+//  OPExtensionConstants.m
 //  1Password Extension Demo
 //
 //  Created by Rad Azzouz & Michael Fey on 7/16/14.
 //  Copyright (c) 2014 AgileBits. All rights reserved.
 //
 
-#import <MobileCoreServices/MobileCoreServices.h>
-#import <Foundation/Foundation.h>
+#import "OPExtensionConstants.h"
 
 /**
  These constants define the actions supported by the 1Password extension. Use these constants to create the NSItemProvider instance added to NSExtensionItem instance's attachments array:
@@ -16,9 +15,9 @@
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
  */
-FOUNDATION_EXPORT NSString *const kUTTypeNSExtensionFindLoginAction;
-FOUNDATION_EXPORT NSString *const kUTTypeNSExtensionSaveLoginAction;
-FOUNDATION_EXPORT NSString *const kUTTypeNSExtensionFillWebViewAction;
+NSString *const kUTTypeNSExtensionFindLoginAction = @"org.nsextension.find-login-action";
+NSString *const kUTTypeNSExtensionSaveLoginAction= @"org.nsextension.save-login-action";
+NSString *const kUTTypeNSExtensionFillWebViewAction= @"org.nsextension.fill-webview-action";
 
 /**
  These constants define the item types supported by the 1Password extension. These types are used to build the item dictionary that is passed to the NSItemProvider:
@@ -32,28 +31,28 @@ FOUNDATION_EXPORT NSString *const kUTTypeNSExtensionFillWebViewAction;
  */
 
 // NSItemProviders of type kUTTypeNSExtensionFindLoginAction must include a kURLString entry in the item dictionary that defines the URL to lookup in 1Password. This URL must be limited to your domain. NSItemProviders of type kUTTypeNSExtensionRegisterAction or kUTTypeNSExtensionGeneratePasswordAction should specify this entry in the item dictionary to define the URL for the newly created login.
-FOUNDATION_EXPORT NSString *const OPLoginURLStringKey;
+NSString *const OPLoginURLStringKey= @"url_string";
 
 // NSItemProviders of type kUTTypeNSExtensionRegisterAction can use this key to specify the username stored in the newly created login.
-FOUNDATION_EXPORT NSString *const OPLoginUsernameKey;
+NSString *const OPLoginUsernameKey= @"username";
 
 // NSItemProviders of type kUTTypeNSExtensionRegisterAction can use this key to specify the password stored in the newly created login.
-FOUNDATION_EXPORT NSString *const OPLoginPasswordKey;
+NSString *const OPLoginPasswordKey= @"password";
 
 // NSItemProviders of type kUTTypeNSExtensionRegisterAction can use this key to specify the title of the newly created login.
-FOUNDATION_EXPORT NSString *const OPLoginTitleKey;
+NSString *const OPLoginTitleKey= @"login_title";
 
 // NSItemProviders of type kUTTypeNSExtensionRegisterAction can use this key to specify the notes section of the newly created login.
-FOUNDATION_EXPORT NSString *const OPLoginNotesKey;
+NSString *const OPLoginNotesKey= @"notes";
 
 // NSItemProviders of type kUTTypeNSExtensionRegisterAction can use this key to specify the section title of the newly created login.
-FOUNDATION_EXPORT NSString *const OPLoginSectionTitleKey;
+NSString *const OPLoginSectionTitleKey= @"section_title";
 
 // NSItemProviders of type kUTTypeNSExtensionRegisterAction can use this key to specify the section fields of the newly created login.
-FOUNDATION_EXPORT NSString *const OPLoginFieldsKey;
+NSString *const OPLoginFieldsKey= @"fields";
 
 // NSItemProviders of type kUTTypeNSExtensionFillWebViewAction can use this key to get the fill script from the 1Password Extension.
-FOUNDATION_EXPORT NSString *const OPWebViewPageFillScript;
+NSString *const OPWebViewPageFillScript= @"fillScript";
 
 // NSItemProviders of type kUTTypeNSExtensionFillWebViewAction can use this key to pass the page details to the 1Password Extension.
-FOUNDATION_EXPORT NSString *const OPWebViewPageDetails;
+NSString *const OPWebViewPageDetails= @"pageDetails";
