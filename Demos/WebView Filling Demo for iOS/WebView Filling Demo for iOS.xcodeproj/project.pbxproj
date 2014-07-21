@@ -21,7 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C0169CD5197D6C3C006E7618 /* ACME Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ACME Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0169CD5197D6C3C006E7618 /* WebView Filling Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WebView Filling Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0618D92197D833600BBD34A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "WebView Filling Demo for iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		C0618DCE197D870E00BBD34A /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = welcome.html; path = "WebView Filling Demo for iOS/welcome.html"; sourceTree = SOURCE_ROOT; };
 		C0618DE7197D88B700BBD34A /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../../Resources/1Password.xcassets; sourceTree = "<group>"; };
@@ -61,7 +61,7 @@
 		C0169CD6197D6C3C006E7618 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C0169CD5197D6C3C006E7618 /* ACME Browser.app */,
+				C0169CD5197D6C3C006E7618 /* WebView Filling Demo for iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,7 +130,7 @@
 			);
 			name = "ACME Browser";
 			productName = "WebView filling for iOS";
-			productReference = C0169CD5197D6C3C006E7618 /* ACME Browser.app */;
+			productReference = C0169CD5197D6C3C006E7618 /* WebView Filling Demo for iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -293,7 +293,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Filling Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "WebView Filling Demo for iOS";
 			};
 			name = Debug;
 		};
@@ -304,7 +304,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Filling Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "WebView Filling Demo for iOS";
 			};
 			name = Release;
 		};
