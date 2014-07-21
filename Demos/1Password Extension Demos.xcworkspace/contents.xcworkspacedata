@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:WebView Filling Demo for iOS/WebView Filling Demo for iOS.xcodeproj">
+      location = "group:Native App Login Demo for iOS/Native App Login Demo for iOS.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Native App Login Demo for iOS/Native App Login Demo for iOS.xcodeproj">
+      location = "group:WebView Filling Demo for iOS/WebView Filling Demo for iOS.xcodeproj">
    </FileRef>
 </Workspace>
