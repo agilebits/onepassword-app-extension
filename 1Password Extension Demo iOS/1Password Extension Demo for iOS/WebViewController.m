@@ -46,8 +46,8 @@
 #pragma mark - Invoking the 1Password Extension 
 
 - (void)findLoginIn1PasswordWithCollectedPageDetails:(NSString *)collectedPageDetails {
-	NSDictionary *item = @{ OPLoginURLStringKey: self.searchBar.text,
-							@"pageDetails": collectedPageDetails};
+	NSDictionary *item = @{ OPLoginURLStringKey : self.searchBar.text,
+							OPWebViewPageDetails : collectedPageDetails };
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFillWebViewAction];
 	
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
@@ -85,7 +85,7 @@
 			// We need to have 0.5 delay to allow the fillscript to fill the webviews form
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 				if (item) {
-					NSString *fillScript = item[@"fillScript"];
+					NSString *fillScript = item[OPWebViewPageFillScript];
 					[miniMe executeFillScript:fillScript];
 				}
 				else {

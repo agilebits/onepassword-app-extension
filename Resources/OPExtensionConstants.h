@@ -51,16 +51,8 @@
 // NSItemProviders of type kUTTypeNSExtensionRegisterAction can use this key to specify the section fields of the newly created login.
 #define OPLoginFieldsKey @"fields"
 
-// NSItemProviders of type kUTTypeNSExtensionGeneratePasswordAction can use this key to specify the length of the generated password of the newly created login.
+// NSItemProviders of type kUTTypeNSExtensionFillWebViewAction can use this key to get the fill script from the 1Password Extension.
+#define OPWebViewPageFillScript @"fillScript"
 
-#define OPPasswordLenghtKey @"generated_password_length"
-
-// NSItemProviders of type kUTTypeNSExtensionGeneratePasswordAction can use this key to specify a maximum length for a generated password. The value associated with this key should be an NSNumber.
-
-#define OPPasswordUseMixedCaseKey @"generated_password_use_mixed_case"
-
-// NSItemProviders of type kUTTypeNSExtensionGeneratePasswordAction can use this key to specify a maximum length for a generated password. The value associated with this key should be an NSNumber that wraps a BOOL.
-#define OPPasswordGeneratorUseMixedCase @"use_mixed_case"
-
-// NSItemProviders of type kUTTypeNSExtensionGeneratePasswordAction can use this key to specify an array of strings that will separate the generated password.
-#define OPPasswordSparatorsKey @"generated_password_separators"
+// NSItemProviders of type kUTTypeNSExtensionFillWebViewAction can use this key to pass the page details to the 1Password Extension.
+#define OPWebViewPageDetails @"pageDetails";
