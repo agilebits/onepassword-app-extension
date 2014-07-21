@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C0FA52961974821100570166"
-               BuildableName = "1Password Extension Demo for iOS.app"
+               BuildableName = "Native App Login Demo for iOS.app"
                BlueprintName = "ACME"
-               ReferencedContainer = "container:1Password Extension Demo for iOS.xcodeproj">
+               ReferencedContainer = "container:Native App Login Demo for iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C0FA52961974821100570166"
-            BuildableName = "1Password Extension Demo for iOS.app"
+            BuildableName = "Native App Login Demo for iOS.app"
             BlueprintName = "ACME"
-            ReferencedContainer = "container:1Password Extension Demo for iOS.xcodeproj">
+            ReferencedContainer = "container:Native App Login Demo for iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C0FA52961974821100570166"
-            BuildableName = "1Password Extension Demo for iOS.app"
+            BuildableName = "Native App Login Demo for iOS.app"
             BlueprintName = "ACME"
-            ReferencedContainer = "container:1Password Extension Demo for iOS.xcodeproj">
+            ReferencedContainer = "container:Native App Login Demo for iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C0FA52961974821100570166"
-            BuildableName = "1Password Extension Demo for iOS.app"
+            BuildableName = "Native App Login Demo for iOS.app"
             BlueprintName = "ACME"
-            ReferencedContainer = "container:1Password Extension Demo for iOS.xcodeproj">
+            ReferencedContainer = "container:Native App Login Demo for iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

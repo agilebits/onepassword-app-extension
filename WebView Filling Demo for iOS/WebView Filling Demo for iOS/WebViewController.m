@@ -34,7 +34,7 @@
 	self.webView.navigationDelegate = self;
 	[self.webViewContainer addSubview:self.webView];
 
-	NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"Welcome" ofType:@"html"];
+	NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
 	NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
 	[self.webView loadHTMLString:htmlString baseURL:nil];
 }

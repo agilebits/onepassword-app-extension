@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:1Password Extension Demo for iOS.xcodeproj">
+      location = "self:Native App Login Demo for iOS.xcodeproj">
    </FileRef>
 </Workspace>
