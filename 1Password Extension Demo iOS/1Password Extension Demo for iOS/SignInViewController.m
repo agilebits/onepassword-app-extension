@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  SignInViewController.m
 //  1Password Extension Demo
 //
 //  Created by Rad on 2014-07-14.
