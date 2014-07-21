@@ -208,6 +208,7 @@ Second, you'll notice we're using a new `kUTTypeNSExtensionSaveLoginAction` type
 
 An important thing to notice is the `OPLoginURLStringKey` is set to the exact same value we used in the Signin scenario. This allows users to quickly find the login they saved for your app the next time they need to sign in.
 
+
 ### Scenario 3: Web View Support
 
 The 1Password Extension is not limited to filling native UIs. With just a little bit of extra code, you can fill `UIWebView`s and `WKWebView`s as well.
@@ -233,19 +234,78 @@ The 1Password Safari Extension makes great use of the ExtensionPreprocessingJS d
 
 Before invoking 1Password, collect information about the page by executing a piece of JavaScript within your web view:
 
-You'll need to inject the `collect_fields.js` User Script into the current page. The collect fields script will return a simple NSString that you'll treat as an opaque token and pass it into the next step.
+```
+- (IBAction)fillUsing1Password:(id)sender {
+	NSString *collectPageInfoScript = [self loadUserScriptSourceNamed:@"collect"];
+	[self.webView evaluateJavaScript:collectPageInfoScript completionHandler:^(NSString *result, NSError *error) {
+		if (result) {
+			[self findLoginIn1PasswordWithPageDetails:result];
+		}
+	}];
+```
 
-#### Step 2: Invoke 1Password Extension
+This code loads some JavaScript and asks our `WKWebView` to evaluate it and pass the results into our completion handler. If you are still using a UIWebView, you can use `stringByEvaluatingJavaScriptFromString:` instead. 
 
-Pass collected page information to 1Password's extension, and retreive the resulting fill script.
+The collect fields script will return a simple NSString that you'll treat as an opaque token and pass it into the next step.
 
-Run the 1Password Extension to allow the user to select an item to fill, and store the resulting fill script. The result is simply an NSString that contains the required operations to fill the user selected item.
+#### Step 2: Loading the 1Password Extension
+
+Once the page information is collected, you can pass it into the 1Password Extension as follows:
+
+```
+- (void)findLoginIn1PasswordForURLString:(NSString *)URLString collectedPageDetails:(NSString *)collectedPageDetails {
+	NSDictionary *item = @{ OPWebViewPageDetails: collectedPageDetails};
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFillWebViewAction];
+	
+	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
+	extensionItem.attachments = @[ itemProvider ];
+	
+	__weak typeof (self) miniMe = self;
+	
+	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
+	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+		if (!completed) {
+			__strong typeof(self) strongMe = miniMe;
+			for (NSExtensionItem *extensionItem in returnedItems) {
+				[strongMe processExtensionItem:extensionItem];
+			}
+		}
+	};
+	
+	[self presentViewController:controller animated:YES completion:nil];
+}
+```
+
+This code should look very familiar as it's almost identical to what we did in the previous examples. The only real differences are we use the `kUTTypeNSExtensionFillWebViewAction` type identifier for our item provider, and we pass in the `OPWebViewPageDetails` dictionary instead of a simple `OPLoginURLStringKey`.
 
 #### Step 3: Execute Fill Script
 
-Run the fill User Script within your WKWebKit window, passing in the fill script from the previous step.
+Once the user selects an item to fill, your completion handler will receive a JSON string defining how filling should take place. You once again have to do the dance of unraveling the multiple NSExtensionItems and NSItemProvider attachments, but you'll eventually find a provider that contains the information you need:
 
-Inject the `execute_fill_script.js` User Script into the current page and pass in the JSON from the previous step.
+```
+[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *item, NSError *error) {
+	__weak typeof (self) miniMe = self;
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		if (item) {
+			NSString *fillScript = item[OPWebViewPageFillScript];
+			[miniMe executeFillScript:fillScript];
+		}
+	});
+}];
+```
+
+You can now pass the `fillScript` string into a JavaScript function that will handle all the filling for you:
+
+```
+- (void)executeFillScript:(NSString *)fillScript {
+	NSMutableString *scriptSource = [[self loadUserScriptSourceNamed:@"fill"] mutableCopy];
+	[scriptSource appendFormat:@"('%@');", fillScript];
+	[self.webView evaluateJavaScript:scriptSource completionHandler:NULL];
+}
+```
+
+The JavaScript source from the `fill.js` script library will parse the data returned by 1Password and fill all the fields that matched.
+
 
 ## Best Practices
 
@@ -253,10 +313,18 @@ Inject the `execute_fill_script.js` User Script into the current page and pass i
 * Use our provided icons so users are familiar with what it will do. Contact us if you'd like additional sizes or have other special requirements 
 * Enable users to set 1Password as their default browser for external web links.
 
+
+## Known Issues
+
+* Web pages never finish loading when the debugger is attached. After installing an updated app, you need to kill the process from XCode and then restart ACME Browser directly from your device.
+* You can only invoke the 1Password extension once per app launch. Subsequent calls to [UIActivityViewController presentViewController], will always have a nil `returnedItems` in the completion handler. radar://17669995
+
+
 ## References 
 
 Apple Extension Guide
 NSItemProvider, NSExtensionItem, UIActivityViewController class references.
+
 
 ## Contact Us
 
