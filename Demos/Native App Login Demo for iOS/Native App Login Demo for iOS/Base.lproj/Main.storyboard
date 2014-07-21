@@ -66,15 +66,9 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already an ACME Browser user?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4my-NG-1Ao">
-                                <rect key="frame" x="142" y="106" width="197" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already an ACME user?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4my-NG-1Ao">
+                                <rect key="frame" x="168" y="106" width="144" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACME Browser" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6y-0L-qoR">
-                                <rect key="frame" x="191" y="25" width="98" height="63"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -87,6 +81,12 @@
                                     <segue destination="t8j-XO-qaX" kind="show" id="i5d-BB-fYp"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6y-0L-qoR">
+                                <rect key="frame" x="220" y="62" width="41" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -94,23 +94,23 @@
                             <constraint firstItem="KVH-91-167" firstAttribute="leading" secondItem="ZLv-94-XOA" secondAttribute="leading" constant="24" id="BhQ-B6-T1f"/>
                             <constraint firstItem="ZLv-94-XOA" firstAttribute="trailing" secondItem="Fzs-00-LBD" secondAttribute="trailing" constant="86" id="Cax-yT-ycS"/>
                             <constraint firstItem="Fzs-00-LBD" firstAttribute="top" secondItem="ZLv-94-XOA" secondAttribute="bottom" constant="8" id="ELs-wu-Sl9"/>
-                            <constraint firstItem="4my-NG-1Ao" firstAttribute="top" secondItem="i6y-0L-qoR" secondAttribute="bottom" constant="18" id="FPV-wQ-gfy"/>
+                            <constraint firstItem="4my-NG-1Ao" firstAttribute="top" secondItem="i6y-0L-qoR" secondAttribute="bottom" constant="23" id="FPV-wQ-gfy"/>
                             <constraint firstItem="KVH-91-167" firstAttribute="top" secondItem="ZLv-94-XOA" secondAttribute="bottom" constant="46" id="IFS-8Y-TcM"/>
                             <constraint firstItem="JAX-NX-Utp" firstAttribute="leading" secondItem="KVH-91-167" secondAttribute="trailing" constant="-107" id="KJ5-Wo-WiD"/>
                             <constraint firstItem="Za2-pr-tWA" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Osy-hi-ZWU"/>
                             <constraint firstItem="Za2-pr-tWA" firstAttribute="trailing" secondItem="ZLv-94-XOA" secondAttribute="trailing" id="PfU-Zx-h0a"/>
                             <constraint firstItem="ZLv-94-XOA" firstAttribute="top" secondItem="Za2-pr-tWA" secondAttribute="bottom" constant="8" id="TNA-ie-3uk"/>
-                            <constraint firstItem="4my-NG-1Ao" firstAttribute="leading" secondItem="Za2-pr-tWA" secondAttribute="leading" constant="12" id="VzF-Pq-ogB"/>
+                            <constraint firstItem="4my-NG-1Ao" firstAttribute="leading" secondItem="Za2-pr-tWA" secondAttribute="leading" constant="38" id="VzF-Pq-ogB"/>
                             <constraint firstItem="JAX-NX-Utp" firstAttribute="top" secondItem="ZLv-94-XOA" secondAttribute="bottom" constant="60" id="Wi0-RB-N6q"/>
-                            <constraint firstItem="4my-NG-1Ao" firstAttribute="trailing" secondItem="Za2-pr-tWA" secondAttribute="trailing" constant="-11" id="c3A-fB-EJx"/>
+                            <constraint firstItem="4my-NG-1Ao" firstAttribute="trailing" secondItem="Za2-pr-tWA" secondAttribute="trailing" constant="-38" id="c3A-fB-EJx"/>
                             <constraint firstItem="Za2-pr-tWA" firstAttribute="leading" secondItem="ZLv-94-XOA" secondAttribute="leading" id="cEy-gX-IUa"/>
                             <constraint firstItem="Za2-pr-tWA" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="115" id="cQ5-n4-72U"/>
                             <constraint firstItem="cDc-DW-cLJ" firstAttribute="top" secondItem="ZLv-94-XOA" secondAttribute="bottom" constant="-30" id="fFN-uh-80H"/>
-                            <constraint firstItem="i6y-0L-qoR" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="5" id="jGo-hs-62L"/>
+                            <constraint firstItem="i6y-0L-qoR" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="42" id="jGo-hs-62L"/>
                             <constraint firstItem="Za2-pr-tWA" firstAttribute="trailing" secondItem="cDc-DW-cLJ" secondAttribute="trailing" constant="-34" id="kuY-0G-NFx"/>
-                            <constraint firstItem="Za2-pr-tWA" firstAttribute="top" secondItem="i6y-0L-qoR" secondAttribute="bottom" constant="47" id="ooc-V3-s6n"/>
+                            <constraint firstItem="Za2-pr-tWA" firstAttribute="top" secondItem="i6y-0L-qoR" secondAttribute="bottom" constant="52" id="ooc-V3-s6n"/>
                             <constraint firstItem="Za2-pr-tWA" firstAttribute="top" secondItem="4my-NG-1Ao" secondAttribute="bottom" constant="8" symbolic="YES" id="pRy-AV-Ceb"/>
-                            <constraint firstItem="i6y-0L-qoR" firstAttribute="trailing" secondItem="Za2-pr-tWA" secondAttribute="trailing" constant="-61" id="uH8-XS-CBT"/>
+                            <constraint firstItem="i6y-0L-qoR" firstAttribute="trailing" secondItem="Za2-pr-tWA" secondAttribute="trailing" constant="-89" id="uH8-XS-CBT"/>
                         </constraints>
                     </view>
                     <connections>
@@ -175,7 +175,7 @@
                                     <action selector="saveLoginTo1Password:" destination="A1b-Kh-Nlq" eventType="touchDown" id="le6-YC-Kg2"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new ACME Browser account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1U-jl-pri">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new ACME account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1U-jl-pri">
                                 <rect key="frame" x="130" y="94" width="222" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="222" id="wEk-ZX-nLa"/>
