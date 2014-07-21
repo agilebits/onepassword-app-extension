@@ -22,13 +22,12 @@
 
 @implementation SignUpViewController
 
+-(void)viewDidLoad {
+	[self.onepasswordSignupButton setHidden:![self is1PasswordExtensionAvailable]];
+}
 
 - (BOOL)is1PasswordExtensionAvailable {
 	return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"onepassword-extension://fill"]];
-}
-
--(void)viewWillAppear:(BOOL)animated {
-	[self.onepasswordSignupButton setHidden:![self is1PasswordExtensionAvailable]];
 }
 
 - (IBAction)saveLoginTo1Password:(id)sender {

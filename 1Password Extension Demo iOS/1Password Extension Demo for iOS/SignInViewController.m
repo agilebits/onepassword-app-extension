@@ -23,13 +23,12 @@
 
 @implementation SignInViewController
 
+-(void)viewDidLoad {
+	[self.onepasswordSigninButton setHidden:![self is1PasswordExtensionAvailable]];
+}
 
 - (BOOL)is1PasswordExtensionAvailable {
 	return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"onepassword-extension://fill"]];
-}
-
--(void)viewWillAppear:(BOOL)animated {
-	[self.onepasswordSigninButton setHidden:![self is1PasswordExtensionAvailable]];
 }
 
 #pragma mark - Actions

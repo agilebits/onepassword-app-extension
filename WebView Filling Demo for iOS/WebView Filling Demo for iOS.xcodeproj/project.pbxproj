@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		C03B277B197D784600B367EC /* Welcome.html in Resources */ = {isa = PBXBuildFile; fileRef = C03B277A197D784600B367EC /* Welcome.html */; };
-		C047EF12197D6F4700ED6D97 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C047EF0B197D6F4700ED6D97 /* Images.xcassets */; };
 		C047EF13197D6F4700ED6D97 /* collect.js in Resources */ = {isa = PBXBuildFile; fileRef = C047EF0E197D6F4700ED6D97 /* collect.js */; };
 		C047EF14197D6F4700ED6D97 /* collect_lib.min.js in Resources */ = {isa = PBXBuildFile; fileRef = C047EF0F197D6F4700ED6D97 /* collect_lib.min.js */; };
 		C047EF15197D6F4700ED6D97 /* fill.js in Resources */ = {isa = PBXBuildFile; fileRef = C047EF10197D6F4700ED6D97 /* fill.js */; };
 		C047EF16197D6F4700ED6D97 /* fill_lib.min.js in Resources */ = {isa = PBXBuildFile; fileRef = C047EF11197D6F4700ED6D97 /* fill_lib.min.js */; };
+		C0618D93197D833600BBD34A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0618D92197D833600BBD34A /* Images.xcassets */; };
+		C0618D95197D834100BBD34A /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0618D94197D834100BBD34A /* 1Password.xcassets */; };
 		C0FF95ED197D6E3500D5B9F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FF95EA197D6E3500D5B9F4 /* AppDelegate.m */; };
 		C0FF95EE197D6E3500D5B9F4 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FF95EC197D6E3500D5B9F4 /* WebViewController.m */; };
 		C0FF95F1197D6E4600D5B9F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0FF95EF197D6E4600D5B9F4 /* Main.storyboard */; };
@@ -22,12 +23,13 @@
 /* Begin PBXFileReference section */
 		C0169CD5197D6C3C006E7618 /* ACME Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ACME Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03B277A197D784600B367EC /* Welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = Welcome.html; path = "../../1Password Extension Demo iOS/1Password Extension Demo for iOS/Welcome.html"; sourceTree = "<group>"; };
-		C047EF0B197D6F4700ED6D97 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C047EF0C197D6F4700ED6D97 /* OPExtensionConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPExtensionConstants.h; sourceTree = "<group>"; };
 		C047EF0E197D6F4700ED6D97 /* collect.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = collect.js; sourceTree = "<group>"; };
 		C047EF0F197D6F4700ED6D97 /* collect_lib.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = collect_lib.min.js; sourceTree = "<group>"; };
 		C047EF10197D6F4700ED6D97 /* fill.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fill.js; sourceTree = "<group>"; };
 		C047EF11197D6F4700ED6D97 /* fill_lib.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fill_lib.min.js; sourceTree = "<group>"; };
+		C0618D92197D833600BBD34A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "WebView Filling Demo for iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
+		C0618D94197D834100BBD34A /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = 1Password.xcassets; sourceTree = "<group>"; };
 		C0FF95E9197D6E3500D5B9F4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "WebView Filling Demo for iOS/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
 		C0FF95EA197D6E3500D5B9F4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "WebView Filling Demo for iOS/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
 		C0FF95EB197D6E3500D5B9F4 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = "WebView Filling Demo for iOS/WebViewController.h"; sourceTree = SOURCE_ROOT; };
@@ -73,6 +75,7 @@
 				C0FF95EC197D6E3500D5B9F4 /* WebViewController.m */,
 				C0FF95EF197D6E4600D5B9F4 /* Main.storyboard */,
 				C03B277A197D784600B367EC /* Welcome.html */,
+				C0618D92197D833600BBD34A /* Images.xcassets */,
 				C047EF0A197D6F4700ED6D97 /* Resources */,
 				C0169CD8197D6C3C006E7618 /* Supporting Files */,
 			);
@@ -92,7 +95,7 @@
 		C047EF0A197D6F4700ED6D97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C047EF0B197D6F4700ED6D97 /* Images.xcassets */,
+				C0618D94197D834100BBD34A /* 1Password.xcassets */,
 				C047EF0C197D6F4700ED6D97 /* OPExtensionConstants.h */,
 				C047EF0D197D6F4700ED6D97 /* Scripts */,
 			);
@@ -169,9 +172,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C047EF13197D6F4700ED6D97 /* collect.js in Resources */,
+				C0618D93197D833600BBD34A /* Images.xcassets in Resources */,
 				C047EF16197D6F4700ED6D97 /* fill_lib.min.js in Resources */,
 				C0FF95F1197D6E4600D5B9F4 /* Main.storyboard in Resources */,
-				C047EF12197D6F4700ED6D97 /* Images.xcassets in Resources */,
+				C0618D95197D834100BBD34A /* 1Password.xcassets in Resources */,
 				C047EF14197D6F4700ED6D97 /* collect_lib.min.js in Resources */,
 				C047EF15197D6F4700ED6D97 /* fill.js in Resources */,
 				C03B277B197D784600B367EC /* Welcome.html in Resources */,
