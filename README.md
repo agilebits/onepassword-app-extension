@@ -63,14 +63,15 @@ Drag the Resources folder into your project.
 
 ### Scenario 1: Signin
 
-Here we'll learn how to enable your existing users to fill their credentials into your signin form using 1Password. The workflow will look something like this:
+Here we'll learn how to enable your existing users to fill their credentials into your signin form using 1Password.
 
+<!---
+ The workflow will look something like this:
 ![](http://i.agilebits.com/dt/IMG_0611_197C6912.png)
 ![](http://i.agilebits.com/dt/IMG_0612_197C68C2.png)
 ![](http://i.agilebits.com/dt/IMG_0613_197C693F.png)
 ![](http://i.agilebits.com/dt/IMG_0614_197C696B.png)
-
-Here's how you can add the 1Password Signin workflow to your app:
+-->
 
 #### 1. Add a 1Password Lookup Button
 
@@ -322,13 +323,13 @@ The JavaScript source from the `fill.js` script library will parse the data retu
 
 ## References 
 
-Apple Extension Guide
-NSItemProvider, NSExtensionItem, UIActivityViewController class references.
+* [Apple Extension Guide](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/ExtensibilityPG/index.html#//apple_ref/doc/uid/TP40014214)
+* [NSItemProvider](https://developer.apple.com/library/prerelease/ios/documentation/Foundation/Reference/NSItemProvider_Class/index.html#//apple_ref/doc/uid/TP40014351), [NSExtensionItem](https://developer.apple.com/library/prerelease/ios/documentation/Foundation/Reference/NSExtensionItem_Class/index.html#//apple_ref/doc/uid/TP40014375), and [UIActivityViewController](https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIActivityViewController_Class/index.html#//apple_ref/doc/uid/TP40011976) class references.
 
 
 ## Contact Us
 
-Contact us, please! We'd love to hear from you about how you integrated 1Password with you app, and how we can improve it further. 
+Contact us, please! We'd love to hear from you about how you integrated 1Password with you app, and how we can further improve things. 
 
 You can reach us at support+opxdemo@agilebits.com, or if you prefer, [@1PasswordBeta](https://twitter.com/1PasswordBeta) on Twitter.
 
