@@ -118,7 +118,14 @@
 }
 
 - (IBAction)goBack:(id)sender {
-	[self.webView goBack];
+	WKNavigation *navigation = [self.webView goBack];
+
+	if (!navigation) {
+		NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
+		NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+		[self.webView loadHTMLString:htmlString baseURL:nil];
+
+	}
 }
 
 - (IBAction)goForward:(id)sender {
