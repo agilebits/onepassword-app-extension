@@ -37,6 +37,8 @@
 						   OPLoginTitleKey : @"ACME",
 						   OPLoginUsernameKey : self.usernameTextField.text ? : @"",
 						   OPLoginPasswordKey : self.passwordTextField.text ? : @"",
+						   OPLoginGeneratedPasswordMinLengthKey : @(6),
+						   OPLoginGeneratedPasswordMaxLengthKey : @(50),
 						   OPLoginNotesKey : @"Saved with the ACME app",
 						   OPLoginSectionTitleKey : @"ACME Browser",
 						   OPLoginFieldsKey : @{
