@@ -15,7 +15,6 @@
 		C0618DA3197D843100BBD34A /* Welcome.html in Resources */ = {isa = PBXBuildFile; fileRef = C0618D9E197D843100BBD34A /* Welcome.html */; };
 		C0618DA5197D843E00BBD34A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0618DA4197D843E00BBD34A /* Images.xcassets */; };
 		C0618DA8197D844E00BBD34A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0618DA6197D844E00BBD34A /* Main.storyboard */; };
-		C0618DAB197D850100BBD34A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0618DA9197D850100BBD34A /* Info.plist */; };
 		C0618DAC197D850100BBD34A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618DAA197D850100BBD34A /* main.m */; };
 		C0618DD6197D885700BBD34A /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0618DD4197D885700BBD34A /* 1Password.xcassets */; };
 		C0618DE3197D889000BBD34A /* collect_lib.min.js in Resources */ = {isa = PBXBuildFile; fileRef = C0618DDF197D889000BBD34A /* collect_lib.min.js */; };
@@ -191,7 +190,6 @@
 				C0618DE6197D889000BBD34A /* fill.js in Resources */,
 				C0618DE4197D889000BBD34A /* collect.js in Resources */,
 				C0618DA3197D843100BBD34A /* Welcome.html in Resources */,
-				C0618DAB197D850100BBD34A /* Info.plist in Resources */,
 				C0618DA8197D844E00BBD34A /* Main.storyboard in Resources */,
 				C0618DE3197D889000BBD34A /* collect_lib.min.js in Resources */,
 			);
