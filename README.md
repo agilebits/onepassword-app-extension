@@ -6,12 +6,12 @@ Welcome! With just a few lines of code, your app can add 1Password support, enab
 2. Use the Strong Password Generator to create unique passwords during registration
 3. Quickly fill 1Password Logins directly into web views
 
-Strong, unique passwords for all websites and every app is critical to everyone's security, for both users and companies. With direct 1Password integration, we can encourage all our users to avoid shortcuts, stay secure, and make the world a better place.
+Allowing your users to use strong, unique passwords has never been easier.
 
 
 ## TL;DR; Just Give Me the Code
 
-You might be looking at this 2000+ word README and think that integrating with 1Password is very complicated. Nothing could be further from the truth! 
+You might be looking at this 2000+ word README and think integrating with 1Password is very complicated. Nothing could be further from the truth! 
 
 If you're the type that just wants the code, these gists are for you:
 
@@ -21,19 +21,17 @@ If you're the type that just wants the code, these gists are for you:
 
 Simply copy and paste the code into your view controller, wire up the 1Password button action, and you're good to go.
 
-The 1Password Extension is new, so you'll need to be running the 1Password Beta to test. See below for details.
-
 
 ## Getting Started
 
-Adding 1Password support to your app is easy. To demonstrate how it works, we have a sample app for iOS that showcases all of these 1Password features.
+Adding 1Password support to your app is easy. To demonstrate how it works, we have two sample apps for iOS that showcase all of the 1Password features.
 
 
-### Step 1: Download the Demo Project
+### Step 1: Download the Source Code and Sample Apps
 
 To get started, download the 1Password Extension project from https://github.com/AgileBits/onepassword-extension/archive/master.zip, or [clone it from GitHub](https://github.com/AgileBits/onepassword-extension).
 
-Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images and scripts, and the `1Password Extension Demo for iOS` project. This project contains a sample ACME app that demonstrates how to integrate the 1Password Login and Signup features, as well as an ACME Browser app that showcases the WebView Filling feature. 
+Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images, scripts, and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Signup features, as well as a browser that showcases the WebView Filling feature. 
 
 
 ### Step 2: Install the Latest 1Password & XCode Betas
@@ -44,38 +42,38 @@ The sample project depends upon having the latest version of XCode 6, as well as
 If you are developing for OS X, you can enable betas within the 1Password > Preferences > Updates window (as shown [here](i.agilebits.com/Preferences_197C0C6B.png)) and enabling the _Include beta builds_ checkbox. Mac App Store users should [download the webstore version](https://agilebits.com/downloads) in order to enable betas.
 -->
 
-To join the 1Password Beta, you will need to [enroll in the 1Password for iOS Beta program](https://agilebits.com/beta_signups/signup). Be sure to mention in your application that you are an app developer and planning to add 1Password support. 
+To join the 1Password Beta, you will need to [enroll in the 1Password for iOS Beta program](https://agilebits.com/beta_signups/signup). Be sure to mention in your application that you are an app developer and planning to add 1Password support.
 
 Beta enrollment is a manual process so please allow a bit of time to hear back from us.
 
 
 ### Step 3: Run the Sample App
 
-Before jumping into the code and wiring up your own app, let's ensure everything is setup correctly by running the sample ACME Browser app. 
+Before jumping into the code and wiring up your own app, let's ensure everything is setup correctly by running the sample ACME apps. 
 
-Open `1Password Extension Demo iOS/1Password Extension Demo for iOS.xcodeproj` within XCode 6,and then select the `ACME Browser` target and set it to run your iOS device:
+Open `1Password Extension Demos` XCode workspace from within the `Demos` folder. within XCode 6,and then select the `ACME Browser` target and set it to run your iOS device:
 
-![](https://www.evernote.com/shard/s2/sh/0af10ef5-9926-4e63-a56c-152d45199cac/eaccf42b0298da5ae074997b3c3ac1ad/deep/0/Menubar-and-SignInViewController.m-and-main.m.png)
+<img src="https://www.evernote.com/shard/s2/sh/0af10ef5-9926-4e63-a56c-152d45199cac/eaccf42b0298da5ae074997b3c3ac1ad/deep/0/Menubar-and-SignInViewController.m-and-main.m.png" width="342" height="150">
 
 Since you will not have 1Password running within your iOS Simulator, it is important that you run on your device.
 
-If all goes well, ACME Browser will launch and you'll be able to test the 1Password Extension features.
+If all goes well, The ACME app will launch and you'll be able to test the 1Password Extension features. Change the scheme to ACME Browser to test the WebView filling feature.
 
 <!--- TODO: quick video here -->
 
 
 ## Integrating 1Password With Your App
 
-Now let's open the hood and get our hands dirty so we can see how to add 1Password to your app. 
+Now let's get our hands dirty so we can see exactly how to add 1Password into your app. 
 
-Be forewarned that there is not much code to get dirty with. If you were looking for an SDK to waste days of your life on, you'll be sorely disappointed. 
+Be forewarned, however, that there is not much code to get dirty with. If you were looking for an SDK to waste days of your life on, you'll be sorely disappointed. 
 
 
 ### Add 1Password Files to Your Project
 
-Drag the contents of the 1Password Extension's `Resources` folder into a 1Password Extension group under Supporting Files.
+First add the images, scripts, and header file that you'll need by dragging the contents of the 1Password Extension's `Resources` folder into your project. We suggest placing them into a `1Password Extension` group under Supporting Files.
 
-![](http://i.agilebits.com/dt/Untitled_2_197D80C9.png)
+<img src="http://i.agilebits.com/dt/Untitled_2_197D80C9.png" width="352" height="328"/>
 
 ### Scenario 1: Native App Login
 
@@ -88,7 +86,7 @@ The first thing you'll need to do is add a UIButton to your login page. Use an e
 
 One caveat to adding a 1Password button is you'll need to hide it if 1Password is not installed. Determining if the 1Password extension is available is a simple matter of asking UIApplication if it's capable of opening a custom URL Scheme specific to 1Password: 
 
-```
+```objective-c
 - (BOOL)is1PasswordExtensionAvailable {
 	return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"onepassword-extension://fill"]];
 }
@@ -96,7 +94,7 @@ One caveat to adding a 1Password button is you'll need to hide it if 1Password i
 
 Using this code you can hide the 1Password UIButton when 1Password is not installed as follows:
 
-```
+```objective-c
 -(void)viewWillAppear:(BOOL)animated {
 	[self.onepasswordSigninButton setHidden:![self is1PasswordExtensionAvailable]];
 }
@@ -107,7 +105,7 @@ Using this code you can hide the 1Password UIButton when 1Password is not instal
 
 Wire up the action for your 1Password Button to this method:
 
-```
+```objective-c
 - (IBAction)findLoginFrom1Password:(id)sender {
 	NSDictionary *item = @{ OPLoginURLStringKey : @"https://www.acmebrowser.com" }; 
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFindLoginAction];
@@ -140,7 +138,7 @@ Once a login is chosen, control will return to your `UIActivityViewController`'s
 
 Here's an example completion handler for your `UIActivityViewController`:
 
-```
+```objective-c
 controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 	if (completed) {
 		__strong typeof(self) strongSelf = weakSelf;
@@ -153,7 +151,7 @@ controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed
 
 Apple's design makes it possible to return multiple `NSExtensionItem`, so we loop over all of them, processing them in turn:
 
-```
+```objective-c
 - (void)processExtensionItem:(NSExtensionItem *)extensionItem {
 	for (NSItemProvider *itemProvider in extensionItem.attachments) {
 		[self processItemProvider:itemProvider];
@@ -163,7 +161,7 @@ Apple's design makes it possible to return multiple `NSExtensionItem`, so we loo
 
 Each extension item is also allowed to have multiple attachments, so we once again loop over each of them in turn, passing them into `processItemProvider`:
 
-```
+```objective-c
 - (void)processItemProvider:(NSItemProvider *)itemProvider {
 	if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
 		__weak typeof (self) miniMe = self;
@@ -189,7 +187,7 @@ Allow your users to generate strong, unique passwords when signing up to your se
 
 Adding 1Password to your Signup Screen is very similar to adding 1Password to your Login Screen. The only difference is how you create the `NSExtensionItem` and `NSItemProvider`:
 
-```
+```objective-c
 NSDictionary *item = @{
 	OPLoginURLStringKey : @"https://www.acmebrowser.com",
 	OPLoginTitleKey : @"ACME Browser",
@@ -224,7 +222,7 @@ We will not be creating a Safari Extension in this project, but the approach we 
 
 To enable interaction between an extension and the HTML page within Safari on iOS, Apple defined an extension preprocessing JavaScript protocol called ExtensionPreprocessingJS. By default the file is named `ExtensionPreprocessing.js` and it has these two methods:
 
-```
+```javascript
 ExtensionPreprocessingJS.prototype.run
 ExtensionPreprocessingJS.prototype.finalize
 ```
@@ -240,7 +238,7 @@ The 1Password Safari Extension makes great use of the ExtensionPreprocessingJS d
 
 Before invoking 1Password, collect information about the page by executing a piece of JavaScript within your web view:
 
-```
+```objective-c
 - (IBAction)fillUsing1Password:(id)sender {
 	NSString *collectPageInfoScript = [self loadUserScriptSourceNamed:@"collect"];
 	[self.webView evaluateJavaScript:collectPageInfoScript completionHandler:^(NSString *result, NSError *error) {
@@ -259,7 +257,7 @@ The collect fields script will return a simple NSString that you'll treat as an 
 
 Once the page information is collected, you can pass it into the 1Password Extension as follows:
 
-```
+```objective-c
 - (void)findLoginIn1PasswordForURLString:(NSString *)URLString collectedPageDetails:(NSString *)collectedPageDetails {
 	NSDictionary *item = @{ OPWebViewPageDetails: collectedPageDetails};
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFillWebViewAction];
@@ -289,7 +287,7 @@ This code should look very familiar as it's almost identical to what we did in t
 
 Once the user selects an item to fill, your completion handler will receive a JSON string defining how filling should take place. You once again have to do the dance of unraveling the multiple NSExtensionItems and NSItemProvider attachments, but you'll eventually find a provider that contains the information you need:
 
-```
+```objective-c
 [itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *item, NSError *error) {
 	__weak typeof (self) miniMe = self;
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -303,7 +301,7 @@ Once the user selects an item to fill, your completion handler will receive a JS
 
 You can now pass the `fillScript` string into a JavaScript function that will handle all the filling for you:
 
-```
+```objective-c
 - (void)executeFillScript:(NSString *)fillScript {
 	NSMutableString *scriptSource = [[self loadUserScriptSourceNamed:@"fill"] mutableCopy];
 	[scriptSource appendFormat:@"('%@');", fillScript];
