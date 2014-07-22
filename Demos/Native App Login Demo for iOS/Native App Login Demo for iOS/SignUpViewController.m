@@ -33,7 +33,7 @@
 - (IBAction)saveLoginTo1Password:(id)sender {
 	NSDictionary *item = @{
 						   // Ensure the URLString is set to your actual service URL, so that user will find your actual Login information in 1Password.
-						   OPLoginURLStringKey : @"https://www.acmebrowser.com",
+						   OPLoginURLStringKey : @"https://www.acme.com", // Required field
 						   OPLoginTitleKey : @"ACME",
 						   OPLoginUsernameKey : self.usernameTextField.text ? : @"",
 						   OPLoginPasswordKey : self.passwordTextField.text ? : @"",

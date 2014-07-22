@@ -34,7 +34,7 @@
 #pragma mark - Actions
 
 - (IBAction)findLoginFrom1Password:(id)sender {
-	NSDictionary *item = @{ OPLoginURLStringKey : @"https://www.acmebrowser.com" }; // Ensure the URLString is set to your actual service URL, so that user will find your actual Login information in 1Password.
+	NSDictionary *item = @{ OPLoginURLStringKey : @"https://www.acme.com" }; // Ensure the URLString is set to your actual service URL, so that user will find your actual Login information in 1Password.
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionFindLoginAction];
 
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
