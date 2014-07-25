@@ -53,7 +53,7 @@ Before jumping into the code and wiring up your own app, let's ensure everything
 
 Open `1Password Extension Demos` XCode workspace from within the `Demos` folder. within XCode 6,and then select the `ACME Browser` target and set it to run your iOS device:
 
-<img src="https://www.evernote.com/shard/s2/sh/0af10ef5-9926-4e63-a56c-152d45199cac/eaccf42b0298da5ae074997b3c3ac1ad/deep/0/Menubar-and-SignInViewController.m-and-main.m.png" width="342" height="150">
+<img src="http://i.agilebits.com/dt/Menubar_and_SignInViewController_m_and_README_md_—_onepassword-extension__git__master__197DEA31.png" width="405" height="150">
 
 Since you will not have 1Password running within your iOS Simulator, it is important that you run on your device.
 
@@ -183,7 +183,7 @@ Extract the username and password values and update your UI accordingly.
 
 ### Scenario 2: New User Signup
 
-Allow your users to generate strong, unique passwords when signing up to your service. 1Password will also save the login for future use, allowing users to easily log into your app on their other devices.
+Allow your users to access 1Password directly from your signup page so they can generate strong, unique passwords. 1Password will also save the login for future use, allowing users to easily log into your app on their other devices.
 
 Adding 1Password to your Signup Screen is very similar to adding 1Password to your Login Screen. The only difference is how you create the `NSExtensionItem` and `NSItemProvider`:
 
@@ -206,7 +206,7 @@ NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIde
 
 You'll notice that we're passing in a lot more information into 1Password than just the `OPLoginURLStringKey`. This is because at the end of the password generation process, 1Password will create a brand new login and save it. It's not possible for 1Password to ask your app for this data later, so we pass in everything we can before showing the password generator screen.
 
-Next up, we're using a new `kUTTypeNSExtensionSaveLoginAction` type identifier. This instructs 1Password to present the Save Login screen instead of the Choose Login screen. 
+You'll also see that we're using a new `kUTTypeNSExtensionSaveLoginAction` type identifier. This instructs 1Password to present the Save Login screen instead of the Choose Login screen. 
 
 An important thing to notice is the `OPLoginURLStringKey` is set to the exact same value we used in the login scenario. This allows users to quickly find the login they saved for your app the next time they need to sign in.
 
@@ -253,7 +253,7 @@ This code loads some JavaScript and asks our `WKWebView` to evaluate it and pass
 The collect fields script will return a simple NSString that you'll treat as an opaque token and pass it into the next step.
 
 
-#### Step 2: Loading the 1Password Extension
+#### Step 2: Activate the 1Password Extension
 
 Once the page information is collected, you can pass it into the 1Password Extension as follows:
 
