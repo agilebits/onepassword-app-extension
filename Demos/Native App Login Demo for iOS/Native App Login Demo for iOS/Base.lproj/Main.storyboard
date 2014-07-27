@@ -33,21 +33,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAX-NX-Utp">
-                                <rect key="frame" x="271" y="333" width="58" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="58" id="6NE-L2-KPX"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="Sign up">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="A1b-Kh-Nlq" kind="showDetail" id="XAw-Rt-sYU"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an ACME account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVH-91-167">
-                                <rect key="frame" x="198" y="304" width="205" height="21"/>
+                                <rect key="frame" x="197" y="304" width="205" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="205" id="QX0-jz-Vzi"/>
                                     <constraint firstAttribute="height" constant="21" id="uPK-It-d2H"/>
@@ -66,10 +53,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzs-00-LBD">
-                                <rect key="frame" x="277" y="220" width="47" height="30"/>
+                                <rect key="frame" x="272" y="220" width="56" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="kNa-CB-5Cb"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Sign in">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -83,7 +71,7 @@
                                     <constraint firstAttribute="width" constant="220" id="TvU-qx-ehx"/>
                                     <constraint firstAttribute="height" constant="21" id="Xo8-pN-Q7Y"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -98,6 +86,19 @@
                                 </state>
                                 <connections>
                                     <action selector="findLoginFrom1Password:" destination="vXZ-lx-hvc" eventType="touchDown" id="7Y1-l1-KN0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAX-NX-Utp">
+                                <rect key="frame" x="246" y="333" width="109" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="109" id="6NE-L2-KPX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Sign up">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="A1b-Kh-Nlq" kind="showDetail" id="XAw-Rt-sYU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -117,7 +118,7 @@
                             <constraint firstItem="ZLv-94-XOA" firstAttribute="leading" secondItem="Za2-pr-tWA" secondAttribute="leading" id="ZjZ-UF-9wx"/>
                             <constraint firstItem="cDc-DW-cLJ" firstAttribute="leading" secondItem="ZLv-94-XOA" secondAttribute="trailing" constant="8" id="adu-W9-0JV"/>
                             <constraint firstItem="i6y-0L-qoR" firstAttribute="trailing" secondItem="4my-NG-1Ao" secondAttribute="trailing" id="kL5-nU-YWO"/>
-                            <constraint firstItem="KVH-91-167" firstAttribute="centerX" secondItem="JAX-NX-Utp" secondAttribute="centerX" id="rMJ-mt-zcr"/>
+                            <constraint firstItem="KVH-91-167" firstAttribute="centerX" secondItem="JAX-NX-Utp" secondAttribute="centerX" constant="-1" id="rMJ-mt-zcr"/>
                             <constraint firstItem="ZLv-94-XOA" firstAttribute="top" secondItem="Za2-pr-tWA" secondAttribute="bottom" constant="8" id="sy1-lj-h7T"/>
                             <constraint firstItem="Fzs-00-LBD" firstAttribute="top" secondItem="ZLv-94-XOA" secondAttribute="bottom" constant="17" id="tww-t3-uE6"/>
                             <constraint firstItem="i6y-0L-qoR" firstAttribute="leading" secondItem="4my-NG-1Ao" secondAttribute="leading" id="vkZ-Ro-Czd"/>
@@ -191,18 +192,19 @@
                                     <action selector="saveLoginTo1Password:" destination="A1b-Kh-Nlq" eventType="touchDown" id="le6-YC-Kg2"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new ACME account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1U-jl-pri">
-                                <rect key="frame" x="190" y="111" width="222" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to ACME? Create a new account!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1U-jl-pri">
+                                <rect key="frame" x="131" y="111" width="337" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="N6P-Yn-nzd"/>
-                                    <constraint firstAttribute="width" constant="222" id="aLg-7j-8dR"/>
+                                    <constraint firstAttribute="width" constant="337" id="aLg-7j-8dR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wK6-Kf-PcQ">
-                                <rect key="frame" x="275" y="304" width="53" height="30"/>
+                                <rect key="frame" x="270" y="304" width="62" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Sign up">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -216,7 +218,7 @@
                                     <constraint firstAttribute="height" constant="21" id="37r-Gm-WRf"/>
                                     <constraint firstAttribute="width" constant="220" id="onp-t2-npv"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -231,7 +233,7 @@
                             <constraint firstItem="Tad-KG-Pea" firstAttribute="top" secondItem="b1j-uQ-34p" secondAttribute="bottom" constant="8" symbolic="YES" id="KFy-R2-fMP"/>
                             <constraint firstItem="tjm-G7-GAO" firstAttribute="leading" secondItem="fwb-0l-b5N" secondAttribute="leading" id="NBb-LW-asT"/>
                             <constraint firstItem="wK6-Kf-PcQ" firstAttribute="top" secondItem="Tad-KG-Pea" secondAttribute="bottom" constant="8" symbolic="YES" id="NPH-wr-UTJ"/>
-                            <constraint firstItem="fwb-0l-b5N" firstAttribute="leading" secondItem="A1U-jl-pri" secondAttribute="leading" id="O7P-I9-gXh"/>
+                            <constraint firstItem="fwb-0l-b5N" firstAttribute="leading" secondItem="A1U-jl-pri" secondAttribute="leading" constant="59" id="O7P-I9-gXh"/>
                             <constraint firstItem="tjm-G7-GAO" firstAttribute="top" secondItem="fwb-0l-b5N" secondAttribute="bottom" constant="8" symbolic="YES" id="OD6-2T-pfW"/>
                             <constraint firstItem="ztj-5O-7fa" firstAttribute="leading" secondItem="RZx-uT-PhH" secondAttribute="leading" constant="20" symbolic="YES" id="Ui9-tb-pnC"/>
                             <constraint firstItem="auP-WD-mbm" firstAttribute="leading" secondItem="Tad-KG-Pea" secondAttribute="trailing" constant="8" symbolic="YES" id="ZNg-r6-C5U"/>
@@ -241,9 +243,9 @@
                             <constraint firstItem="FNK-Dd-uXI" firstAttribute="top" secondItem="m4Z-cy-K4N" secondAttribute="bottom" constant="42" id="gsL-Zb-9WO"/>
                             <constraint firstItem="b1j-uQ-34p" firstAttribute="top" secondItem="tjm-G7-GAO" secondAttribute="bottom" constant="8" symbolic="YES" id="lqd-PI-EXZ"/>
                             <constraint firstItem="A1U-jl-pri" firstAttribute="top" secondItem="FNK-Dd-uXI" secondAttribute="bottom" constant="28" id="qu0-El-SVN"/>
-                            <constraint firstItem="FNK-Dd-uXI" firstAttribute="trailing" secondItem="A1U-jl-pri" secondAttribute="trailing" id="xU1-Yc-LKn"/>
+                            <constraint firstItem="FNK-Dd-uXI" firstAttribute="trailing" secondItem="A1U-jl-pri" secondAttribute="trailing" constant="-56" id="xU1-Yc-LKn"/>
                             <constraint firstItem="fwb-0l-b5N" firstAttribute="top" secondItem="A1U-jl-pri" secondAttribute="bottom" constant="20" id="z6P-9L-m25"/>
-                            <constraint firstItem="wK6-Kf-PcQ" firstAttribute="centerX" secondItem="A1U-jl-pri" secondAttribute="centerX" id="zVf-Nz-iaN"/>
+                            <constraint firstItem="wK6-Kf-PcQ" firstAttribute="centerX" secondItem="A1U-jl-pri" secondAttribute="centerX" constant="1.5" id="zVf-Nz-iaN"/>
                         </constraints>
                     </view>
                     <connections>
@@ -270,8 +272,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for using ACME for all your ACME needs. You're Awesome!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l33-Vm-wqT">
-                                <rect key="frame" x="74" y="118" width="452" height="23"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for using ACME. You're Awesome!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l33-Vm-wqT">
+                                <rect key="frame" x="154" y="118" width="291.5" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="Vdd-o8-ACn"/>
                                 </constraints>
@@ -279,13 +281,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64q-Fa-jIv">
-                                <rect key="frame" x="190" y="62" width="220" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ACME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64q-Fa-jIv">
+                                <rect key="frame" x="190" y="57" width="220" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="F6n-Yb-CSy"/>
                                     <constraint firstAttribute="height" constant="21" id="kCl-h2-syi"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -301,6 +303,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6kf-6t-s0t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="45" y="191"/>
         </scene>
     </scenes>
     <resources>
