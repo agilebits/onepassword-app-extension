@@ -44,7 +44,7 @@
 		C0618DE0197D889000BBD34A /* collect.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = collect.js; path = ../../Resources/Scripts/collect.js; sourceTree = SOURCE_ROOT; };
 		C0618DE1197D889000BBD34A /* fill_lib.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = fill_lib.min.js; path = ../../Resources/Scripts/fill_lib.min.js; sourceTree = SOURCE_ROOT; };
 		C0618DE2197D889000BBD34A /* fill.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = fill.js; path = ../../Resources/Scripts/fill.js; sourceTree = SOURCE_ROOT; };
-		C0FA52971974821100570166 /* Native App Login Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Native App Login Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0FA52971974821100570166 /* App Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +92,7 @@
 		C0FA52981974821100570166 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C0FA52971974821100570166 /* Native App Login Demo for iOS.app */,
+				C0FA52971974821100570166 /* App Demo for iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,7 +144,7 @@
 			);
 			name = ACME;
 			productName = "1Password Extension Demo";
-			productReference = C0FA52971974821100570166 /* Native App Login Demo for iOS.app */;
+			productReference = C0FA52971974821100570166 /* App Demo for iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -161,7 +161,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C0FA52921974821100570166 /* Build configuration list for PBXProject "Native App Login Demo for iOS" */;
+			buildConfigurationList = C0FA52921974821100570166 /* Build configuration list for PBXProject "App Demo for iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -308,7 +308,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/Native App Login Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "Native App Login Demo for iOS";
+				PRODUCT_NAME = "App Demo for iOS";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -320,7 +320,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/Native App Login Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "Native App Login Demo for iOS";
+				PRODUCT_NAME = "App Demo for iOS";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -328,7 +328,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C0FA52921974821100570166 /* Build configuration list for PBXProject "Native App Login Demo for iOS" */ = {
+		C0FA52921974821100570166 /* Build configuration list for PBXProject "App Demo for iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C0FA52B51974821100570166 /* Debug */,

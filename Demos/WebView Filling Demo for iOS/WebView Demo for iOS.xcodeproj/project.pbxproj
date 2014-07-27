@@ -23,7 +23,7 @@
 
 /* Begin PBXFileReference section */
 		1338E45A197DC14C00071C78 /* OPExtensionConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OPExtensionConstants.m; path = ../../Resources/OPExtensionConstants.m; sourceTree = SOURCE_ROOT; };
-		C0169CD5197D6C3C006E7618 /* WebView Filling Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WebView Filling Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0169CD5197D6C3C006E7618 /* WebView Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WebView Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0618D92197D833600BBD34A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "WebView Filling Demo for iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		C0618DCE197D870E00BBD34A /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = welcome.html; path = "WebView Filling Demo for iOS/welcome.html"; sourceTree = SOURCE_ROOT; };
 		C0618DE7197D88B700BBD34A /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../Resources/1Password.xcassets; sourceTree = SOURCE_ROOT; };
@@ -63,7 +63,7 @@
 		C0169CD6197D6C3C006E7618 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C0169CD5197D6C3C006E7618 /* WebView Filling Demo for iOS.app */,
+				C0169CD5197D6C3C006E7618 /* WebView Demo for iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,7 +133,7 @@
 			);
 			name = "ACME Browser";
 			productName = "WebView filling for iOS";
-			productReference = C0169CD5197D6C3C006E7618 /* WebView Filling Demo for iOS.app */;
+			productReference = C0169CD5197D6C3C006E7618 /* WebView Demo for iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -150,7 +150,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C0169CD0197D6C3C006E7618 /* Build configuration list for PBXProject "WebView Filling Demo for iOS" */;
+			buildConfigurationList = C0169CD0197D6C3C006E7618 /* Build configuration list for PBXProject "WebView Demo for iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -297,7 +297,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Filling Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "WebView Filling Demo for iOS";
+				PRODUCT_NAME = "WebView Demo for iOS";
 			};
 			name = Debug;
 		};
@@ -308,14 +308,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Filling Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "WebView Filling Demo for iOS";
+				PRODUCT_NAME = "WebView Demo for iOS";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C0169CD0197D6C3C006E7618 /* Build configuration list for PBXProject "WebView Filling Demo for iOS" */ = {
+		C0169CD0197D6C3C006E7618 /* Build configuration list for PBXProject "WebView Demo for iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C0169CF3197D6C3C006E7618 /* Debug */,
