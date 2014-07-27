@@ -270,8 +270,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for using ACME. Your Awesome!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l33-Vm-wqT">
-                                <rect key="frame" x="160" y="118" width="280" height="23"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for using ACME for all your ACME needs. You're Awesome!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l33-Vm-wqT">
+                                <rect key="frame" x="74" y="118" width="452" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="Vdd-o8-ACn"/>
                                 </constraints>
@@ -289,20 +289,9 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nq5-aF-ORI">
-                                <rect key="frame" x="282" y="166" width="37" height="30"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="quit:" destination="t8j-XO-qaX" eventType="touchDown" id="0wu-G4-QJX"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="nq5-aF-ORI" firstAttribute="top" secondItem="l33-Vm-wqT" secondAttribute="bottom" constant="25" id="4nD-c1-j7i"/>
-                            <constraint firstItem="l33-Vm-wqT" firstAttribute="centerX" secondItem="nq5-aF-ORI" secondAttribute="centerX" id="ALF-FF-yLe"/>
                             <constraint firstItem="l33-Vm-wqT" firstAttribute="centerX" secondItem="64q-Fa-jIv" secondAttribute="centerX" id="C3n-qA-zBd"/>
                             <constraint firstItem="64q-Fa-jIv" firstAttribute="top" secondItem="HRc-2b-RWH" secondAttribute="bottom" constant="42" id="Jpo-hU-gma"/>
                             <constraint firstItem="l33-Vm-wqT" firstAttribute="centerX" secondItem="EDg-e3-87G" secondAttribute="centerX" id="Reo-ks-ahk"/>

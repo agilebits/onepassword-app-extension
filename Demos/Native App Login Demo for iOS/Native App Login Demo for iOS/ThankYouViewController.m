@@ -14,8 +14,4 @@
 
 @implementation ThankYouViewController
 
-- (IBAction)quit:(id)sender {
-	exit(0);
-}
-
 @end
