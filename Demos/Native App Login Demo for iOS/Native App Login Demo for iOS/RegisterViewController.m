@@ -22,8 +22,13 @@
 
 @implementation RegisterViewController
 
--(void)viewDidLoad {
+- (void)viewDidLoad {
+	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"register-background.png"]]];
 	[self.onepasswordSignupButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
+}
+
+- (BOOL)prefersStatusBarHidden {
+	return YES;
 }
 
 - (IBAction)saveLoginTo1Password:(id)sender {

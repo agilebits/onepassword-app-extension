@@ -23,7 +23,7 @@
 
 #pragma mark - Life Cycle
 
--(void)viewDidLoad {
+- (void)viewDidLoad {
 	[self.onepasswordFillButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 
 	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];

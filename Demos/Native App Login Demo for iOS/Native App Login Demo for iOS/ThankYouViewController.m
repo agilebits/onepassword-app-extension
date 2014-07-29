@@ -14,4 +14,13 @@
 
 @implementation ThankYouViewController
 
+- (void)viewDidLoad {
+	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
+}
+
+- (BOOL)prefersStatusBarHidden {
+	return YES;
+}
+
+
 @end

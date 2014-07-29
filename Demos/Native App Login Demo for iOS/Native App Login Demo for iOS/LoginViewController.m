@@ -19,8 +19,14 @@
 
 @implementation LoginViewController
 
--(void)viewDidLoad {
+- (void)viewDidLoad {
+	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
 	[self.onepasswordSigninButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
+}
+
+- (BOOL)prefersStatusBarHidden {
+	return YES;
 }
 
 #pragma mark - Actions
