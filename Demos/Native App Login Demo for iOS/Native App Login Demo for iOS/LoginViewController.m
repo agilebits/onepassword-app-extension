@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 AgileBits. All rights reserved.
 //
 
-#import "SignInViewController.h"
+#import "LoginViewController.h"
 #import "OnePasswordExtension.h"
 
-@interface SignInViewController ()
+@interface LoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *onepasswordSigninButton;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation SignInViewController
+@implementation LoginViewController
 
 -(void)viewDidLoad {
 	[self.onepasswordSigninButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];

@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 AgileBits. All rights reserved.
 //
 
-#import "SignUpViewController.h"
+#import "RegisterViewController.h"
 #import "OnePasswordExtension.h"
 
-@interface SignUpViewController ()
+@interface RegisterViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *onepasswordSignupButton;
 
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation SignUpViewController
+@implementation RegisterViewController
 
 -(void)viewDidLoad {
 	[self.onepasswordSignupButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
