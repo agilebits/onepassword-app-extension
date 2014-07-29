@@ -27,8 +27,8 @@
 	[self.onepasswordSignupButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 
-- (BOOL)prefersStatusBarHidden {
-	return YES;
+- (UIStatusBarStyle)preferredStatusBarStyle{
+	return UIStatusBarStyleDefault;
 }
 
 - (IBAction)saveLoginTo1Password:(id)sender {

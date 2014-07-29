@@ -274,6 +274,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Filling Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "WebView Demo for iOS";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -285,6 +286,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Filling Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "WebView Demo for iOS";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -24,6 +24,8 @@
 #pragma mark - Life Cycle
 
 - (void)viewDidLoad {
+	[[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
+
 	[self.onepasswordFillButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 
 	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
@@ -35,6 +37,10 @@
 	NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
 	NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
 	[self.webView loadHTMLString:htmlString baseURL:nil];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+	return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - Actions

@@ -18,9 +18,8 @@
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
 }
 
-- (BOOL)prefersStatusBarHidden {
-	return YES;
+-(UIStatusBarStyle)preferredStatusBarStyle{
+	return UIStatusBarStyleLightContent;
 }
-
 
 @end

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="14A283o" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PEy-hN-KRP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PEy-hN-KRP">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <scenes>
         <!--Web View Controller-->
@@ -13,15 +13,16 @@
                         <viewControllerLayoutGuide type="bottom" id="e4F-AU-a8r"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gW7-LE-s9s">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2pf-d3-xB8">
-                                <rect key="frame" x="0.0" y="63" width="480" height="417"/>
+                                <rect key="frame" x="0.0" y="63" width="600" height="537"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Gvr-ci-v7c">
-                                <rect key="frame" x="86" y="19" width="394" height="44"/>
+                                <rect key="frame" x="86" y="19" width="514" height="44"/>
+                                <color key="barTintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="search"/>
                                 <connections>
                                     <outlet property="delegate" destination="PEy-hN-KRP" id="htm-12-hzg"/>
@@ -65,7 +66,8 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.69654381789999997" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
                             <constraint firstItem="Gvr-ci-v7c" firstAttribute="trailing" secondItem="2pf-d3-xB8" secondAttribute="trailing" id="3JQ-hk-5sf"/>
                             <constraint firstItem="xeT-JZ-5Lc" firstAttribute="top" secondItem="9cc-V6-wAB" secondAttribute="top" id="4sA-IA-s4W"/>
