@@ -185,7 +185,7 @@
                                     <constraint firstAttribute="width" constant="30" id="GXj-r8-Ege"/>
                                     <constraint firstAttribute="height" constant="30" id="Mys-Ca-bIm"/>
                                 </constraints>
-                                <state key="normal" image="tab-pass-gen">
+                                <state key="normal" image="extension-ipad">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -307,10 +307,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="extension-ipad" width="76" height="76"/>
         <image name="extension-iphone" width="60" height="60"/>
-        <image name="tab-pass-gen" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="i5d-BB-fYp"/>
+        <segue reference="hT8-ad-pIG"/>
     </inferredMetricsTieBreakers>
 </document>

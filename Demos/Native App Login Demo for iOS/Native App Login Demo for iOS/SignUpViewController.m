@@ -7,7 +7,7 @@
 //
 
 #import "SignUpViewController.h"
-#import "OPExtensionConstants.h"
+#import "OnePasswordExtension.h"
 
 @interface SignUpViewController ()
 
@@ -23,86 +23,40 @@
 @implementation SignUpViewController
 
 -(void)viewDidLoad {
-	[self.onepasswordSignupButton setHidden:![self is1PasswordExtensionAvailable]];
-}
-
-- (BOOL)is1PasswordExtensionAvailable {
-	return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"onepassword-extension://fill"]];
+	[self.onepasswordSignupButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 
 - (IBAction)saveLoginTo1Password:(id)sender {
-	NSDictionary *item = @{
-						   // Ensure the URLString is set to your actual service URL, so that user will find your actual Login information in 1Password.
-
-						   // Required field
-						   OPLoginURLStringKey : @"https://www.acme.com",
-
-						   // Optional fields
-						   OPLoginTitleKey : @"ACME",
-						   OPLoginUsernameKey : self.usernameTextField.text ? : @"",
-						   OPLoginPasswordKey : self.passwordTextField.text ? : @"",
-						   OPLoginGeneratedPasswordMinLengthKey : @(6),
-						   OPLoginGeneratedPasswordMaxLengthKey : @(50),
-						   OPLoginNotesKey : @"Saved with the ACME app",
-						   OPLoginSectionTitleKey : @"ACME Browser",
-						   OPLoginFieldsKey : @{
-								   @"firstname" : self.firstnameTextField.text ? : @"",
-								   @"lastname" : self.lastnameTextField.text ? : @""
-								   // Add as many string fields as you please.
-								   }
-						   };
-
-	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeNSExtensionSaveLoginAction];
-
-	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
-	extensionItem.attachments = @[ itemProvider ];
-
-	__weak typeof (self) miniMe = self;
-
-	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
-	
-	// Excluding all available UIActivityTypes so that on the 1Password Extension is visible
-	controller.excludedActivityTypes = @[ UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypeMessage, UIActivityTypeMail, UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr, UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo, UIActivityTypeAirDrop ];
-
-	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-		// returnedItems is nil after the second call. radar://17669995
-		if (completed) {
-			__strong typeof(self) strongMe = miniMe;
-			for (NSExtensionItem *extensionItem in returnedItems) {
-				[strongMe processExtensionItem:extensionItem];
-			}
-		}
-		else {
-			NSLog(@"Error contacting the 1Password Extension: <%@>", activityError);
+	NSDictionary *newLoginDetails = @{
+		AppExtensionTitleKey: @"ACME",
+		AppExtensionUsernameKey: self.usernameTextField.text ? : @"",
+		AppExtensionPasswordKey: self.passwordTextField.text ? : @"",
+		AppExtensionNotesKey: @"Saved with the ACME app",
+		AppExtensionSectionTitleKey: @"ACME Browser",
+		AppExtensionFieldsKey: @{
+			  @"firstname" : self.firstnameTextField.text ? : @"",
+			  @"lastname" : self.lastnameTextField.text ? : @""
+			  // Add as many string fields as you please.
 		}
 	};
+	
+	NSDictionary *passwordGenerationOptions = @{
+		AppExtensionGeneratedPasswordMinLengthKey: @(6),
+		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
+	};
+	__weak typeof (self) miniMe = self;
 
-	[self presentViewController:controller animated:YES completion:nil];
+	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
+
+		if (!loginDict) {
+			NSLog(@"Error invoking 1Password App Extension for generate password: %@", error);
+			return;
+		}
+
+		__strong typeof(self) strongMe = miniMe;
+		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : strongMe.usernameTextField.text;
+		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : strongMe.usernameTextField.text;
+	}];
 }
 
-#pragma mark - ItemProvider Callback
-
-- (void)processItemProvider:(NSItemProvider *)itemProvider {
-	if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
-		__weak typeof (self) miniMe = self;
-		[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *item, NSError *error) {
-			dispatch_async(dispatch_get_main_queue(), ^{
-				__strong typeof(self) strongMe = miniMe;
-				if (item) {
-					strongMe.usernameTextField.text = item[OPLoginUsernameKey] ? : strongMe.usernameTextField.text;
-					strongMe.passwordTextField.text = item[OPLoginPasswordKey] ? : strongMe.usernameTextField.text;
-				}
-				else {
-					NSLog(@"Failed to parse item provider result: <%@>", error);
-				}
-			});
-		}];
-	}
-}
-
-- (void)processExtensionItem:(NSExtensionItem *)extensionItem {
-	for (NSItemProvider *itemProvider in extensionItem.attachments) {
-		[self processItemProvider:itemProvider];
-	}
-}
 @end
