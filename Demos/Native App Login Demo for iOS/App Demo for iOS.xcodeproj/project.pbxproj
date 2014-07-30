@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		55004A5A19858EF900F49B8E /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 55004A5919858EF900F49B8E /* OnePasswordExtension.m */; };
+		C04CEC4819887A8C00673F85 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C04CEC4719887A8C00673F85 /* 1Password.xcassets */; };
 		C0618D9F197D843100BBD34A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618D97197D843100BBD34A /* AppDelegate.m */; };
 		C0618DA0197D843100BBD34A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618D99197D843100BBD34A /* LoginViewController.m */; };
 		C0618DA1197D843100BBD34A /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618D9B197D843100BBD34A /* RegisterViewController.m */; };
@@ -16,12 +17,12 @@
 		C0618DA5197D843E00BBD34A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0618DA4197D843E00BBD34A /* Images.xcassets */; };
 		C0618DA8197D844E00BBD34A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0618DA6197D844E00BBD34A /* Main.storyboard */; };
 		C0618DAC197D850100BBD34A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618DAA197D850100BBD34A /* main.m */; };
-		C0618DD6197D885700BBD34A /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0618DD4197D885700BBD34A /* 1Password.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		55004A5919858EF900F49B8E /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnePasswordExtension.m; path = ../OnePasswordExtension.m; sourceTree = "<group>"; };
 		558601E41985D67400D6DB75 /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnePasswordExtension.h; path = ../OnePasswordExtension.h; sourceTree = "<group>"; };
+		C04CEC4719887A8C00673F85 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../1Password.xcassets; sourceTree = "<group>"; };
 		C0618D96197D843100BBD34A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/AppDelegate.h"; sourceTree = "<group>"; };
 		C0618D97197D843100BBD34A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/AppDelegate.m"; sourceTree = "<group>"; };
 		C0618D98197D843100BBD34A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/LoginViewController.h"; sourceTree = "<group>"; };
@@ -35,7 +36,6 @@
 		C0618DA7197D844E00BBD34A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/Base.lproj/Main.storyboard"; sourceTree = "<group>"; };
 		C0618DA9197D850100BBD34A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/Info.plist"; sourceTree = "<group>"; };
 		C0618DAA197D850100BBD34A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/main.m"; sourceTree = "<group>"; };
-		C0618DD4197D885700BBD34A /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../Resources/1Password.xcassets; sourceTree = SOURCE_ROOT; };
 		C0FA52971974821100570166 /* App Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,15 +50,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		553BD879197C226C001C85F9 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				C0618DD4197D885700BBD34A /* 1Password.xcassets */,
-			);
-			name = Resources;
-			path = ../Resources;
-			sourceTree = SOURCE_ROOT;
-		};
 		C0FA528E1974821100570166 = {
 			isa = PBXGroup;
 			children = (
@@ -90,8 +81,8 @@
 				C0618D9D197D843100BBD34A /* ThankYouViewController.m */,
 				C0618D9E197D843100BBD34A /* Welcome.html */,
 				C0618DA4197D843E00BBD34A /* Images.xcassets */,
+				C04CEC4719887A8C00673F85 /* 1Password.xcassets */,
 				C0618DA6197D844E00BBD34A /* Main.storyboard */,
-				553BD879197C226C001C85F9 /* Resources */,
 				C0FA529A1974821100570166 /* Supporting Files */,
 			);
 			name = "Native App Login Demo for iOS";
@@ -164,9 +155,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0618DD6197D885700BBD34A /* 1Password.xcassets in Resources */,
 				C0618DA5197D843E00BBD34A /* Images.xcassets in Resources */,
 				C0618DA3197D843100BBD34A /* Welcome.html in Resources */,
+				C04CEC4819887A8C00673F85 /* 1Password.xcassets in Resources */,
 				C0618DA8197D844E00BBD34A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

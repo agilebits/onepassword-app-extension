@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C04BA72B198686B7002F2F1F /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C04BA72A198686B7002F2F1F /* OnePasswordExtension.m */; };
+		C04CEC4A19887A9C00673F85 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C04CEC4919887A9C00673F85 /* 1Password.xcassets */; };
 		C0618D93197D833600BBD34A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0618D92197D833600BBD34A /* Images.xcassets */; };
 		C0618DCF197D870E00BBD34A /* welcome.html in Resources */ = {isa = PBXBuildFile; fileRef = C0618DCE197D870E00BBD34A /* welcome.html */; };
-		C0618DE8197D88B700BBD34A /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0618DE7197D88B700BBD34A /* 1Password.xcassets */; };
 		C0FF95ED197D6E3500D5B9F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FF95EA197D6E3500D5B9F4 /* AppDelegate.m */; };
 		C0FF95EE197D6E3500D5B9F4 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FF95EC197D6E3500D5B9F4 /* WebViewController.m */; };
 		C0FF95F1197D6E4600D5B9F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0FF95EF197D6E4600D5B9F4 /* Main.storyboard */; };
@@ -21,9 +21,9 @@
 		C0169CD5197D6C3C006E7618 /* WebView Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WebView Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C04BA7291986868E002F2F1F /* OnePasswordExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OnePasswordExtension.h; path = ../../../OnePasswordExtension.h; sourceTree = "<group>"; };
 		C04BA72A198686B7002F2F1F /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnePasswordExtension.m; path = ../../../OnePasswordExtension.m; sourceTree = "<group>"; };
+		C04CEC4919887A9C00673F85 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../../1Password.xcassets; sourceTree = "<group>"; };
 		C0618D92197D833600BBD34A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "WebView Filling Demo for iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		C0618DCE197D870E00BBD34A /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = welcome.html; path = "WebView Filling Demo for iOS/welcome.html"; sourceTree = SOURCE_ROOT; };
-		C0618DE7197D88B700BBD34A /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../Resources/1Password.xcassets; sourceTree = SOURCE_ROOT; };
 		C0FF95E9197D6E3500D5B9F4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "WebView Filling Demo for iOS/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
 		C0FF95EA197D6E3500D5B9F4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "WebView Filling Demo for iOS/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
 		C0FF95EB197D6E3500D5B9F4 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = "WebView Filling Demo for iOS/WebViewController.h"; sourceTree = SOURCE_ROOT; };
@@ -72,7 +72,7 @@
 				C0FF95EF197D6E4600D5B9F4 /* Main.storyboard */,
 				C0618DCE197D870E00BBD34A /* welcome.html */,
 				C0618D92197D833600BBD34A /* Images.xcassets */,
-				C0618DBA197D860500BBD34A /* Resources */,
+				C04CEC4919887A9C00673F85 /* 1Password.xcassets */,
 				C0169CD8197D6C3C006E7618 /* Supporting Files */,
 			);
 			name = "WebView Filling Demo for iOS";
@@ -86,14 +86,6 @@
 				C0FF95F3197D6E5300D5B9F4 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C0618DBA197D860500BBD34A /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				C0618DE7197D88B700BBD34A /* 1Password.xcassets */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,9 +145,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0618DE8197D88B700BBD34A /* 1Password.xcassets in Resources */,
 				C0618DCF197D870E00BBD34A /* welcome.html in Resources */,
 				C0618D93197D833600BBD34A /* Images.xcassets in Resources */,
+				C04CEC4A19887A9C00673F85 /* 1Password.xcassets in Resources */,
 				C0FF95F1197D6E4600D5B9F4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
