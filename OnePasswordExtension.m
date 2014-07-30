@@ -232,7 +232,7 @@ static OnePasswordExtension *__sharedExtension;
 				error = [[NSError alloc] initWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionUnexpectedDataErrorCode userInfo:userInfo];
 			}
 			if (completion) {
-				completion(loginDict, nil);
+				completion(loginDict, error);
 			}
 		}];
 	}
