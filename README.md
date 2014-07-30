@@ -34,7 +34,7 @@ Adding 1Password support to your app is easy. To demonstrate how it works, we ha
 
 To get started, download the 1Password Extension project from https://github.com/AgileBits/onepassword-extension/archive/master.zip, or [clone it from GitHub](https://github.com/AgileBits/onepassword-extension).
 
-Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images, scripts, and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Register features, as well as a web browser that showcases the WebView Filling feature.
+Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Registration features, as well as a web browser that showcases the web view Filling feature.
 
 
 ### Step 2: Install the Latest 1Password & Xcode Betas
@@ -86,7 +86,6 @@ You'll need to hide this button (or educate users on the benefits of strong, uni
 ```objective-c
 -(void)viewDidLoad {
 	[super viewDidLoad];
-
 	[self.onepasswordSigninButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 ```
