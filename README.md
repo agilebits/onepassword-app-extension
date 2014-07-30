@@ -189,11 +189,6 @@ Add a button to your UI with its action assigned to this method in your web view
 * On the signup page, pre-validate fields before calling 1Password. For example, display a message if the username is not available so the user can fix it before activating 1Password.
 
 
-## Known Issues
-
-* Web pages never finish loading when the debugger is attached. You need to kill the process from XCode and then restart ACME Browser directly from your device.
-
-
 ## References 
 
 If you open up OnePasswordExtension.m and start poking around, you'll be interested in these references.
