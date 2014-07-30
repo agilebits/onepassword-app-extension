@@ -7,35 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		55004A5A19858EF900F49B8E /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 55004A5919858EF900F49B8E /* OnePasswordExtension.m */; };
 		C04CEC4819887A8C00673F85 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C04CEC4719887A8C00673F85 /* 1Password.xcassets */; };
-		C0618D9F197D843100BBD34A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618D97197D843100BBD34A /* AppDelegate.m */; };
-		C0618DA0197D843100BBD34A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618D99197D843100BBD34A /* LoginViewController.m */; };
-		C0618DA1197D843100BBD34A /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618D9B197D843100BBD34A /* RegisterViewController.m */; };
-		C0618DA2197D843100BBD34A /* ThankYouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618D9D197D843100BBD34A /* ThankYouViewController.m */; };
-		C0618DA3197D843100BBD34A /* Welcome.html in Resources */ = {isa = PBXBuildFile; fileRef = C0618D9E197D843100BBD34A /* Welcome.html */; };
-		C0618DA5197D843E00BBD34A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0618DA4197D843E00BBD34A /* Images.xcassets */; };
-		C0618DA8197D844E00BBD34A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0618DA6197D844E00BBD34A /* Main.storyboard */; };
-		C0618DAC197D850100BBD34A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0618DAA197D850100BBD34A /* main.m */; };
+		C0F0C18519889441000B261F /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C18419889441000B261F /* OnePasswordExtension.m */; };
+		C0F0C18819889456000B261F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C18719889456000B261F /* AppDelegate.m */; };
+		C0F0C19019889467000B261F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C18A19889467000B261F /* LoginViewController.m */; };
+		C0F0C19119889467000B261F /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C18C19889467000B261F /* RegisterViewController.m */; };
+		C0F0C19219889467000B261F /* ThankYouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C18E19889467000B261F /* ThankYouViewController.m */; };
+		C0F0C19519889479000B261F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0F0C19419889479000B261F /* Images.xcassets */; };
+		C0F0C19C198894F8000B261F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C19B198894F8000B261F /* main.m */; };
+		C0F0C19D19889519000B261F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F0C19619889498000B261F /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		55004A5919858EF900F49B8E /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnePasswordExtension.m; path = ../OnePasswordExtension.m; sourceTree = "<group>"; };
-		558601E41985D67400D6DB75 /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnePasswordExtension.h; path = ../OnePasswordExtension.h; sourceTree = "<group>"; };
-		C04CEC4719887A8C00673F85 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../1Password.xcassets; sourceTree = "<group>"; };
-		C0618D96197D843100BBD34A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/AppDelegate.h"; sourceTree = "<group>"; };
-		C0618D97197D843100BBD34A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/AppDelegate.m"; sourceTree = "<group>"; };
-		C0618D98197D843100BBD34A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/LoginViewController.h"; sourceTree = "<group>"; };
-		C0618D99197D843100BBD34A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/LoginViewController.m"; sourceTree = "<group>"; };
-		C0618D9A197D843100BBD34A /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/RegisterViewController.h"; sourceTree = "<group>"; };
-		C0618D9B197D843100BBD34A /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/RegisterViewController.m"; sourceTree = "<group>"; };
-		C0618D9C197D843100BBD34A /* ThankYouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThankYouViewController.h; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/ThankYouViewController.h"; sourceTree = "<group>"; };
-		C0618D9D197D843100BBD34A /* ThankYouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThankYouViewController.m; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/ThankYouViewController.m"; sourceTree = "<group>"; };
-		C0618D9E197D843100BBD34A /* Welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = Welcome.html; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/Welcome.html"; sourceTree = "<group>"; };
-		C0618DA4197D843E00BBD34A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/Images.xcassets"; sourceTree = "<group>"; };
-		C0618DA7197D844E00BBD34A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/Base.lproj/Main.storyboard"; sourceTree = "<group>"; };
-		C0618DA9197D850100BBD34A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/Info.plist"; sourceTree = "<group>"; };
-		C0618DAA197D850100BBD34A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Native App Login Demo for iOS/Native App Login Demo for iOS/main.m"; sourceTree = "<group>"; };
+		C04CEC4719887A8C00673F85 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../1Password.xcassets; sourceTree = SOURCE_ROOT; };
+		C0F0C18319889441000B261F /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnePasswordExtension.h; path = ../../OnePasswordExtension.h; sourceTree = SOURCE_ROOT; };
+		C0F0C18419889441000B261F /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnePasswordExtension.m; path = ../../OnePasswordExtension.m; sourceTree = SOURCE_ROOT; };
+		C0F0C18619889456000B261F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "App Demo for iOS/App Demo for iOS/AppDelegate.h"; sourceTree = "<group>"; };
+		C0F0C18719889456000B261F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "App Demo for iOS/App Demo for iOS/AppDelegate.m"; sourceTree = "<group>"; };
+		C0F0C18919889467000B261F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = "App Demo for iOS/App Demo for iOS/LoginViewController.h"; sourceTree = "<group>"; };
+		C0F0C18A19889467000B261F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = "App Demo for iOS/App Demo for iOS/LoginViewController.m"; sourceTree = "<group>"; };
+		C0F0C18B19889467000B261F /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = "App Demo for iOS/App Demo for iOS/RegisterViewController.h"; sourceTree = "<group>"; };
+		C0F0C18C19889467000B261F /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = "App Demo for iOS/App Demo for iOS/RegisterViewController.m"; sourceTree = "<group>"; };
+		C0F0C18D19889467000B261F /* ThankYouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThankYouViewController.h; path = "App Demo for iOS/App Demo for iOS/ThankYouViewController.h"; sourceTree = "<group>"; };
+		C0F0C18E19889467000B261F /* ThankYouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThankYouViewController.m; path = "App Demo for iOS/App Demo for iOS/ThankYouViewController.m"; sourceTree = "<group>"; };
+		C0F0C19419889479000B261F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "App Demo for iOS/App Demo for iOS/Images.xcassets"; sourceTree = "<group>"; };
+		C0F0C19719889498000B261F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "App Demo for iOS/App Demo for iOS/Base.lproj/Main.storyboard"; sourceTree = "<group>"; };
+		C0F0C199198894ED000B261F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "App Demo for iOS/App Demo for iOS/Info.plist"; sourceTree = "<group>"; };
+		C0F0C19B198894F8000B261F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "App Demo for iOS/App Demo for iOS/main.m"; sourceTree = "<group>"; };
 		C0FA52971974821100570166 /* App Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -53,7 +51,7 @@
 		C0FA528E1974821100570166 = {
 			isa = PBXGroup;
 			children = (
-				C0FA52991974821100570166 /* Native App Login Demo for iOS */,
+				C0FA52991974821100570166 /* App Demo for iOS */,
 				C0FA52981974821100570166 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,34 +64,33 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C0FA52991974821100570166 /* Native App Login Demo for iOS */ = {
+		C0FA52991974821100570166 /* App Demo for iOS */ = {
 			isa = PBXGroup;
 			children = (
-				558601E41985D67400D6DB75 /* OnePasswordExtension.h */,
-				55004A5919858EF900F49B8E /* OnePasswordExtension.m */,
-				C0618D96197D843100BBD34A /* AppDelegate.h */,
-				C0618D97197D843100BBD34A /* AppDelegate.m */,
-				C0618D98197D843100BBD34A /* LoginViewController.h */,
-				C0618D99197D843100BBD34A /* LoginViewController.m */,
-				C0618D9A197D843100BBD34A /* RegisterViewController.h */,
-				C0618D9B197D843100BBD34A /* RegisterViewController.m */,
-				C0618D9C197D843100BBD34A /* ThankYouViewController.h */,
-				C0618D9D197D843100BBD34A /* ThankYouViewController.m */,
-				C0618D9E197D843100BBD34A /* Welcome.html */,
-				C0618DA4197D843E00BBD34A /* Images.xcassets */,
+				C0F0C18319889441000B261F /* OnePasswordExtension.h */,
+				C0F0C18419889441000B261F /* OnePasswordExtension.m */,
+				C0F0C18619889456000B261F /* AppDelegate.h */,
+				C0F0C18719889456000B261F /* AppDelegate.m */,
+				C0F0C18919889467000B261F /* LoginViewController.h */,
+				C0F0C18A19889467000B261F /* LoginViewController.m */,
+				C0F0C18B19889467000B261F /* RegisterViewController.h */,
+				C0F0C18C19889467000B261F /* RegisterViewController.m */,
+				C0F0C18D19889467000B261F /* ThankYouViewController.h */,
+				C0F0C18E19889467000B261F /* ThankYouViewController.m */,
+				C0F0C19619889498000B261F /* Main.storyboard */,
+				C0F0C19419889479000B261F /* Images.xcassets */,
 				C04CEC4719887A8C00673F85 /* 1Password.xcassets */,
-				C0618DA6197D844E00BBD34A /* Main.storyboard */,
 				C0FA529A1974821100570166 /* Supporting Files */,
 			);
-			name = "Native App Login Demo for iOS";
+			name = "App Demo for iOS";
 			path = ..;
 			sourceTree = "<group>";
 		};
 		C0FA529A1974821100570166 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C0618DA9197D850100BBD34A /* Info.plist */,
-				C0618DAA197D850100BBD34A /* main.m */,
+				C0F0C199198894ED000B261F /* Info.plist */,
+				C0F0C19B198894F8000B261F /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -155,10 +152,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0618DA5197D843E00BBD34A /* Images.xcassets in Resources */,
-				C0618DA3197D843100BBD34A /* Welcome.html in Resources */,
+				C0F0C19519889479000B261F /* Images.xcassets in Resources */,
 				C04CEC4819887A8C00673F85 /* 1Password.xcassets in Resources */,
-				C0618DA8197D844E00BBD34A /* Main.storyboard in Resources */,
+				C0F0C19D19889519000B261F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,22 +165,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0618DAC197D850100BBD34A /* main.m in Sources */,
-				C0618D9F197D843100BBD34A /* AppDelegate.m in Sources */,
-				55004A5A19858EF900F49B8E /* OnePasswordExtension.m in Sources */,
-				C0618DA2197D843100BBD34A /* ThankYouViewController.m in Sources */,
-				C0618DA0197D843100BBD34A /* LoginViewController.m in Sources */,
-				C0618DA1197D843100BBD34A /* RegisterViewController.m in Sources */,
+				C0F0C19019889467000B261F /* LoginViewController.m in Sources */,
+				C0F0C19219889467000B261F /* ThankYouViewController.m in Sources */,
+				C0F0C19119889467000B261F /* RegisterViewController.m in Sources */,
+				C0F0C18519889441000B261F /* OnePasswordExtension.m in Sources */,
+				C0F0C19C198894F8000B261F /* main.m in Sources */,
+				C0F0C18819889456000B261F /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C0618DA6197D844E00BBD34A /* Main.storyboard */ = {
+		C0F0C19619889498000B261F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C0618DA7197D844E00BBD34A /* Base */,
+				C0F0C19719889498000B261F /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -273,7 +269,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "acme-anvil-corp";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				INFOPLIST_FILE = "$(SRCROOT)/Native App Login Demo for iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/App Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "App Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -285,7 +281,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "acme-anvil-corp";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				INFOPLIST_FILE = "$(SRCROOT)/Native App Login Demo for iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/App Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "App Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
