@@ -6,9 +6,9 @@ Welcome! With just a few lines of code, your app can add 1Password support, enab
 2. Use the Strong Password Generator to create unique passwords during registration, and save the new Login within 1Password.
 3. Quickly fill 1Password Logins directly into web views.
 
-Enabling your users to use strong, unique passwords has never been easier. Let's get started!
+Empowering your users to use strong, unique passwords has never been easier. Let's get started!
 
-<!--- TODO: quick video here -->
+<iframe src="//player.vimeo.com/video/88901304" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 
 ## TL;DR; Just Give Me the Code
@@ -183,10 +183,10 @@ Simply add a button to your UI with its action assigned to this method in your w
 * Use the same `URLString` during Registration and Login.
 * Ensure your `URLString` is set to your actual service so your users can easily find their logins within the main 1Password app.
 * You should only ask for the login information of your own service or one specific to your app. Giving a URL for a service which you do not own or support may seriously break the customer's trust in your service/app.
-* If you don't have a website for your app you should specify your bundle identifier as the `URLString`, like so: app://bundleIdentifier (e.g. app://com.apple.Safari).
+* If you don't have a website for your app you should specify your bundle identifier as the `URLString`, like so: app://bundleIdentifier (e.g. app://com.acme.awesome-app).
+* [Send us an icon](mailto:support+appex@agilebits.com) to use for our Rich Icon service so the user can see your lovely icon while creating new items.
 * Use the icons provided in the `1Password.xcassets` asset catalog so users are familiar with what it will do. Contact us if you'd like additional sizes or have other special requirements.
 * Enable users to set 1Password as their default browser for external web links.
-* [Send us an icon](mailto:support+appex@agilebits.com) to use for our Rich Icon service so the user can see your lovely icon while creating new items.
 * On your registration page, pre-validate fields before calling 1Password. For example, display a message if the username is not available so the user can fix it before activating 1Password.
 
 
