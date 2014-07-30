@@ -8,9 +8,9 @@ Welcome! With just a few lines of code, your app can add 1Password support, enab
 
 Empowering your users to use strong, unique passwords has never been easier. Let's get started!
 
-## 1Password App Extension in Action
+## App Extension in Action
 
-<a href="https://vimeo.com/102142106" target="_blank"><img src="http://cl.ly/image/3w0C3E0S1u3G/1PasswordAppExtensionPlayVideo.png" width="320" height="568"></a>
+<a href="https://vimeo.com/102142106" target="_blank"><img src="http://cl.ly/image/3Q232U370v0W/1PasswordAppExtensionPlayVideo.png" width="640" height="360"></a>
 
 
 ## TL;DR; Just Give Me the Code
