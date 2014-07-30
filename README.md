@@ -13,7 +13,7 @@ Empowering your users to use strong, unique passwords has never been easier. Let
 <a href="https://vimeo.com/102142106" target="_blank"><img src="http://cl.ly/image/3Q232U370v0W/1PasswordAppExtensionPlayVideo.png" width="640" height="360"></a>
 
 
-## TL;DR; Just Give Me the Code
+## Just Give Me the Code (TL;DR)
 
 You might be looking at this 13 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
 
