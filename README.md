@@ -72,7 +72,7 @@ Be forewarned, however, that there is not much code to get dirty with. If you we
 
 Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcassets` to your project.
 
-<img src="http://cl.ly/image/2g3B1r2O2z0L/Image%202014-07-29%20at%209.19.36%20AM.png" width="520" height="474"/>
+<img src="http://cl.ly/image/2g3B1r2O2z0L/Image%202014-07-29%20at%209.19.36%20AM.png" width="260" height="237"/>
 
 ### Use Case #1: Native App Login
 
