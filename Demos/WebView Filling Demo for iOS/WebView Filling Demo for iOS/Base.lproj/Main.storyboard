@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="63" width="600" height="537"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Gvr-ci-v7c">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search or enter website name" translatesAutoresizingMaskIntoConstraints="NO" id="Gvr-ci-v7c">
                                 <rect key="frame" x="86" y="19" width="514" height="44"/>
                                 <color key="barTintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="search"/>
@@ -54,7 +54,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cc-V6-wAB" userLabel="1Password Button">
-                                <rect key="frame" x="47" y="26" width="32" height="32"/>
+                                <rect key="frame" x="54" y="26" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="SQq-i8-VvJ"/>
                                 </constraints>
@@ -66,21 +66,21 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.69654381789999997" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" red="0.94117647059999998" green="0.92941176469999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
                             <constraint firstItem="Gvr-ci-v7c" firstAttribute="trailing" secondItem="2pf-d3-xB8" secondAttribute="trailing" id="3JQ-hk-5sf"/>
                             <constraint firstItem="xeT-JZ-5Lc" firstAttribute="top" secondItem="9cc-V6-wAB" secondAttribute="top" id="4sA-IA-s4W"/>
                             <constraint firstItem="2pf-d3-xB8" firstAttribute="leading" secondItem="gW7-LE-s9s" secondAttribute="leading" id="ABq-sz-Gp6"/>
                             <constraint firstItem="R7T-G8-XtY" firstAttribute="top" secondItem="NlG-Im-krk" secondAttribute="bottom" constant="6" id="MLI-fZ-4qL"/>
                             <constraint firstItem="xeT-JZ-5Lc" firstAttribute="bottom" secondItem="9cc-V6-wAB" secondAttribute="bottom" constant="-2" id="Nwm-XM-VzL"/>
-                            <constraint firstItem="9cc-V6-wAB" firstAttribute="leading" secondItem="xeT-JZ-5Lc" secondAttribute="trailing" constant="2" id="S5d-2g-RGK"/>
+                            <constraint firstItem="9cc-V6-wAB" firstAttribute="leading" secondItem="xeT-JZ-5Lc" secondAttribute="trailing" constant="9" id="S5d-2g-RGK"/>
                             <constraint firstAttribute="bottom" secondItem="2pf-d3-xB8" secondAttribute="bottom" id="Wa1-je-RLu"/>
                             <constraint firstItem="R7T-G8-XtY" firstAttribute="top" secondItem="xeT-JZ-5Lc" secondAttribute="top" id="YVd-lM-hga"/>
                             <constraint firstItem="R7T-G8-XtY" firstAttribute="leading" secondItem="gW7-LE-s9s" secondAttribute="leading" constant="7" id="gcq-Iy-BGK"/>
                             <constraint firstItem="9cc-V6-wAB" firstAttribute="centerY" secondItem="Gvr-ci-v7c" secondAttribute="centerY" constant="1" id="lEe-A1-sXv"/>
                             <constraint firstAttribute="trailing" secondItem="2pf-d3-xB8" secondAttribute="trailing" id="lGs-JH-Xgz"/>
-                            <constraint firstItem="Gvr-ci-v7c" firstAttribute="leading" secondItem="9cc-V6-wAB" secondAttribute="trailing" constant="7" id="nF7-Lp-aCc"/>
+                            <constraint firstItem="Gvr-ci-v7c" firstAttribute="leading" secondItem="9cc-V6-wAB" secondAttribute="trailing" id="nF7-Lp-aCc"/>
                             <constraint firstItem="xeT-JZ-5Lc" firstAttribute="leading" secondItem="R7T-G8-XtY" secondAttribute="trailing" constant="8" symbolic="YES" id="q0k-Vp-DuJ"/>
                             <constraint firstItem="R7T-G8-XtY" firstAttribute="bottom" secondItem="xeT-JZ-5Lc" secondAttribute="bottom" id="tK6-rl-t2G"/>
                             <constraint firstItem="2pf-d3-xB8" firstAttribute="top" secondItem="Gvr-ci-v7c" secondAttribute="bottom" id="u9G-Ow-Deb"/>
