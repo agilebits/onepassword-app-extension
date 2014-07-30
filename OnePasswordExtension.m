@@ -81,11 +81,15 @@ static OnePasswordExtension *__sharedExtension;
 
 			if (completion) {
 				if ([NSThread isMainThread]) {
-					completion(nil, error);
+					if (completion) {
+						completion(nil, error);
+					}
 				}
 				else {
 					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(nil, error);
+						if (completion) {
+							completion(nil, error);
+						}
 					});
 				}
 			}
@@ -97,11 +101,15 @@ static OnePasswordExtension *__sharedExtension;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDict, NSError *error) {
 			if (completion) {
 				if ([NSThread isMainThread]) {
-					completion(loginDict, error);
+					if (completion) {
+						completion(loginDict, error);
+					}
 				}
 				else {
 					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(loginDict, error);
+						if (completion) {
+							completion(loginDict, error);
+						}
 					});
 				}
 			}
@@ -141,11 +149,15 @@ static OnePasswordExtension *__sharedExtension;
 			
 			if (completion) {
 				if ([NSThread isMainThread]) {
-					completion(nil, error);
+					if (completion) {
+						completion(nil, error);
+					}
 				}
 				else {
 					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(nil, error);
+						if (completion) {
+							completion(nil, error);
+						}
 					});
 				}
 			}
@@ -157,11 +169,15 @@ static OnePasswordExtension *__sharedExtension;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDict, NSError *error) {
 			if (completion) {
 				if ([NSThread isMainThread]) {
-					completion(loginDict, error);
+					if (completion) {
+						completion(loginDict, error);
+					}
 				}
 				else {
 					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(loginDict, error);
+						if (completion) {
+							completion(loginDict, error);
+						}
 					});
 				}
 			}
@@ -174,12 +190,16 @@ static OnePasswordExtension *__sharedExtension;
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion; {
 	if ([webView isKindOfClass:[WKWebView class]]) {
 		[self fillLoginIntoWKWebView:webView forViewController:forViewController completion:^(BOOL success, NSError *error) {
-			completion(success, error);
+			if (completion) {
+				completion(success, error);
+			}
 		}];
 	}
 	else if ([webView isKindOfClass:[UIWebView class]]) {
 		[self fillLoginIntoUIWebView:webView webViewController:forViewController completion:^(BOOL success, NSError *error) {
-			completion(success, error);
+			if (completion) {
+				completion(success, error);
+			}
 		}];
 	}
 	else {
@@ -211,8 +231,9 @@ static OnePasswordExtension *__sharedExtension;
 
 				error = [[NSError alloc] initWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionUnexpectedDataErrorCode userInfo:userInfo];
 			}
-			
-			completion(loginDict, nil);
+			if (completion) {
+				completion(loginDict, nil);
+			}
 		}];
 	}
 }
@@ -233,14 +254,17 @@ static OnePasswordExtension *__sharedExtension;
 			}
 
 			NSError *collectScriptError = [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionFailedScriptErrorCode userInfo:userInfo];
-			completion(NO, collectScriptError);
-
+			if (completion) {
+				completion(NO, collectScriptError);
+			}
 			return;
 		}
 		
 		__strong typeof(self) strongMe = miniMe;
 		[strongMe findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:forViewController withWebView:webView completion:^(BOOL success, NSError *error) {
-			completion(success, error);
+			if (completion) {
+				completion(success, error);
+			}
 		}];
 	}];
 }
@@ -248,7 +272,9 @@ static OnePasswordExtension *__sharedExtension;
 - (void)fillLoginIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion; {
 	NSString *collectedPageDetails = [webView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
 	[self findLoginIn1PasswordWithURLString:webView.request.URL.absoluteString collectedPageDetails:collectedPageDetails forWebViewController:forViewController withWebView:webView completion:^(BOOL success, NSError *error) {
-		completion(success, error);
+		if (completion) {
+			completion(success, error);
+		}
 	}];
 }
 
@@ -279,7 +305,9 @@ static OnePasswordExtension *__sharedExtension;
 			}
 
 			NSError *extensionError = [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionCannotContactExtensionErrorCode userInfo:userInfo];
-			completion(NO, extensionError);
+			if (completion) {
+				completion(NO, extensionError);
+			}
 
 			return;
 		}
@@ -296,7 +324,9 @@ static OnePasswordExtension *__sharedExtension;
 				}
 
 				NSError *loadError = [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionMissingDataErrorCode userInfo:userInfo];
-				completion(NO, loadError);
+				if (completion) {
+					completion(NO, loadError);
+				}
 
 				return;
 			}
@@ -305,13 +335,17 @@ static OnePasswordExtension *__sharedExtension;
 			NSString *fillScript = loginDict[AppExtensionWebViewPageFillScript];
 			if ([NSThread isMainThread]) {
 				[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
-					completion(success, error);
+					if (completion) {
+						completion(success, error);
+					}
 				}];
 			}
 			else {
 				dispatch_async(dispatch_get_main_queue(), ^{
 					[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
-						completion(success, error);
+						if (completion) {
+							completion(success, error);
+						}
 					}];
 				});
 			}
@@ -328,7 +362,10 @@ static OnePasswordExtension *__sharedExtension;
 		NSMutableDictionary *userInfo = [NSMutableDictionary new];
 		userInfo[NSLocalizedDescriptionKey] = @"Fill script from the 1Password Extension is null";
 		NSError *fillScriptError = [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionFailedScriptErrorCode userInfo:userInfo];
-		completion(NO, fillScriptError);
+		if (completion) {
+			completion(NO, fillScriptError);
+		}
+
 		return;
 	}
 	
@@ -343,7 +380,10 @@ static OnePasswordExtension *__sharedExtension;
 			NSMutableDictionary *userInfo = [NSMutableDictionary new];
 			userInfo[NSLocalizedDescriptionKey] = @"Failed to evaluate the fill script";
 			NSError *evaluateError = [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionFailedScriptErrorCode userInfo:userInfo];
-			completion(NO, evaluateError);
+			if (completion) {
+				completion(NO, evaluateError);
+			}
+
 			return;
 		}
 	}
@@ -359,7 +399,10 @@ static OnePasswordExtension *__sharedExtension;
 				}
 
 				NSError *evaluateError = [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionFailedScriptErrorCode userInfo:userInfo];
-				completion(NO, evaluateError);
+				if (completion) {
+					completion(NO, evaluateError);
+				}
+
 				return;
 			}
 			
