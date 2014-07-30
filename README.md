@@ -2,48 +2,48 @@
 
 Welcome! With just a few lines of code, your app can add 1Password support, enabling your users to:
 
-1. Access their 1Password Logins to automatically fill your signin page.
+1. Access their 1Password Logins to automatically fill your login page.
 2. Use the Strong Password Generator to create unique passwords during registration, and save the new Login within 1Password.
 3. Quickly fill 1Password Logins directly into web views.
 
-Allowing your users to use strong, unique passwords has never been easier. Let's get started!
+Enabling your users to use strong, unique passwords has never been easier. Let's get started!
 
 <!--- TODO: quick video here -->
 
 
 ## TL;DR; Just Give Me the Code
 
-You might be looking at this 13 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth! 
+You might be looking at this 13 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
 
 If you're the type that just wants the code, here it is:
 
 * [OnePasswordExtension.h](https://raw.githubusercontent.com/AgileBits/onepassword-app-extension/master/OnePasswordExtension.h?token=110676__eyJzY29wZSI6IlJhd0Jsb2I6QWdpbGVCaXRzL29uZXBhc3N3b3JkLWFwcC1leHRlbnNpb24vbWFzdGVyL09uZVBhc3N3b3JkRXh0ZW5zaW9uLmgiLCJleHBpcmVzIjoxNDA3Mjg0MTMwfQ%3D%3D--3867c64b22a5923bead5948001ce2ff048892799)
 * [OnePasswordExtension.m](https://raw.githubusercontent.com/AgileBits/onepassword-app-extension/master/OnePasswordExtension.m?token=110676__eyJzY29wZSI6IlJhd0Jsb2I6QWdpbGVCaXRzL29uZXBhc3N3b3JkLWFwcC1leHRlbnNpb24vbWFzdGVyL09uZVBhc3N3b3JkRXh0ZW5zaW9uLm0iLCJleHBpcmVzIjoxNDA3Mjg0MTA5fQ%3D%3D--05c6ea9c73d0afb9f30e53a31d81df00b7c02077)
 
-Simply include these two files in your project, add a [1Password login image](https://github.com/AgileBits/onepassword-app-extension/tree/task/wrap-into-api/Resources/1Password.xcassets) to your view, set the button's action to call the appropriate OnePasswordExtension method, and you're all set!
+Simply include these two files in your project, add a button with a [1Password login image](https://github.com/AgileBits/onepassword-app-extension/tree/task/wrap-into-api/Resources/1Password.xcassets) on it to your view, set the button's action to call the appropriate OnePasswordExtension method, and you're all set!
 
 
 ## Running the Sample Apps
 
-Adding 1Password support to your app is easy. To demonstrate how it works, we have two sample apps for iOS that showcase all of the 1Password features. 
+Adding 1Password support to your app is easy. To demonstrate how it works, we have two sample apps for iOS that showcase all of the 1Password features.
 
 
 ### Step 1: Download the Source Code and Sample Apps
 
 To get started, download the 1Password Extension project from https://github.com/AgileBits/onepassword-extension/archive/master.zip, or [clone it from GitHub](https://github.com/AgileBits/onepassword-extension).
 
-Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images, scripts, and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Register features, as well as a web browser that showcases the WebView Filling feature. 
+Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images, scripts, and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Register features, as well as a web browser that showcases the WebView Filling feature.
 
 
 ### Step 2: Install the Latest 1Password & Xcode Betas
 
-The sample project depends upon having the latest version of Xcode 6, as well as the 1Password Beta installed on your iOS device. 
+The sample project depends upon having the latest version of Xcode 6, as well as the 1Password Beta installed on your iOS device.
 
 <!---
-If you are developing for OS X, you can enable betas within the 1Password > Preferences > Updates window (as shown [here](i.agilebits.com/Preferences_197C0C6B.png)) and enabling the _Include beta builds_ checkbox. Mac App Store users should [download the webstore version](https://agilebits.com/downloads) in order to enable betas.
+If you are developing for OS X, you can enable betas within the 1Password > Preferences > Updates window (as shown [here](i.agilebits.com/Preferences_197C0C6B.png)) and enabling the _Include beta builds_ checkbox. Mac App Store users should [download the web store version](https://agilebits.com/downloads) in order to enable betas.
 -->
 
-To join the 1Password Beta, you will need to [enroll in the 1Password for iOS Beta program](https://agilebits.com/beta_signups/signup). Be sure to mention in your application that you are an app developer and planning to add 1Password support.
+To install the 1Password Beta, you will need to [enroll in the 1Password for iOS Beta program](https://agilebits.com/beta_signups/signup). Be sure to mention in your application that you are an app developer and planning to add 1Password support.
 
 Beta enrollment is a manual process so please allow a bit of time to hear back from us.
 
@@ -56,16 +56,15 @@ Open `1Password Extension Demos` Xcode workspace from within the `Demos` folder 
 
 Since you will not have 1Password running within your iOS Simulator, it is important that you run on your device.
 
-If all goes well, The ACME app will launch and you'll be able to test the 1Password App Extension. Change the scheme to ACME Browser to test the web view filling feature.
+If all goes well, The ACME app will launch and you'll be able to test the 1Password App Extension. The first time you attempt to access the 1Password extension you will need to enable it by tapping on the _More_ button in the activity sheet and then enabling the _1Password Beta_ item in the _Activities_ list. If the 1Password icons are missing, it likely means you do not have the 1Password Beta installed.
 
-If the 1Password icons are missing, it likely means you do not have the 1Password Beta installed.
-
+Back in Xcode you can change the scheme to ACME Browser to test the web view filling feature.
 
 ## Integrating 1Password With Your App
 
-Once you've verified your setup by testing the sample applications, it is time to get your hands dirty and see exactly how to add 1Password into your app. 
+Once you've verified your setup by testing the sample applications, it is time to get your hands dirty and see exactly how to add 1Password into your app.
 
-Be forewarned, however, that there is not much code to get dirty with. If you were looking for an SDK to waste days of your life on, you'll be sorely disappointed. 
+Be forewarned, however, that there is not much code to get dirty with. If you were looking for an SDK to spend days of your life on, you'll be sorely disappointed.
 
 
 ### Add 1Password Files to Your Project
@@ -84,11 +83,13 @@ You'll need to hide this button (or educate users on the benefits of strong, uni
 
 ```objective-c
 -(void)viewDidLoad {
+	[super viewDidLoad];
+
 	[self.onepasswordSigninButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 ```
 
-Note that `isAppExtensionAvailable` looks to see if any app is installed that supports the generic `org-appextension-feature-password-management` feature. Any application that supports password management actions can be used. 
+Note that `isAppExtensionAvailable` looks to see if any app is installed that supports the generic `org-appextension-feature-password-management` feature. Any application that supports password management actions can be used.
 
 Next we need to wire up the action for this button to this method in your UIViewController:
 
@@ -100,7 +101,7 @@ Next we need to wire up the action for this button to this method in your UIView
 			NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
 			return;
 		}
-		
+
 		__strong typeof(self) strongMe = miniMe;
 		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey];
 		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey];
@@ -110,10 +111,10 @@ Next we need to wire up the action for this button to this method in your UIView
 
 Aside from the [weak/strong self dance](http://dhoerl.wordpress.com/2013/04/23/i-finally-figured-out-weakself-and-strongself/), this code is pretty straight forward:
 
-1. Provide a URLString that uniquely identifies your service. For example, if your app required a Twitter login, you would pass in @"https://twitter.com". See _Best Practices_ for details.
-2. Pass in the UIViewController that you want the share sheet to be presented upon.
+1. Provide a `URLString` that uniquely identifies your service. For example, if your app required a Twitter login, you would pass in `@"https://twitter.com"`. See _Best Practices_ for details.
+2. Pass in the `UIViewController` that you want the share sheet to be presented upon.
 3. Provide a completion block that will be called when the user finishes their selection. This block is guarenteed to be called on the main thread.
-4. Extract the needed information from the login dictionary and update your UI elements. 
+4. Extract the needed information from the login dictionary and update your UI elements.
 
 
 ### Use Case #2: New User Registration
@@ -136,15 +137,15 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 			  // Add as many string fields as you please.
 		}
 	};
-	
+
 	NSDictionary *passwordGenerationOptions = @{
 		AppExtensionGeneratedPasswordMinLengthKey: @(6),
 		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
 	};
+
 	__weak typeof (self) miniMe = self;
 
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
-
 		if (!loginDict) {
 			NSLog(@"Error invoking 1Password App Extension for generate password: %@", error);
 			return;
@@ -157,14 +158,14 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 }
 ```
 
-You'll notice that we're passing in a lot more information into 1Password than just the URLStringKey used in the sign in example. This is because at the end of the password generation process, 1Password will create a brand new login and save it. It's not possible for 1Password to ask your app for additional information later on, so we pass in everything we can before showing the password generator screen.
+You'll notice that we're passing a lot more information into 1Password than just the `URLString` key used in the sign in example. This is because at the end of the password generation process, 1Password will create a brand new login and save it. It's not possible for 1Password to ask your app for additional information later on, so we pass in everything we can before showing the password generator screen.
 
 An important thing to notice is the `OPLoginURLStringKey` is set to the exact same value we used in the login scenario. This allows users to quickly find the login they saved for your app the next time they need to sign in.
 
 
 ### Use Case #3: Web View Support
 
-The 1Password App Extension is not limited to filling native UIs. With just a little bit of extra effort, users can fill `UIWebView`s and `WKWebView`s within your application as well. 
+The 1Password App Extension is not limited to filling native UIs. With just a little bit of extra effort, users can fill `UIWebView`s and `WKWebView`s within your application as well.
 
 Simply add a button to your UI with its action assigned to this method in your web view's UIViewController:
 
@@ -179,17 +180,17 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 ## Best Practices
 
-* Use the same URLString during Registration and Login.
-* Ensure your URLString is set to your actual service so your users can easily find their logins within the main 1Password app.
-* You should only ask for login information of your own service or one specific to your app. Giving a URL for a service which you do not own or support may seriously break the customer's trust in your service/app.
-* Use app://bundleIdentifier (e.g. app://com.apple.Safari) if you don't have a website for your app.
-* Use the provided icons so users are familiar with what it will do. Contact us if you'd like additional sizes or have other special requirements.
+* Use the same `URLString` during Registration and Login.
+* Ensure your `URLString` is set to your actual service so your users can easily find their logins within the main 1Password app.
+* You should only ask for the login information of your own service or one specific to your app. Giving a URL for a service which you do not own or support may seriously break the customer's trust in your service/app.
+* If you don't have a website for your app you should specify your bundle identifier as the `URLString`, like so: app://bundleIdentifier (e.g. app://com.apple.Safari).
+* Use the icons provided in the `1Password.xcassets` asset catalog so users are familiar with what it will do. Contact us if you'd like additional sizes or have other special requirements.
 * Enable users to set 1Password as their default browser for external web links.
-* Provide us an icon to use for the Rich Icon service so the user can see your lovely icon while creating new items.
+* [Send us an icon](mailto:support+appex@agilebits.com) to use for our Rich Icon service so the user can see your lovely icon while creating new items.
 * On your registration page, pre-validate fields before calling 1Password. For example, display a message if the username is not available so the user can fix it before activating 1Password.
 
 
-## References 
+## References
 
 If you open up OnePasswordExtension.m and start poking around, you'll be interested in these references.
 
@@ -199,7 +200,7 @@ If you open up OnePasswordExtension.m and start poking around, you'll be interes
 
 ## Contact Us
 
-Contact us, please! We'd love to hear from you about how you integrated 1Password within your app, how we can further improve things, and add your app to [apps that integrate with 1Password](http://blog.agilebits.com/2013/04/03/ios-apps-1password-integrated-support/). 
+Contact us, please! We'd love to hear from you about how you integrated 1Password within your app, how we can further improve things, and add your app to [apps that integrate with 1Password](http://blog.agilebits.com/2013/04/03/ios-apps-1password-integrated-support/).
 
 You can reach us at support+appex@agilebits.com, or if you prefer, [@1PasswordBeta](https://twitter.com/1PasswordBeta) on Twitter.
 
