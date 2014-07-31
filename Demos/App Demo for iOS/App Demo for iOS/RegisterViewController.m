@@ -9,9 +9,9 @@
 #import "RegisterViewController.h"
 #import "OnePasswordExtension.h"
 
-#import <MessageUI/MFMailComposeViewController.h>
+@interface RegisterViewController ()
 
-@interface RegisterViewController () <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
+@property (weak, nonatomic) IBOutlet UIButton *onepasswordSignupButton;
 
 @property (weak, nonatomic) IBOutlet UITextField *firstnameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"register-background.png"]]];
+	[self.onepasswordSignupButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
@@ -31,60 +32,36 @@
 }
 
 - (IBAction)saveLoginTo1Password:(id)sender {
-	if (![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
-		UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"1Password Beta is not installed" message:@"Email support+appex@agilebits.com for beta access" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Email", nil];
-		[alertView show];
-	}
-	else {
-		NSDictionary *newLoginDetails = @{
-										  AppExtensionTitleKey: @"ACME",
-										  AppExtensionUsernameKey: self.usernameTextField.text ? : @"",
-										  AppExtensionPasswordKey: self.passwordTextField.text ? : @"",
-										  AppExtensionNotesKey: @"Saved with the ACME app",
-										  AppExtensionSectionTitleKey: @"ACME Browser",
-										  AppExtensionFieldsKey: @{
-												  @"firstname" : self.firstnameTextField.text ? : @"",
-												  @"lastname" : self.lastnameTextField.text ? : @""
-												  // Add as many string fields as you please.
-												  }
-										  };
+	NSDictionary *newLoginDetails = @{
+		AppExtensionTitleKey: @"ACME",
+		AppExtensionUsernameKey: self.usernameTextField.text ? : @"",
+		AppExtensionPasswordKey: self.passwordTextField.text ? : @"",
+		AppExtensionNotesKey: @"Saved with the ACME app",
+		AppExtensionSectionTitleKey: @"ACME Browser",
+		AppExtensionFieldsKey: @{
+			  @"firstname" : self.firstnameTextField.text ? : @"",
+			  @"lastname" : self.lastnameTextField.text ? : @""
+			  // Add as many string fields as you please.
+		}
+	};
+	
+	NSDictionary *passwordGenerationOptions = @{
+		AppExtensionGeneratedPasswordMinLengthKey: @(6),
+		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
+	};
+	__weak typeof (self) miniMe = self;
 
-		NSDictionary *passwordGenerationOptions = @{
-													AppExtensionGeneratedPasswordMinLengthKey: @(6),
-													AppExtensionGeneratedPasswordMaxLengthKey: @(50)
-													};
-		__weak typeof (self) miniMe = self;
+	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
 
-		[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
+		if (!loginDict) {
+			NSLog(@"Error invoking 1Password App Extension for generate password: %@", error);
+			return;
+		}
 
-			if (!loginDict) {
-				NSLog(@"Error invoking 1Password App Extension for generate password: %@", error);
-				return;
-			}
-
-			__strong typeof(self) strongMe = miniMe;
-			strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : strongMe.usernameTextField.text;
-			strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : strongMe.usernameTextField.text;
-		}];
-	}
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == alertView.firstOtherButtonIndex) {
-		MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
-		controller.mailComposeDelegate = self;
-		[controller setToRecipients:@[ @"support+appex@agilebits.com" ]];
-		[controller setSubject:@"App Extension"];
-		[self presentViewController:controller animated:YES completion:nil];
-	}
-}
-
-#pragma mark - MFMailComposeViewControllerDelegate
-
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-	[self dismissViewControllerAnimated:YES completion:nil];
+		__strong typeof(self) strongMe = miniMe;
+		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : strongMe.usernameTextField.text;
+		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : strongMe.usernameTextField.text;
+	}];
 }
 
 @end

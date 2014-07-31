@@ -88,6 +88,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="LYh-Q1-dMy"/>
                     <connections>
+                        <outlet property="onepasswordFillButton" destination="9cc-V6-wAB" id="Xon-YN-TmY"/>
                         <outlet property="searchBar" destination="Gvr-ci-v7c" id="k2Y-CX-whn"/>
                         <outlet property="webViewContainer" destination="2pf-d3-xB8" id="rh0-ia-5iC"/>
                     </connections>

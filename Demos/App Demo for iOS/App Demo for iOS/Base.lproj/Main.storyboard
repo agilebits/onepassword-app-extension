@@ -119,6 +119,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="onepasswordSigninButton" destination="cDc-DW-cLJ" id="OqN-tt-ATm"/>
                         <outlet property="passwordTextField" destination="ZLv-94-XOA" id="5EJ-lR-Hpe"/>
                         <outlet property="usernameTextField" destination="Za2-pr-tWA" id="deo-tZ-W5r"/>
                     </connections>
@@ -222,6 +223,7 @@
                     <connections>
                         <outlet property="firstnameTextField" destination="fwb-0l-b5N" id="jzn-C1-vHy"/>
                         <outlet property="lastnameTextField" destination="tjm-G7-GAO" id="iMF-6e-8xt"/>
+                        <outlet property="onepasswordSignupButton" destination="auP-WD-mbm" id="shh-KY-v0u"/>
                         <outlet property="passwordTextField" destination="Tad-KG-Pea" id="kih-wU-v6C"/>
                         <outlet property="usernameTextField" destination="b1j-uQ-34p" id="ZSp-Se-GzP"/>
                     </connections>
