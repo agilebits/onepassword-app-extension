@@ -7,7 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#ifdef __IPHONE_8_0
 #import <WebKit/WebKit.h>
+#endif
 
 // Login Dictionary keys
 FOUNDATION_EXPORT NSString *const AppExtensionURLStringKey;
