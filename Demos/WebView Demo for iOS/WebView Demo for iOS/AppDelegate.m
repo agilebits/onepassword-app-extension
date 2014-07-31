@@ -7,16 +7,23 @@
 //
 
 #import "AppDelegate.h"
+#import "OnePasswordExtension.h"
 
-@interface AppDelegate ()
+#import <MessageUI/MFMailComposeViewController.h>
+
+@interface AppDelegate () <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 
 @end
 
 @implementation AppDelegate
-            
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	// Override point for customization after application launch.
+	if (![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
+		UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"1Password Beta is not installed" message:@"Email support+appex@agilebits.com for beta access" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Email", nil];
+		[alertView show];
+	}
+
 	return YES;
 }
 
@@ -40,6 +47,27 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == alertView.firstOtherButtonIndex) {
+		MFMailComposeViewController* composeViewController = [[MFMailComposeViewController alloc] init];
+		composeViewController.mailComposeDelegate = self;
+		[composeViewController setToRecipients:@[ @"support+appex@agilebits.com" ]];
+		[composeViewController setSubject:@"App Extension"];
+
+		UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+		UIViewController *rootViewController = window.rootViewController;
+		[rootViewController presentViewController:composeViewController animated:YES completion:nil];
+	}
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+	[controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
