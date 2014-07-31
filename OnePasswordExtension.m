@@ -206,7 +206,7 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 #pragma mark - Helpers
 
 - (UIActivityViewController *)activityViewControllerForItem:(NSDictionary *)item typeIdentifier:(NSString *)typeIdentifier {
-	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:typeIdentifier];
 
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
