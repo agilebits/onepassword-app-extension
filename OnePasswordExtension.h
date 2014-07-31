@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 #ifdef __IPHONE_8_0
 #import <WebKit/WebKit.h>
 #endif
@@ -28,7 +29,7 @@ FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMaxLengthKey;
 
 + (OnePasswordExtension *)sharedExtension;
 
-/*
+/*!
  Determines if the 1Password App Extension is available. Allows you to only show the 1Password login button to those
  that can use it. Of course, you could leave the button enabled and educate users about the virtues of strong, unique 
  passwords instead :)
@@ -38,14 +39,14 @@ FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMaxLengthKey;
  */
 - (BOOL)isAppExtensionAvailable;
 
-/*
+/*!
  Called from your login page, this method will find all available logins for the given URLString. After the user selects 
  a login, it is stored into an NSDictionary and given to your completion handler. Use the `Login Dictionary keys` above to 
  extract the needed information and update your UI. The completion block is guaranteed to be called on the main thread.
  */
-- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)forViewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
-/*
+/*!
  Create a new login within 1Password and allow the user to generate a new password before saving. The provided URLString should be 
  unique to your app or service and be identical to what you pass into the find login method.
  
@@ -54,12 +55,12 @@ FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMaxLengthKey;
  newly generated password lets the user know their action was successful. The completion block is guaranteed to be called on the main
  thread.
  */
-- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)forViewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
+- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
-/*
+/*!
  Called from your web view controller, this method will show all the saved logins for the active page in the provided web
  view, and automatically fill the HTML form fields. Supports both WKWebView and UIWebView.
  */
-- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion;
+- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion;
 
 @end
