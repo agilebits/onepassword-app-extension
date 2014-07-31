@@ -154,7 +154,7 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 
 		__strong typeof(self) strongMe = miniMe;
 		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : strongMe.usernameTextField.text;
-		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : strongMe.usernameTextField.text;
+		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : strongMe.passwordTextField.text;
 	}];
 }
 ```
