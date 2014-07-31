@@ -45,7 +45,7 @@ The sample project depends upon having the latest version of Xcode 6, as well as
 If you are developing for OS X, you can enable betas within the 1Password > Preferences > Updates window (as shown [here](i.agilebits.com/Preferences_197C0C6B.png)) and enabling the _Include beta builds_ checkbox. Mac App Store users should [download the web store version](https://agilebits.com/downloads) in order to enable betas.
 -->
 
-To install the 1Password Beta, you will need to [enroll in the 1Password for iOS Beta program](mailto:support+appex@agilebits.com). Be sure to mention in your application that you are an app developer and planning to add 1Password support.
+To install the 1Password Beta, you will need to enroll in the 1Password for iOS Beta program. Please email [support+appex@agilebits.com](mailto:support+appex@agilebits.com) to express your interest. Let us know that you're an app developer and planning to add 1Password support.
 
 Beta enrollment is a manual process so please allow a bit of time to hear back from us.
 
