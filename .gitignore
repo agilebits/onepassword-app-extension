@@ -17,3 +17,5 @@ DerivedData
 .idea/
 
 *.rej
+Demos/Cocoapods App Demo for iOS/Pods
+Podfile.lock
