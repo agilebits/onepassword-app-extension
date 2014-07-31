@@ -187,7 +187,7 @@ static OnePasswordExtension *__sharedExtension;
 	[forViewController presentViewController:activityViewController animated:YES completion:nil];
 }
 
-- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion; {
+- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion {
 	if ([webView isKindOfClass:[WKWebView class]]) {
 		[self fillLoginIntoWKWebView:webView forViewController:forViewController completion:^(BOOL success, NSError *error) {
 			if (completion) {
@@ -241,7 +241,7 @@ static OnePasswordExtension *__sharedExtension;
 
 #pragma mark - Web view integration
 
-- (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion; {
+- (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion {
 	__weak typeof (self) miniMe = self;
 	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
@@ -269,7 +269,7 @@ static OnePasswordExtension *__sharedExtension;
 	}];
 }
 
-- (void)fillLoginIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion; {
+- (void)fillLoginIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion {
 	NSString *collectedPageDetails = [webView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
 	[self findLoginIn1PasswordWithURLString:webView.request.URL.absoluteString collectedPageDetails:collectedPageDetails forWebViewController:forViewController withWebView:webView completion:^(BOOL success, NSError *error) {
 		if (completion) {
@@ -278,7 +278,7 @@ static OnePasswordExtension *__sharedExtension;
 	}];
 }
 
-- (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion; {
+- (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion {
 	
 	NSDictionary *item = @{ AppExtensionURLStringKey : URLString,
 							AppExtensionWebViewPageDetails : collectedPageDetails };
