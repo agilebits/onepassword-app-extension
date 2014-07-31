@@ -39,7 +39,7 @@ FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMaxLengthKey;
 /*
  Called from your login page, this method will find all available logins for the given URLString. After the user selects 
  a login, it is stored into an NSDictionary and given to your completion handler. Use the `Login Dictionary keys` above to 
- extract the needed information and update your UI. The completion block is guarenteed to be called on the main thread.
+ extract the needed information and update your UI. The completion block is guaranteed to be called on the main thread.
  */
 - (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)forViewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
@@ -49,13 +49,13 @@ FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMaxLengthKey;
  
  Details about the saved login, including the generated password, are stored in an NSDictionary and given to your completion handler. 
  Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the 
- newly generated password lets the user know their action was successful. The completion block is guarenteed to be called on the main 
+ newly generated password lets the user know their action was successful. The completion block is guaranteed to be called on the main
  thread.
  */
 - (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)forViewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
 /*
- Called from your web view contoller, this method will show all the saved logins for the active page in the provided web
+ Called from your web view controller, this method will show all the saved logins for the active page in the provided web
  view, and automatically fill the HTML form fields. Supports both WKWebView and UIWebView.
  */
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion;

@@ -81,7 +81,7 @@ In this use case we'll learn how to enable your existing users to fill their cre
 
 The first step is to add a UIButton to your login page. Use an existing 1Password image from the _1Password.xcassets_ catalog so users recognize the button.
 
-You'll need to hide this button (or educate users on the benefits of strong, unique passwords) if no password manager is installed. You can use `isAppExtensionAvailable` to determine availablity and hide the button if it isn't. For example:
+You'll need to hide this button (or educate users on the benefits of strong, unique passwords) if no password manager is installed. You can use `isAppExtensionAvailable` to determine availability and hide the button if it isn't. For example:
 
 ```objective-c
 -(void)viewDidLoad {
@@ -114,7 +114,7 @@ Aside from the [weak/strong self dance](http://dhoerl.wordpress.com/2013/04/23/i
 
 1. Provide a `URLString` that uniquely identifies your service. For example, if your app required a Twitter login, you would pass in `@"https://twitter.com"`. See _Best Practices_ for details.
 2. Pass in the `UIViewController` that you want the share sheet to be presented upon.
-3. Provide a completion block that will be called when the user finishes their selection. This block is guarenteed to be called on the main thread.
+3. Provide a completion block that will be called when the user finishes their selection. This block is guaranteed to be called on the main thread.
 4. Extract the needed information from the login dictionary and update your UI elements.
 
 
