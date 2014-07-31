@@ -63,7 +63,7 @@ static OnePasswordExtension *__sharedExtension;
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
 	
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__(self) miniMe = self;
 	
 	UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
 	
@@ -97,7 +97,7 @@ static OnePasswordExtension *__sharedExtension;
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDict, NSError *error) {
 			if (completion) {
 				if ([NSThread isMainThread]) {
@@ -131,7 +131,7 @@ static OnePasswordExtension *__sharedExtension;
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
 	
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__(self) miniMe = self;
 	
 	UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
 	
@@ -165,7 +165,7 @@ static OnePasswordExtension *__sharedExtension;
 			return;
 		}
 		
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDict, NSError *error) {
 			if (completion) {
 				if ([NSThread isMainThread]) {
@@ -242,7 +242,7 @@ static OnePasswordExtension *__sharedExtension;
 #pragma mark - Web view integration
 
 - (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion {
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__(self) miniMe = self;
 	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
 			NSLog(@"Error executing collect page info script: <%@>", error);
@@ -260,7 +260,7 @@ static OnePasswordExtension *__sharedExtension;
 			return;
 		}
 		
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:forViewController withWebView:webView completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
@@ -287,7 +287,7 @@ static OnePasswordExtension *__sharedExtension;
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
 	
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__(self) miniMe = self;
 	
 	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
 	
@@ -312,7 +312,7 @@ static OnePasswordExtension *__sharedExtension;
 			return;
 		}
 		
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDict, NSError *error) {
 			if (!loginDict) {
 				NSLog(@"Error loading login dict for webview: %@", error);
@@ -331,7 +331,7 @@ static OnePasswordExtension *__sharedExtension;
 				return;
 			}
 			
-			__strong typeof(self) strongMe2 = miniMe;
+			__strong __typeof__(self) strongMe2 = miniMe;
 			NSString *fillScript = loginDict[AppExtensionWebViewPageFillScript];
 			if ([NSThread isMainThread]) {
 				[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
