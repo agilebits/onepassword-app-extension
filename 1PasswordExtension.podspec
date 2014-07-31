@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.authors           = [ "Dave Teare", "Michael Fey", "Rad Azzouz", "Roustem Karimov" ]
   s.social_media_url  = "https://twitter.com/1PasswordBeta"
 
-  s.source            = { :git => "https://github.com/AgileBits/onepassword-app-extension.git", :tag => "release-1.0" }
+  s.source            = { :git => "https://github.com/AgileBits/onepassword-app-extension.git", :tag => s.version }
   s.platform          = :ios, 8.0
   s.source_files      = "*.{h,m}"
   s.frameworks        = [ "UIKit", "WebKit" ]
