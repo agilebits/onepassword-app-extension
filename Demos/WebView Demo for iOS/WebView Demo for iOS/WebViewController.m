@@ -7,12 +7,12 @@
 //
 
 #import "WebViewController.h"
-
 #import "OnePasswordExtension.h"
 
-@interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@property (weak, nonatomic) IBOutlet UIButton *onepasswordFillButton;
+@interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIView *webViewContainer;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) WKWebView *webView;
@@ -24,8 +24,6 @@
 #pragma mark - Life Cycle
 
 - (void)viewDidLoad {
-	[self.onepasswordFillButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
-
 	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
 	self.webView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds configuration:configuration];
 	self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -40,11 +38,17 @@
 #pragma mark - Actions
 
 - (IBAction)fillUsing1Password:(id)sender {
-	[[OnePasswordExtension sharedExtension] fillLoginIntoWebView:self.webView forViewController:self completion:^(BOOL success, NSError *error) {
-		if (!success) {
-			NSLog(@"Failed to fill login in webview: <%@>", error);
-		}
-	}];
+	if (![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
+		UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"1Password Beta is not installed" message:@"Email support+appex@agilebits.com for beta access" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Email", nil];
+		[alertView show];
+	}
+	else {
+		[[OnePasswordExtension sharedExtension] fillLoginIntoWebView:self.webView forViewController:self completion:^(BOOL success, NSError *error) {
+			if (!success) {
+				NSLog(@"Failed to fill login in webview: <%@>", error);
+			}
+		}];
+	}
 }
 
 - (IBAction)goBack:(id)sender {
@@ -103,6 +107,24 @@
 	if ([self.searchBar.text isEqualToString:@"about:blank"]) {
 		self.searchBar.text = @"";
 	}
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == alertView.firstOtherButtonIndex) {
+		MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
+		controller.mailComposeDelegate = self;
+		[controller setToRecipients:@[ @"support+appex@agilebits.com" ]];
+		[controller setSubject:@"App Extension"];
+		[self presentViewController:controller animated:YES completion:nil];
+	}
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
