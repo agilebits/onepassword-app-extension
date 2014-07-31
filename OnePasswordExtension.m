@@ -59,7 +59,7 @@ static OnePasswordExtension *__sharedExtension;
 }
 
 - (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)forViewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion {
-#ifdef __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	NSDictionary *item = @{ AppExtensionURLStringKey: URLString };
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFindLoginAction];
 	
@@ -124,7 +124,7 @@ static OnePasswordExtension *__sharedExtension;
 }
 
 - (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)forViewController completion:(void (^)(NSDictionary *, NSError *))completion {
-#ifdef __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	NSMutableDictionary *newLoginAttributesDict = [NSMutableDictionary new];
 	newLoginAttributesDict[AppExtensionURLStringKey] = URLString;
 	[newLoginAttributesDict addEntriesFromDictionary:loginDetailsDict]; // TODO: change 1P to use separate dicts
@@ -193,7 +193,7 @@ static OnePasswordExtension *__sharedExtension;
 }
 
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion {
-#ifdef __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	if ([webView isKindOfClass:[WKWebView class]]) {
 		[self fillLoginIntoWKWebView:webView forViewController:forViewController completion:^(BOOL success, NSError *error) {
 			if (completion) {
@@ -215,7 +215,8 @@ static OnePasswordExtension *__sharedExtension;
 }
 
 #pragma mark - App Extension ItemProvider Callback
-#ifdef __IPHONE_8_0
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 - (void)processExtensionItem:(NSExtensionItem *)extensionItem completion:(void (^)(NSDictionary *loginDict, NSError *error))completion {
 	if (extensionItem.attachments.count == 0) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item had no attachments." };
