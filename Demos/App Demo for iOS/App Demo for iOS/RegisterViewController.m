@@ -73,11 +73,11 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == alertView.firstOtherButtonIndex) {
-		MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
-		controller.mailComposeDelegate = self;
-		[controller setToRecipients:@[ @"support+appex@agilebits.com" ]];
-		[controller setSubject:@"App Extension"];
-		[self presentViewController:controller animated:YES completion:nil];
+		MFMailComposeViewController* composeViewController = [[MFMailComposeViewController alloc] init];
+		composeViewController.mailComposeDelegate = self;
+		[composeViewController setToRecipients:@[ @"support+appex@agilebits.com" ]];
+		[composeViewController setSubject:@"App Extension"];
+		[self presentViewController:composeViewController animated:YES completion:nil];
 	}
 }
 
