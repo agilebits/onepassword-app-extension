@@ -27,7 +27,7 @@
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "icon_29x29@2x-1.png",
+      "filename" : "icon_29x29@2x.png",
       "scale" : "2x"
     },
     {
@@ -39,7 +39,7 @@
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "icon_40x40@2x-1.png",
+      "filename" : "icon_40x40@2x.png",
       "scale" : "2x"
     },
     {
@@ -51,7 +51,7 @@
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "icon_76x76-1.png",
+      "filename" : "icon_76x76@2x.png",
       "scale" : "2x"
     }
   ],
