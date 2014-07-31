@@ -52,14 +52,15 @@ static OnePasswordExtension *__sharedExtension;
 }
 
 - (BOOL)isAppExtensionAvailable {
-    if (NSClassFromString(@"NSItemProvider") == nil) {
-        return NO; // App Extensions are not available on iOS 7 and earlier
-    }
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"org-appextension-feature-password-management://"]];
+#else
+	return NO; // App Extensions are not available on iOS 7 and earlier
+#endif
 }
 
 - (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)forViewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+#if __IPHONE_8_0
 	NSDictionary *item = @{ AppExtensionURLStringKey: URLString };
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFindLoginAction];
 	
@@ -124,7 +125,7 @@ static OnePasswordExtension *__sharedExtension;
 }
 
 - (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)forViewController completion:(void (^)(NSDictionary *, NSError *))completion {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+#if __IPHONE_8_0
 	NSMutableDictionary *newLoginAttributesDict = [NSMutableDictionary new];
 	newLoginAttributesDict[AppExtensionURLStringKey] = URLString;
 	[newLoginAttributesDict addEntriesFromDictionary:loginDetailsDict]; // TODO: change 1P to use separate dicts
@@ -193,30 +194,30 @@ static OnePasswordExtension *__sharedExtension;
 }
 
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-	if ([webView isKindOfClass:[WKWebView class]]) {
-		[self fillLoginIntoWKWebView:webView forViewController:forViewController completion:^(BOOL success, NSError *error) {
-			if (completion) {
-				completion(success, error);
-			}
-		}];
-	}
-	else if ([webView isKindOfClass:[UIWebView class]]) {
+	if ([webView isKindOfClass:[UIWebView class]]) {
 		[self fillLoginIntoUIWebView:webView webViewController:forViewController completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
 			}
 		}];
 	}
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+	else if ([webView isKindOfClass:[WKWebView class]]) {
+		[self fillLoginIntoWKWebView:webView forViewController:forViewController completion:^(BOOL success, NSError *error) {
+			if (completion) {
+				completion(success, error);
+			}
+		}];
+	}
+#endif
 	else {
 		[NSException raise:@"Invalid argument: web view must be an instance of WKWebView or UIWebView." format:@""];
 	}
-#endif
 }
 
 #pragma mark - App Extension ItemProvider Callback
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+#if __IPHONE_8_0
 - (void)processExtensionItem:(NSExtensionItem *)extensionItem completion:(void (^)(NSDictionary *loginDict, NSError *error))completion {
 	if (extensionItem.attachments.count == 0) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item had no attachments." };
@@ -249,6 +250,7 @@ static OnePasswordExtension *__sharedExtension;
 
 #pragma mark - Web view integration
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 - (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion {
 	__weak typeof (self) miniMe = self;
 	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
@@ -276,6 +278,7 @@ static OnePasswordExtension *__sharedExtension;
 		}];
 	}];
 }
+#endif
 
 - (void)fillLoginIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)forViewController completion:(void (^)(BOOL success, NSError *error))completion {
 	NSString *collectedPageDetails = [webView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
@@ -379,7 +382,6 @@ static OnePasswordExtension *__sharedExtension;
 	
 	NSMutableString *scriptSource = [OPWebViewFillScript mutableCopy];
 	[scriptSource appendFormat:@"('%@');", fillScript];
-
 	if ([webView isKindOfClass:[UIWebView class]]) {
 		NSString *result = [((UIWebView *)webView) stringByEvaluatingJavaScriptFromString:scriptSource];
 		if (!result) {
@@ -395,6 +397,7 @@ static OnePasswordExtension *__sharedExtension;
 			return;
 		}
 	}
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	else if ([webView isKindOfClass:[WKWebView class]]){
 		[((WKWebView *)webView) evaluateJavaScript:scriptSource completionHandler:^(NSString *result, NSError *error) {
 			if (!result) {
@@ -413,10 +416,11 @@ static OnePasswordExtension *__sharedExtension;
 
 				return;
 			}
-			
+
 			NSLog(@"Result from execute fill script: %@", result);
 		}];
 	}
+#endif
 	else {
 		[NSException raise:@"Invalid argument: web view must be an instance of WKWebView or UIWebView." format:@""];
 	}
