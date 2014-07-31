@@ -52,10 +52,14 @@ static OnePasswordExtension *__sharedExtension;
 }
 
 - (BOOL)isAppExtensionAvailable {
+#ifdef __IPHONE_8_0
     if (NSClassFromString(@"NSItemProvider") == nil) {
         return NO; // App Extensions are not available on iOS 7 and earlier
     }
 	return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"org-appextension-feature-password-management://"]];
+#else
+	return NO; // Compiled with iOS 7 SDK and earlier
+#endif
 }
 
 - (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)forViewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion {
