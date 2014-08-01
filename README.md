@@ -36,6 +36,7 @@ To get started, download the 1Password Extension project from https://github.com
 
 Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Registration features, as well as a web browser that showcases the web view Filling feature.
 
+The 1Password extension is also available via cocoapods, simply add `pod '1PasswordExtension', '~> 1.0.0'` to your Podfile, run `pod install` from your project directory and you're ready to go.
 
 ### Step 2: Install the Latest 1Password & Xcode Betas
 
@@ -204,4 +205,3 @@ If you open up OnePasswordExtension.m and start poking around, you'll be interes
 Contact us, please! We'd love to hear from you about how you integrated 1Password within your app, how we can further improve things, and add your app to [apps that integrate with 1Password](http://blog.agilebits.com/2013/04/03/ios-apps-1password-integrated-support/).
 
 You can reach us at support+appex@agilebits.com, or if you prefer, [@1PasswordBeta](https://twitter.com/1PasswordBeta) on Twitter.
-
