@@ -60,11 +60,10 @@
 
 		__strong typeof(self) strongMe = miniMe;
 
-		// The fields are returned in the same order that they were created. In this case the firstname is at index 0 and lastname is at index 1.
-		strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][0] ? : strongMe.firstnameTextField.text;
-		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][1] ? : strongMe.lastnameTextField.text;
-		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : strongMe.usernameTextField.text;
-		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : strongMe.passwordTextField.text;
+		strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
+		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @""
+		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
+		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
 	}];
 }
 
