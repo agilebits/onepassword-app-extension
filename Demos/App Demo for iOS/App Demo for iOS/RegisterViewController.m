@@ -59,8 +59,8 @@
 		}
 
 		__strong typeof(self) strongMe = miniMe;
-		strongMe.firstnameTextField.text = loginDict[AppExtensionFieldsKey][@"firstname"];
-		strongMe.lastnameTextField.text = loginDict[AppExtensionFieldsKey][@"lastname"];
+		strongMe.firstnameTextField.text = loginDict[AppExtensionFieldsKey][@"firstname"] ? : strongMe.firstnameTextField.text;
+		strongMe.lastnameTextField.text = loginDict[AppExtensionFieldsKey][@"lastname"] ? : strongMe.lastnameTextField.text;
 		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : strongMe.usernameTextField.text;
 		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : strongMe.passwordTextField.text;
 	}];
