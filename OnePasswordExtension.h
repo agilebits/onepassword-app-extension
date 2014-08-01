@@ -19,9 +19,8 @@ FOUNDATION_EXPORT NSString *const AppExtensionPasswordKey;
 FOUNDATION_EXPORT NSString *const AppExtensionTitleKey;
 FOUNDATION_EXPORT NSString *const AppExtensionNotesKey;
 FOUNDATION_EXPORT NSString *const AppExtensionSectionTitleKey;
-FOUNDATION_EXPORT NSString *const AppExtensionSectionsArrayKey;
 FOUNDATION_EXPORT NSString *const AppExtensionFieldsKey;
-FOUNDATION_EXPORT NSString *const AppExtensionFieldValueKey;
+FOUNDATION_EXPORT NSString *const AppExtensionReturnedFieldsKey;
 
 // Password Generator options
 FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMinLengthKey;

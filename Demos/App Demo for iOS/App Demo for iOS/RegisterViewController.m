@@ -59,13 +59,10 @@
 		}
 
 		__strong typeof(self) strongMe = miniMe;
-		
-		NSArray *sectionsArray = loginDict[AppExtensionFieldsKey][AppExtensionSectionsArrayKey];
-		NSDictionary *sentSection = sectionsArray.firstObject; // The first section is the one created when first invoking the Extension. Other sections may be available if the user created the manually.
 
-		// The fields are return in the same order that they were created. In this case the firstname is at index 0 and lastname is at index 1. 
-		strongMe.firstnameTextField.text = sentSection[AppExtensionFieldsKey][0][AppExtensionFieldValueKey] ? : strongMe.firstnameTextField.text;
-		strongMe.lastnameTextField.text = sentSection[AppExtensionFieldsKey][1][AppExtensionFieldValueKey] ? : strongMe.lastnameTextField.text;
+		// The fields are returned in the same order that they were created. In this case the firstname is at index 0 and lastname is at index 1.
+		strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][0] ? : strongMe.firstnameTextField.text;
+		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][1] ? : strongMe.lastnameTextField.text;
 		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : strongMe.usernameTextField.text;
 		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : strongMe.passwordTextField.text;
 	}];
