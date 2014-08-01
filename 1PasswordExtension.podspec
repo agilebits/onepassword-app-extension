@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "1PasswordExtension"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "With just a few lines of code, your app can add 1Password support."
 
   s.description  = <<-DESC
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.social_media_url  = "https://twitter.com/1PasswordBeta"
 
   s.source            = { :git => "https://github.com/AgileBits/onepassword-app-extension.git", :tag => s.version }
-  s.platform          = :ios, 8.0
+  s.platform          = :ios, 7.0
   s.source_files      = "*.{h,m}"
   s.frameworks        = [ "UIKit", "WebKit" ]
   s.exclude_files     = "Demos"
