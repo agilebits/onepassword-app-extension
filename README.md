@@ -148,14 +148,19 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 	__weak typeof (self) miniMe = self;
 
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
+
 		if (!loginDict) {
-			NSLog(@"Error invoking 1Password App Extension for generate password: %@", error);
+			NSLog(@"Failed to use 1Password App Extension to save a new Login: %@", error);
 			return;
 		}
 
 		__strong typeof(self) strongMe = miniMe;
-		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : strongMe.usernameTextField.text;
-		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : strongMe.passwordTextField.text;
+
+		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
+		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
+		strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
+		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @""
+		// retrieve any additional fields that were passed in newLoginDetails dictionary
 	}];
 }
 ```
