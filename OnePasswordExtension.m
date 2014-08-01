@@ -21,6 +21,7 @@ NSString *const AppExtensionTitleKey = @"login_title";
 NSString *const AppExtensionNotesKey = @"notes";
 NSString *const AppExtensionSectionTitleKey = @"section_title";
 NSString *const AppExtensionFieldsKey = @"fields";
+NSString *const AppExtensionReturnedFieldsKey = @"returned_fields";
 
 // WebView Dictionary keys
 NSString *const AppExtensionWebViewPageFillScript = @"fillScript";
