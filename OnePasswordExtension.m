@@ -39,8 +39,7 @@ int const OPAppExtensionErrorCodeFailedToLoadItemProviderData = 3;
 int const OPAppExtensionErrorCodeCollectFieldsScriptFailed = 4;
 int const OPAppExtensionErrorCodeFillFieldsScriptFailed = 5;
 int const OPAppExtensionErrorCodeUnexpectedData = 6;
-int const OPAppExtensionErrorCodeCancelledExtension = 7;
-int const OPAppExtensionErrorCodeCancelledShareSheet = 8;
+int const OPAppExtensionErrorCodeCancelledByUser = 7;
 
 
 @implementation OnePasswordExtension
@@ -232,15 +231,13 @@ int const OPAppExtensionErrorCodeCancelledShareSheet = 8;
 
 	NSMutableDictionary *userInfo = [NSMutableDictionary new];
 	if (completed) {
-		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"1Password Extension cancelled", @"1Password App Extension Error Message");
-
-		contactExtensionError = [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeCancelledExtension userInfo:userInfo];
+		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"1Password Extension was cancelled by the user", @"1Password App Extension Error Message");
 	}
 	else {
-		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"The share sheet was cancelled before calling the 1Password Extension", @"1Password App Extension Error Message");
-
-		contactExtensionError = [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeCancelledShareSheet userInfo:userInfo];
+		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"The share sheet was cancelled by the user before calling the 1Password Extension", @"1Password App Extension Error Message");
 	}
+
+	contactExtensionError = [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeCancelledByUser userInfo:userInfo];
 
 	if (completion) {
 		if ([NSThread isMainThread]) {

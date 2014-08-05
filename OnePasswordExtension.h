@@ -34,8 +34,7 @@ FOUNDATION_EXPORT int const OPAppExtensionErrorCodeFailedToLoadItemProviderData;
 FOUNDATION_EXPORT int const OPAppExtensionErrorCodeCollectFieldsScriptFailed;
 FOUNDATION_EXPORT int const OPAppExtensionErrorCodeFillFieldsScriptFailed;
 FOUNDATION_EXPORT int const OPAppExtensionErrorCodeUnexpectedData;
-FOUNDATION_EXPORT int const OPAppExtensionErrorCodeCancelledExtension;
-FOUNDATION_EXPORT int const OPAppExtensionErrorCodeCancelledShareSheet;
+FOUNDATION_EXPORT int const OPAppExtensionErrorCodeCancelledByUser;
 
 @interface OnePasswordExtension : NSObject
 

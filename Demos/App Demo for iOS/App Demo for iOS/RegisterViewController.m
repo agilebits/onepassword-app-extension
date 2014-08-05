@@ -55,7 +55,7 @@
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
 
 		if (!loginDict) {
-			if (error.code == OPAppExtensionErrorCodeFailedToContactExtension) {
+			if (error.code == OPAppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Failed to use 1Password App Extension to save a new Login: %@", error);
 			}
 			return;
