@@ -88,10 +88,9 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 	__weak typeof (self) miniMe = self;
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionFindLoginAction];
-	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError)
-	{
+	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
-			[OnePasswordExtension failedToContactExtensionCompleted:completed activityError:activityError completion:^(NSDictionary *loginDictionary, NSError *error) {
+			[OnePasswordExtension failedToContactExtensionWithActivityError:activityError activityCompleted:completed completion:^(NSDictionary *loginDictionary, NSError *error) {
 				if (completion) {
 					completion(loginDictionary, error);
 				}
@@ -141,9 +140,8 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:newLoginAttributesDict typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-		
 		if (returnedItems.count == 0) {
-			[OnePasswordExtension failedToContactExtensionCompleted:completed activityError:activityError completion:^(NSDictionary *loginDictionary, NSError *error) {
+			[OnePasswordExtension failedToContactExtensionWithActivityError:activityError activityCompleted:completed completion:^(NSDictionary *loginDictionary, NSError *error) {
 				if (completion) {
 					completion(loginDictionary, error);
 				}
@@ -222,7 +220,7 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeAPINotAvailable userInfo:userInfo];
 }
 
-+ (void)failedToContactExtensionCompleted:(BOOL)completed activityError:(NSError *)activityError completion: (void (^)(NSDictionary *loginDictionary, NSError *error))completion {
++ (void)failedToContactExtensionWithActivityError:(NSError *)activityError activityCompleted:(BOOL)completed  completion: (void (^)(NSDictionary *loginDictionary, NSError *error))completion {
 	NSError *contactExtensionError = nil;
 
 	if (activityError != nil) {
@@ -364,7 +362,7 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 	UIActivityViewController *controller = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
 	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
-			[OnePasswordExtension failedToContactExtensionCompleted:completed activityError:activityError completion:^(NSDictionary *loginDictionary, NSError *error) {
+			[OnePasswordExtension failedToContactExtensionWithActivityError:activityError activityCompleted:completed completion:^(NSDictionary *loginDictionary, NSError *error) {
 				if (completion) {
 					completion(loginDictionary, error);
 				}
