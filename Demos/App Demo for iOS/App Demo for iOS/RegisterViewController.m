@@ -64,7 +64,7 @@
 		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
 		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
 		strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
-		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @""
+		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
 		// retrieve any additional fields that were passed in newLoginDetails dictionary
 	}];
 }

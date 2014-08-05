@@ -183,6 +183,7 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion
 {
+#ifdef __IPHONE_8_0
 	if ([webView isKindOfClass:[UIWebView class]]) {
 		[self fillLoginIntoUIWebView:webView webViewController:viewController completion:^(BOOL success, NSError *error) {
 			if (completion) {
@@ -202,11 +203,14 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 	else {
 		[NSException raise:@"Invalid argument: web view must be an instance of WKWebView or UIWebView." format:@""];
 	}
+#endif
 }
 
 #pragma mark - Helpers
 
 - (UIActivityViewController *)activityViewControllerForItem:(NSDictionary *)item typeIdentifier:(NSString *)typeIdentifier {
+#ifdef __IPHONE_8_0
+    
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:typeIdentifier];
 
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
@@ -218,6 +222,9 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 	controller.excludedActivityTypes = @[ UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypeMessage, UIActivityTypeMail, UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr, UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo, UIActivityTypeAirDrop ];
 
 	return controller;
+#else
+    return nil;
+#endif
 }
 
 
