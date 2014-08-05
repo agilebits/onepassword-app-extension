@@ -91,29 +91,11 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError)
 	{
 		if (returnedItems.count == 0) {
-			NSError *contactExtensionError = nil;
-
-			if (activityError != nil) {
-				contactExtensionError = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
-			}
-
-			if (completed) {
-				NSLog(@"1Password Extension cancelled");
-			}
-			else {
-				NSLog(@"The share sheet was cancelled before calling the 1Password Extension");
-			}
-
-			if (completion) {
-				if ([NSThread isMainThread]) {
-					completion(nil, contactExtensionError);
+			[OnePasswordExtension failedToContactExtensionCompleted:completed activityError:activityError completion:^(NSDictionary *loginDictionary, NSError *error) {
+				if (completion) {
+					completion(loginDictionary, error);
 				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(nil, contactExtensionError);
-					});
-				}
-			}
+			}];
 
 			return;
 		}
@@ -161,29 +143,11 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		
 		if (returnedItems.count == 0) {
-			NSError *contactExtensionError = nil;
-
-			if (activityError != nil) {
-				contactExtensionError = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
-			}
-
-			if (completed) {
-				NSLog(@"1Password Extension cancelled");
-			}
-			else {
-				NSLog(@"The share sheed was cancelled before calling the 1Password Extension");
-			}
-
-			if (completion) {
-				if ([NSThread isMainThread]) {
-					completion(nil, contactExtensionError);
+			[OnePasswordExtension failedToContactExtensionCompleted:completed activityError:activityError completion:^(NSDictionary *loginDictionary, NSError *error) {
+				if (completion) {
+					completion(loginDictionary, error);
 				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(nil, contactExtensionError);
-					});
-				}
-			}
+			}];
 			
 			return;
 		}
@@ -256,6 +220,32 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 + (NSError *)systemAppExtensionAPINotAvailableError {
 	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"App Extension API is not available is this version of iOS", @"1Password App Extension Error Message") };
 	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeAPINotAvailable userInfo:userInfo];
+}
+
++ (void)failedToContactExtensionCompleted:(BOOL)completed activityError:(NSError *)activityError completion: (void (^)(NSDictionary *loginDictionary, NSError *error))completion {
+	NSError *contactExtensionError = nil;
+
+	if (activityError != nil) {
+		contactExtensionError = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
+	}
+
+	if (completed) {
+		NSLog(@"1Password Extension cancelled");
+	}
+	else {
+		NSLog(@"The share sheet was cancelled before calling the 1Password Extension");
+	}
+
+	if (completion) {
+		if ([NSThread isMainThread]) {
+			completion(nil, contactExtensionError);
+		}
+		else {
+			dispatch_async(dispatch_get_main_queue(), ^{
+				completion(nil, contactExtensionError);
+			});
+		}
+	}
 }
 
 + (NSError *)failedToContactExtensionErrorWithActivityError:(NSError *)activityError {
@@ -374,29 +364,11 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 	UIActivityViewController *controller = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
 	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
-			NSError *contactExtensionError = nil;
-
-			if (activityError != nil) {
-				contactExtensionError = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
-			}
-
-			if (completed) {
-				NSLog(@"1Password Extension cancelled");
-			}
-			else {
-				NSLog(@"The share sheed was cancelled before calling the 1Password Extension");
-			}
-
-			if (completion) {
-				if ([NSThread isMainThread]) {
-					completion(nil, contactExtensionError);
+			[OnePasswordExtension failedToContactExtensionCompleted:completed activityError:activityError completion:^(NSDictionary *loginDictionary, NSError *error) {
+				if (completion) {
+					completion(loginDictionary, error);
 				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(nil, contactExtensionError);
-					});
-				}
-			}
+			}];
 
 			return;
 		}
