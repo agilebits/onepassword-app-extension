@@ -35,7 +35,9 @@
 	__weak typeof (self) miniMe = self;
 	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
-			NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
+			if (error != nil) {
+				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
+			}
 			return;
 		}
 		
