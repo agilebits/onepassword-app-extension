@@ -32,13 +32,15 @@ NSString *const AppExtensionGeneratedPasswordMinLengthKey = @"password_min_lengt
 NSString *const AppExtensionGeneratedPasswordMaxLengthKey = @"password_max_length";
 
 // Errors
-NSString *const OPAppExtensionErrorDomain = @"OnePasswordExtension";
-int const OPAppExtensionErrorCodeAPINotAvailable = 1;
-int const OPAppExtensionErrorCodeFailedToContactExtension = 2;
-int const OPAppExtensionErrorCodeFailedToLoadItemProviderData = 3;
-int const OPAppExtensionErrorCodeCollectFieldsScriptFailed = 4;
-int const OPAppExtensionErrorCodeFillFieldsScriptFailed = 5;
-int const OPAppExtensionErrorCodeUnexpectedData = 6;
+NSString *const AppExtensionErrorDomain = @"OnePasswordExtension";
+NSInteger const AppExtensionErrorCodeCancelledByUser = 0;
+NSInteger const AppExtensionErrorCodeAPINotAvailable = 1;
+NSInteger const AppExtensionErrorCodeFailedToContactExtension = 2;
+NSInteger const AppExtensionErrorCodeFailedToLoadItemProviderData = 3;
+NSInteger const AppExtensionErrorCodeCollectFieldsScriptFailed = 4;
+NSInteger const AppExtensionErrorCodeFillFieldsScriptFailed = 5;
+NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
+
 
 @implementation OnePasswordExtension
 
@@ -88,34 +90,28 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 	__weak typeof (self) miniMe = self;
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionFindLoginAction];
-	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError)
-	{
-		if (!completed || returnedItems.count == 0) {
-			if (completion) {
-				if ([NSThread isMainThread]) {
-					completion(nil, [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError]);
-				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(nil, [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError]);
-					});
-				}
+	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+		if (returnedItems.count == 0) {
+			NSError *error = nil;
+			if (activityError) {
+				NSLog(@"Failed to findLoginForURLString: %@", activityError);
+				error = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
 			}
-			
+			else {
+				error = [OnePasswordExtension extensionCancelledByUserError];
+			}
+
+			if (completion) {
+				completion(nil, error);
+			}
+
 			return;
 		}
 
 		__strong typeof(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (completion) {
-				if ([NSThread isMainThread]) {
-					completion(loginDictionary, error);
-				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(loginDictionary, error);
-					});
-				}
+				completion(loginDictionary, error);
 			}
 		}];
 	};
@@ -146,33 +142,27 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:newLoginAttributesDict typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-		
-		if (!completed || returnedItems.count == 0) {
-			if (completion) {
-				if ([NSThread isMainThread]) {
-					completion(nil, [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError]);
-				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(nil, [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError]);
-					});
-				}
+		if (returnedItems.count == 0) {
+			NSError *error = nil;
+			if (activityError) {
+				NSLog(@"Failed to storeLoginForURLString: %@", activityError);
+				error = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
 			}
-			
+			else {
+				error = [OnePasswordExtension extensionCancelledByUserError];
+			}
+
+			if (completion) {
+				completion(nil, error);
+			}
+
 			return;
 		}
 		
 		__strong typeof(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (completion) {
-				if ([NSThread isMainThread]) {
-					completion(loginDictionary, error);
-				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(loginDictionary, error);
-					});
-				}
+				completion(loginDictionary, error);
 			}
 		}];
 	};
@@ -229,7 +219,13 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 
 + (NSError *)systemAppExtensionAPINotAvailableError {
 	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"App Extension API is not available is this version of iOS", @"1Password App Extension Error Message") };
-	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeAPINotAvailable userInfo:userInfo];
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeAPINotAvailable userInfo:userInfo];
+}
+
+
++ (NSError *)extensionCancelledByUserError {
+	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"1Password Extension was cancelled by the user", @"1Password App Extension Error Message") };
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeCancelledByUser userInfo:userInfo];
 }
 
 + (NSError *)failedToContactExtensionErrorWithActivityError:(NSError *)activityError {
@@ -239,7 +235,7 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 		userInfo[NSUnderlyingErrorKey] = activityError;
 	}
 
-	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeFailedToContactExtension userInfo:userInfo];
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFailedToContactExtension userInfo:userInfo];
 }
 
 + (NSError *)failedToCollectFieldsErrorWithUnderlyingError:(NSError *)underlyingError {
@@ -249,7 +245,7 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 		userInfo[NSUnderlyingErrorKey] = underlyingError;
 	}
 
-	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeCollectFieldsScriptFailed userInfo:userInfo];
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeCollectFieldsScriptFailed userInfo:userInfo];
 }
 
 + (NSError *)failedToFillFieldsErrorWithLocalizedErrorMessage:(NSString *)errorMessage underlyingError:(NSError *)underlyingError {
@@ -261,7 +257,7 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 		userInfo[NSUnderlyingErrorKey] = underlyingError;
 	}
 
-	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeFillFieldsScriptFailed userInfo:userInfo];
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFillFieldsScriptFailed userInfo:userInfo];
 }
 
 + (NSError *)failedToLoadItemProviderDataErrorWithUnderlyingError:(NSError *)underlyingError {
@@ -271,7 +267,7 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 		userInfo[NSUnderlyingErrorKey] = underlyingError;
 	}
 
-	return [[NSError alloc] initWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeFailedToLoadItemProviderData userInfo:userInfo];
+	return [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFailedToLoadItemProviderData userInfo:userInfo];
 }
 
 #pragma mark - App Extension ItemProvider Callback
@@ -280,7 +276,7 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 - (void)processExtensionItem:(NSExtensionItem *)extensionItem completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion {
 	if (extensionItem.attachments.count == 0) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item had no attachments." };
-		NSError *error = [[NSError alloc] initWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeUnexpectedData userInfo:userInfo];
+		NSError *error = [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeUnexpectedData userInfo:userInfo];
 		if (completion) {
 			completion(nil, error);
 		}
@@ -288,20 +284,35 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 	}
 	
 	NSItemProvider *itemProvider = extensionItem.attachments[0];
-	if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
-		[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *loginDictionary, NSError *itemProviderError)
-		{
-			NSError *error = nil;
-			if (!loginDictionary) {
-				NSLog(@"Failed to loadItemForTypeIdentifier: %@", itemProviderError);
-				error = [OnePasswordExtension failedToLoadItemProviderDataErrorWithUnderlyingError:itemProviderError];
-			}
+	if (![itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
+		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item attachment does not conform to kUTTypePropertyList type identifier" };
+		NSError *error = [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeUnexpectedData userInfo:userInfo];
+		if (completion) {
+			completion(nil, error);
+		}
+		return;
+	}
 
-			if (completion) {
+
+	[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *loginDictionary, NSError *itemProviderError)
+	{
+		NSError *error = nil;
+		if (!loginDictionary) {
+			NSLog(@"Failed to loadItemForTypeIdentifier: %@", itemProviderError);
+			error = [OnePasswordExtension failedToLoadItemProviderDataErrorWithUnderlyingError:itemProviderError];
+		}
+
+		if (completion) {
+			if ([NSThread isMainThread]) {
 				completion(loginDictionary, error);
 			}
-		}];
-	}
+			else {
+				dispatch_async(dispatch_get_main_queue(), ^{
+					completion(loginDictionary, error);
+				});
+			}
+		}
+	}];
 }
 
 
@@ -347,15 +358,23 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 
 	UIActivityViewController *controller = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
 	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-		if (!completed || returnedItems.count == 0) {
-			NSLog(@"Failed to contact the 1Password App Extension: %@", activityError);
+		if (returnedItems.count == 0) {
+			NSError *error = nil;
+			if (activityError) {
+				NSLog(@"Failed to findLoginIn1PasswordWithURLString: %@", activityError);
+				error = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
+			}
+			else {
+				error = [OnePasswordExtension extensionCancelledByUserError];
+			}
+
 			if (completion) {
-				completion(NO, [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError]);
+				completion(nil, error);
 			}
 
 			return;
 		}
-		
+
 		__strong typeof(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (!loginDictionary) {
@@ -368,22 +387,11 @@ int const OPAppExtensionErrorCodeUnexpectedData = 6;
 			
 			__strong typeof(self) strongMe2 = miniMe;
 			NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
-			if ([NSThread isMainThread]) {
-				[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
-					if (completion) {
-						completion(success, error);
-					}
-				}];
-			}
-			else {
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
-						if (completion) {
-							completion(success, error);
-						}
-					}];
-				});
-			}
+			[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
+				if (completion) {
+					completion(success, error);
+				}
+			}];
 		}];
 	};
 	

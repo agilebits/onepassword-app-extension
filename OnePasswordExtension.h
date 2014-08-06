@@ -26,6 +26,17 @@ FOUNDATION_EXPORT NSString *const AppExtensionReturnedFieldsKey;
 FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMinLengthKey;
 FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMaxLengthKey;
 
+// Errors
+FOUNDATION_EXPORT NSString *const AppExtensionErrorDomain;
+FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeCancelledByUser;
+
+FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeAPINotAvailable;
+FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeFailedToContactExtension;
+FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeFailedToLoadItemProviderData;
+FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeCollectFieldsScriptFailed;
+FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeFillFieldsScriptFailed;
+FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
+
 @interface OnePasswordExtension : NSObject
 
 + (OnePasswordExtension *)sharedExtension;
