@@ -32,14 +32,14 @@ NSString *const AppExtensionGeneratedPasswordMinLengthKey = @"password_min_lengt
 NSString *const AppExtensionGeneratedPasswordMaxLengthKey = @"password_max_length";
 
 // Errors
-NSString *const OPAppExtensionErrorDomain = @"OnePasswordExtension";
-NSInteger const OPAppExtensionErrorCodeCancelledByUser = 0;
-NSInteger const OPAppExtensionErrorCodeAPINotAvailable = 1;
-NSInteger const OPAppExtensionErrorCodeFailedToContactExtension = 2;
-NSInteger const OPAppExtensionErrorCodeFailedToLoadItemProviderData = 3;
-NSInteger const OPAppExtensionErrorCodeCollectFieldsScriptFailed = 4;
-NSInteger const OPAppExtensionErrorCodeFillFieldsScriptFailed = 5;
-NSInteger const OPAppExtensionErrorCodeUnexpectedData = 6;
+NSString *const AppExtensionErrorDomain = @"OnePasswordExtension";
+NSInteger const AppExtensionErrorCodeCancelledByUser = 0;
+NSInteger const AppExtensionErrorCodeAPINotAvailable = 1;
+NSInteger const AppExtensionErrorCodeFailedToContactExtension = 2;
+NSInteger const AppExtensionErrorCodeFailedToLoadItemProviderData = 3;
+NSInteger const AppExtensionErrorCodeCollectFieldsScriptFailed = 4;
+NSInteger const AppExtensionErrorCodeFillFieldsScriptFailed = 5;
+NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 
 @implementation OnePasswordExtension
@@ -219,13 +219,13 @@ NSInteger const OPAppExtensionErrorCodeUnexpectedData = 6;
 
 + (NSError *)systemAppExtensionAPINotAvailableError {
 	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"App Extension API is not available is this version of iOS", @"1Password App Extension Error Message") };
-	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeAPINotAvailable userInfo:userInfo];
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeAPINotAvailable userInfo:userInfo];
 }
 
 
 + (NSError *)extensionCancelledByUserError {
 	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"1Password Extension was cancelled by the user", @"1Password App Extension Error Message") };
-	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeCancelledByUser userInfo:userInfo];
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeCancelledByUser userInfo:userInfo];
 }
 
 + (NSError *)failedToContactExtensionErrorWithActivityError:(NSError *)activityError {
@@ -235,7 +235,7 @@ NSInteger const OPAppExtensionErrorCodeUnexpectedData = 6;
 		userInfo[NSUnderlyingErrorKey] = activityError;
 	}
 
-	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeFailedToContactExtension userInfo:userInfo];
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFailedToContactExtension userInfo:userInfo];
 }
 
 + (NSError *)failedToCollectFieldsErrorWithUnderlyingError:(NSError *)underlyingError {
@@ -245,7 +245,7 @@ NSInteger const OPAppExtensionErrorCodeUnexpectedData = 6;
 		userInfo[NSUnderlyingErrorKey] = underlyingError;
 	}
 
-	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeCollectFieldsScriptFailed userInfo:userInfo];
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeCollectFieldsScriptFailed userInfo:userInfo];
 }
 
 + (NSError *)failedToFillFieldsErrorWithLocalizedErrorMessage:(NSString *)errorMessage underlyingError:(NSError *)underlyingError {
@@ -257,7 +257,7 @@ NSInteger const OPAppExtensionErrorCodeUnexpectedData = 6;
 		userInfo[NSUnderlyingErrorKey] = underlyingError;
 	}
 
-	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeFillFieldsScriptFailed userInfo:userInfo];
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFillFieldsScriptFailed userInfo:userInfo];
 }
 
 + (NSError *)failedToLoadItemProviderDataErrorWithUnderlyingError:(NSError *)underlyingError {
@@ -267,7 +267,7 @@ NSInteger const OPAppExtensionErrorCodeUnexpectedData = 6;
 		userInfo[NSUnderlyingErrorKey] = underlyingError;
 	}
 
-	return [[NSError alloc] initWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeFailedToLoadItemProviderData userInfo:userInfo];
+	return [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFailedToLoadItemProviderData userInfo:userInfo];
 }
 
 #pragma mark - App Extension ItemProvider Callback
@@ -276,7 +276,7 @@ NSInteger const OPAppExtensionErrorCodeUnexpectedData = 6;
 - (void)processExtensionItem:(NSExtensionItem *)extensionItem completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion {
 	if (extensionItem.attachments.count == 0) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item had no attachments." };
-		NSError *error = [[NSError alloc] initWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeUnexpectedData userInfo:userInfo];
+		NSError *error = [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeUnexpectedData userInfo:userInfo];
 		if (completion) {
 			completion(nil, error);
 		}
@@ -286,7 +286,7 @@ NSInteger const OPAppExtensionErrorCodeUnexpectedData = 6;
 	NSItemProvider *itemProvider = extensionItem.attachments[0];
 	if (![itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item attachment does not conform to kUTTypePropertyList type identifier" };
-		NSError *error = [[NSError alloc] initWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeUnexpectedData userInfo:userInfo];
+		NSError *error = [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeUnexpectedData userInfo:userInfo];
 		if (completion) {
 			completion(nil, error);
 		}
