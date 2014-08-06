@@ -33,13 +33,13 @@ NSString *const AppExtensionGeneratedPasswordMaxLengthKey = @"password_max_lengt
 
 // Errors
 NSString *const OPAppExtensionErrorDomain = @"OnePasswordExtension";
-int const OPAppExtensionErrorCodeAPINotAvailable = 1;
-int const OPAppExtensionErrorCodeFailedToContactExtension = 2;
-int const OPAppExtensionErrorCodeFailedToLoadItemProviderData = 3;
-int const OPAppExtensionErrorCodeCollectFieldsScriptFailed = 4;
-int const OPAppExtensionErrorCodeFillFieldsScriptFailed = 5;
-int const OPAppExtensionErrorCodeUnexpectedData = 6;
-int const OPAppExtensionErrorCodeCancelledByUser = 7;
+NSInteger const OPAppExtensionErrorCodeCancelledByUser = 0;
+NSInteger const OPAppExtensionErrorCodeAPINotAvailable = 1;
+NSInteger const OPAppExtensionErrorCodeFailedToContactExtension = 2;
+NSInteger const OPAppExtensionErrorCodeFailedToLoadItemProviderData = 3;
+NSInteger const OPAppExtensionErrorCodeCollectFieldsScriptFailed = 4;
+NSInteger const OPAppExtensionErrorCodeFillFieldsScriptFailed = 5;
+NSInteger const OPAppExtensionErrorCodeUnexpectedData = 6;
 
 
 @implementation OnePasswordExtension
@@ -92,11 +92,18 @@ int const OPAppExtensionErrorCodeCancelledByUser = 7;
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionFindLoginAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
-			[OnePasswordExtension failedToContactExtensionWithActivityError:activityError activityCompleted:completed completion:^(NSDictionary *loginDictionary, NSError *error) {
-				if (completion) {
-					completion(loginDictionary, error);
-				}
-			}];
+			NSError *error = nil;
+			if (activityError) {
+				NSLog(@"Failed to findLoginForURLString: %@", activityError);
+				error = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
+			}
+			else {
+				error = [OnePasswordExtension extensionCancelledByUserError];
+			}
+
+			if (completion) {
+				completion(nil, error);
+			}
 
 			return;
 		}
@@ -104,14 +111,7 @@ int const OPAppExtensionErrorCodeCancelledByUser = 7;
 		__strong typeof(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (completion) {
-				if ([NSThread isMainThread]) {
-					completion(loginDictionary, error);
-				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(loginDictionary, error);
-					});
-				}
+				completion(loginDictionary, error);
 			}
 		}];
 	};
@@ -143,26 +143,26 @@ int const OPAppExtensionErrorCodeCancelledByUser = 7;
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:newLoginAttributesDict typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
-			[OnePasswordExtension failedToContactExtensionWithActivityError:activityError activityCompleted:completed completion:^(NSDictionary *loginDictionary, NSError *error) {
-				if (completion) {
-					completion(loginDictionary, error);
-				}
-			}];
-			
+			NSError *error = nil;
+			if (activityError) {
+				NSLog(@"Failed to storeLoginForURLString: %@", activityError);
+				error = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
+			}
+			else {
+				error = [OnePasswordExtension extensionCancelledByUserError];
+			}
+
+			if (completion) {
+				completion(nil, error);
+			}
+
 			return;
 		}
 		
 		__strong typeof(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (completion) {
-				if ([NSThread isMainThread]) {
-					completion(loginDictionary, error);
-				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(loginDictionary, error);
-					});
-				}
+				completion(loginDictionary, error);
 			}
 		}];
 	};
@@ -222,33 +222,10 @@ int const OPAppExtensionErrorCodeCancelledByUser = 7;
 	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeAPINotAvailable userInfo:userInfo];
 }
 
-+ (void)failedToContactExtensionWithActivityError:(NSError *)activityError activityCompleted:(BOOL)completed  completion: (void (^)(NSDictionary *loginDictionary, NSError *error))completion {
-	NSError *contactExtensionError = nil;
 
-	if (activityError != nil) {
-		contactExtensionError = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
-	}
-
-	NSMutableDictionary *userInfo = [NSMutableDictionary new];
-	if (completed) {
-		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"1Password Extension was cancelled by the user", @"1Password App Extension Error Message");
-	}
-	else {
-		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"The share sheet was cancelled by the user before calling the 1Password Extension", @"1Password App Extension Error Message");
-	}
-
-	contactExtensionError = [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeCancelledByUser userInfo:userInfo];
-
-	if (completion) {
-		if ([NSThread isMainThread]) {
-			completion(nil, contactExtensionError);
-		}
-		else {
-			dispatch_async(dispatch_get_main_queue(), ^{
-				completion(nil, contactExtensionError);
-			});
-		}
-	}
++ (NSError *)extensionCancelledByUserError {
+	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"1Password Extension was cancelled by the user", @"1Password App Extension Error Message") };
+	return [NSError errorWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeCancelledByUser userInfo:userInfo];
 }
 
 + (NSError *)failedToContactExtensionErrorWithActivityError:(NSError *)activityError {
@@ -317,7 +294,14 @@ int const OPAppExtensionErrorCodeCancelledByUser = 7;
 			}
 
 			if (completion) {
-				completion(loginDictionary, error);
+				if ([NSThread isMainThread]) {
+					completion(loginDictionary, error);
+				}
+				else {
+					dispatch_async(dispatch_get_main_queue(), ^{
+						completion(loginDictionary, error);
+					});
+				}
 			}
 		}];
 	}
@@ -367,14 +351,22 @@ int const OPAppExtensionErrorCodeCancelledByUser = 7;
 	UIActivityViewController *controller = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
 	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
-			[OnePasswordExtension failedToContactExtensionWithActivityError:activityError activityCompleted:completed completion:^(NSDictionary *loginDictionary, NSError *error) {
-				if (completion) {
-					completion(loginDictionary, error);
-				}
-			}];
+			NSError *error = nil;
+			if (activityError) {
+				NSLog(@"Failed to findLoginIn1PasswordWithURLString: %@", activityError);
+				error = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
+			}
+			else {
+				error = [OnePasswordExtension extensionCancelledByUserError];
+			}
+
+			if (completion) {
+				completion(nil, error);
+			}
 
 			return;
 		}
+
 		__strong typeof(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (!loginDictionary) {
@@ -387,22 +379,11 @@ int const OPAppExtensionErrorCodeCancelledByUser = 7;
 			
 			__strong typeof(self) strongMe2 = miniMe;
 			NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
-			if ([NSThread isMainThread]) {
-				[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
-					if (completion) {
-						completion(success, error);
-					}
-				}];
-			}
-			else {
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
-						if (completion) {
-							completion(success, error);
-						}
-					}];
-				});
-			}
+			[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
+				if (completion) {
+					completion(success, error);
+				}
+			}];
 		}];
 	};
 	
