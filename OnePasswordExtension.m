@@ -284,27 +284,35 @@ NSInteger const OPAppExtensionErrorCodeUnexpectedData = 6;
 	}
 	
 	NSItemProvider *itemProvider = extensionItem.attachments[0];
-	if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
-		[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *loginDictionary, NSError *itemProviderError)
-		{
-			NSError *error = nil;
-			if (!loginDictionary) {
-				NSLog(@"Failed to loadItemForTypeIdentifier: %@", itemProviderError);
-				error = [OnePasswordExtension failedToLoadItemProviderDataErrorWithUnderlyingError:itemProviderError];
-			}
-
-			if (completion) {
-				if ([NSThread isMainThread]) {
-					completion(loginDictionary, error);
-				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						completion(loginDictionary, error);
-					});
-				}
-			}
-		}];
+	if (![itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
+		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item attachment does not conform to kUTTypePropertyList type identifier" };
+		NSError *error = [[NSError alloc] initWithDomain:OPAppExtensionErrorDomain code:OPAppExtensionErrorCodeUnexpectedData userInfo:userInfo];
+		if (completion) {
+			completion(nil, error);
+		}
+		return;
 	}
+
+
+	[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *loginDictionary, NSError *itemProviderError)
+	{
+		NSError *error = nil;
+		if (!loginDictionary) {
+			NSLog(@"Failed to loadItemForTypeIdentifier: %@", itemProviderError);
+			error = [OnePasswordExtension failedToLoadItemProviderDataErrorWithUnderlyingError:itemProviderError];
+		}
+
+		if (completion) {
+			if ([NSThread isMainThread]) {
+				completion(loginDictionary, error);
+			}
+			else {
+				dispatch_async(dispatch_get_main_queue(), ^{
+					completion(loginDictionary, error);
+				});
+			}
+		}
+	}];
 }
 
 
