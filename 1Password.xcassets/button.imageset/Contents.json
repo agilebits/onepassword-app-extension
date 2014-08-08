@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "extension-ipad.png"
+      "filename" : "button.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "extension-ipad@2x.png"
+      "filename" : "button@2x.png"
     }
   ],
   "info" : {
