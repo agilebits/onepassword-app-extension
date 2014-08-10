@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "navbar.png"
+      "filename" : "onepassword-toolbar.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "navbar@2x.png"
+      "filename" : "onepassword-toolbar@2x.png"
     }
   ],
   "info" : {

@@ -7,7 +7,7 @@
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "extension-iphone@2x.png"
+      "filename" : "onepassword-extension-iphone@2x.png"
     },
     {
       "idiom" : "iphone",
@@ -17,12 +17,12 @@
     {
       "idiom" : "ipad",
       "scale" : "1x",
-      "filename" : "extension-ipad.png"
+      "filename" : "onepassword-extension-ipad.png"
     },
     {
       "idiom" : "ipad",
       "scale" : "2x",
-      "filename" : "extension-ipad@2x.png"
+      "filename" : "onepassword-extension-ipad@2x.png"
     }
   ],
   "info" : {

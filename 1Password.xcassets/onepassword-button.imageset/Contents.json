@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "button.png"
+      "filename" : "onepassword-button.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "button@2x.png"
+      "filename" : "onepassword-button@2x.png"
     }
   ],
   "info" : {
