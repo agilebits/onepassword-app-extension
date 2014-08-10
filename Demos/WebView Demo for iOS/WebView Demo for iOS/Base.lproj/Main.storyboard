@@ -58,7 +58,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="SQq-i8-VvJ"/>
                                 </constraints>
-                                <state key="normal" image="button">
+                                <state key="normal" image="onepassword-toolbar">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -99,6 +99,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="button" width="76" height="76"/>
+        <image name="onepassword-toolbar" width="27" height="27"/>
     </resources>
 </document>
