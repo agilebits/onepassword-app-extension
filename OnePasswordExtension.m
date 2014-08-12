@@ -173,7 +173,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)changePasswordForLoginWithUsername:(NSString *)username andURLString:(NSString *)URLString forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
+- (void)changePasswordForLoginWithUsername:(NSString *)username andURLString:(NSString *)URLString passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
 {
 	if (![self isSystemAppExtensionAPIAvailable]) {
 		NSLog(@"Failed to findLoginForURLString, system API is not available");
@@ -185,7 +185,10 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}
 
 #ifdef __IPHONE_8_0
-	NSDictionary *item = @{ AppExtensionURLStringKey: URLString, AppExtensionUsernameKey : username };
+	NSMutableDictionary *item = [NSMutableDictionary new];
+	item[AppExtensionUsernameKey] = username;
+	item[AppExtensionURLStringKey] = URLString;
+	[item addEntriesFromDictionary:passwordGenerationOptions];
 
 	__weak typeof (self) miniMe = self;
 
