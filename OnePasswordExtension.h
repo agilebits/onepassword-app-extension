@@ -49,7 +49,11 @@ FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
  Note that this returns YES if any app that supports the generic `org-appextension-feature-password-management` feature 
  is installed.
  */
+#ifdef __IPHONE_8_0
 - (BOOL)isAppExtensionAvailable NS_EXTENSION_UNAVAILABLE_IOS("Not available in an extension. Check if org-appextension-feature-password-management:// URL can be opened by the app.");
+#else
+- (BOOL)isAppExtensionAvailable;
+#endif
 
 /*!
  Called from your login page, this method will find all available logins for the given URLString. After the user selects 
