@@ -76,7 +76,17 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	return NO;
 }
 
-- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sourceView:(UIView *)sourceView sourceRect:(CGRect)sourceRect completion:(void (^)(NSDictionary *, NSError *))completion
+{
+    [self findLoginForURLString:URLString forViewController:viewController sourceView:sourceView sourceRect:sourceRect barButtonItem:nil completion:completion];
+}
+
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController barButtonItem:(UIBarButtonItem *)barButtonItem completion:(void (^)(NSDictionary *, NSError *))completion
+{
+    [self findLoginForURLString:URLString forViewController:viewController sourceView:nil sourceRect:CGRectNull barButtonItem:barButtonItem completion:completion];
+}
+
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sourceView:(UIView *)sourceView sourceRect:(CGRect)sourceRect barButtonItem:(UIBarButtonItem *)barButtonItem completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion
 {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
@@ -121,6 +131,9 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			}
 		}];
 	};
+    activityViewController.popoverPresentationController.sourceView = sourceView;
+    activityViewController.popoverPresentationController.sourceRect = sourceRect;
+    activityViewController.popoverPresentationController.barButtonItem = barButtonItem;
 	
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
 #endif
@@ -239,14 +252,25 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion
+-(void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sourceView:(UIView *)sourceView sourceRect:(CGRect)sourceRect completion:(void (^)(BOOL, NSError *))completion
+{
+    [self fillLoginIntoWebView:webView forViewController:viewController sourceView:sourceView sourceRect:sourceRect barButtonItem:nil completion:completion];
+}
+
+-(void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController barButtonItem:(UIBarButtonItem *)barButtonItem completion:(void (^)(BOOL, NSError *))completion
+{
+    [self fillLoginIntoWebView:webView forViewController:viewController sourceView:nil sourceRect:CGRectNull barButtonItem:barButtonItem completion:completion];
+}
+
+
+- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sourceView:(UIView *)sourceView sourceRect:(CGRect)sourceRect barButtonItem:(UIBarButtonItem *)barButtonItem completion:(void (^)(BOOL success, NSError *error))completion
 {
 	NSAssert(webView != nil, @"webView must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
 #ifdef __IPHONE_8_0
 	if ([webView isKindOfClass:[UIWebView class]]) {
-		[self fillLoginIntoUIWebView:webView webViewController:viewController completion:^(BOOL success, NSError *error) {
+		[self fillLoginIntoUIWebView:webView webViewController:viewController sourceView:sourceView sourceRect:sourceRect barButtonItem:barButtonItem completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
 			}
@@ -254,7 +278,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	else if ([webView isKindOfClass:[WKWebView class]]) {
-		[self fillLoginIntoWKWebView:webView forViewController:viewController completion:^(BOOL success, NSError *error) {
+		[self fillLoginIntoWKWebView:webView forViewController:viewController sourceView:sourceView sourceRect:sourceRect barButtonItem:barButtonItem completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
 			}
@@ -390,7 +414,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #pragma mark - Web view integration
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-- (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion {
+- (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController sourceView:(UIView *)sourceView sourceRect:(CGRect)sourceRect barButtonItem:(UIBarButtonItem *)barButtonItem completion:(void (^)(BOOL success, NSError *error))completion {
 	__weak typeof (self) miniMe = self;
 	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
@@ -403,7 +427,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 		}
 		
 		__strong typeof(self) strongMe = miniMe;
-		[strongMe findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController withWebView:webView completion:^(BOOL success, NSError *error) {
+		[strongMe findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController withWebView:webView sourceView:sourceView sourceRect:sourceRect barButtonItem:barButtonItem completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
 			}
@@ -412,16 +436,16 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 }
 #endif
 
-- (void)fillLoginIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion {
+- (void)fillLoginIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)viewController sourceView:(UIView *)sourceView sourceRect:(CGRect)sourceRect barButtonItem:(UIBarButtonItem *)barButtonItem completion:(void (^)(BOOL success, NSError *error))completion {
 	NSString *collectedPageDetails = [webView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
-	[self findLoginIn1PasswordWithURLString:webView.request.URL.absoluteString collectedPageDetails:collectedPageDetails forWebViewController:viewController withWebView:webView completion:^(BOOL success, NSError *error) {
+	[self findLoginIn1PasswordWithURLString:webView.request.URL.absoluteString collectedPageDetails:collectedPageDetails forWebViewController:viewController withWebView:webView sourceView:sourceView sourceRect:sourceRect barButtonItem:barButtonItem completion:^(BOOL success, NSError *error) {
 		if (completion) {
 			completion(success, error);
 		}
 	}];
 }
 
-- (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion
+- (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController withWebView:(id)webView sourceView:(UIView *)sourceView sourceRect:(CGRect)sourceRect barButtonItem:(UIBarButtonItem *)barButtonItem completion:(void (^)(BOOL success, NSError *error))completion
 {
 	NSDictionary *item = @{ AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetails };
 
@@ -465,7 +489,10 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			}];
 		}];
 	};
-	
+    controller.popoverPresentationController.sourceView = sourceView;
+    controller.popoverPresentationController.sourceRect = sourceRect;
+    controller.popoverPresentationController.barButtonItem = barButtonItem;
+    
 	[forViewController presentViewController:controller animated:YES completion:nil];
 }
 

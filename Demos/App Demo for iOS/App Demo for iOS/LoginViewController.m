@@ -34,7 +34,7 @@
 
 - (IBAction)findLoginFrom1Password:(id)sender {
 	__weak typeof (self) miniMe = self;
-	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
+    [[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self sourceView:self.view sourceRect:[sender frame] completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
