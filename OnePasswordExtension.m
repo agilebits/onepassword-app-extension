@@ -77,6 +77,14 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 - (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion
 {
+	if (!URLString) {
+		[NSException raise:@"Invalid Argument exception" format:@"URLString must not be nil"];
+	}
+
+	if (!viewController) {
+		[NSException raise:@"Invalid Argument exception" format:@"viewController must not be nil"];
+	}
+
 	if (![self isSystemAppExtensionAPIAvailable]) {
 		NSLog(@"Failed to findLoginForURLString, system API is not available");
 		if (completion) {
@@ -124,6 +132,18 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 - (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion;
 {
+	if (!URLString) {
+		[NSException raise:@"Invalid Argument exception" format:@"URLString must not be nil"];
+	}
+
+	if (!loginDetailsDict) {
+		[NSException raise:@"Invalid Argument exception" format:@"loginDetailsDict must not be nil"];
+	}
+
+	if (!viewController) {
+		[NSException raise:@"Invalid Argument exception" format:@"viewController must not be nil"];
+	}
+
 	if (![self isSystemAppExtensionAPIAvailable]) {
 		NSLog(@"Failed to storeLoginForURLString, system API is not available");
 		if (completion) {
@@ -175,6 +195,18 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 - (void)changePasswordForLoginWithUsername:(NSString *)username andURLString:(NSString *)URLString passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
 {
+	if (!username) {
+		[NSException raise:@"Invalid Argument exception" format:@"username must not be nil"];
+	}
+
+	if (!URLString) {
+		[NSException raise:@"Invalid Argument exception" format:@"URLString must not be nil"];
+	}
+
+	if (!viewController) {
+		[NSException raise:@"Invalid Argument exception" format:@"viewController must not be nil"];
+	}
+
 	if (![self isSystemAppExtensionAPIAvailable]) {
 		NSLog(@"Failed to changePasswordForLoginWithUsername, system API is not available");
 		if (completion) {
@@ -225,6 +257,14 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion
 {
+	if (!webView) {
+		[NSException raise:@"Invalid Argument exception" format:@"webView must not be nil"];
+	}
+
+	if (!viewController) {
+		[NSException raise:@"Invalid Argument exception" format:@"viewController must not be nil"];
+	}
+
 #ifdef __IPHONE_8_0
 	if ([webView isKindOfClass:[UIWebView class]]) {
 		[self fillLoginIntoUIWebView:webView webViewController:viewController completion:^(BOOL success, NSError *error) {
