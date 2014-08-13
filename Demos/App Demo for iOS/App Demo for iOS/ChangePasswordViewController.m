@@ -22,7 +22,7 @@
 @implementation ChangePasswordViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
 	[self.onepasswordSigninButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
@@ -34,12 +34,13 @@
 
 - (IBAction)changePasswordIn1Password:(id)sender {
 	NSDictionary *passwordGenerationOptions = @{
-												AppExtensionGeneratedPasswordMinLengthKey: @(6),
-												AppExtensionGeneratedPasswordMaxLengthKey: @(50)
-												};
+		AppExtensionGeneratedPasswordMinLengthKey: @(6),
+		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
+	};
 
 	__weak typeof (self) miniMe = self;
-	[[OnePasswordExtension sharedExtension] changePasswordForLoginWithUsername:[LoginInformation sharedLoginInformation].username andURLString:@"https://www.acme.com" passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
+	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
+	[[OnePasswordExtension sharedExtension] changePasswordForLoginWithUsername:username andURLString:@"https://www.acme.com" passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
