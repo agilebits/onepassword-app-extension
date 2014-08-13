@@ -140,7 +140,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	newLoginAttributesDict[AppExtensionURLStringKey] = URLString;
 	[newLoginAttributesDict addEntriesFromDictionary:loginDetailsDict];
 	if (passwordGenerationOptions.count > 0) {
-		newLoginAttributesDict [AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
+		newLoginAttributesDict[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
 	}
 
 	__weak typeof (self) miniMe = self;
