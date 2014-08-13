@@ -440,7 +440,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			}
 
 			if (completion) {
-				completion(nil, error);
+				completion(NO, error);
 			}
 
 			return;
