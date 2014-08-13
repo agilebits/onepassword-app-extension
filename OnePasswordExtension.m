@@ -76,7 +76,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	return NO;
 }
 
-- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion
 {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
@@ -95,7 +95,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 	__weak typeof (self) miniMe = self;
 
-	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionFindLoginAction];
+	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionFindLoginAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
 			NSError *error = nil;
@@ -126,7 +126,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion;
+- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *, NSError *))completion;
 {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(loginDetailsDict != nil, @"loginDetailsDict must not be nil");
@@ -152,7 +152,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 	__weak typeof (self) miniMe = self;
 
-	UIActivityViewController *activityViewController = [self activityViewControllerForItem:newLoginAttributesDict typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
+	UIActivityViewController *activityViewController = [self activityViewControllerForItem:newLoginAttributesDict viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
 			NSError *error = nil;
@@ -183,7 +183,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)changePasswordForLoginWithUsername:(NSString *)username andURLString:(NSString *)URLString passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
+- (void)changePasswordForLoginWithUsername:(NSString *)username andURLString:(NSString *)URLString passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
 {
 	NSAssert(username != nil, @"username must not be nil");
 	NSAssert(URLString != nil, @"URLString must not be nil");
@@ -207,8 +207,8 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}
 
 	__weak typeof (self) miniMe = self;
+	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionChangePasswordAction];
 
-	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionChangePasswordAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
 			NSError *error = nil;
@@ -239,14 +239,14 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion
+- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion
 {
 	NSAssert(webView != nil, @"webView must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
 #ifdef __IPHONE_8_0
 	if ([webView isKindOfClass:[UIWebView class]]) {
-		[self fillLoginIntoUIWebView:webView webViewController:viewController completion:^(BOOL success, NSError *error) {
+		[self fillLoginIntoUIWebView:webView webViewController:viewController sender:(id)sender completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
 			}
@@ -254,7 +254,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	else if ([webView isKindOfClass:[WKWebView class]]) {
-		[self fillLoginIntoWKWebView:webView forViewController:viewController completion:^(BOOL success, NSError *error) {
+		[self fillLoginIntoWKWebView:webView forViewController:viewController sender:(id)sender completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
 			}
@@ -269,7 +269,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 #pragma mark - Helpers
 
-- (UIActivityViewController *)activityViewControllerForItem:(NSDictionary *)item typeIdentifier:(NSString *)typeIdentifier {
+- (UIActivityViewController *)activityViewControllerForItem:(NSDictionary *)item viewController:(UIViewController*)viewController sender:(id)sender typeIdentifier:(NSString *)typeIdentifier {
 #ifdef __IPHONE_8_0
     
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:typeIdentifier];
@@ -278,6 +278,17 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	extensionItem.attachments = @[ itemProvider ];
 
 	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
+
+	if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+		controller.popoverPresentationController.barButtonItem = sender;
+	}
+	else if ([sender isKindOfClass:[UIView class]]) {
+		controller.popoverPresentationController.sourceView = viewController.view;
+		controller.popoverPresentationController.sourceRect = [sender frame];
+	}
+	else {
+		NSLog(@"sender can be nil on iPhone");
+	}
 
 	return controller;
 #else
@@ -390,7 +401,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #pragma mark - Web view integration
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-- (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion {
+- (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
 	__weak typeof (self) miniMe = self;
 	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
@@ -403,7 +414,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 		}
 		
 		__strong typeof(self) strongMe = miniMe;
-		[strongMe findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController withWebView:webView completion:^(BOOL success, NSError *error) {
+		[strongMe findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController sender:sender withWebView:webView completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
 			}
@@ -412,23 +423,23 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 }
 #endif
 
-- (void)fillLoginIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion {
+- (void)fillLoginIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
 	NSString *collectedPageDetails = [webView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
-	[self findLoginIn1PasswordWithURLString:webView.request.URL.absoluteString collectedPageDetails:collectedPageDetails forWebViewController:viewController withWebView:webView completion:^(BOOL success, NSError *error) {
+	[self findLoginIn1PasswordWithURLString:webView.request.URL.absoluteString collectedPageDetails:collectedPageDetails forWebViewController:viewController sender:sender withWebView:webView completion:^(BOOL success, NSError *error) {
 		if (completion) {
 			completion(success, error);
 		}
 	}];
 }
 
-- (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion
+- (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController sender:(id)sender withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion
 {
 	NSDictionary *item = @{ AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetails };
 
 	__weak typeof (self) miniMe = self;
 
-	UIActivityViewController *controller = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
-	controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:forViewController sender:sender typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
+	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
 			NSError *error = nil;
 			if (activityError) {
@@ -466,7 +477,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 		}];
 	};
 	
-	[forViewController presentViewController:controller animated:YES completion:nil];
+	[forViewController presentViewController:activityViewController animated:YES completion:nil];
 }
 
 - (void)executeFillScript:(NSString *)fillScript inWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion
