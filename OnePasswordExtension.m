@@ -236,13 +236,8 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion
 {
-	if (!webView) {
-		[NSException raise:@"Invalid Argument exception" format:@"webView must not be nil"];
-	}
-
-	if (!viewController) {
-		[NSException raise:@"Invalid Argument exception" format:@"viewController must not be nil"];
-	}
+	NSAssert(webView != nil, @"webView must not be nil");
+	NSAssert(viewController != nil, @"viewController must not be nil");
 
 #ifdef __IPHONE_8_0
 	if ([webView isKindOfClass:[UIWebView class]]) {
