@@ -62,7 +62,9 @@ FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
  a login, it is stored into an NSDictionary and given to your completion handler. Use the `Login Dictionary keys` above to 
  extract the needed information and update your UI. The completion block is guaranteed to be called on the main thread.
  */
-- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sourceView:(UIView*)sourceView sourceRect:(CGRect)sourceRect completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
+
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController barButtonItem:(UIBarButtonItem*)barButtonItem completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
 /*!
  Create a new login within 1Password and allow the user to generate a new password before saving. The provided URLString should be 
@@ -90,6 +92,8 @@ FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
  Called from your web view controller, this method will show all the saved logins for the active page in the provided web
  view, and automatically fill the HTML form fields. Supports both WKWebView and UIWebView.
  */
-- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController completion:(void (^)(BOOL success, NSError *error))completion;
+- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sourceView:(UIView*)sourceView sourceRect:(CGRect)sourceRect completion:(void (^)(BOOL success, NSError *error))completion;
+
+- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController barButtonItem:(UIBarButtonItem*)barButtonItem completion:(void (^)(BOOL success, NSError *error))completion;
 
 @end
