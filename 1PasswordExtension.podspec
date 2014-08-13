@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "1PasswordExtension"
-  s.version      = "1.0.3"
+  s.version      = "1.0.5"
   s.summary      = "With just a few lines of code, your app can add 1Password support."
 
   s.description  = <<-DESC
