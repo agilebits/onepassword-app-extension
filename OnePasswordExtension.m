@@ -24,6 +24,7 @@ NSString *const AppExtensionSectionTitleKey = @"section_title";
 NSString *const AppExtensionFieldsKey = @"fields";
 NSString *const AppExtensionReturnedFieldsKey = @"returned_fields";
 NSString *const AppExtensionOldPasswordKey = @"old_password";
+NSString *const AppExtensionPasswordGereratorOptionsKey = @"password_generator_options";
 
 // WebView Dictionary keys
 NSString *const AppExtensionWebViewPageFillScript = @"fillScript";
@@ -137,8 +138,10 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #ifdef __IPHONE_8_0
 	NSMutableDictionary *newLoginAttributesDict = [NSMutableDictionary new];
 	newLoginAttributesDict[AppExtensionURLStringKey] = URLString;
-	[newLoginAttributesDict addEntriesFromDictionary:loginDetailsDict]; // TODO: change 1P to use separate dicts
-	[newLoginAttributesDict addEntriesFromDictionary:passwordGenerationOptions];
+	[newLoginAttributesDict addEntriesFromDictionary:loginDetailsDict];
+	if (passwordGenerationOptions.count > 0) {
+		newLoginAttributesDict [AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
+	}
 
 	__weak typeof (self) miniMe = self;
 
@@ -188,7 +191,9 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	NSMutableDictionary *item = [NSMutableDictionary new];
 	item[AppExtensionUsernameKey] = username;
 	item[AppExtensionURLStringKey] = URLString;
-	[item addEntriesFromDictionary:passwordGenerationOptions];
+	if (passwordGenerationOptions.count > 0) {
+		item[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
+	}
 
 	__weak typeof (self) miniMe = self;
 
