@@ -21,6 +21,7 @@ FOUNDATION_EXPORT NSString *const AppExtensionNotesKey;
 FOUNDATION_EXPORT NSString *const AppExtensionSectionTitleKey;
 FOUNDATION_EXPORT NSString *const AppExtensionFieldsKey;
 FOUNDATION_EXPORT NSString *const AppExtensionReturnedFieldsKey;
+FOUNDATION_EXPORT NSString *const AppExtensionOldPasswordKey;
 
 // Password Generator options
 FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMinLengthKey;
@@ -72,6 +73,17 @@ FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
  thread.
  */
 - (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
+
+/*!
+ Change the password for an existing login within 1Password. The provided URLString should be
+ unique to your app or service and be identical to what you pass into the find login method. The username must be the one that the user is currently logged in with.
+
+ Details about the saved login, including the newly generated and the old password, are stored in an NSDictionary and given to your completion handler.
+ Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the
+ newly generated password lets the user know their action was successful. The completion block is guaranteed to be called on the main
+ thread.
+ */
+- (void)changePasswordForLoginWithUsername:(NSString *)username andURLString:(NSString *)URLString passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
 /*!
  Called from your web view controller, this method will show all the saved logins for the active page in the provided web

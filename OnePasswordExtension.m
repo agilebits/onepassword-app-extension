@@ -11,6 +11,7 @@
 // Available App Extension Actions
 NSString *const kUTTypeAppExtensionFindLoginAction = @"org.appextension.find-login-action";
 NSString *const kUTTypeAppExtensionSaveLoginAction = @"org.appextension.save-login-action";
+NSString *const kUTTypeAppExtensionChangePasswordAction = @"org.appextension.change-password-action";
 NSString *const kUTTypeAppExtensionFillWebViewAction = @"org.appextension.fill-webview-action";
 
 // Login Dictionary keys
@@ -22,6 +23,7 @@ NSString *const AppExtensionNotesKey = @"notes";
 NSString *const AppExtensionSectionTitleKey = @"section_title";
 NSString *const AppExtensionFieldsKey = @"fields";
 NSString *const AppExtensionReturnedFieldsKey = @"returned_fields";
+NSString *const AppExtensionOldPasswordKey = @"old_password";
 
 // WebView Dictionary keys
 NSString *const AppExtensionWebViewPageFillScript = @"fillScript";
@@ -167,6 +169,56 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 		}];
 	};
 	
+	[viewController presentViewController:activityViewController animated:YES completion:nil];
+#endif
+}
+
+- (void)changePasswordForLoginWithUsername:(NSString *)username andURLString:(NSString *)URLString passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
+{
+	if (![self isSystemAppExtensionAPIAvailable]) {
+		NSLog(@"Failed to changePasswordForLoginWithUsername, system API is not available");
+		if (completion) {
+			completion(nil, [OnePasswordExtension systemAppExtensionAPINotAvailableError]);
+		}
+
+		return;
+	}
+
+#ifdef __IPHONE_8_0
+	NSMutableDictionary *item = [NSMutableDictionary new];
+	item[AppExtensionUsernameKey] = username;
+	item[AppExtensionURLStringKey] = URLString;
+	[item addEntriesFromDictionary:passwordGenerationOptions];
+
+	__weak typeof (self) miniMe = self;
+
+	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionChangePasswordAction];
+	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+		if (returnedItems.count == 0) {
+			NSError *error = nil;
+			if (activityError) {
+				NSLog(@"Failed to changePasswordForLoginWithUsername: %@", activityError);
+				error = [OnePasswordExtension failedToContactExtensionErrorWithActivityError:activityError];
+			}
+			else {
+				error = [OnePasswordExtension extensionCancelledByUserError];
+			}
+
+			if (completion) {
+				completion(nil, error);
+			}
+
+			return;
+		}
+
+		__strong typeof(self) strongMe = miniMe;
+		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
+			if (completion) {
+				completion(loginDictionary, error);
+			}
+		}];
+	};
+
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
 #endif
 }
