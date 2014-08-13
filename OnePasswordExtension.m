@@ -11,7 +11,7 @@
 // Available App Extension Actions
 NSString *const kUTTypeAppExtensionFindLoginAction = @"org.appextension.find-login-action";
 NSString *const kUTTypeAppExtensionSaveLoginAction = @"org.appextension.save-login-action";
-NSString *const kUTTypeAppExtensionChangePasswordLoginAction = @"org.appextension.change-password-login-action";
+NSString *const kUTTypeAppExtensionChangePasswordAction = @"org.appextension.change-password-action";
 NSString *const kUTTypeAppExtensionFillWebViewAction = @"org.appextension.fill-webview-action";
 
 // Login Dictionary keys
@@ -176,7 +176,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 - (void)changePasswordForLoginWithUsername:(NSString *)username andURLString:(NSString *)URLString passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
 {
 	if (![self isSystemAppExtensionAPIAvailable]) {
-		NSLog(@"Failed to findLoginForURLString, system API is not available");
+		NSLog(@"Failed to changePasswordForLoginWithUsername, system API is not available");
 		if (completion) {
 			completion(nil, [OnePasswordExtension systemAppExtensionAPINotAvailableError]);
 		}
@@ -192,7 +192,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 	__weak typeof (self) miniMe = self;
 
-	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionChangePasswordLoginAction];
+	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item typeIdentifier:kUTTypeAppExtensionChangePasswordAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
 			NSError *error = nil;
