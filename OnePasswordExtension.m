@@ -283,7 +283,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 		controller.popoverPresentationController.barButtonItem = sender;
 	}
 	else if ([sender isKindOfClass:[UIView class]]) {
-		controller.popoverPresentationController.sourceView = viewController.view;
+		controller.popoverPresentationController.sourceView = [sender superview];
 		controller.popoverPresentationController.sourceRect = [sender frame];
 	}
 	else {
