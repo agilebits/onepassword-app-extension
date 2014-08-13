@@ -40,7 +40,7 @@
 
 	__weak typeof (self) miniMe = self;
 	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
-	[[OnePasswordExtension sharedExtension] changePasswordForLoginWithUsername:username andURLString:@"https://www.acme.com" passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
+	[[OnePasswordExtension sharedExtension] changePasswordForLoginWithUsername:username andURLString:@"https://www.acme.com" passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
