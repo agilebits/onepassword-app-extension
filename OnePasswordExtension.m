@@ -8,6 +8,10 @@
 #import "OnePasswordExtension.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
+// Version
+#define VERSION_NUMBER @(106)
+NSString *const AppExtensionVersionNumberKey = @"version_number";
+
 // Available App Extension Actions
 NSString *const kUTTypeAppExtensionFindLoginAction = @"org.appextension.find-login-action";
 NSString *const kUTTypeAppExtensionSaveLoginAction = @"org.appextension.save-login-action";
@@ -91,7 +95,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}
 
 #ifdef __IPHONE_8_0
-	NSDictionary *item = @{ AppExtensionURLStringKey: URLString };
+	NSDictionary *item = @{ AppExtensionVersionNumberKey: VERSION_NUMBER, AppExtensionURLStringKey: URLString };
 
 	__weak typeof (self) miniMe = self;
 
@@ -144,6 +148,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 #ifdef __IPHONE_8_0
 	NSMutableDictionary *newLoginAttributesDict = [NSMutableDictionary new];
+	newLoginAttributesDict[AppExtensionVersionNumberKey] = VERSION_NUMBER;
 	newLoginAttributesDict[AppExtensionURLStringKey] = URLString;
 	[newLoginAttributesDict addEntriesFromDictionary:loginDetailsDict];
 	if (passwordGenerationOptions.count > 0) {
@@ -200,8 +205,10 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 #ifdef __IPHONE_8_0
 	NSMutableDictionary *item = [NSMutableDictionary new];
+	item[AppExtensionVersionNumberKey] = VERSION_NUMBER;
 	item[AppExtensionUsernameKey] = username;
 	item[AppExtensionURLStringKey] = URLString;
+	
 	if (passwordGenerationOptions.count > 0) {
 		item[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
 	}
@@ -434,7 +441,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 - (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController sender:(id)sender withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion
 {
-	NSDictionary *item = @{ AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetails };
+	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetails };
 
 	__weak typeof (self) miniMe = self;
 
