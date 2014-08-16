@@ -98,16 +98,19 @@ Next we need to wire up the action for this button to this method in your UIView
 ```objective-c
 - (IBAction)findLoginFrom1Password:(id)sender {
 	__weak typeof (self) miniMe = self;
-	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
+	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
-			NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
+			if (error.code != AppExtensionErrorCodeCancelledByUser) {
+				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
+			}
 			return;
 		}
-
+		
 		__strong typeof(self) strongMe = miniMe;
 		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey];
 		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey];
 	}];
+}
 }
 ```
 
@@ -139,7 +142,8 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 			  // Add as many string fields as you please.
 		}
 	};
-
+	
+	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
 		AppExtensionGeneratedPasswordMinLengthKey: @(6),
 		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
@@ -147,10 +151,12 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 
 	__weak typeof (self) miniMe = self;
 
-	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
+	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 
 		if (!loginDict) {
-			NSLog(@"Failed to use 1Password App Extension to save a new Login: %@", error);
+			if (error.code != AppExtensionErrorCodeCancelledByUser) {
+				NSLog(@"Failed to use 1Password App Extension to save a new Login: %@", error);
+			}
 			return;
 		}
 
@@ -159,7 +165,7 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
 		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
 		strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
-		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @""
+		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
 		// retrieve any additional fields that were passed in newLoginDetails dictionary
 	}];
 }
@@ -169,8 +175,39 @@ You'll notice that we're passing a lot more information into 1Password than just
 
 An important thing to notice is the `AppExtensionURLStringKey` is set to the exact same value we used in the login scenario. This allows users to quickly find the login they saved for your app the next time they need to sign in.
 
+### Use Case #3: Change Password
 
-### Use Case #3: Web View Support
+Allow your users to easily change passwords for saved logins in 1Password directly from your change password page. The old and the newly generated are returned to you so you can update your UI and complete the password change process.
+
+Adding 1Password to your change password screen is very similar to adding 1Password to your login and registration screens. In this case you'll wire the 1Password button to an action like this:
+
+```objective-c
+- (IBAction)changePasswordIn1Password:(id)sender {
+	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
+	NSDictionary *passwordGenerationOptions = @{
+		AppExtensionGeneratedPasswordMinLengthKey: @(6),
+		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
+	};
+
+	__weak typeof (self) miniMe = self;
+	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
+	[[OnePasswordExtension sharedExtension] changePasswordForLoginWithUsername:username andURLString:@"https://www.acme.com" passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
+		if (!loginDict) {
+			if (error.code != AppExtensionErrorCodeCancelledByUser) {
+				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
+			}
+			return;
+		}
+
+		__strong typeof(self) strongMe = miniMe;
+		strongMe.oldPasswordTextField.text = loginDict[AppExtensionOldPasswordKey];
+		strongMe.freshPasswordTextField.text = loginDict[AppExtensionPasswordKey];
+		strongMe.confirmPasswordTextField.text = loginDict[AppExtensionPasswordKey];
+	}];
+}
+```
+
+### Use Case #4: Web View Support
 
 The 1Password App Extension is not limited to filling native UIs. With just a little bit of extra effort, users can fill `UIWebView`s and `WKWebView`s within your application as well.
 
@@ -178,7 +215,11 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 ```objective-c
 - (IBAction)fillUsing1Password:(id)sender {
-	[[OnePasswordExtension sharedExtension] fillLoginIntoWebView:self.webView forViewController:self completion:nil];
+	[[OnePasswordExtension sharedExtension] fillLoginIntoWebView:self.webView forViewController:self sender:sender completion:^(BOOL success, NSError *error) {
+		if (!success) {
+			NSLog(@"Failed to fill login in webview: <%@>", error);
+		}
+	}];
 }
 ```
 

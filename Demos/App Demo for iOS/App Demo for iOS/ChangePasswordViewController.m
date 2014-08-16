@@ -33,6 +33,7 @@
 }
 
 - (IBAction)changePasswordIn1Password:(id)sender {
+	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
 		AppExtensionGeneratedPasswordMinLengthKey: @(6),
 		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
