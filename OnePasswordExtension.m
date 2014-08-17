@@ -188,9 +188,8 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)changePasswordForLoginWithUsername:(NSString *)username andURLString:(NSString *)URLString passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
+- (void)changePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
 {
-	NSAssert(username != nil, @"username must not be nil");
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
@@ -206,9 +205,8 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #ifdef __IPHONE_8_0
 	NSMutableDictionary *item = [NSMutableDictionary new];
 	item[AppExtensionVersionNumberKey] = VERSION_NUMBER;
-	item[AppExtensionUsernameKey] = username;
 	item[AppExtensionURLStringKey] = URLString;
-	
+	[item addEntriesFromDictionary:loginDetailsDict];
 	if (passwordGenerationOptions.count > 0) {
 		item[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
 	}

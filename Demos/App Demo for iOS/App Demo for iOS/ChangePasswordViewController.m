@@ -33,6 +33,23 @@
 }
 
 - (IBAction)changePasswordIn1Password:(id)sender {
+	NSString *changedPassword = self.freshPasswordTextField.text ? : @"";
+	if (changedPassword.length > 0 && ![changedPassword isEqualToString:self.confirmPasswordTextField.text]) {
+		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Confirmation password doesn't match the new password" message:@"The new and the confirmation passwords must match" preferredStyle:UIAlertControllerStyleAlert];
+		[self presentViewController:alert animated:YES completion:nil];
+		return;
+	}
+
+	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
+
+	NSDictionary *loginDetails = @{
+									  AppExtensionTitleKey: @"ACME",
+									  AppExtensionUsernameKey: username, // 1Password will prompt the user to create a new item if no matching logins are found with this username
+									  AppExtensionPasswordKey: changedPassword,
+									  AppExtensionOldPasswordKey: self.oldPasswordTextField.text ? : @"",
+									  AppExtensionNotesKey: @"Saved with the ACME app",
+									  AppExtensionSectionTitleKey: @"ACME Browser"
+									};
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
 		AppExtensionGeneratedPasswordMinLengthKey: @(6),
@@ -40,8 +57,8 @@
 	};
 
 	__weak typeof (self) miniMe = self;
-	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
-	[[OnePasswordExtension sharedExtension] changePasswordForLoginWithUsername:username andURLString:@"https://www.acme.com" passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
+
+	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
