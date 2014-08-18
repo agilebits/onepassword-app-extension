@@ -177,12 +177,26 @@ An important thing to notice is the `AppExtensionURLStringKey` is set to the exa
 
 ### Use Case #3: Change Password
 
-Allow your users to easily change passwords for saved logins in 1Password directly from your change password page. The old and the newly generated are returned to you so you can update your UI and complete the password change process.
+Allow your users to easily change passwords for saved logins in 1Password directly from your change password page. The updated login along with the old and the newly generated are returned to you so you can update your UI and complete the password change process. If no matching login is found in 1Password, the user will be prompted to save a new login instead.
 
 Adding 1Password to your change password screen is very similar to adding 1Password to your login and registration screens. In this case you'll wire the 1Password button to an action like this:
 
 ```objective-c
 - (IBAction)changePasswordIn1Password:(id)sender {
+	NSString *changedPassword = self.freshPasswordTextField.text ? : @"";
+
+	// To change the password for a login in 1Password, you need to provide the username so that the extension will find the right item to update.
+	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
+
+	NSDictionary *loginDetails = @{
+									  AppExtensionTitleKey: @"ACME",
+									  AppExtensionUsernameKey: username, // 1Password will prompt the user to create a new item if no matching logins are found with this username
+									  AppExtensionPasswordKey: changedPassword,
+									  AppExtensionOldPasswordKey: self.oldPasswordTextField.text ? : @"",
+									  AppExtensionNotesKey: @"Saved with the ACME app",
+									  AppExtensionSectionTitleKey: @"ACME Browser"
+									};
+									
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
 		AppExtensionGeneratedPasswordMinLengthKey: @(6),
@@ -190,8 +204,8 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 	};
 
 	__weak typeof (self) miniMe = self;
-	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
-	[[OnePasswordExtension sharedExtension] changePasswordForLoginWithUsername:username andURLString:@"https://www.acme.com" passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
+
+	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
