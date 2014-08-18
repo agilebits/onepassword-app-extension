@@ -274,6 +274,64 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
+- (NSExtensionItem *)onePasswordExtensionItemForWebView:(id)webView withURLString:URLString {
+#ifdef __IPHONE_8_0
+    if ([webView isKindOfClass:[UIWebView class]]) {
+        return [self onePasswordExtensionItemForUIWebView:webView withURLString:URLString];
+    }
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+    else if ([webView isKindOfClass:[WKWebView class]]) {
+        return [self onePasswordExtensionItemForWKWebView:webView withURLString:URLString];
+    }
+#endif
+    else {
+        return nil;
+    }
+#endif
+}
+
+- (NSExtensionItem *)onePasswordExtensionItemForUIWebView:(UIWebView *)webView withURLString:(id)URLString {
+    NSString *collectedPageDetails = [webView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
+    NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetails };
+    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
+    NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
+    extensionItem.attachments = @[ itemProvider ];
+    return extensionItem;
+}
+
+- (NSExtensionItem *)onePasswordExtensionItemForWKWebView:(WKWebView *)webView withURLString:(id)URLString {
+    // TODO Add WKWebView support
+    return nil;
+}
+
+- (void)handleActivityViewControllerCompletionWithItems:(NSArray *)returnedItems withWebView:(UIWebView *)webView completion:(void (^)(BOOL success, NSError *error))completion {
+    
+    __weak typeof (self) miniMe = self;
+    
+    [self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
+        
+        if (!loginDictionary) {
+            if (completion) {
+                completion(NO, error);
+            }
+            
+            return;
+        }
+        
+        __strong typeof(self) strongMe = miniMe;
+        NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
+        [strongMe executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
+            if (completion) {
+                completion(success, error);
+            }
+        }];
+        
+        if (!loginDictionary) {
+            return;
+        }
+    }];
+}
+
 #pragma mark - Helpers
 
 - (UIActivityViewController *)activityViewControllerForItem:(NSDictionary *)item viewController:(UIViewController*)viewController sender:(id)sender typeIdentifier:(NSString *)typeIdentifier {
