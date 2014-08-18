@@ -51,7 +51,6 @@
 									  AppExtensionPasswordKey: changedPassword,
 									  AppExtensionOldPasswordKey: self.oldPasswordTextField.text ? : @"",
 									  AppExtensionNotesKey: @"Saved with the ACME app",
-									  AppExtensionSectionTitleKey: @"ACME Browser"
 									};
 
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths

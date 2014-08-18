@@ -194,7 +194,6 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 									  AppExtensionPasswordKey: changedPassword,
 									  AppExtensionOldPasswordKey: self.oldPasswordTextField.text ? : @"",
 									  AppExtensionNotesKey: @"Saved with the ACME app",
-									  AppExtensionSectionTitleKey: @"ACME Browser"
 									};
 									
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
