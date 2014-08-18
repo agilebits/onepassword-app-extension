@@ -34,22 +34,26 @@
 
 - (IBAction)changePasswordIn1Password:(id)sender {
 	NSString *changedPassword = self.freshPasswordTextField.text ? : @"";
+
+	// Validate that the new and confirmation passwords match.
 	if (changedPassword.length > 0 && ![changedPassword isEqualToString:self.confirmPasswordTextField.text]) {
 		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Confirmation password doesn't match the new password" message:@"The new and the confirmation passwords must match" preferredStyle:UIAlertControllerStyleAlert];
 		[self presentViewController:alert animated:YES completion:nil];
 		return;
 	}
 
+	// To change the password for a login in 1Password, you need to provide the username so that the extension will find the right item to update.
 	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
 
 	NSDictionary *loginDetails = @{
 									  AppExtensionTitleKey: @"ACME",
-									  AppExtensionUsernameKey: username, // 1Password will prompt the user to create a new item if no matching logins are found with this username
+									  AppExtensionUsernameKey: username, // 1Password will prompt the user to create a new item if no matching logins are found with this username.
 									  AppExtensionPasswordKey: changedPassword,
 									  AppExtensionOldPasswordKey: self.oldPasswordTextField.text ? : @"",
 									  AppExtensionNotesKey: @"Saved with the ACME app",
 									  AppExtensionSectionTitleKey: @"ACME Browser"
 									};
+
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
 		AppExtensionGeneratedPasswordMinLengthKey: @(6),
