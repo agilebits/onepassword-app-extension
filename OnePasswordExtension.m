@@ -27,7 +27,6 @@ NSString *const AppExtensionNotesKey = @"notes";
 NSString *const AppExtensionSectionTitleKey = @"section_title";
 NSString *const AppExtensionFieldsKey = @"fields";
 NSString *const AppExtensionReturnedFieldsKey = @"returned_fields";
-NSString *const AppExtensionOldUsernameKey = @"old_username";
 NSString *const AppExtensionOldPasswordKey = @"old_password";
 NSString *const AppExtensionPasswordGereratorOptionsKey = @"password_generator_options";
 

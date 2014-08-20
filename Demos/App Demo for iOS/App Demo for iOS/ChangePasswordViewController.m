@@ -42,13 +42,11 @@
 		return;
 	}
 
-	// To change the password for a login in 1Password, you need to provide the username so that the extension will find the right item to update.
-	// NOTE: If you support username changes, please validate make the necessary validations first, then add `AppExtensionUsernameKey: @"New username"` in the loginDetails dictionary.
-	NSString *currentUsername = [LoginInformation sharedLoginInformation].username ? : @"";
+	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
 
 	NSDictionary *loginDetails = @{
 									  AppExtensionTitleKey: @"ACME",
-									  AppExtensionOldUsernameKey: currentUsername, // 1Password will prompt the user to create a new item if no matching logins are found with this username.
+									  AppExtensionUsernameKey: username, // 1Password will prompt the user to create a new item if no matching logins are found with this username.
 									  AppExtensionPasswordKey: changedPassword,
 									  AppExtensionOldPasswordKey: self.oldPasswordTextField.text ? : @"",
 									  AppExtensionNotesKey: @"Saved with the ACME app",
