@@ -21,6 +21,7 @@ FOUNDATION_EXPORT NSString *const AppExtensionNotesKey;
 FOUNDATION_EXPORT NSString *const AppExtensionSectionTitleKey;
 FOUNDATION_EXPORT NSString *const AppExtensionFieldsKey;
 FOUNDATION_EXPORT NSString *const AppExtensionReturnedFieldsKey;
+FOUNDATION_EXPORT NSString *const AppExtensionOldUsernameKey;
 FOUNDATION_EXPORT NSString *const AppExtensionOldPasswordKey;
 FOUNDATION_EXPORT NSString *const AppExtensionPasswordGereratorOptionsKey;
 
@@ -84,7 +85,7 @@ FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
  newly generated password lets the user know their action was successful. The completion block is guaranteed to be called on the main
  thread.
  */
-- (void)changePasswordForLoginWithUsername:(NSString *)username andURLString:(NSString *)URLString passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
+- (void)changePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
 /*!
  Called from your web view controller, this method will show all the saved logins for the active page in the provided web
