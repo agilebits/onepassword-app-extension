@@ -37,7 +37,7 @@
 
 	// Validate that the new and confirmation passwords match.
 	if (changedPassword.length > 0 && ![changedPassword isEqualToString:self.confirmPasswordTextField.text]) {
-		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Password Change Error" message:@"The new and the confirmation passwords must match" preferredStyle:UIAlertControllerStyleAlert];
+		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Change Password Error" message:@"The new and the confirmation passwords must match" preferredStyle:UIAlertControllerStyleAlert];
 		UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 			self.freshPasswordTextField.text = @"";
 			self.confirmPasswordTextField.text = @"";
