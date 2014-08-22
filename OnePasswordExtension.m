@@ -9,7 +9,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 // Version
-#define VERSION_NUMBER @(106)
+#define VERSION_NUMBER @(108)
 NSString *const AppExtensionVersionNumberKey = @"version_number";
 
 // Available App Extension Actions
