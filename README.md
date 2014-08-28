@@ -238,6 +238,12 @@ Simply add a button to your UI with its action assigned to this method in your w
 1Password will take care of all the details of collecting information about the currently displayed page, allow the user to select the desired login, and then fill the web form details within the page.
 
 
+## Projects supporting iOS 7.1 and earlier
+
+If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link to the `MobileCoreServices` and `WebKit` frameworks.
+
+<a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/shard/s340/sh/7547419d-6c49-4b45-bdb1-575c28678164/49cb7e0c1f508d1f67f5cf0361d58d3a/deep/0/WebView-Demo-for-iOS.xcodeproj.png" width="640"></a>
+
 ## Best Practices
 
 * Use the same `URLString` during Registration and Login.
