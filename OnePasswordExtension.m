@@ -6,7 +6,6 @@
 //
 
 #import "OnePasswordExtension.h"
-#import <MobileCoreServices/MobileCoreServices.h>
 
 // Version
 #define VERSION_NUMBER @(108)
