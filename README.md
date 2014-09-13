@@ -111,7 +111,6 @@ Next we need to wire up the action for this button to this method in your UIView
 		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey];
 	}];
 }
-}
 ```
 
 Aside from the [weak/strong self dance](http://dhoerl.wordpress.com/2013/04/23/i-finally-figured-out-weakself-and-strongself/), this code is pretty straight forward:
