@@ -72,7 +72,7 @@ Be forewarned, however, that there is not much code to get dirty with. If you we
 
 ### Add 1Password Files to Your Project
 
-Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcassets` to your project and import `OnePasswordExtension.h` in your view contoller that implements the 1Password button action.
+Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcassets` to your project and import `OnePasswordExtension.h` in your view contoller that implements the action for the 1Password button.
 
 <img src="http://cl.ly/image/2g3B1r2O2z0L/Image%202014-07-29%20at%209.19.36%20AM.png" width="260" height="237"/>
 
