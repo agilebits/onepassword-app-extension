@@ -8,8 +8,9 @@
 
 #import "RegisterViewController.h"
 #import "OnePasswordExtension.h"
+#import "LoginInformation.h"
 
-@interface RegisterViewController ()
+@interface RegisterViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *onepasswordSignupButton;
 
@@ -45,23 +46,40 @@
 		}
 	};
 	
+	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
 		AppExtensionGeneratedPasswordMinLengthKey: @(6),
 		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
 	};
+
 	__weak typeof (self) miniMe = self;
 
-	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
+	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 
 		if (!loginDict) {
-			NSLog(@"Error invoking 1Password App Extension for generate password: %@", error);
+			if (error.code != AppExtensionErrorCodeCancelledByUser) {
+				NSLog(@"Failed to use 1Password App Extension to save a new Login: %@", error);
+			}
 			return;
 		}
 
 		__strong typeof(self) strongMe = miniMe;
-		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : strongMe.usernameTextField.text;
-		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : strongMe.usernameTextField.text;
+
+		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
+		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
+		strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
+		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
+		// retrieve any additional fields that were passed in newLoginDetails dictionary
+
+		[LoginInformation sharedLoginInformation].username = loginDict[AppExtensionUsernameKey];
 	}];
 }
 
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	if (textField == self.usernameTextField) {
+		[LoginInformation sharedLoginInformation].username = textField.text;
+	}
+}
 @end

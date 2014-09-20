@@ -1,16 +1,14 @@
 {
   "images" : [
     {
-      "idiom" : "universal"
-    },
-    {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "onepassword-navbar.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "extension-iphone@2x.png"
+      "filename" : "onepassword-navbar@2x.png"
     }
   ],
   "info" : {

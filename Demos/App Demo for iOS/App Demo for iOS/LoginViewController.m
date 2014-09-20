@@ -8,8 +8,9 @@
 
 #import "LoginViewController.h"
 #import "OnePasswordExtension.h"
+#import "LoginInformation.h"
 
-@interface LoginViewController ()
+@interface LoginViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *onepasswordSigninButton;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -33,16 +34,28 @@
 
 - (IBAction)findLoginFrom1Password:(id)sender {
 	__weak typeof (self) miniMe = self;
-	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self completion:^(NSDictionary *loginDict, NSError *error) {
+	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
-			NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
+			if (error.code != AppExtensionErrorCodeCancelledByUser) {
+				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
+			}
 			return;
 		}
 		
 		__strong typeof(self) strongMe = miniMe;
 		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey];
 		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey];
+
+		[LoginInformation sharedLoginInformation].username = loginDict[AppExtensionUsernameKey];
 	}];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	if (textField == self.usernameTextField) {
+		[LoginInformation sharedLoginInformation].username = textField.text;
+	}
 }
 
 @end

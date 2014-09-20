@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C04CEC4819887A8C00673F85 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C04CEC4719887A8C00673F85 /* 1Password.xcassets */; };
+		C015EF6919992AC70044A194 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C015EF6819992AC70044A194 /* ChangePasswordViewController.m */; };
+		C015EF6C19992DF70044A194 /* LoginInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = C015EF6B19992DF70044A194 /* LoginInformation.m */; };
+		C053E05B19945A45002E80C5 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C053E05A19945A45002E80C5 /* 1Password.xcassets */; };
 		C0F0C18519889441000B261F /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C18419889441000B261F /* OnePasswordExtension.m */; };
 		C0F0C18819889456000B261F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C18719889456000B261F /* AppDelegate.m */; };
 		C0F0C19019889467000B261F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C18A19889467000B261F /* LoginViewController.m */; };
@@ -19,7 +21,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C04CEC4719887A8C00673F85 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../1Password.xcassets; sourceTree = SOURCE_ROOT; };
+		C015EF6719992AC70044A194 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswordViewController.h; path = "App Demo for iOS/App Demo for iOS/ChangePasswordViewController.h"; sourceTree = "<group>"; };
+		C015EF6819992AC70044A194 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswordViewController.m; path = "App Demo for iOS/App Demo for iOS/ChangePasswordViewController.m"; sourceTree = "<group>"; };
+		C015EF6A19992DF70044A194 /* LoginInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginInformation.h; path = "App Demo for iOS/App Demo for iOS/LoginInformation.h"; sourceTree = "<group>"; };
+		C015EF6B19992DF70044A194 /* LoginInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginInformation.m; path = "App Demo for iOS/App Demo for iOS/LoginInformation.m"; sourceTree = "<group>"; };
+		C053E05A19945A45002E80C5 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../1Password.xcassets; sourceTree = "<group>"; };
 		C0F0C18319889441000B261F /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnePasswordExtension.h; path = ../../OnePasswordExtension.h; sourceTree = SOURCE_ROOT; };
 		C0F0C18419889441000B261F /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnePasswordExtension.m; path = ../../OnePasswordExtension.m; sourceTree = SOURCE_ROOT; };
 		C0F0C18619889456000B261F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "App Demo for iOS/App Demo for iOS/AppDelegate.h"; sourceTree = "<group>"; };
@@ -75,11 +81,15 @@
 				C0F0C18A19889467000B261F /* LoginViewController.m */,
 				C0F0C18B19889467000B261F /* RegisterViewController.h */,
 				C0F0C18C19889467000B261F /* RegisterViewController.m */,
+				C015EF6719992AC70044A194 /* ChangePasswordViewController.h */,
+				C015EF6819992AC70044A194 /* ChangePasswordViewController.m */,
 				C0F0C18D19889467000B261F /* ThankYouViewController.h */,
 				C0F0C18E19889467000B261F /* ThankYouViewController.m */,
+				C015EF6A19992DF70044A194 /* LoginInformation.h */,
+				C015EF6B19992DF70044A194 /* LoginInformation.m */,
 				C0F0C19619889498000B261F /* Main.storyboard */,
 				C0F0C19419889479000B261F /* Images.xcassets */,
-				C04CEC4719887A8C00673F85 /* 1Password.xcassets */,
+				C053E05A19945A45002E80C5 /* 1Password.xcassets */,
 				C0FA529A1974821100570166 /* Supporting Files */,
 			);
 			name = "App Demo for iOS";
@@ -153,8 +163,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0F0C19519889479000B261F /* Images.xcassets in Resources */,
-				C04CEC4819887A8C00673F85 /* 1Password.xcassets in Resources */,
 				C0F0C19D19889519000B261F /* Main.storyboard in Resources */,
+				C053E05B19945A45002E80C5 /* 1Password.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +179,9 @@
 				C0F0C19219889467000B261F /* ThankYouViewController.m in Sources */,
 				C0F0C19119889467000B261F /* RegisterViewController.m in Sources */,
 				C0F0C18519889441000B261F /* OnePasswordExtension.m in Sources */,
+				C015EF6C19992DF70044A194 /* LoginInformation.m in Sources */,
 				C0F0C19C198894F8000B261F /* main.m in Sources */,
+				C015EF6919992AC70044A194 /* ChangePasswordViewController.m in Sources */,
 				C0F0C18819889456000B261F /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
