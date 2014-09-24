@@ -326,6 +326,87 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}];
 }
 
+- (void)createExtensionItemForWebView:(id)webView completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion
+{
+	NSAssert(webView != nil, @"webView must not be nil");
+
+#ifdef __IPHONE_8_0
+	if ([webView isKindOfClass:[UIWebView class]]) {
+		UIWebView *uiWebView = (UIWebView *)webView;
+		NSString *collectedPageDetails = [uiWebView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
+
+		[self _createExtensionItemForURLString:uiWebView.request.URL.absoluteString webPageDetails:collectedPageDetails completion:completion];
+	}
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+	else if ([webView isKindOfClass:[WKWebView class]]) {
+		WKWebView *wkWebView = (WKWebView *)webView;
+		__weak typeof (self) weakSelf = self;
+		[wkWebView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
+			if (!result) {
+				NSLog(@"1Password Extension failed to collect web page fields: %@", error);
+				if (completion) {
+					completion(nil, [OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:error]);
+				}
+
+				return;
+			}
+
+			[weakSelf _createExtensionItemForURLString:wkWebView.URL.absoluteString webPageDetails:result completion:completion];
+		}];
+	}
+#endif
+	else {
+		[NSException raise:@"Invalid argument: web view must be an instance of WKWebView or UIWebView." format:@""];
+	}
+#endif
+}
+
+- (void)_createExtensionItemForURLString:(NSString *)URLString webPageDetails:(NSString *)webPageDetails completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion
+{
+	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : webPageDetails };
+
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
+
+	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
+	extensionItem.attachments = @[ itemProvider ];
+
+	if (completion) {
+		completion(extensionItem, nil);
+	}
+}
+
+- (void)fillReturnedItems:(NSArray *)returnedItems intoWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion
+{
+	if (returnedItems.count == 0) {
+		NSError *error = [OnePasswordExtension extensionCancelledByUserError];
+		if (completion) {
+			completion(NO, error);
+		}
+
+		return;
+	}
+
+	__weak typeof(self) weakSelf = self;
+	[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
+		if (!loginDictionary) {
+			if (completion) {
+				completion(NO, error);
+			}
+
+			return;
+		}
+
+		__strong typeof(weakSelf) strongSelf = webView;
+		NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
+		[strongSelf executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
+			if (completion) {
+				completion(success, error);
+			}
+		}];
+	}];
+}
+
+
 #pragma mark - Helpers
 
 - (UIActivityViewController *)activityViewControllerForExtensionItem:(NSExtensionItem *)extensionItem viewController:(UIViewController*)viewController sender:(id)sender {
