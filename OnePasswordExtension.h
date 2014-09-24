@@ -74,7 +74,7 @@ FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
  newly generated password lets the user know their action was successful. The completion block is guaranteed to be called on the main
  thread.
  */
-- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
+- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptionsOrNil forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
 /*!
  Change the password for an existing login within 1Password. The provided URLString should be
@@ -92,5 +92,30 @@ FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
  view, and automatically fill the HTML form fields. Supports both WKWebView and UIWebView.
  */
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion;
+
+/*!
+ * Low-level method used in the UIActivityViewController completion block to find if the activity was
+ * performed by 1Password Extension.
+ */
+- (BOOL)isOnePasswordExtensionActivityType:(NSString *)activityType;
+
+/*!
+ * Low-level method used instead of `findLoginForURLString:forViewController:sender:completion:`
+ *
+ * The returned NSExtensionItem can be used to create your own UIActivityViewController. Use `isOnePasswordExtensionActivityType:` and `processReturnedItems:completion:` in the activity view controller completion block to process the result.
+ */
+- (NSExtensionItem *)createExtensionItemToFindLoginForURLString:(NSString *)URLString;
+
+/*!
+ * Low-level method used instead of `storeLoginForURLString:loginDetails:passwordGenerationOptions:forViewController:sender:completion:`
+ *
+ * The returned NSExtensionItem can be used to create your own UIActivityViewController. Use `isOnePasswordExtensionActivityType:` and `processReturnedItems:completion:` in the activity view controller completion block to process the result.
+ */
+- (NSExtensionItem *)createExtensionItemToStoreLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptionsOrNil;
+
+/*!
+ * Low-level method used in the UIActivityViewController completion block to process the returnedItems.
+ */
+- (void)processReturnedItems:(NSArray *)returnedItems completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
 @end

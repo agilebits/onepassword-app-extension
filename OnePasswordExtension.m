@@ -94,12 +94,13 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}
 
 #ifdef __IPHONE_8_0
-	NSDictionary *item = @{ AppExtensionVersionNumberKey: VERSION_NUMBER, AppExtensionURLStringKey: URLString };
+	__weak typeof (self) weakSelf = self;
 
-	__weak typeof (self) miniMe = self;
+	NSExtensionItem *extensionItem = [self createExtensionItemToFindLoginForURLString:URLString];
+	UIActivityViewController *activityViewController = [self activityViewControllerForExtensionItem:extensionItem viewController:viewController sender:sender];
 
-	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionFindLoginAction];
-	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError)
+	{
 		if (returnedItems.count == 0) {
 			NSError *error = nil;
 			if (activityError) {
@@ -113,16 +114,12 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			if (completion) {
 				completion(nil, error);
 			}
-
+			
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
-		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
-			if (completion) {
-				completion(loginDictionary, error);
-			}
-		}];
+		__strong typeof(self) strongSelf = weakSelf;
+		[strongSelf processReturnedItems:returnedItems completion:completion];
 	};
 	
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
@@ -146,17 +143,12 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	
 
 #ifdef __IPHONE_8_0
-	NSMutableDictionary *newLoginAttributesDict = [NSMutableDictionary new];
-	newLoginAttributesDict[AppExtensionVersionNumberKey] = VERSION_NUMBER;
-	newLoginAttributesDict[AppExtensionURLStringKey] = URLString;
-	[newLoginAttributesDict addEntriesFromDictionary:loginDetailsDict];
-	if (passwordGenerationOptions.count > 0) {
-		newLoginAttributesDict[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
-	}
+	NSExtensionItem *extensionItem = [self createExtensionItemToStoreLoginForURLString:URLString loginDetails:loginDetailsDict passwordGenerationOptions:passwordGenerationOptions];
 
-	__weak typeof (self) miniMe = self;
+	__weak typeof (self) weakSelf = self;
 
-	UIActivityViewController *activityViewController = [self activityViewControllerForItem:newLoginAttributesDict viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
+	UIActivityViewController *activityViewController = [self activityViewControllerForExtensionItem:extensionItem viewController:viewController sender:sender];
+
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
 			NSError *error = nil;
@@ -175,12 +167,8 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			return;
 		}
 		
-		__strong typeof(self) strongMe = miniMe;
-		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
-			if (completion) {
-				completion(loginDictionary, error);
-			}
-		}];
+		__strong typeof(self) strongSelf = weakSelf;
+		[strongSelf processReturnedItems:returnedItems completion:completion];
 	};
 	
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
@@ -271,7 +259,96 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
+#pragma mark - Low-level API
+
+- (BOOL)isOnePasswordExtensionActivityType:(NSString *)activityType {
+	return [@"com.agilebits.onepassword-ios.extension" isEqualToString:activityType] || [@"com.agilebits.beta.onepassword-ios.extension" isEqualToString:activityType];
+}
+
+- (NSExtensionItem *)createExtensionItemToFindLoginForURLString:(NSString *)URLString {
+#ifdef __IPHONE_8_0
+	NSAssert(URLString != nil, @"URLString must not be nil");
+
+	NSDictionary *item = @{ AppExtensionVersionNumberKey: VERSION_NUMBER, AppExtensionURLStringKey: URLString };
+
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFindLoginAction];
+
+	NSExtensionItem *result = [[NSExtensionItem alloc] init];
+	result.attachments = @[ itemProvider ];
+
+	return result;
+#else
+	return nil;
+#endif
+}
+
+- (NSExtensionItem *)createExtensionItemToStoreLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptionsOrNil
+{
+	NSAssert(URLString != nil, @"URLString must not be nil");
+	NSAssert(loginDetailsDict != nil, @"loginDetailsDict must not be nil");
+
+#ifdef __IPHONE_8_0
+	NSMutableDictionary *newLoginAttributesDict = [NSMutableDictionary new];
+	newLoginAttributesDict[AppExtensionVersionNumberKey] = VERSION_NUMBER;
+	newLoginAttributesDict[AppExtensionURLStringKey] = URLString;
+	[newLoginAttributesDict addEntriesFromDictionary:loginDetailsDict];
+	if (passwordGenerationOptionsOrNil.count > 0) {
+		newLoginAttributesDict[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptionsOrNil;
+	}
+
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:newLoginAttributesDict typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
+
+	NSExtensionItem *result = [[NSExtensionItem alloc] init];
+	result.attachments = @[ itemProvider ];
+
+	return result;
+#else
+	return nil;
+#endif
+}
+
+
+- (void)processReturnedItems:(NSArray *)returnedItems completion:(void (^)(NSDictionary *loginDict, NSError *))completion
+{
+	if (returnedItems.count == 0) {
+		if (completion) {
+			NSError *error = [OnePasswordExtension extensionCancelledByUserError];
+			completion(nil, error);
+		}
+
+		return;
+	}
+
+	[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
+		if (completion) {
+			completion(loginDictionary, error);
+		}
+	}];
+}
+
 #pragma mark - Helpers
+
+- (UIActivityViewController *)activityViewControllerForExtensionItem:(NSExtensionItem *)extensionItem viewController:(UIViewController*)viewController sender:(id)sender {
+#ifdef __IPHONE_8_0
+	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
+
+	if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+		controller.popoverPresentationController.barButtonItem = sender;
+	}
+	else if ([sender isKindOfClass:[UIView class]]) {
+		controller.popoverPresentationController.sourceView = [sender superview];
+		controller.popoverPresentationController.sourceRect = [sender frame];
+	}
+	else {
+		NSLog(@"sender can be nil on iPhone");
+	}
+
+	return controller;
+#else
+	return nil;
+#endif
+}
+
 
 - (UIActivityViewController *)activityViewControllerForItem:(NSDictionary *)item viewController:(UIViewController*)viewController sender:(id)sender typeIdentifier:(NSString *)typeIdentifier {
 #ifdef __IPHONE_8_0
