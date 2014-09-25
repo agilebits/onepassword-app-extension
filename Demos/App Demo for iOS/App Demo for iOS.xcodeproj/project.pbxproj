@@ -21,25 +21,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C015EF6719992AC70044A194 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswordViewController.h; path = "App Demo for iOS/App Demo for iOS/ChangePasswordViewController.h"; sourceTree = "<group>"; };
-		C015EF6819992AC70044A194 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswordViewController.m; path = "App Demo for iOS/App Demo for iOS/ChangePasswordViewController.m"; sourceTree = "<group>"; };
-		C015EF6A19992DF70044A194 /* LoginInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginInformation.h; path = "App Demo for iOS/App Demo for iOS/LoginInformation.h"; sourceTree = "<group>"; };
-		C015EF6B19992DF70044A194 /* LoginInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginInformation.m; path = "App Demo for iOS/App Demo for iOS/LoginInformation.m"; sourceTree = "<group>"; };
+		C015EF6719992AC70044A194 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswordViewController.h; path = "App Demo for iOS/ChangePasswordViewController.h"; sourceTree = SOURCE_ROOT; };
+		C015EF6819992AC70044A194 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswordViewController.m; path = "App Demo for iOS/ChangePasswordViewController.m"; sourceTree = SOURCE_ROOT; };
+		C015EF6A19992DF70044A194 /* LoginInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginInformation.h; path = "App Demo for iOS/LoginInformation.h"; sourceTree = SOURCE_ROOT; };
+		C015EF6B19992DF70044A194 /* LoginInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginInformation.m; path = "App Demo for iOS/LoginInformation.m"; sourceTree = SOURCE_ROOT; };
 		C053E05A19945A45002E80C5 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../1Password.xcassets; sourceTree = "<group>"; };
 		C0F0C18319889441000B261F /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnePasswordExtension.h; path = ../../OnePasswordExtension.h; sourceTree = SOURCE_ROOT; };
 		C0F0C18419889441000B261F /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnePasswordExtension.m; path = ../../OnePasswordExtension.m; sourceTree = SOURCE_ROOT; };
-		C0F0C18619889456000B261F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "App Demo for iOS/App Demo for iOS/AppDelegate.h"; sourceTree = "<group>"; };
-		C0F0C18719889456000B261F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "App Demo for iOS/App Demo for iOS/AppDelegate.m"; sourceTree = "<group>"; };
-		C0F0C18919889467000B261F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = "App Demo for iOS/App Demo for iOS/LoginViewController.h"; sourceTree = "<group>"; };
-		C0F0C18A19889467000B261F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = "App Demo for iOS/App Demo for iOS/LoginViewController.m"; sourceTree = "<group>"; };
-		C0F0C18B19889467000B261F /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = "App Demo for iOS/App Demo for iOS/RegisterViewController.h"; sourceTree = "<group>"; };
-		C0F0C18C19889467000B261F /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = "App Demo for iOS/App Demo for iOS/RegisterViewController.m"; sourceTree = "<group>"; };
-		C0F0C18D19889467000B261F /* ThankYouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThankYouViewController.h; path = "App Demo for iOS/App Demo for iOS/ThankYouViewController.h"; sourceTree = "<group>"; };
-		C0F0C18E19889467000B261F /* ThankYouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThankYouViewController.m; path = "App Demo for iOS/App Demo for iOS/ThankYouViewController.m"; sourceTree = "<group>"; };
+		C0F0C18619889456000B261F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "App Demo for iOS/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
+		C0F0C18719889456000B261F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "App Demo for iOS/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
+		C0F0C18919889467000B261F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = "App Demo for iOS/LoginViewController.h"; sourceTree = SOURCE_ROOT; };
+		C0F0C18A19889467000B261F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = "App Demo for iOS/LoginViewController.m"; sourceTree = SOURCE_ROOT; };
+		C0F0C18B19889467000B261F /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = "App Demo for iOS/RegisterViewController.h"; sourceTree = SOURCE_ROOT; };
+		C0F0C18C19889467000B261F /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = "App Demo for iOS/RegisterViewController.m"; sourceTree = SOURCE_ROOT; };
+		C0F0C18D19889467000B261F /* ThankYouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThankYouViewController.h; path = "App Demo for iOS/ThankYouViewController.h"; sourceTree = SOURCE_ROOT; };
+		C0F0C18E19889467000B261F /* ThankYouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThankYouViewController.m; path = "App Demo for iOS/ThankYouViewController.m"; sourceTree = SOURCE_ROOT; };
 		C0F0C19419889479000B261F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "App Demo for iOS/App Demo for iOS/Images.xcassets"; sourceTree = "<group>"; };
 		C0F0C19719889498000B261F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "App Demo for iOS/App Demo for iOS/Base.lproj/Main.storyboard"; sourceTree = "<group>"; };
-		C0F0C199198894ED000B261F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "App Demo for iOS/App Demo for iOS/Info.plist"; sourceTree = "<group>"; };
-		C0F0C19B198894F8000B261F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "App Demo for iOS/App Demo for iOS/main.m"; sourceTree = "<group>"; };
+		C0F0C199198894ED000B261F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "App Demo for iOS/Info.plist"; sourceTree = SOURCE_ROOT; };
+		C0F0C19B198894F8000B261F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "App Demo for iOS/main.m"; sourceTree = SOURCE_ROOT; };
 		C0FA52971974821100570166 /* App Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -195,7 +195,8 @@
 				C0F0C19719889498000B261F /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
+			path = ..;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 

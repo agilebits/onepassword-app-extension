@@ -52,27 +52,56 @@
 		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
 	};
 
-	__weak typeof (self) miniMe = self;
+	OnePasswordExtension *onePasswordExtension = [OnePasswordExtension sharedExtension];
 
-	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
+	// Create the 1Password extension item.
+	NSExtensionItem *extensionItem = [onePasswordExtension createExtensionItemToStoreLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions];
 
-		if (!loginDict) {
-			if (error.code != AppExtensionErrorCodeCancelledByUser) {
-				NSLog(@"Failed to use 1Password App Extension to save a new Login: %@", error);
+	NSArray *activityItems = @[ extensionItem ]; // Add as many activity items as you please
+
+	// Setting up the activity view controller
+	UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems  applicationActivities:nil];
+
+	if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+		self.popoverPresentationController.barButtonItem = sender;
+	}
+	else if ([sender isKindOfClass:[UIView class]]) {
+		self.popoverPresentationController.sourceView = [sender superview];
+		self.popoverPresentationController.sourceRect = [sender frame];
+	}
+
+	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError)
+	{
+		// Executed when the 1Password Extension is called
+		if ([onePasswordExtension isOnePasswordExtensionActivityType:activityType]) {
+			if (returnedItems.count > 0) {
+				__weak typeof (self) miniMe = self;
+				[onePasswordExtension processReturnedItems:returnedItems completion:^(NSDictionary *loginDict, NSError *error) {
+					if (!loginDict) {
+						if (error.code != AppExtensionErrorCodeCancelledByUser) {
+							NSLog(@"Failed to use 1Password App Extension to save a new Login: %@", error);
+						}
+						return;
+					}
+
+					__strong typeof(self) strongMe = miniMe;
+
+					strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
+					strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
+					strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
+					strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
+					// retrieve any additional fields that were passed in newLoginDetails dictionary
+
+					[LoginInformation sharedLoginInformation].username = loginDict[AppExtensionUsernameKey];
+				}];
 			}
-			return;
 		}
+		else {
+			// Code for other activity types
+		}
+	};
 
-		__strong typeof(self) strongMe = miniMe;
-
-		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
-		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
-		strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
-		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
-		// retrieve any additional fields that were passed in newLoginDetails dictionary
-
-		[LoginInformation sharedLoginInformation].username = loginDict[AppExtensionUsernameKey];
-	}];
+	[self presentViewController:activityViewController animated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate

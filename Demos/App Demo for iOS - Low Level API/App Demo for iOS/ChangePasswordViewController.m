@@ -65,21 +65,51 @@
 		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
 	};
 
-	__weak typeof (self) miniMe = self;
+	OnePasswordExtension *onePasswordExtension = [OnePasswordExtension sharedExtension];
 
-	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
-		if (!loginDict) {
-			if (error.code != AppExtensionErrorCodeCancelledByUser) {
-				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
+	// Create the 1Password extension item.
+	NSExtensionItem *extensionItem = [onePasswordExtension createExtensionItemToChangePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions];
+
+	NSArray *activityItems = @[ extensionItem ]; // Add as many activity items as you please
+
+	// Setting up the activity view controller
+	UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems  applicationActivities:nil];
+
+	if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+		self.popoverPresentationController.barButtonItem = sender;
+	}
+	else if ([sender isKindOfClass:[UIView class]]) {
+		self.popoverPresentationController.sourceView = [sender superview];
+		self.popoverPresentationController.sourceRect = [sender frame];
+	}
+
+	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError)
+	{
+		// Executed when the 1Password Extension is called
+		if ([onePasswordExtension isOnePasswordExtensionActivityType:activityType]) {
+			if (returnedItems.count > 0) {
+				__weak typeof (self) miniMe = self;
+				[onePasswordExtension processReturnedItems:returnedItems completion:^(NSDictionary *loginDict, NSError *error) {
+					if (!loginDict) {
+						if (error.code != AppExtensionErrorCodeCancelledByUser) {
+							NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
+						}
+						return;
+					}
+
+					__strong typeof(self) strongMe = miniMe;
+					strongMe.oldPasswordTextField.text = loginDict[AppExtensionOldPasswordKey];
+					strongMe.freshPasswordTextField.text = loginDict[AppExtensionPasswordKey];
+					strongMe.confirmPasswordTextField.text = loginDict[AppExtensionPasswordKey];
+				}];
 			}
-			return;
 		}
+		else {
+			// Code for other activity types
+		}
+	};
 
-		__strong typeof(self) strongMe = miniMe;
-		strongMe.oldPasswordTextField.text = loginDict[AppExtensionOldPasswordKey];
-		strongMe.freshPasswordTextField.text = loginDict[AppExtensionPasswordKey];
-		strongMe.confirmPasswordTextField.text = loginDict[AppExtensionPasswordKey];
-	}];
+	[self presentViewController:activityViewController animated:YES completion:nil];
 }
 
 @end
