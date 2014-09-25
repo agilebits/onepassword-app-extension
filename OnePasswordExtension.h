@@ -114,6 +114,13 @@ FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
 - (NSExtensionItem *)createExtensionItemToStoreLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptionsOrNil;
 
 /*!
+ * Low-level method used instead of `changePasswordForLoginForURLString:loginDetails:passwordGenerationOptions:forViewController:sender:completion:`
+ *
+ * The returned NSExtensionItem can be used to create your own UIActivityViewController. Use `isOnePasswordExtensionActivityType:` and `processReturnedItems:completion:` in the activity view controller completion block to process the result.
+ */
+
+- (NSExtensionItem *)createExtensionItemToChangePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptionsOrNil;
+/*!
  * Low-level method used in the UIActivityViewController completion block to process the returnedItems.
  */
 - (void)processReturnedItems:(NSArray *)returnedItems completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;

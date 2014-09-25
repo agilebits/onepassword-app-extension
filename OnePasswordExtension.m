@@ -307,6 +307,29 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
+- (NSExtensionItem *)createExtensionItemToChangePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptionsOrNil {
+	NSAssert(URLString != nil, @"URLString must not be nil");
+	NSAssert(loginDetailsDict != nil, @"loginDetailsDict must not be nil");
+
+#ifdef __IPHONE_8_0
+	NSMutableDictionary *loginAttributesDict = [NSMutableDictionary new];
+	loginAttributesDict[AppExtensionVersionNumberKey] = VERSION_NUMBER;
+	loginAttributesDict[AppExtensionURLStringKey] = URLString;
+	[loginAttributesDict addEntriesFromDictionary:loginDetailsDict];
+	if (passwordGenerationOptionsOrNil.count > 0) {
+		loginAttributesDict[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptionsOrNil;
+	}
+
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:loginAttributesDict typeIdentifier:kUTTypeAppExtensionChangePasswordAction];
+
+	NSExtensionItem *result = [[NSExtensionItem alloc] init];
+	result.attachments = @[ itemProvider ];
+
+	return result;
+#else
+	return nil;
+#endif
+}
 
 - (void)processReturnedItems:(NSArray *)returnedItems completion:(void (^)(NSDictionary *loginDict, NSError *))completion
 {
@@ -396,7 +419,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			return;
 		}
 
-		__strong typeof(weakSelf) strongSelf = webView;
+		__strong typeof(weakSelf) strongSelf = weakSelf;
 		NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
 		[strongSelf executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
 			if (completion) {
