@@ -316,7 +316,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 + (NSError *)failedToContactExtensionErrorWithActivityError:(NSError *)activityError {
 	NSMutableDictionary *userInfo = [NSMutableDictionary new];
-	userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Failed to contacting the 1Password App Extension", @"1Password App Extension Error Message");
+	userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Failed to contact the 1Password Extension", @"1Password App Extension Error Message");
 	if (activityError) {
 		userInfo[NSUnderlyingErrorKey] = activityError;
 	}
