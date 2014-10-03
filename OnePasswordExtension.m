@@ -129,7 +129,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *, NSError *))completion;
+- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *, NSError *))completion
 {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(loginDetailsDict != nil, @"loginDetailsDict must not be nil");
