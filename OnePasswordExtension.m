@@ -1,5 +1,5 @@
 //
-//  1Password App Extension
+//  1Password Extension
 //
 //  Lovingly handcrafted by Dave Teare, Michael Fey, Rad Azzouz, and Roustem Karimov.
 //  Copyright (c) 2014 AgileBits. All rights reserved.
@@ -485,19 +485,19 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #pragma mark - Errors
 
 + (NSError *)systemAppExtensionAPINotAvailableError {
-	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"App Extension API is not available is this version of iOS", @"1Password App Extension Error Message") };
+	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"App Extension API is not available is this version of iOS", @"1Password Extension Error Message") };
 	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeAPINotAvailable userInfo:userInfo];
 }
 
 
 + (NSError *)extensionCancelledByUserError {
-	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"1Password Extension was cancelled by the user", @"1Password App Extension Error Message") };
+	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"1Password Extension was cancelled by the user", @"1Password Extension Error Message") };
 	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeCancelledByUser userInfo:userInfo];
 }
 
 + (NSError *)failedToContactExtensionErrorWithActivityError:(NSError *)activityError {
 	NSMutableDictionary *userInfo = [NSMutableDictionary new];
-	userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Failed to contacting the 1Password App Extension", @"1Password App Extension Error Message");
+	userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Failed to contact the 1Password Extension", @"1Password Extension Error Message");
 	if (activityError) {
 		userInfo[NSUnderlyingErrorKey] = activityError;
 	}
@@ -507,7 +507,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 + (NSError *)failedToCollectFieldsErrorWithUnderlyingError:(NSError *)underlyingError {
 	NSMutableDictionary *userInfo = [NSMutableDictionary new];
-	userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Failed to execute script that collects web page information", @"1Password App Extension Error Message");
+	userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Failed to execute script that collects web page information", @"1Password Extension Error Message");
 	if (underlyingError) {
 		userInfo[NSUnderlyingErrorKey] = underlyingError;
 	}
@@ -529,7 +529,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 + (NSError *)failedToLoadItemProviderDataErrorWithUnderlyingError:(NSError *)underlyingError {
 	NSMutableDictionary *userInfo = [NSMutableDictionary new];
-	userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Failed to parse information returned by 1Password App Extension", @"1Password App Extension Error Message");
+	userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Failed to parse information returned by 1Password Extension", @"1Password Extension Error Message");
 	if (underlyingError) {
 		userInfo[NSUnderlyingErrorKey] = underlyingError;
 	}
@@ -670,7 +670,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	if (!fillScript) {
 		NSLog(@"Failed to executeFillScript, fillScript is missing");
 		if (completion) {
-			completion(NO, [OnePasswordExtension failedToFillFieldsErrorWithLocalizedErrorMessage:NSLocalizedString(@"Failed to fill web page because script is missing", @"1Password App Extension Error Message") underlyingError:nil]);
+			completion(NO, [OnePasswordExtension failedToFillFieldsErrorWithLocalizedErrorMessage:NSLocalizedString(@"Failed to fill web page because script is missing", @"1Password Extension Error Message") underlyingError:nil]);
 		}
 
 		return;
@@ -686,7 +686,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 		if (!success) {
 			NSLog(@"Cannot executeFillScript, stringByEvaluatingJavaScriptFromString failed");
-			error = [OnePasswordExtension failedToFillFieldsErrorWithLocalizedErrorMessage:NSLocalizedString(@"Failed to fill web page because script could not be evaluated", @"1Password App Extension Error Message") underlyingError:nil];
+			error = [OnePasswordExtension failedToFillFieldsErrorWithLocalizedErrorMessage:NSLocalizedString(@"Failed to fill web page because script could not be evaluated", @"1Password Extension Error Message") underlyingError:nil];
 		}
 
 		if (completion) {
@@ -704,7 +704,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 			if (!success) {
 				NSLog(@"Cannot executeFillScript, evaluateJavaScript failed: %@", evaluationError);
-				error = [OnePasswordExtension failedToFillFieldsErrorWithLocalizedErrorMessage:NSLocalizedString(@"Failed to fill web page because script could not be evaluated", @"1Password App Extension Error Message") underlyingError:error];
+				error = [OnePasswordExtension failedToFillFieldsErrorWithLocalizedErrorMessage:NSLocalizedString(@"Failed to fill web page because script could not be evaluated", @"1Password Extension Error Message") underlyingError:error];
 			}
 
 			if (completion) {
