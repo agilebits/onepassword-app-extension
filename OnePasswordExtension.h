@@ -1,5 +1,5 @@
 //
-//  1Password App Extension
+//  1Password Extension
 //
 //  Lovingly handcrafted by Dave Teare, Michael Fey, Rad Azzouz, and Roustem Karimov.
 //  Copyright (c) 2014 AgileBits. All rights reserved.
@@ -45,7 +45,7 @@ FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
 + (OnePasswordExtension *)sharedExtension;
 
 /*!
- Determines if the 1Password App Extension is available. Allows you to only show the 1Password login button to those
+ Determines if the 1Password Extension is available. Allows you to only show the 1Password login button to those
  that can use it. Of course, you could leave the button enabled and educate users about the virtues of strong, unique 
  passwords instead :)
  
