@@ -79,8 +79,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	return NO;
 }
 
-- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion
-{
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
@@ -126,8 +125,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *, NSError *))completion;
-{
+- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *, NSError *))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(loginDetailsDict != nil, @"loginDetailsDict must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
@@ -175,8 +173,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)changePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
-{
+- (void)changePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
@@ -231,8 +228,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion
-{
+- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
 	NSAssert(webView != nil, @"webView must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
@@ -617,8 +613,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}];
 }
 
-- (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController sender:(id)sender withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion
-{
+- (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController sender:(id)sender withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion {
 	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetails };
 
 	__weak __typeof__ (self) miniMe = self;
@@ -643,10 +638,10 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 		}
 
 		__strong __typeof__(self) strongMe = miniMe;
-		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
+		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *processExtensionItemError) {
 			if (!loginDictionary) {
 				if (completion) {
-					completion(NO, error);
+					completion(NO, processExtensionItemError);
 				}
 
 				return;
@@ -654,9 +649,9 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			
 			__strong __typeof__(self) strongMe2 = miniMe;
 			NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
-			[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
+			[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *executeFillScriptError) {
 				if (completion) {
-					completion(success, error);
+					completion(success, executeFillScriptError);
 				}
 			}];
 		}];
@@ -665,8 +660,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	[forViewController presentViewController:activityViewController animated:YES completion:nil];
 }
 
-- (void)executeFillScript:(NSString *)fillScript inWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion
-{
+- (void)executeFillScript:(NSString *)fillScript inWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion {
 	if (!fillScript) {
 		NSLog(@"Failed to executeFillScript, fillScript is missing");
 		if (completion) {
