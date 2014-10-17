@@ -94,7 +94,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}
 
 #ifdef __IPHONE_8_0
-	__weak typeof (self) weakSelf = self;
+	__weak __typeof__ (self) weakSelf = self;
 
 	NSExtensionItem *extensionItem = [self createExtensionItemToFindLoginForURLString:URLString];
 	UIActivityViewController *activityViewController = [self activityViewControllerForExtensionItem:extensionItem viewController:viewController sender:sender];
@@ -118,7 +118,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			return;
 		}
 
-		__strong typeof(self) strongSelf = weakSelf;
+		__strong __typeof__(self) strongSelf = weakSelf;
 		[strongSelf processReturnedItems:returnedItems completion:completion];
 	};
 	
@@ -145,7 +145,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #ifdef __IPHONE_8_0
 	NSExtensionItem *extensionItem = [self createExtensionItemToStoreLoginForURLString:URLString loginDetails:loginDetailsDict passwordGenerationOptions:passwordGenerationOptions];
 
-	__weak typeof (self) weakSelf = self;
+	__weak __typeof__ (self) weakSelf = self;
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForExtensionItem:extensionItem viewController:viewController sender:sender];
 
@@ -167,7 +167,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			return;
 		}
 		
-		__strong typeof(self) strongSelf = weakSelf;
+		__strong __typeof__(self) strongSelf = weakSelf;
 		[strongSelf processReturnedItems:returnedItems completion:completion];
 	};
 	
@@ -198,7 +198,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 		item[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
 	}
 
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__ (self) miniMe = self;
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionChangePasswordAction];
 
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
@@ -219,7 +219,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (completion) {
 				completion(loginDictionary, error);
@@ -363,7 +363,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	else if ([webView isKindOfClass:[WKWebView class]]) {
 		WKWebView *wkWebView = (WKWebView *)webView;
-		__weak typeof (self) weakSelf = self;
+		__weak __typeof__ (self) weakSelf = self;
 		[wkWebView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
 			if (!result) {
 				NSLog(@"1Password Extension failed to collect web page fields: %@", error);
@@ -409,7 +409,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 		return;
 	}
 
-	__weak typeof(self) weakSelf = self;
+	__weak __typeof__(self) weakSelf = self;
 	[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 		if (!loginDictionary) {
 			if (completion) {
@@ -419,7 +419,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			return;
 		}
 
-		__strong typeof(weakSelf) strongSelf = weakSelf;
+		__strong __typeof__(weakSelf) strongSelf = weakSelf;
 		NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
 		[strongSelf executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
 			if (completion) {
@@ -587,7 +587,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 - (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__ (self) miniMe = self;
 	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
 			NSLog(@"1Password Extension failed to collect web page fields: %@", error);
@@ -598,7 +598,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			return;
 		}
 		
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController sender:sender withWebView:webView completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
@@ -621,7 +621,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 {
 	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetails };
 
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__ (self) miniMe = self;
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:forViewController sender:sender typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
@@ -642,7 +642,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (!loginDictionary) {
 				if (completion) {
@@ -652,7 +652,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 				return;
 			}
 			
-			__strong typeof(self) strongMe2 = miniMe;
+			__strong __typeof__(self) strongMe2 = miniMe;
 			NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
 			[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
 				if (completion) {
