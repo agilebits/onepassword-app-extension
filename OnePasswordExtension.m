@@ -129,7 +129,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *, NSError *))completion;
+- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *, NSError *))completion
 {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(loginDetailsDict != nil, @"loginDetailsDict must not be nil");
@@ -462,10 +462,10 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 		}
 
 		__strong __typeof__(self) strongMe = miniMe;
-		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
+		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *processExtensionItemError) {
 			if (!loginDictionary) {
 				if (completion) {
-					completion(NO, error);
+					completion(NO, processExtensionItemError);
 				}
 
 				return;
@@ -473,9 +473,9 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 			
 			__strong __typeof__(self) strongMe2 = miniMe;
 			NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
-			[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
+			[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *executeFillScriptError) {
 				if (completion) {
-					completion(success, error);
+					completion(success, executeFillScriptError);
 				}
 			}];
 		}];
