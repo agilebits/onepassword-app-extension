@@ -278,8 +278,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (NSExtensionItem *)createExtensionItemToStoreLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptionsOrNil
-{
+- (NSExtensionItem *)createExtensionItemToStoreLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptionsOrNil {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(loginDetailsDict != nil, @"loginDetailsDict must not be nil");
 
@@ -327,8 +326,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)processReturnedItems:(NSArray *)returnedItems completion:(void (^)(NSDictionary *loginDict, NSError *))completion
-{
+- (void)processReturnedItems:(NSArray *)returnedItems completion:(void (^)(NSDictionary *loginDict, NSError *))completion {
 	if (returnedItems.count == 0) {
 		if (completion) {
 			NSError *error = [OnePasswordExtension extensionCancelledByUserError];
@@ -345,8 +343,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}];
 }
 
-- (void)createExtensionItemForWebView:(id)webView completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion
-{
+- (void)createExtensionItemForWebView:(id)webView completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion {
 	NSAssert(webView != nil, @"webView must not be nil");
 
 #ifdef __IPHONE_8_0
@@ -380,8 +377,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 #endif
 }
 
-- (void)_createExtensionItemForURLString:(NSString *)URLString webPageDetails:(NSString *)webPageDetails completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion
-{
+- (void)_createExtensionItemForURLString:(NSString *)URLString webPageDetails:(NSString *)webPageDetails completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion {
 	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : webPageDetails };
 
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
@@ -394,8 +390,7 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	}
 }
 
-- (void)fillReturnedItems:(NSArray *)returnedItems intoWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion
-{
+- (void)fillReturnedItems:(NSArray *)returnedItems intoWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion {
 	if (returnedItems.count == 0) {
 		NSError *error = [OnePasswordExtension extensionCancelledByUserError];
 		if (completion) {
