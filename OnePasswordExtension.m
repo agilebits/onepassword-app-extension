@@ -80,8 +80,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 	return NO;
 }
 
-- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion
-{
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
@@ -97,7 +96,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 #ifdef __IPHONE_8_0
 	NSDictionary *item = @{ AppExtensionVersionNumberKey: VERSION_NUMBER, AppExtensionURLStringKey: URLString };
 
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__ (self) miniMe = self;
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionFindLoginAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
@@ -118,7 +117,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (completion) {
 				completion(loginDictionary, error);
@@ -130,8 +129,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 #endif
 }
 
-- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *, NSError *))completion;
-{
+- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *, NSError *))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(loginDetailsDict != nil, @"loginDetailsDict must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
@@ -155,7 +153,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 		newLoginAttributesDict[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
 	}
 
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__ (self) miniMe = self;
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:newLoginAttributesDict viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
@@ -176,7 +174,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 			return;
 		}
 		
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (completion) {
 				completion(loginDictionary, error);
@@ -188,8 +186,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 #endif
 }
 
-- (void)changePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion
-{
+- (void)changePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
@@ -211,7 +208,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 		item[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
 	}
 
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__ (self) miniMe = self;
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionChangePasswordAction];
 
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
@@ -232,7 +229,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (completion) {
 				completion(loginDictionary, error);
@@ -244,8 +241,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 #endif
 }
 
-- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion
-{
+- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
 	NSAssert(webView != nil, @"webView must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
@@ -413,7 +409,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 - (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__ (self) miniMe = self;
 	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
 			NSLog(@"1Password Extension failed to collect web page fields: %@", error);
@@ -424,7 +420,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 			return;
 		}
 		
-		__strong typeof(self) strongMe = miniMe;
+		__strong __typeof__(self) strongMe = miniMe;
 		[strongMe findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController sender:sender withWebView:webView completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
@@ -452,7 +448,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 
 	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetails };
 
-	__weak typeof (self) miniMe = self;
+	__weak __typeof__ (self) miniMe = self;
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:forViewController sender:sender typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
@@ -473,21 +469,21 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
-		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
+		__strong __typeof__(self) strongMe = miniMe;
+		[strongMe processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *processExtensionItemError) {
 			if (!loginDictionary) {
 				if (completion) {
-					completion(NO, error);
+					completion(NO, processExtensionItemError);
 				}
 
 				return;
 			}
 			
-			__strong typeof(self) strongMe2 = miniMe;
+			__strong __typeof__(self) strongMe2 = miniMe;
 			NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
-			[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
+			[strongMe2 executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *executeFillScriptError) {
 				if (completion) {
-					completion(success, error);
+					completion(success, executeFillScriptError);
 				}
 			}];
 		}];
