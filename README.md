@@ -38,17 +38,17 @@ Inside the downloaded folder, you'll find the resources needed to integrate with
 
 The 1Password extension is also available via cocoapods, simply add `pod '1PasswordExtension', '~> 1.0.0'` to your Podfile, run `pod install` from your project directory and you're ready to go.
 
-### Step 2: Install the Latest 1Password & Xcode Betas
+### Step 2: Install the Latest versions of 1Password & Xcode
 
-The sample project depends upon having the latest version of Xcode 6, as well as the 1Password Beta installed on your iOS device.
+The sample project depends upon having the latest version of Xcode 6, as well as the latest version of 1Password installed on your iOS device.
 
 <!---
 If you are developing for OS X, you can enable betas within the 1Password > Preferences > Updates window (as shown [here](i.agilebits.com/Preferences_197C0C6B.png)) and enabling the _Include beta builds_ checkbox. Mac App Store users should [download the web store version](https://agilebits.com/downloads) in order to enable betas.
 -->
 
-To install the 1Password Beta, you will need to enroll in the 1Password for iOS Beta program. Please email [support+appex@agilebits.com](mailto:support+appex@agilebits.com) to express your interest. Let us know that you're an app developer and planning to add 1Password support.
+To install 1Password, you will need to download it from the [App Store](http://j.mp/1PasSITE). 
 
-Beta enrollment is a manual process so please allow a bit of time to hear back from us.
+Let us know that you're an app developer and planning to add 1Password support by emailing us to [support+appex@agilebits.com](mailto:support+appex@agilebits.com).
 
 
 ### Step 3: Run the Apps
@@ -59,7 +59,7 @@ Open `1Password Extension Demos` Xcode workspace from within the `Demos` folder 
 
 Since you will not have 1Password running within your iOS Simulator, it is important that you run on your device.
 
-If all goes well, The ACME app will launch and you'll be able to test the 1Password App Extension. The first time you attempt to access the 1Password extension you will need to enable it by tapping on the _More_ button in the activity sheet and then enabling the _1Password Beta_ item in the _Activities_ list. If the 1Password icons are missing, it likely means you do not have the 1Password Beta installed.
+If all goes well, The ACME app will launch and you'll be able to test the 1Password App Extension. The first time you attempt to access the 1Password extension you will need to enable it by tapping on the _More_ button in the activity sheet and then enable the _1Password_ item in the _Activities_ list. If the 1Password icons are missing, it likely means you do not have 1Password installed.
 
 Back in Xcode you can change the scheme to ACME Browser to test the web view filling feature.
 
