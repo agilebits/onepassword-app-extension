@@ -93,4 +93,14 @@ FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
  */
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion;
 
+/*!
+ Used to get an extension item to add into your own UIActivityViewController.
+ */
+- (NSExtensionItem *)onePasswordExtensionItemForWebView:(id)webView withURLString:URLString;
+
+/*!
+ Called from inside your UIActivityViewController completionWithItemsHandler, this method will handle filling in the web view.
+ */
+- (void)handleActivityViewControllerCompletionWithItems:(NSArray *)returnedItems withWebView:(UIWebView *)webView completion:(void (^)(BOOL success, NSError *error))completion;
+
 @end
