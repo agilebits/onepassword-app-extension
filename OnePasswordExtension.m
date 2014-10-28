@@ -46,7 +46,7 @@ NSInteger const AppExtensionErrorCodeFailedToLoadItemProviderData = 3;
 NSInteger const AppExtensionErrorCodeCollectFieldsScriptFailed = 4;
 NSInteger const AppExtensionErrorCodeFillFieldsScriptFailed = 5;
 NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
-NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
+NSInteger const AppExtensionErrorCodeFailedToObtainURLStringFromWebView = 7;
 
 
 @implementation OnePasswordExtension
@@ -353,9 +353,9 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 	return [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFailedToLoadItemProviderData userInfo:userInfo];
 }
 
-+ (NSError *)failedToGetURLStringFromWebViewError {
-	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"Failed to get URL String from web view. The web view must be loaded completely when calling the 1Password Extension", @"1Password Extension Error Message") };
-	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFailedToGetURLStringFromWebView userInfo:userInfo];
++ (NSError *)failedToObtainURLStringFromWebViewError {
+	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"Failed to obtain URL String from web view. The web view must be loaded completely when calling the 1Password Extension", @"1Password Extension Error Message") };
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFailedToObtainURLStringFromWebView userInfo:userInfo];
 }
 
 
@@ -441,7 +441,7 @@ NSInteger const AppExtensionErrorCodeFailedToGetURLStringFromWebView = 7;
 
 - (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController sender:(id)sender withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion {
 	if ([URLString length] == 0) {
-		NSError *URLStringError = [OnePasswordExtension failedToGetURLStringFromWebViewError];
+		NSError *URLStringError = [OnePasswordExtension failedToObtainURLStringFromWebViewError];
 		NSLog(@"Failed to findLoginIn1PasswordWithURLString: %@", URLStringError);
 		completion(NO, URLStringError);
 	}
