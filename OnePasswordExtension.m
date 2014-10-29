@@ -46,6 +46,7 @@ NSInteger const AppExtensionErrorCodeFailedToLoadItemProviderData = 3;
 NSInteger const AppExtensionErrorCodeCollectFieldsScriptFailed = 4;
 NSInteger const AppExtensionErrorCodeFillFieldsScriptFailed = 5;
 NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
+NSInteger const AppExtensionErrorCodeFailedToObtainURLStringFromWebView = 7;
 
 
 @implementation OnePasswordExtension
@@ -352,6 +353,12 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 	return [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFailedToLoadItemProviderData userInfo:userInfo];
 }
 
++ (NSError *)failedToObtainURLStringFromWebViewError {
+	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"Failed to obtain URL String from web view. The web view must be loaded completely when calling the 1Password Extension", @"1Password Extension Error Message") };
+	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFailedToObtainURLStringFromWebView userInfo:userInfo];
+}
+
+
 #pragma mark - App Extension ItemProvider Callback
 
 #ifdef __IPHONE_8_0
@@ -433,6 +440,12 @@ NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
 }
 
 - (void)findLoginIn1PasswordWithURLString:URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController sender:(id)sender withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion {
+	if ([URLString length] == 0) {
+		NSError *URLStringError = [OnePasswordExtension failedToObtainURLStringFromWebViewError];
+		NSLog(@"Failed to findLoginIn1PasswordWithURLString: %@", URLStringError);
+		completion(NO, URLStringError);
+	}
+
 	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetails };
 
 	__weak __typeof__ (self) miniMe = self;
