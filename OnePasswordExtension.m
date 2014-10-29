@@ -8,7 +8,7 @@
 #import "OnePasswordExtension.h"
 
 // Version
-#define VERSION_NUMBER @(108)
+#define VERSION_NUMBER @(110)
 NSString *const AppExtensionVersionNumberKey = @"version_number";
 
 // Available App Extension Actions
