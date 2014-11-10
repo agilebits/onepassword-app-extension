@@ -9,13 +9,13 @@
 
 // Version
 #define VERSION_NUMBER @(110)
-NSString *const AppExtensionVersionNumberKey = @"version_number";
+static NSString *const AppExtensionVersionNumberKey = @"version_number";
 
 // Available App Extension Actions
-NSString *const kUTTypeAppExtensionFindLoginAction = @"org.appextension.find-login-action";
-NSString *const kUTTypeAppExtensionSaveLoginAction = @"org.appextension.save-login-action";
-NSString *const kUTTypeAppExtensionChangePasswordAction = @"org.appextension.change-password-action";
-NSString *const kUTTypeAppExtensionFillWebViewAction = @"org.appextension.fill-webview-action";
+static NNSString *const kUTTypeAppExtensionFindLoginAction = @"org.appextension.find-login-action";
+static NNSString *const kUTTypeAppExtensionSaveLoginAction = @"org.appextension.save-login-action";
+static NNSString *const kUTTypeAppExtensionChangePasswordAction = @"org.appextension.change-password-action";
+static NNSString *const kUTTypeAppExtensionFillWebViewAction = @"org.appextension.fill-webview-action";
 
 // Login Dictionary keys
 NSString *const AppExtensionURLStringKey = @"url_string";
@@ -30,8 +30,8 @@ NSString *const AppExtensionOldPasswordKey = @"old_password";
 NSString *const AppExtensionPasswordGereratorOptionsKey = @"password_generator_options";
 
 // WebView Dictionary keys
-NSString *const AppExtensionWebViewPageFillScript = @"fillScript";
-NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
+static NNSString *const AppExtensionWebViewPageFillScript = @"fillScript";
+static NNSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 // Password Generator options
 NSString *const AppExtensionGeneratedPasswordMinLengthKey = @"password_min_length";
