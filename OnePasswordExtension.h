@@ -13,6 +13,35 @@
 #import <WebKit/WebKit.h>
 #endif
 
+// Most users of this code can simply ignore this set of #defines.
+// However, if you are using this code within a library, then you should provide a value for YOUR_PROJECT_PREFIX.
+// In the event that an app using your library also uses this 1Password Extension code, then
+// providing a non-nil value for YOUR_PROJECT_PREFIX will prevent duplicate symbol errors when linking.
+#define YOUR_PROJECT_PREFIX PPZebra
+#define OP_CAT_SYMBOL2(prefix, symbol) prefix ## symbol
+#define OP_CAT_SYMBOL(prefix, symbol) OP_CAT_SYMBOL2(prefix, symbol) // necessary tricky C preprocessor indirection
+#define OnePasswordExtension                              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, OnePasswordExtension)
+#define AppExtensionURLStringKey                          OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionURLStringKey)
+#define AppExtensionUsernameKey                           OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionUsernameKey)
+#define AppExtensionPasswordKey                           OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionPasswordKey)
+#define AppExtensionTitleKey                              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionTitleKey)
+#define AppExtensionNotesKey                              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionNotesKey)
+#define AppExtensionSectionTitleKey                       OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionSectionTitleKey)
+#define AppExtensionFieldsKey                             OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionFieldsKey)
+#define AppExtensionReturnedFieldsKey                     OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionReturnedFieldsKey)
+#define AppExtensionOldPasswordKey                        OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionOldPasswordKey)
+#define AppExtensionPasswordGereratorOptionsKey           OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionPasswordGereratorOptionsKey)
+#define AppExtensionGeneratedPasswordMinLengthKey         OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionGeneratedPasswordMinLengthKey)
+#define AppExtensionGeneratedPasswordMaxLengthKey         OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionGeneratedPasswordMaxLengthKey)
+#define AppExtensionErrorDomain                           OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorDomain)
+#define AppExtensionErrorCodeCancelledByUser              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeCancelledByUser)
+#define AppExtensionErrorCodeAPINotAvailable              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeAPINotAvailable)
+#define AppExtensionErrorCodeFailedToContactExtension     OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeFailedToContactExtension)
+#define AppExtensionErrorCodeFailedToLoadItemProviderData OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeFailedToLoadItemProviderData)
+#define AppExtensionErrorCodeCollectFieldsScriptFailed    OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeCollectFieldsScriptFailed)
+#define AppExtensionErrorCodeFillFieldsScriptFailed       OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeFillFieldsScriptFailed)
+#define AppExtensionErrorCodeUnexpectedData               OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeUnexpectedData)
+
 // Login Dictionary keys
 FOUNDATION_EXPORT NSString *const AppExtensionURLStringKey;
 FOUNDATION_EXPORT NSString *const AppExtensionUsernameKey;
