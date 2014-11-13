@@ -17,7 +17,7 @@
 // However, if you are using this code within a library, then you should provide a value for YOUR_PROJECT_PREFIX.
 // In the event that an app using your library also uses this 1Password Extension code, then
 // providing a non-nil value for YOUR_PROJECT_PREFIX will prevent duplicate symbol errors when linking.
-#define YOUR_PROJECT_PREFIX PPZebra
+#define YOUR_PROJECT_PREFIX
 #define OP_CAT_SYMBOL2(prefix, symbol) prefix ## symbol
 #define OP_CAT_SYMBOL(prefix, symbol) OP_CAT_SYMBOL2(prefix, symbol) // necessary tricky C preprocessor indirection
 #define OnePasswordExtension                              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, OnePasswordExtension)
