@@ -14,31 +14,37 @@
 #endif
 
 // Login Dictionary keys
-FOUNDATION_EXPORT NSString *const AppExtensionURLStringKey;
-FOUNDATION_EXPORT NSString *const AppExtensionUsernameKey;
-FOUNDATION_EXPORT NSString *const AppExtensionPasswordKey;
-FOUNDATION_EXPORT NSString *const AppExtensionTitleKey;
-FOUNDATION_EXPORT NSString *const AppExtensionNotesKey;
-FOUNDATION_EXPORT NSString *const AppExtensionSectionTitleKey;
-FOUNDATION_EXPORT NSString *const AppExtensionFieldsKey;
-FOUNDATION_EXPORT NSString *const AppExtensionReturnedFieldsKey;
-FOUNDATION_EXPORT NSString *const AppExtensionOldPasswordKey;
-FOUNDATION_EXPORT NSString *const AppExtensionPasswordGereratorOptionsKey;
+#define AppExtensionURLStringKey                  @"url_string"
+#define AppExtensionUsernameKey                   @"username"
+#define AppExtensionPasswordKey                   @"password"
+#define AppExtensionTitleKey                      @"login_title"
+#define AppExtensionNotesKey                      @"notes"
+#define AppExtensionSectionTitleKey               @"section_title"
+#define AppExtensionFieldsKey                     @"fields"
+#define AppExtensionReturnedFieldsKey             @"returned_fields"
+#define AppExtensionOldPasswordKey                @"old_password"
+#define AppExtensionPasswordGereratorOptionsKey   @"password_generator_options"
 
 // Password Generator options
-FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMinLengthKey;
-FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMaxLengthKey;
+#define AppExtensionGeneratedPasswordMinLengthKey @"password_min_length"
+#define AppExtensionGeneratedPasswordMaxLengthKey @"password_max_length"
 
 // Errors
-FOUNDATION_EXPORT NSString *const AppExtensionErrorDomain;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeCancelledByUser;
+#define AppExtensionErrorDomain                   @"OnePasswordExtension"
 
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeAPINotAvailable;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeFailedToContactExtension;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeFailedToLoadItemProviderData;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeCollectFieldsScriptFailed;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeFillFieldsScriptFailed;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
+#define AppExtensionErrorCodeCancelledByUser                    0
+#define AppExtensionErrorCodeAPINotAvailable                    1
+#define AppExtensionErrorCodeFailedToContactExtension           2
+#define AppExtensionErrorCodeFailedToLoadItemProviderData       3
+#define AppExtensionErrorCodeCollectFieldsScriptFailed          4
+#define AppExtensionErrorCodeFillFieldsScriptFailed             5
+#define AppExtensionErrorCodeUnexpectedData                     6
+#define AppExtensionErrorCodeFailedToObtainURLStringFromWebView 7
+
+// Note to creators of libraries or frameworks:
+// If you include this code within your library, then to prevent potential duplicate symbol
+// conflicts for adopters of your library, you should rename the OnePasswordExtension class.
+// You might to so by adding your own project prefix, e.g., MyLibraryOnePasswordExtension.
 
 @interface OnePasswordExtension : NSObject
 
