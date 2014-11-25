@@ -31,8 +31,8 @@
 
 // Errors
 #define AppExtensionErrorDomain                   @"OnePasswordExtension"
-#define AppExtensionErrorCodeCancelledByUser      0
 
+#define AppExtensionErrorCodeCancelledByUser                    0
 #define AppExtensionErrorCodeAPINotAvailable                    1
 #define AppExtensionErrorCodeFailedToContactExtension           2
 #define AppExtensionErrorCodeFailedToLoadItemProviderData       3
