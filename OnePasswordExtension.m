@@ -17,37 +17,9 @@ static NSString *const kUTTypeAppExtensionSaveLoginAction = @"org.appextension.s
 static NSString *const kUTTypeAppExtensionChangePasswordAction = @"org.appextension.change-password-action";
 static NSString *const kUTTypeAppExtensionFillWebViewAction = @"org.appextension.fill-webview-action";
 
-// Login Dictionary keys
-NSString *const AppExtensionURLStringKey = @"url_string";
-NSString *const AppExtensionUsernameKey = @"username";
-NSString *const AppExtensionPasswordKey = @"password";
-NSString *const AppExtensionTitleKey = @"login_title";
-NSString *const AppExtensionNotesKey = @"notes";
-NSString *const AppExtensionSectionTitleKey = @"section_title";
-NSString *const AppExtensionFieldsKey = @"fields";
-NSString *const AppExtensionReturnedFieldsKey = @"returned_fields";
-NSString *const AppExtensionOldPasswordKey = @"old_password";
-NSString *const AppExtensionPasswordGereratorOptionsKey = @"password_generator_options";
-
 // WebView Dictionary keys
 static NSString *const AppExtensionWebViewPageFillScript = @"fillScript";
 static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
-
-// Password Generator options
-NSString *const AppExtensionGeneratedPasswordMinLengthKey = @"password_min_length";
-NSString *const AppExtensionGeneratedPasswordMaxLengthKey = @"password_max_length";
-
-// Errors
-NSString *const AppExtensionErrorDomain = @"OnePasswordExtension";
-NSInteger const AppExtensionErrorCodeCancelledByUser = 0;
-NSInteger const AppExtensionErrorCodeAPINotAvailable = 1;
-NSInteger const AppExtensionErrorCodeFailedToContactExtension = 2;
-NSInteger const AppExtensionErrorCodeFailedToLoadItemProviderData = 3;
-NSInteger const AppExtensionErrorCodeCollectFieldsScriptFailed = 4;
-NSInteger const AppExtensionErrorCodeFillFieldsScriptFailed = 5;
-NSInteger const AppExtensionErrorCodeUnexpectedData = 6;
-NSInteger const AppExtensionErrorCodeFailedToObtainURLStringFromWebView = 7;
-
 
 @implementation OnePasswordExtension
 

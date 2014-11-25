@@ -13,61 +13,38 @@
 #import <WebKit/WebKit.h>
 #endif
 
-// Most users of this code can simply ignore this set of #defines.
-// However, if you are using this code within a library, then you should provide a value for YOUR_PROJECT_PREFIX.
-// In the event that an app using your library also uses this 1Password Extension code, then
-// providing a non-nil value for YOUR_PROJECT_PREFIX will prevent duplicate symbol errors when linking.
-#define YOUR_PROJECT_PREFIX
-#define OP_CAT_SYMBOL2(prefix, symbol) prefix ## symbol
-#define OP_CAT_SYMBOL(prefix, symbol) OP_CAT_SYMBOL2(prefix, symbol) // necessary tricky C preprocessor indirection
-#define OnePasswordExtension                              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, OnePasswordExtension)
-#define AppExtensionURLStringKey                          OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionURLStringKey)
-#define AppExtensionUsernameKey                           OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionUsernameKey)
-#define AppExtensionPasswordKey                           OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionPasswordKey)
-#define AppExtensionTitleKey                              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionTitleKey)
-#define AppExtensionNotesKey                              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionNotesKey)
-#define AppExtensionSectionTitleKey                       OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionSectionTitleKey)
-#define AppExtensionFieldsKey                             OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionFieldsKey)
-#define AppExtensionReturnedFieldsKey                     OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionReturnedFieldsKey)
-#define AppExtensionOldPasswordKey                        OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionOldPasswordKey)
-#define AppExtensionPasswordGereratorOptionsKey           OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionPasswordGereratorOptionsKey)
-#define AppExtensionGeneratedPasswordMinLengthKey         OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionGeneratedPasswordMinLengthKey)
-#define AppExtensionGeneratedPasswordMaxLengthKey         OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionGeneratedPasswordMaxLengthKey)
-#define AppExtensionErrorDomain                           OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorDomain)
-#define AppExtensionErrorCodeCancelledByUser              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeCancelledByUser)
-#define AppExtensionErrorCodeAPINotAvailable              OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeAPINotAvailable)
-#define AppExtensionErrorCodeFailedToContactExtension     OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeFailedToContactExtension)
-#define AppExtensionErrorCodeFailedToLoadItemProviderData OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeFailedToLoadItemProviderData)
-#define AppExtensionErrorCodeCollectFieldsScriptFailed    OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeCollectFieldsScriptFailed)
-#define AppExtensionErrorCodeFillFieldsScriptFailed       OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeFillFieldsScriptFailed)
-#define AppExtensionErrorCodeUnexpectedData               OP_CAT_SYMBOL(YOUR_PROJECT_PREFIX, AppExtensionErrorCodeUnexpectedData)
-
 // Login Dictionary keys
-FOUNDATION_EXPORT NSString *const AppExtensionURLStringKey;
-FOUNDATION_EXPORT NSString *const AppExtensionUsernameKey;
-FOUNDATION_EXPORT NSString *const AppExtensionPasswordKey;
-FOUNDATION_EXPORT NSString *const AppExtensionTitleKey;
-FOUNDATION_EXPORT NSString *const AppExtensionNotesKey;
-FOUNDATION_EXPORT NSString *const AppExtensionSectionTitleKey;
-FOUNDATION_EXPORT NSString *const AppExtensionFieldsKey;
-FOUNDATION_EXPORT NSString *const AppExtensionReturnedFieldsKey;
-FOUNDATION_EXPORT NSString *const AppExtensionOldPasswordKey;
-FOUNDATION_EXPORT NSString *const AppExtensionPasswordGereratorOptionsKey;
+#define AppExtensionURLStringKey                  @"url_string"
+#define AppExtensionUsernameKey                   @"username"
+#define AppExtensionPasswordKey                   @"password"
+#define AppExtensionTitleKey                      @"login_title"
+#define AppExtensionNotesKey                      @"notes"
+#define AppExtensionSectionTitleKey               @"section_title"
+#define AppExtensionFieldsKey                     @"fields"
+#define AppExtensionReturnedFieldsKey             @"returned_fields"
+#define AppExtensionOldPasswordKey                @"old_password"
+#define AppExtensionPasswordGereratorOptionsKey   @"password_generator_options"
 
 // Password Generator options
-FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMinLengthKey;
-FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMaxLengthKey;
+#define AppExtensionGeneratedPasswordMinLengthKey @"password_min_length"
+#define AppExtensionGeneratedPasswordMaxLengthKey @"password_max_length"
 
 // Errors
-FOUNDATION_EXPORT NSString *const AppExtensionErrorDomain;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeCancelledByUser;
+#define AppExtensionErrorDomain                   @"OnePasswordExtension"
+#define AppExtensionErrorCodeCancelledByUser      0
 
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeAPINotAvailable;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeFailedToContactExtension;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeFailedToLoadItemProviderData;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeCollectFieldsScriptFailed;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeFillFieldsScriptFailed;
-FOUNDATION_EXPORT NSInteger const AppExtensionErrorCodeUnexpectedData;
+#define AppExtensionErrorCodeAPINotAvailable                    1
+#define AppExtensionErrorCodeFailedToContactExtension           2
+#define AppExtensionErrorCodeFailedToLoadItemProviderData       3
+#define AppExtensionErrorCodeCollectFieldsScriptFailed          4
+#define AppExtensionErrorCodeFillFieldsScriptFailed             5
+#define AppExtensionErrorCodeUnexpectedData                     6
+#define AppExtensionErrorCodeFailedToObtainURLStringFromWebView 7
+
+// Note to creators of libraries or frameworks:
+// If you include this code within your library, then to prevent potential duplicate symbol
+// conflicts for adopters of your library, you should rename the OnePasswordExtension class.
+// You might to so by adding your own project prefix, e.g., MyLibraryOnePasswordExtension.
 
 @interface OnePasswordExtension : NSObject
 
