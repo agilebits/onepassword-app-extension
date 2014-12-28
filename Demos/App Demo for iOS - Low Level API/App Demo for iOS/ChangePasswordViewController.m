@@ -33,19 +33,19 @@
 }
 
 - (IBAction)changePasswordIn1Password:(id)sender {
-	NSString *changedPassword = self.freshPasswordTextField.text ? : @"";
+	NSString *newPassword = self.freshPasswordTextField.text ? : @"";
+	NSString *oldPassword = self.oldPasswordTextField.text ? : @"";
+	NSString *confirmationPassword = self.confirmPasswordTextField.text ? : @"";
+
+	// Validate that the new password and the old password are not the same.
+	if ([oldPassword isEqualToString:newPassword]) {
+		[self showChangePasswordFailedAlertWithMessage:@"The old and the new password must not be the same"];
+		return;
+	}
 
 	// Validate that the new and confirmation passwords match.
-	if (changedPassword.length > 0 && ![changedPassword isEqualToString:self.confirmPasswordTextField.text]) {
-		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Change Password Error" message:@"The new and the confirmation passwords must match" preferredStyle:UIAlertControllerStyleAlert];
-		UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-			self.freshPasswordTextField.text = @"";
-			self.confirmPasswordTextField.text = @"";
-			[self.freshPasswordTextField becomeFirstResponder];
-		}];
-
-		[alert addAction:dismissAction];
-		[self presentViewController:alert animated:YES completion:nil];
+	if (NO == [newPassword isEqualToString:confirmationPassword]) {
+		[self showChangePasswordFailedAlertWithMessage:@"The new passwords and the confirmation password must match"];
 		return;
 	}
 
@@ -54,16 +54,16 @@
 	NSDictionary *loginDetails = @{
 									  AppExtensionTitleKey: @"ACME",
 									  AppExtensionUsernameKey: username, // 1Password will prompt the user to create a new item if no matching logins are found with this username.
-									  AppExtensionPasswordKey: changedPassword,
-									  AppExtensionOldPasswordKey: self.oldPasswordTextField.text ? : @"",
+									  AppExtensionPasswordKey: newPassword,
+									  AppExtensionOldPasswordKey: oldPassword,
 									  AppExtensionNotesKey: @"Saved with the ACME app",
-									};
+									  };
 
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
-		AppExtensionGeneratedPasswordMinLengthKey: @(6),
-		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
-	};
+												AppExtensionGeneratedPasswordMinLengthKey: @(6),
+												AppExtensionGeneratedPasswordMaxLengthKey: @(50)
+												};
 
 	OnePasswordExtension *onePasswordExtension = [OnePasswordExtension sharedExtension];
 
@@ -110,6 +110,20 @@
 	};
 
 	[self presentViewController:activityViewController animated:YES completion:nil];
+}
+
+#pragma mark - Convenience methods
+
+- (void)showChangePasswordFailedAlertWithMessage:(NSString *)message {
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Change Password Error" message:message preferredStyle:UIAlertControllerStyleAlert];
+	UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+		self.freshPasswordTextField.text = @"";
+		self.confirmPasswordTextField.text = @"";
+		[self.freshPasswordTextField becomeFirstResponder];
+	}];
+
+	[alert addAction:dismissAction];
+	[self presentViewController:alert animated:YES completion:nil];
 }
 
 @end
