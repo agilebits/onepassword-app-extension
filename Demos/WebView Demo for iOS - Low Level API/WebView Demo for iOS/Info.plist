@@ -38,5 +38,18 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.url</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>1Password Fill Web View Action</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.appextension.fill-webview-action</string>
+		</dict>
+	</array>
 </dict>
 </plist>
