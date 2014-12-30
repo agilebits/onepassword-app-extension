@@ -48,7 +48,7 @@
 			<key>UTTypeDescription</key>
 			<string>1Password Fill Web View Action</string>
 			<key>UTTypeIdentifier</key>
-			<string>org.appextension.fill-webview-action</string>
+			<string>org.appextension.fill-browser-action</string>
 		</dict>
 	</array>
 </dict>

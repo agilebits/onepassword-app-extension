@@ -165,7 +165,7 @@
 
 - (NSString *)activityViewController:(UIActivityViewController *)activityViewController dataTypeIdentifierForActivityType:(NSString *)activityType {
 	// Because of our UTI declaration, this UTI now satisfies both the 1Password Extension and the usual NSURL for Share extensions.
-	return @"org.appextension.fill-webview-action";
+	return @"org.appextension.fill-browser-action";
 }
 
 @end
