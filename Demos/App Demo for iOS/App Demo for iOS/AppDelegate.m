@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <OnePasswordExtension/OnePasswordExtension.h>
+#import "OnePasswordExtension.h"
 
 #import <MessageUI/MFMailComposeViewController.h>
 

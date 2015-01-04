@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import <OnePasswordExtension/OnePasswordExtension.h>
+#import "OnePasswordExtension.h"
 #import "LoginInformation.h"
 
 @interface LoginViewController () <UITextFieldDelegate>

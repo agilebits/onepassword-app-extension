@@ -7,7 +7,7 @@
 //
 
 #import "RegisterViewController.h"
-#import <OnePasswordExtension/OnePasswordExtension.h>
+#import "OnePasswordExtension.h"
 #import "LoginInformation.h"
 
 @interface RegisterViewController () <UITextFieldDelegate>
