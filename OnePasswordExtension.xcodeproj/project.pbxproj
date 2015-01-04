@@ -10,7 +10,6 @@
 		9C3F4DB11A59AE7D004B3ECE /* OnePasswordExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C3F4DAF1A59AE7D004B3ECE /* OnePasswordExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C3F4DB21A59AE7D004B3ECE /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F4DB01A59AE7D004B3ECE /* OnePasswordExtension.m */; };
 		9C3F4DB41A59AEB3004B3ECE /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C3F4DB31A59AEB3004B3ECE /* 1Password.xcassets */; };
-		9C3F4DB61A59AECD004B3ECE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C3F4DB51A59AECD004B3ECE /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +26,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C3F4DB61A59AECD004B3ECE /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
