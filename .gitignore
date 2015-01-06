@@ -17,6 +17,3 @@ DerivedData
 .idea/
 
 *.rej
-
-# Carthage
-Carthage/Build
