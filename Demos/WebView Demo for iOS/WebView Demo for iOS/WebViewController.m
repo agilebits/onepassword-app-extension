@@ -8,7 +8,7 @@
 
 #import "WebViewController.h"
 
-#import "OnePasswordExtension.h"
+#import <OnePasswordExtension/OnePasswordExtension.h>
 
 @interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate>
 
@@ -24,6 +24,9 @@
 #pragma mark - Life Cycle
 
 - (void)viewDidLoad {
+	NSBundle *onePasswordExtensionBundle = [NSBundle bundleForClass:[OnePasswordExtension class]];
+	UIImage *onePasswordToolbarImage = [UIImage imageNamed:@"onepassword-toolbar" inBundle:onePasswordExtensionBundle compatibleWithTraitCollection:self.traitCollection];
+	[self.onepasswordFillButton setImage:onePasswordToolbarImage forState:UIControlStateNormal];
 	[self.onepasswordFillButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 
 	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
