@@ -16,6 +16,7 @@ static NSString *const kUTTypeAppExtensionFindLoginAction = @"org.appextension.f
 static NSString *const kUTTypeAppExtensionSaveLoginAction = @"org.appextension.save-login-action";
 static NSString *const kUTTypeAppExtensionChangePasswordAction = @"org.appextension.change-password-action";
 static NSString *const kUTTypeAppExtensionFillWebViewAction = @"org.appextension.fill-webview-action";
+static NSString *const kUTTypeAppExtensionFillBrowserAction = @"org.appextension.fill-browser-action";
 
 // WebView Dictionary keys
 static NSString *const AppExtensionWebViewPageFillScript = @"fillScript";
@@ -353,7 +354,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 - (void)_createExtensionItemForURLString:(NSString *)URLString webPageDetails:(NSString *)webPageDetails completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion {
 	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : webPageDetails };
 
-	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFillBrowserAction];
 
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
