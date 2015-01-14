@@ -7,7 +7,7 @@
 //
 
 #import "RegisterViewController.h"
-#import "OnePasswordExtension.h"
+#import <OnePasswordExtension/OnePasswordExtension.h>
 #import "LoginInformation.h"
 
 @interface RegisterViewController () <UITextFieldDelegate>
@@ -25,6 +25,10 @@
 
 - (void)viewDidLoad {
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"register-background.png"]]];
+
+	NSBundle *onePasswordExtensionBundle = [NSBundle bundleForClass:[OnePasswordExtension class]];
+	UIImage *onePasswordButtonImage = [UIImage imageNamed:@"onepassword-button" inBundle:onePasswordExtensionBundle compatibleWithTraitCollection:self.traitCollection];
+	[self.onepasswordSignupButton setImage:onePasswordButtonImage forState:UIControlStateNormal];
 	[self.onepasswordSignupButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 
