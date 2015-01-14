@@ -9,9 +9,7 @@
 #import "AppDelegate.h"
 #import "OnePasswordExtension.h"
 
-#import <MessageUI/MFMailComposeViewController.h>
-
-@interface AppDelegate () <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
+@interface AppDelegate () <UIAlertViewDelegate>
 
 @end
 
@@ -20,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	if (![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
-		UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"1Password Beta is not installed" message:@"Email support+appex@agilebits.com for beta access" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Email", nil];
+		UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"1Password is not installed" message:@"Get 1Password from the App Store" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Get 1Password", nil];
 		[alertView show];
 	}
 
@@ -53,21 +51,8 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == alertView.firstOtherButtonIndex) {
-		MFMailComposeViewController* composeViewController = [[MFMailComposeViewController alloc] init];
-		composeViewController.mailComposeDelegate = self;
-		[composeViewController setToRecipients:@[ @"support+appex@agilebits.com" ]];
-		[composeViewController setSubject:@"App Extension"];
-
-		UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-		UIViewController *rootViewController = window.rootViewController;
-		[rootViewController presentViewController:composeViewController animated:YES completion:nil];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/ca/app/1password-password-manager/id568903335?mt=8"]];
 	}
-}
-
-#pragma mark - MFMailComposeViewControllerDelegate
-
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-	[controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
