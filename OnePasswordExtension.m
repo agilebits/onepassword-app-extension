@@ -475,7 +475,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	}
 	
 	NSMutableString *scriptSource = [OPWebViewFillScript mutableCopy];
-	[scriptSource appendFormat:@"(document, %@);", [fillScript stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"]];
+	[scriptSource appendFormat:@"(document, %@);", fillScript];
 	
 	if ([webView isKindOfClass:[UIWebView class]]) {
 		NSString *result = [((UIWebView *)webView) stringByEvaluatingJavaScriptFromString:scriptSource];
