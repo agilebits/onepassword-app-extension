@@ -99,7 +99,6 @@ Next we need to wire up the action for this button to this method in your UIView
 
 ```objective-c
 - (IBAction)findLoginFrom1Password:(id)sender {
-	__weak typeof (self) miniMe = self;
 	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
@@ -108,14 +107,13 @@ Next we need to wire up the action for this button to this method in your UIView
 			return;
 		}
 		
-		__strong typeof(self) strongMe = miniMe;
-		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey];
-		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey];
+		self.usernameTextField.text = loginDict[AppExtensionUsernameKey];
+		self.passwordTextField.text = loginDict[AppExtensionPasswordKey];
 	}];
 }
 ```
 
-Aside from the [weak/strong self dance](http://dhoerl.wordpress.com/2013/04/23/i-finally-figured-out-weakself-and-strongself/), this code is pretty straight forward:
+This code is pretty straight forward:
 
 1. Provide a `URLString` that uniquely identifies your service. For example, if your app required a Twitter login, you would pass in `@"https://twitter.com"`. See _Best Practices_ for details.
 2. Pass in the `UIViewController` that you want the share sheet to be presented upon.
@@ -150,8 +148,6 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
 	};
 
-	__weak typeof (self) miniMe = self;
-
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 
 		if (!loginDict) {
@@ -161,12 +157,10 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
-
-		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
-		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
-		strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
-		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
+		self.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
+		self.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
+		self.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
+		self.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
 		// retrieve any additional fields that were passed in newLoginDetails dictionary
 	}];
 }
@@ -202,8 +196,6 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
 	};
 
-	__weak typeof (self) miniMe = self;
-
 	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
@@ -212,10 +204,9 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
-		strongMe.oldPasswordTextField.text = loginDict[AppExtensionOldPasswordKey];
-		strongMe.freshPasswordTextField.text = loginDict[AppExtensionPasswordKey];
-		strongMe.confirmPasswordTextField.text = loginDict[AppExtensionPasswordKey];
+		self.oldPasswordTextField.text = loginDict[AppExtensionOldPasswordKey];
+		self.freshPasswordTextField.text = loginDict[AppExtensionPasswordKey];
+		self.confirmPasswordTextField.text = loginDict[AppExtensionPasswordKey];
 	}];
 }
 ```
