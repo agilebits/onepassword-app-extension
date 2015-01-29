@@ -52,8 +52,6 @@
 		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
 	};
 
-	__weak typeof (self) miniMe = self;
-
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 
 		if (!loginDict) {
@@ -63,12 +61,10 @@
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
-
-		strongMe.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
-		strongMe.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
-		strongMe.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
-		strongMe.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
+		self.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
+		self.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
+		self.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
+		self.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
 		// retrieve any additional fields that were passed in newLoginDetails dictionary
 
 		[LoginInformation sharedLoginInformation].username = loginDict[AppExtensionUsernameKey];
