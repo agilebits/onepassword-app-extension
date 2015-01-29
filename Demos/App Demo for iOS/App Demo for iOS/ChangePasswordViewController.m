@@ -69,8 +69,6 @@
 		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
 	};
 
-	__weak typeof (self) miniMe = self;
-
 	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
@@ -79,10 +77,9 @@
 			return;
 		}
 
-		__strong typeof(self) strongMe = miniMe;
-		strongMe.oldPasswordTextField.text = loginDict[AppExtensionOldPasswordKey];
-		strongMe.freshPasswordTextField.text = loginDict[AppExtensionPasswordKey];
-		strongMe.confirmPasswordTextField.text = loginDict[AppExtensionPasswordKey];
+		self.oldPasswordTextField.text = loginDict[AppExtensionOldPasswordKey];
+		self.freshPasswordTextField.text = loginDict[AppExtensionPasswordKey];
+		self.confirmPasswordTextField.text = loginDict[AppExtensionPasswordKey];
 	}];
 }
 
