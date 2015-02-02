@@ -42,7 +42,7 @@
 	NSString *confirmationPassword = self.confirmPasswordTextField.text ? : @"";
 
 	// Validate that the new password and the old password are not the same.
-	if ([oldPassword isEqualToString:newPassword]) {
+	if (oldPassword.length > 0 && [oldPassword isEqualToString:newPassword]) {
 		[self showChangePasswordFailedAlertWithMessage:@"The old and the new password must not be the same"];
 		return;
 	}
