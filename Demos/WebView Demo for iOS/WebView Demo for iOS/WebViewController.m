@@ -27,14 +27,16 @@
 	[self.onepasswordFillButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 
 	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
-	self.webView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds configuration:configuration];
-	self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-	self.webView.navigationDelegate = self;
-	[self.webViewContainer addSubview:self.webView];
+    __strong WKWebView *webView = self.webView;
+    __strong UIView *webViewContainer = self.webViewContainer;
+	webView = [[WKWebView alloc] initWithFrame:webViewContainer.bounds configuration:configuration];
+	webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	webView.navigationDelegate = self;
+	[webViewContainer addSubview:webView];
 
 	NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
 	NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-	[self.webView loadHTMLString:htmlString baseURL:nil];
+	[webView loadHTMLString:htmlString baseURL:nil];
 }
 
 #pragma mark - Actions
@@ -98,10 +100,11 @@
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-	self.searchBar.text = webView.URL.absoluteString;
+    __strong UISearchBar *searchBar = self.searchBar;
+	searchBar.text = webView.URL.absoluteString;
 
-	if ([self.searchBar.text isEqualToString:@"about:blank"]) {
-		self.searchBar.text = @"";
+	if ([searchBar.text isEqualToString:@"about:blank"]) {
+		searchBar.text = @"";
 	}
 }
 
