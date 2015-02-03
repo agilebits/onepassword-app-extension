@@ -83,10 +83,11 @@
 
 - (void)showChangePasswordFailedAlertWithMessage:(NSString *)message {
 	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Change Password Error" message:message preferredStyle:UIAlertControllerStyleAlert];
+    __strong UITextField *freshPasswordTextField = self.freshPasswordTextField;
 	UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-		self.freshPasswordTextField.text = @"";
+		freshPasswordTextField.text = @"";
 		self.confirmPasswordTextField.text = @"";
-		[self.freshPasswordTextField becomeFirstResponder];
+		[freshPasswordTextField becomeFirstResponder];
 	}];
 
 	[alert addAction:dismissAction];
