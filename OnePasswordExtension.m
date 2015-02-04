@@ -383,9 +383,9 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			return;
 		}
 		
-		[self findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController sender:sender withWebView:webView completion:^(BOOL success, NSError *error) {
+		[self findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController sender:sender withWebView:webView completion:^(BOOL success, NSError *findLoginError) {
 			if (completion) {
-				completion(success, error);
+				completion(success, findLoginError);
 			}
 		}];
 	}];
