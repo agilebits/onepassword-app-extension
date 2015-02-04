@@ -14,7 +14,6 @@
 		C0A970AA19D39B960016870A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A970A219D39B960016870A /* LoginViewController.m */; };
 		C0A970AB19D39B960016870A /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A970A419D39B960016870A /* RegisterViewController.m */; };
 		C0A970AC19D39B960016870A /* ThankYouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A970A619D39B960016870A /* ThankYouViewController.m */; };
-		C0A970AF19D39BB60016870A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0A970AD19D39BB60016870A /* Info.plist */; };
 		C0A970B019D39BB60016870A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A970AE19D39BB60016870A /* main.m */; };
 		C0A970B319D39BBF0016870A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A970B119D39BBF0016870A /* Main.storyboard */; };
 		C0F0C18519889441000B261F /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C18419889441000B261F /* OnePasswordExtension.m */; };
@@ -132,7 +131,7 @@
 		C0FA528F1974821100570166 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = AgileBits;
 				TargetAttributes = {
 					C0FA52961974821100570166 = {
@@ -165,7 +164,6 @@
 			files = (
 				C0F0C19519889479000B261F /* Images.xcassets in Resources */,
 				C053E05B19945A45002E80C5 /* 1Password.xcassets in Resources */,
-				C0A970AF19D39BB60016870A /* Info.plist in Resources */,
 				C0A970B319D39BBF0016870A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
