@@ -70,9 +70,9 @@
 				// Executed when the 1Password Extension is called
 				if ([onePasswordExtension isOnePasswordExtensionActivityType:activityType]) {
 					if (returnedItems.count > 0) {
-						[onePasswordExtension fillReturnedItems:returnedItems intoWebView:strongMe.webView completion:^(BOOL success, NSError *error) {
+						[onePasswordExtension fillReturnedItems:returnedItems intoWebView:strongMe.webView completion:^(BOOL success, NSError *returnedItemsError) {
 							if (!success) {
-								NSLog(@"Failed to fill login in webview: <%@>", error);
+								NSLog(@"Failed to fill login in webview: <%@>", returnedItemsError);
 							}
 						}];
 					}

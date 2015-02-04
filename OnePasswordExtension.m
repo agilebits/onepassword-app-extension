@@ -376,9 +376,9 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		}
 
 		NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
-		[self executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *error) {
+		[self executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *executeFillScriptError) {
 			if (completion) {
-				completion(success, error);
+				completion(success, executeFillScriptError);
 			}
 		}];
 	}];
