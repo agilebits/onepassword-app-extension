@@ -583,7 +583,16 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		completion(NO, URLStringError);
 	}
 
-	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetails };
+	NSError *jsonError = nil;
+	NSData *data = [collectedPageDetails dataUsingEncoding:NSUTF8StringEncoding];
+	NSDictionary *collectedPageDetailsDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+
+	if (collectedPageDetailsDictionary.count == 0) {
+		NSLog(@"Failed to parse JSON collected page details: %@", jsonError);
+		completion(NO, jsonError);
+	}
+
+	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetailsDictionary };
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:forViewController sender:sender typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
@@ -694,7 +703,7 @@ m.test(c.placeholder)||m.test(c['label-tag'])||m.test(c['label-data'])||m.test(c
 var c=b.ownerDocument.createEvent('HTMLEvents');B(b,'keydown');B(b,'keyup');B(b,'keypress');c.initEvent('input',!0,!0);b.dispatchEvent(c);a.initEvent('change',!0,!0);b.dispatchEvent(a);b.blur()});return{documentUUID:d,title:e.title,url:u.location.href,forms:function(a){var b={};a.forEach(function(a){b[a.opid]=a});return b}(C),fields:z,collectedTimestamp:(new Date).getTime()}};document.elementForOPID=D;function B(e,d){var f;f=e.ownerDocument.createEvent('KeyboardEvent');f.initKeyboardEvent?f.initKeyboardEvent(d,!0,!0):f.initKeyEvent&&f.initKeyEvent(d,!0,!0,null,!1,!1,!1,!1,0,0);e.dispatchEvent(f)}function y(e,d){var f;f='';3===d.nodeType?f=d.nodeValue:1===d.nodeType&&(f=d.innerText||d.textContent);var g=null;f&&(g=f.toLowerCase().replace(/\\s/mg,'').replace(/[~`!@$%^&*()\\-_+=:;'\"\\[\\]|\\\\,<.>\\/?]/mg,''),g=0<g.length?g:null);(f=g)&&e.push(f)}\
 function v(e){var d;e&&void 0!==e?(d='select option input form textarea iframe button body head'.split(' '),e?(e=e?(e.tagName||'').toLowerCase():'',d=d.constructor==Array?0<=d.indexOf(e):e===d):d=!1):d=!0;return d}function A(e,d,f){var g;for(f||(f=0);e&&e.previousSibling;){e=e.previousSibling;if(v(e))return;y(d,e)}if(e&&0===d.length){for(g=null;!g;){e=e.parentElement||e.parentNode;if(!e)return;for(g=e.previousSibling;g&&!v(g)&&g.lastChild;)g=g.lastChild}v(g)||(y(d,g),0===d.length&&A(g,d,f+1))}}\
 function D(e){var d;if(void 0===e||null===e)return null;try{var f=Array.prototype.slice.call(document.querySelectorAll('input, select')),g=f.filter(function(d){return d.opid==e});if(0<g.length)d=g[0],1<g.length&&console.warn('More than one element found with opid '+e);else{var q=parseInt(e.split('__')[1],10);isNaN(q)||(d=f[q])}}catch(s){console.error('An unexpected error occurred: '+s)}finally{return d}};var E=/^[\\/\\?]/;function r(e){if(!e)return null;if(0==e.indexOf('http'))return e;var d=window.location.protocol+'//'+window.location.hostname;window.location.port&&''!=window.location.port&&(d+=':'+window.location.port);e.match(E)||(e='/'+e);return d+e};\
-(function collect(uuid) { var pageDetails = document.collect(document, uuid); return pageDetails; })('uuid');";
+(function collect(uuid) { var pageDetails = document.collect(document, uuid); return JSON.stringify(pageDetails); })('uuid');";
 
 static NSString *const OPWebViewFillScript = @"var f=!0,h=!0;document.fill=k;\
 function k(a){var b,c=[],d=a.properties,e=1,g;d&&d.delay_between_operations&&(e=d.delay_between_operations);if(null!=a.savedURL&&0===a.savedURL.indexOf('https://')&&'http:'==document.location.protocol&&(b=confirm('1Password warning: This is an unsecured HTTP page, and any information you submit can potentially be seen and changed by others. This Login was originally saved on a secure (HTTPS) page.\\n\\nDo you still wish to fill this login?'),0==b))return;g=function(a,b){var d=a[0];void 0===d?b():('delay'===\
