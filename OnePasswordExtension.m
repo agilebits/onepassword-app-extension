@@ -344,7 +344,16 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 }
 
 - (void)_createExtensionItemForURLString:(NSString *)URLString webPageDetails:(NSString *)webPageDetails completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion {
-	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : webPageDetails };
+	NSError *jsonError = nil;
+	NSData *data = [webPageDetails dataUsingEncoding:NSUTF8StringEncoding];
+	NSDictionary *webPageDetailsDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+
+	if (webPageDetailsDictionary.count == 0) {
+		NSLog(@"Failed to parse JSON collected page details: %@", jsonError);
+		completion(nil, jsonError);
+	}
+
+	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : webPageDetailsDictionary };
 
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFillBrowserAction];
 
