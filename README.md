@@ -231,8 +231,106 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 This cabablity is designed for oauth-like situations. If you want the 1Password Extension to show up in the share sheed along side other extensions, please take a look at the `Browser filling Support` use case.  
 
-### Use Case #4: Browser filling Support
+### Use Case #5: Browser filling Support
 
+This new capability is offered since version `1.1.3` of `1Password App Extension API` and 1Password for iOS 5.3. 
+
+Here are the main differences between this new capability and `Web View Login Support`:
+
+* In `Web View Login Support` only Logins are available to fill, while `Browser filling Support` offers the ability to fill Logins, Credit Cards and Identities into web views. 
+* In `Web View Login Support` the 1Password Extension is the only extension visible in the share sheet while in `Browser filling Support` the 1Password Extension appears along side other extensions in the share sheet.
+
+This new capablity is designed for browsing scenarios. Let's say that you have an app with a web view where the user can browse. This means that the content of your web view is variable. So your user may need 1Password to fill Logins, Credit Cards or Identities while using your app. This capability allows you to offer the 1Password Extension in the share sheet, along side other extensions.
+
+So here's how to set it up:
+
+1. Make sure that your view controller implements `UIActivityItemSource`.
+
+```objective-c
+@interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate, UIActivityItemSource>
+```
+
+3. Implement the `UIActivityItemSource` protocol by copy/pasting the code below into your view controller
+
+```objective-c
+#pragma mark - UIActivityItemSource Protocol
+
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
+	// Return the current URL as a placeholder
+	return self.webView.URL;
+}
+
+- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
+	if ([[OnePasswordExtension sharedExtension] isOnePasswordExtensionActivityType:activityType]) {
+		// Return the 1Password extension item
+		return self.onePasswordExtensionItem;
+	}
+	else {
+		// Return the current URL
+		return self.webView.URL;
+	}
+}
+
+- (NSString *)activityViewController:(UIActivityViewController *)activityViewController dataTypeIdentifierForActivityType:(NSString *)activityType {
+	// Because of our UTI declaration, this UTI now satisfies both the 1Password Extension and the usual NSURL for Share extensions.
+	return @"org.appextension.fill-browser-action";
+}
+```
+
+3. Go to Your Target > Info and set up its `Imported UTIs`. This will enable the 1Password Extension custom activity type (@"org.appextension.fill-browser-action") to conform to `public.url` 
+
+![](https://www.evernote.com/shard/s340/sh/308760bd-0bde-4de0-810a-b96e9a3c247e/3e30f35cfa65f1b02d75253db90d1875/deep/0/Browser-Filling-Demo-for-iOS.xcodeproj.png)
+
+4. Add an action for the share sheet button, the code that will to present the `UIActivityViewCotroller` in a similar fashion to the example bellow.
+
+```objective-c
+- (IBAction)fillUsing1Password:(id)sender {
+	OnePasswordExtension *onePasswordExtension = [OnePasswordExtension sharedExtension];
+
+	// Create the 1Password extension item.
+	[onePasswordExtension createExtensionItemForWebView:self.webView completion:^(NSExtensionItem *extensionItem, NSError *error) {
+
+		if (extensionItem == nil) {
+			NSLog(@"Failed to creared an extension item: <%@>", error);
+			return;
+		}
+
+		// Initialize the 1Password extension item property
+		self.onePasswordExtensionItem = extensionItem;
+
+		NSArray *activityItems = @[ self ]; // Add as many custom activity items as you please
+
+		// Setting up the activity view controller
+		UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems  applicationActivities:nil];
+
+		if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+			self.popoverPresentationController.barButtonItem = sender;
+		}
+		else if ([sender isKindOfClass:[UIView class]]) {
+			self.popoverPresentationController.sourceView = [sender superview];
+			self.popoverPresentationController.sourceRect = [sender frame];
+		}
+
+		activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+			// Executed when the 1Password Extension is called
+			if ([onePasswordExtension isOnePasswordExtensionActivityType:activityType]) {
+				if (returnedItems.count > 0) {
+					[onePasswordExtension fillReturnedItems:returnedItems intoWebView:self.webView completion:^(BOOL success, NSError *returnedItemsError) {
+						if (!success) {
+							NSLog(@"Failed to fill login in webview: <%@>", returnedItemsError);
+						}
+					}];
+				}
+			}
+			else {
+				// Code for other custom activity types
+			}
+		};
+
+		[self presentViewController:activityViewController animated:YES completion:nil];
+	}];
+}
+```
 
 ## Projects supporting iOS 7.1 and earlier
 
