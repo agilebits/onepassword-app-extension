@@ -17,19 +17,8 @@
 		C0F0C1B319889604000B261F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C1B119889604000B261F /* main.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C03001C51A88FB6600B27AC8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C03001C11A88FB6600B27AC8 /* Browser Filling Demo for iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C0169CD5197D6C3C006E7618;
-			remoteInfo = "ACME Browser";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		C0169CD5197D6C3C006E7618 /* WebView Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WebView Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C03001C11A88FB6600B27AC8 /* Browser Filling Demo for iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Browser Filling Demo for iOS.xcodeproj"; path = "../Browser Filling Demo for iOS/Browser Filling Demo for iOS.xcodeproj"; sourceTree = "<group>"; };
 		C04CEC4919887A9C00673F85 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../1Password.xcassets; sourceTree = SOURCE_ROOT; };
 		C0F0C19E1988954E000B261F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "WebView Demo for iOS/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
 		C0F0C19F1988954E000B261F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "WebView Demo for iOS/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
@@ -58,7 +47,6 @@
 		C0169CCC197D6C3C006E7618 = {
 			isa = PBXGroup;
 			children = (
-				C03001C11A88FB6600B27AC8 /* Browser Filling Demo for iOS.xcodeproj */,
 				C0169CD7197D6C3C006E7618 /* WebView Demo for iOS */,
 				C0169CD6197D6C3C006E7618 /* Products */,
 			);
@@ -98,14 +86,6 @@
 				C0F0C1B119889604000B261F /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C03001C21A88FB6600B27AC8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C03001C61A88FB6600B27AC8 /* Browser Filling Demo for iOS.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,28 +133,12 @@
 			mainGroup = C0169CCC197D6C3C006E7618;
 			productRefGroup = C0169CD6197D6C3C006E7618 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C03001C21A88FB6600B27AC8 /* Products */;
-					ProjectRef = C03001C11A88FB6600B27AC8 /* Browser Filling Demo for iOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				C0169CD4197D6C3C006E7618 /* ACME Browser */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C03001C61A88FB6600B27AC8 /* Browser Filling Demo for iOS.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "Browser Filling Demo for iOS.app";
-			remoteRef = C03001C51A88FB6600B27AC8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C0169CD3197D6C3C006E7618 /* Resources */ = {

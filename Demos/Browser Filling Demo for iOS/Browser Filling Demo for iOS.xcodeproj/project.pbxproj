@@ -92,9 +92,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C0169CD4197D6C3C006E7618 /* ACME Browser */ = {
+		C0169CD4197D6C3C006E7618 /* ACME Browser 2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C0169CF5197D6C3C006E7618 /* Build configuration list for PBXNativeTarget "ACME Browser" */;
+			buildConfigurationList = C0169CF5197D6C3C006E7618 /* Build configuration list for PBXNativeTarget "ACME Browser 2" */;
 			buildPhases = (
 				C0169CD1197D6C3C006E7618 /* Sources */,
 				C0169CD2197D6C3C006E7618 /* Frameworks */,
@@ -104,7 +104,7 @@
 			);
 			dependencies = (
 			);
-			name = "ACME Browser";
+			name = "ACME Browser 2";
 			productName = "WebView filling for iOS";
 			productReference = C0169CD5197D6C3C006E7618 /* Browser Filling Demo for iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -136,7 +136,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C0169CD4197D6C3C006E7618 /* ACME Browser */,
+				C0169CD4197D6C3C006E7618 /* ACME Browser 2 */,
 			);
 		};
 /* End PBXProject section */
@@ -296,7 +296,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C0169CF5197D6C3C006E7618 /* Build configuration list for PBXNativeTarget "ACME Browser" */ = {
+		C0169CF5197D6C3C006E7618 /* Build configuration list for PBXNativeTarget "ACME Browser 2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C0169CF6197D6C3C006E7618 /* Debug */,
