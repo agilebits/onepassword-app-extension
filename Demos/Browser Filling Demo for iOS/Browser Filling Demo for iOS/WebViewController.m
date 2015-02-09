@@ -51,7 +51,7 @@
 			return;
 		}
 
-		// Initialize the 1Password extension item
+		// Initialize the 1Password extension item property
 		self.onePasswordExtensionItem = extensionItem;
 
 		NSArray *activityItems = @[ self ]; // Add as many custom activity items as you please
