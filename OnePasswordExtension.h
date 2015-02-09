@@ -99,4 +99,21 @@
  */
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion;
 
+/*!
+ Called in the UIActivityViewController completion block to find if the activity was performed by 1Password Extension.
+ */
+- (BOOL)isOnePasswordExtensionActivityType:(NSString *)activityType;
+
+/*!
+ Called instead of `fillLoginIntoWebView:forViewController:sender:completion`
+
+ The returned NSExtensionItem can be used to create your own UIActivityViewController. Use `isOnePasswordExtensionActivityType:` and `fillReturnedItems:intoWebView:completion:` in the activity view controller completion block to process the result.
+ */
+- (void)createExtensionItemForWebView:(id)webView completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion;
+
+/*!
+ Low-level method used in the UIActivityViewController completion block to fill information into a web view.
+ */
+- (void)fillReturnedItems:(NSArray *)returnedItems intoWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion;
+
 @end

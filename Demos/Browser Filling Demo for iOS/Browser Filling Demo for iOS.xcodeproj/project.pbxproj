@@ -7,41 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C03001B21A88F8DE00B27AC8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C03001B11A88F8DE00B27AC8 /* AppDelegate.m */; };
+		C03001B61A88F8EF00B27AC8 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C03001B41A88F8EF00B27AC8 /* WebViewController.m */; };
+		C03001B71A88F8EF00B27AC8 /* welcome.html in Resources */ = {isa = PBXBuildFile; fileRef = C03001B51A88F8EF00B27AC8 /* welcome.html */; };
+		C03001B91A88F8FE00B27AC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03001B81A88F8FE00B27AC8 /* Images.xcassets */; };
+		C03001BC1A88F91C00B27AC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03001BA1A88F91C00B27AC8 /* Main.storyboard */; };
+		C03001BF1A88F92900B27AC8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C03001BD1A88F92900B27AC8 /* Info.plist */; };
+		C03001C01A88F92900B27AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C03001BE1A88F92900B27AC8 /* main.m */; };
 		C04CEC4A19887A9C00673F85 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C04CEC4919887A9C00673F85 /* 1Password.xcassets */; };
-		C0F0C1A21988954E000B261F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C19F1988954E000B261F /* AppDelegate.m */; };
-		C0F0C1A31988954E000B261F /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C1A11988954E000B261F /* WebViewController.m */; };
 		C0F0C1A61988955C000B261F /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C1A51988955C000B261F /* OnePasswordExtension.m */; };
-		C0F0C1A8198895A4000B261F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0F0C1A7198895A4000B261F /* Images.xcassets */; };
-		C0F0C1AC198895C8000B261F /* welcome.html in Resources */ = {isa = PBXBuildFile; fileRef = C0F0C1AB198895C8000B261F /* welcome.html */; };
-		C0F0C1AF198895F6000B261F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F0C1AD198895F6000B261F /* Main.storyboard */; };
-		C0F0C1B319889604000B261F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C1B119889604000B261F /* main.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C03001C51A88FB6600B27AC8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C03001C11A88FB6600B27AC8 /* Browser Filling Demo for iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C0169CD5197D6C3C006E7618;
-			remoteInfo = "ACME Browser";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		C0169CD5197D6C3C006E7618 /* WebView Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WebView Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C03001C11A88FB6600B27AC8 /* Browser Filling Demo for iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Browser Filling Demo for iOS.xcodeproj"; path = "../Browser Filling Demo for iOS/Browser Filling Demo for iOS.xcodeproj"; sourceTree = "<group>"; };
+		C0169CD5197D6C3C006E7618 /* Browser Filling Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Browser Filling Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C03001B01A88F8DE00B27AC8 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "Browser Filling Demo for iOS/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
+		C03001B11A88F8DE00B27AC8 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "Browser Filling Demo for iOS/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
+		C03001B31A88F8EF00B27AC8 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = "Browser Filling Demo for iOS/WebViewController.h"; sourceTree = SOURCE_ROOT; };
+		C03001B41A88F8EF00B27AC8 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = "Browser Filling Demo for iOS/WebViewController.m"; sourceTree = SOURCE_ROOT; };
+		C03001B51A88F8EF00B27AC8 /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = welcome.html; path = "Browser Filling Demo for iOS/welcome.html"; sourceTree = SOURCE_ROOT; };
+		C03001B81A88F8FE00B27AC8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Browser Filling Demo for iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
+		C03001BB1A88F91C00B27AC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Browser Filling Demo for iOS/Base.lproj/Main.storyboard"; sourceTree = SOURCE_ROOT; };
+		C03001BD1A88F92900B27AC8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Browser Filling Demo for iOS/Info.plist"; sourceTree = SOURCE_ROOT; };
+		C03001BE1A88F92900B27AC8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Browser Filling Demo for iOS/main.m"; sourceTree = SOURCE_ROOT; };
 		C04CEC4919887A9C00673F85 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../1Password.xcassets; sourceTree = SOURCE_ROOT; };
-		C0F0C19E1988954E000B261F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "WebView Demo for iOS/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
-		C0F0C19F1988954E000B261F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "WebView Demo for iOS/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
-		C0F0C1A01988954E000B261F /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = "WebView Demo for iOS/WebViewController.h"; sourceTree = SOURCE_ROOT; };
-		C0F0C1A11988954E000B261F /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = "WebView Demo for iOS/WebViewController.m"; sourceTree = SOURCE_ROOT; };
 		C0F0C1A41988955C000B261F /* OnePasswordExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnePasswordExtension.h; path = ../../OnePasswordExtension.h; sourceTree = SOURCE_ROOT; };
 		C0F0C1A51988955C000B261F /* OnePasswordExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnePasswordExtension.m; path = ../../OnePasswordExtension.m; sourceTree = SOURCE_ROOT; };
-		C0F0C1A7198895A4000B261F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "WebView Demo for iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
-		C0F0C1AB198895C8000B261F /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = welcome.html; path = "WebView Demo for iOS/welcome.html"; sourceTree = SOURCE_ROOT; };
-		C0F0C1AE198895F6000B261F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "WebView Demo for iOS/Base.lproj/Main.storyboard"; sourceTree = SOURCE_ROOT; };
-		C0F0C1B019889604000B261F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "WebView Demo for iOS/Info.plist"; sourceTree = SOURCE_ROOT; };
-		C0F0C1B119889604000B261F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "WebView Demo for iOS/main.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +48,7 @@
 		C0169CCC197D6C3C006E7618 = {
 			isa = PBXGroup;
 			children = (
-				C03001C11A88FB6600B27AC8 /* Browser Filling Demo for iOS.xcodeproj */,
-				C0169CD7197D6C3C006E7618 /* WebView Demo for iOS */,
+				C0169CD7197D6C3C006E7618 /* Browser Demo for iOS */,
 				C0169CD6197D6C3C006E7618 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,45 +56,37 @@
 		C0169CD6197D6C3C006E7618 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C0169CD5197D6C3C006E7618 /* WebView Demo for iOS.app */,
+				C0169CD5197D6C3C006E7618 /* Browser Filling Demo for iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C0169CD7197D6C3C006E7618 /* WebView Demo for iOS */ = {
+		C0169CD7197D6C3C006E7618 /* Browser Demo for iOS */ = {
 			isa = PBXGroup;
 			children = (
 				C0F0C1A41988955C000B261F /* OnePasswordExtension.h */,
 				C0F0C1A51988955C000B261F /* OnePasswordExtension.m */,
-				C0F0C19E1988954E000B261F /* AppDelegate.h */,
-				C0F0C19F1988954E000B261F /* AppDelegate.m */,
-				C0F0C1A01988954E000B261F /* WebViewController.h */,
-				C0F0C1A11988954E000B261F /* WebViewController.m */,
-				C0F0C1AB198895C8000B261F /* welcome.html */,
-				C0F0C1AD198895F6000B261F /* Main.storyboard */,
-				C0F0C1A7198895A4000B261F /* Images.xcassets */,
+				C03001B01A88F8DE00B27AC8 /* AppDelegate.h */,
+				C03001B11A88F8DE00B27AC8 /* AppDelegate.m */,
+				C03001B31A88F8EF00B27AC8 /* WebViewController.h */,
+				C03001B41A88F8EF00B27AC8 /* WebViewController.m */,
+				C03001B51A88F8EF00B27AC8 /* welcome.html */,
+				C03001BA1A88F91C00B27AC8 /* Main.storyboard */,
+				C03001B81A88F8FE00B27AC8 /* Images.xcassets */,
 				C04CEC4919887A9C00673F85 /* 1Password.xcassets */,
 				C0169CD8197D6C3C006E7618 /* Supporting Files */,
 			);
-			name = "WebView Demo for iOS";
+			name = "Browser Demo for iOS";
 			path = "WebView filling for iOS";
 			sourceTree = "<group>";
 		};
 		C0169CD8197D6C3C006E7618 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C0F0C1B019889604000B261F /* Info.plist */,
-				C0F0C1B119889604000B261F /* main.m */,
+				C03001BD1A88F92900B27AC8 /* Info.plist */,
+				C03001BE1A88F92900B27AC8 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C03001C21A88FB6600B27AC8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C03001C61A88FB6600B27AC8 /* Browser Filling Demo for iOS.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,7 +106,7 @@
 			);
 			name = "ACME Browser";
 			productName = "WebView filling for iOS";
-			productReference = C0169CD5197D6C3C006E7618 /* WebView Demo for iOS.app */;
+			productReference = C0169CD5197D6C3C006E7618 /* Browser Filling Demo for iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -142,7 +123,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C0169CD0197D6C3C006E7618 /* Build configuration list for PBXProject "WebView Demo for iOS" */;
+			buildConfigurationList = C0169CD0197D6C3C006E7618 /* Build configuration list for PBXProject "Browser Filling Demo for iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -153,12 +134,6 @@
 			mainGroup = C0169CCC197D6C3C006E7618;
 			productRefGroup = C0169CD6197D6C3C006E7618 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C03001C21A88FB6600B27AC8 /* Products */;
-					ProjectRef = C03001C11A88FB6600B27AC8 /* Browser Filling Demo for iOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				C0169CD4197D6C3C006E7618 /* ACME Browser */,
@@ -166,25 +141,16 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		C03001C61A88FB6600B27AC8 /* Browser Filling Demo for iOS.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "Browser Filling Demo for iOS.app";
-			remoteRef = C03001C51A88FB6600B27AC8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
 		C0169CD3197D6C3C006E7618 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0F0C1AC198895C8000B261F /* welcome.html in Resources */,
-				C0F0C1A8198895A4000B261F /* Images.xcassets in Resources */,
+				C03001BC1A88F91C00B27AC8 /* Main.storyboard in Resources */,
+				C03001B91A88F8FE00B27AC8 /* Images.xcassets in Resources */,
 				C04CEC4A19887A9C00673F85 /* 1Password.xcassets in Resources */,
-				C0F0C1AF198895F6000B261F /* Main.storyboard in Resources */,
+				C03001BF1A88F92900B27AC8 /* Info.plist in Resources */,
+				C03001B71A88F8EF00B27AC8 /* welcome.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,20 +161,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0F0C1B319889604000B261F /* main.m in Sources */,
+				C03001C01A88F92900B27AC8 /* main.m in Sources */,
 				C0F0C1A61988955C000B261F /* OnePasswordExtension.m in Sources */,
-				C0F0C1A31988954E000B261F /* WebViewController.m in Sources */,
-				C0F0C1A21988954E000B261F /* AppDelegate.m in Sources */,
+				C03001B21A88F8DE00B27AC8 /* AppDelegate.m in Sources */,
+				C03001B61A88F8EF00B27AC8 /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C0F0C1AD198895F6000B261F /* Main.storyboard */ = {
+		C03001BA1A88F91C00B27AC8 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C0F0C1AE198895F6000B261F /* Base */,
+				C03001BB1A88F91C00B27AC8 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -299,9 +265,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "acme-browser-corp";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				INFOPLIST_FILE = "$(SRCROOT)/WebView Demo for iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Browser Filling Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "WebView Demo for iOS";
+				PRODUCT_NAME = "Browser Filling Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -311,9 +277,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "acme-browser-corp";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				INFOPLIST_FILE = "$(SRCROOT)/WebView Demo for iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Browser Filling Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "WebView Demo for iOS";
+				PRODUCT_NAME = "Browser Filling Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -321,7 +287,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C0169CD0197D6C3C006E7618 /* Build configuration list for PBXProject "WebView Demo for iOS" */ = {
+		C0169CD0197D6C3C006E7618 /* Build configuration list for PBXProject "Browser Filling Demo for iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C0169CF3197D6C3C006E7618 /* Debug */,
