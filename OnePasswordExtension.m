@@ -53,7 +53,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	return NO;
 }
 
-#pragma mark - Native app Integration
+#pragma mark - Native app Login
 - (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
@@ -99,6 +99,8 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
 #endif
 }
+
+#pragma mark - New User Registration
 
 - (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *, NSError *))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
@@ -154,6 +156,8 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #endif
 }
 
+#pragma mark - Change Password
+
 - (void)changePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
@@ -207,7 +211,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #endif
 }
 
-#pragma mark - Web view integration
+#pragma mark - Web View Login Support
 
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
 	NSAssert(webView != nil, @"webView must not be nil");
@@ -236,7 +240,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #endif
 }
 
-#pragma mark - Browser integration
+#pragma mark - Browser filling Support
 
 - (BOOL)isOnePasswordExtensionActivityType:(NSString *)activityType {
 	return [@"com.agilebits.onepassword-ios.extension" isEqualToString:activityType] || [@"com.agilebits.beta.onepassword-ios.extension" isEqualToString:activityType];
