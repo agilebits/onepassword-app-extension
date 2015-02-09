@@ -33,7 +33,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	dispatch_once(&onceToken, ^{
 		__sharedExtension = [OnePasswordExtension new];
 	});
-	
+
 	return __sharedExtension;
 }
 
@@ -48,11 +48,10 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 - (BOOL)isAppExtensionAvailable {
 	if ([self isSystemAppExtensionAPIAvailable]) {
 		return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"org-appextension-feature-password-management://"]];
-    }
+	}
 
 	return NO;
 }
-
 
 #pragma mark - Native app Integration
 - (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion {
@@ -96,7 +95,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			}
 		}];
 	};
-	
+
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
 #endif
 }
@@ -114,7 +113,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 		return;
 	}
-	
+
 
 #ifdef __IPHONE_8_0
 	NSMutableDictionary *newLoginAttributesDict = [NSMutableDictionary new];
@@ -143,14 +142,14 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 			return;
 		}
-		
+
 		[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
 			if (completion) {
 				completion(loginDictionary, error);
 			}
 		}];
 	};
-	
+
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
 #endif
 }
@@ -207,7 +206,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
 #endif
 }
-
 
 #pragma mark - Web view integration
 
@@ -315,36 +313,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 #pragma mark - Private methods
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-- (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
-	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
-		if (!result) {
-			NSLog(@"1Password Extension failed to collect web page fields: %@", error);
-			if (completion) {
-				completion(NO,[OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:error]);
-			}
-
-			return;
-		}
-
-		[self findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController sender:sender withWebView:webView completion:^(BOOL success, NSError *findLoginError) {
-			if (completion) {
-				completion(success, findLoginError);
-			}
-		}];
-	}];
-}
-#endif
-
-- (void)fillLoginIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
-	NSString *collectedPageDetails = [webView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
-	[self findLoginIn1PasswordWithURLString:webView.request.URL.absoluteString collectedPageDetails:collectedPageDetails forWebViewController:viewController sender:sender withWebView:webView completion:^(BOOL success, NSError *error) {
-		if (completion) {
-			completion(success, error);
-		}
-	}];
-}
-
 - (void)findLoginIn1PasswordWithURLString:(NSString *)URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController sender:(id)sender withWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion {
 	if ([URLString length] == 0) {
 		NSError *URLStringError = [OnePasswordExtension failedToObtainURLStringFromWebViewError];
@@ -401,6 +369,36 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	};
 
 	[forViewController presentViewController:activityViewController animated:YES completion:nil];
+}
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+- (void)fillLoginIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
+	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
+		if (!result) {
+			NSLog(@"1Password Extension failed to collect web page fields: %@", error);
+			if (completion) {
+				completion(NO,[OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:error]);
+			}
+
+			return;
+		}
+
+		[self findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController sender:sender withWebView:webView completion:^(BOOL success, NSError *findLoginError) {
+			if (completion) {
+				completion(success, findLoginError);
+			}
+		}];
+	}];
+}
+#endif
+
+- (void)fillLoginIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
+	NSString *collectedPageDetails = [webView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
+	[self findLoginIn1PasswordWithURLString:webView.request.URL.absoluteString collectedPageDetails:collectedPageDetails forWebViewController:viewController sender:sender withWebView:webView completion:^(BOOL success, NSError *error) {
+		if (completion) {
+			completion(success, error);
+		}
+	}];
 }
 
 - (void)executeFillScript:(NSString *)fillScript inWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion {
@@ -616,6 +614,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedString(@"Failed to obtain URL String from web view. The web view must be loaded completely when calling the 1Password Extension", @"1Password Extension Error Message") };
 	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeFailedToObtainURLStringFromWebView userInfo:userInfo];
 }
+
 #pragma mark - WebView field collection and filling scripts
 
 static NSString *const OPWebViewCollectFieldsScript = @"document.collect=p;document.elementsByOPID={};\
