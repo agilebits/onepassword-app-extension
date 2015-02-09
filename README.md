@@ -211,7 +211,7 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 }
 ```
 
-### Use Case #4: Web View Support
+### Use Case #4: Web View Login Support
 
 The 1Password App Extension is not limited to filling native UIs. With just a little bit of extra effort, users can fill `UIWebView`s and `WKWebView`s within your application as well.
 
@@ -228,6 +228,10 @@ Simply add a button to your UI with its action assigned to this method in your w
 ```
 
 1Password will take care of all the details of collecting information about the currently displayed page, allow the user to select the desired login, and then fill the web form details within the page.
+
+This cabablity is designed for oauth-like situations. If you want the 1Password Extension to show up in the share sheed along side other extensions, please take a look at the `Browser filling Support` use case.  
+
+### Use Case #4: Browser filling Support
 
 
 ## Projects supporting iOS 7.1 and earlier
