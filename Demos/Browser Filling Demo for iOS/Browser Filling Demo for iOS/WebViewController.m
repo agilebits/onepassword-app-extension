@@ -44,46 +44,46 @@
 	OnePasswordExtension *onePasswordExtension = [OnePasswordExtension sharedExtension];
 
 	// Create the 1Password extension item.
-	__weak typeof (self) miniMe = self;
 	[onePasswordExtension createExtensionItemForWebView:self.webView completion:^(NSExtensionItem *extensionItem, NSError *error) {
-		dispatch_async(dispatch_get_main_queue(), ^{
-			// Initialize the 1Password extension item
-			self.onePasswordExtensionItem = extensionItem;
 
-			NSArray *activityItems = @[ self ]; // Add as many custom activity items as you please
+		if (extensionItem == nil) {
+			NSLog(@"Failed to creared an extension item: <%@>", error);
+			return;
+		}
 
-			// Setting up the activity view controller
-			UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems  applicationActivities:nil];
+		// Initialize the 1Password extension item
+		self.onePasswordExtensionItem = extensionItem;
 
-			__strong typeof(self) strongMe = miniMe;
+		NSArray *activityItems = @[ self ]; // Add as many custom activity items as you please
 
-			if ([sender isKindOfClass:[UIBarButtonItem class]]) {
-				strongMe.popoverPresentationController.barButtonItem = sender;
-			}
-			else if ([sender isKindOfClass:[UIView class]]) {
-				strongMe.popoverPresentationController.sourceView = [sender superview];
-				strongMe.popoverPresentationController.sourceRect = [sender frame];
-			}
+		// Setting up the activity view controller
+		UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems  applicationActivities:nil];
 
-			activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError)
-			{
-				// Executed when the 1Password Extension is called
-				if ([onePasswordExtension isOnePasswordExtensionActivityType:activityType]) {
-					if (returnedItems.count > 0) {
-						[onePasswordExtension fillReturnedItems:returnedItems intoWebView:strongMe.webView completion:^(BOOL success, NSError *returnedItemsError) {
-							if (!success) {
-								NSLog(@"Failed to fill login in webview: <%@>", returnedItemsError);
-							}
-						}];
-					}
+		if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+			self.popoverPresentationController.barButtonItem = sender;
+		}
+		else if ([sender isKindOfClass:[UIView class]]) {
+			self.popoverPresentationController.sourceView = [sender superview];
+			self.popoverPresentationController.sourceRect = [sender frame];
+		}
+
+		activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+			// Executed when the 1Password Extension is called
+			if ([onePasswordExtension isOnePasswordExtensionActivityType:activityType]) {
+				if (returnedItems.count > 0) {
+					[onePasswordExtension fillReturnedItems:returnedItems intoWebView:self.webView completion:^(BOOL success, NSError *returnedItemsError) {
+						if (!success) {
+							NSLog(@"Failed to fill login in webview: <%@>", returnedItemsError);
+						}
+					}];
 				}
-				else {
-					// Code for other custom activity types
-				}
-			};
+			}
+			else {
+				// Code for other custom activity types
+			}
+		};
 
-			[strongMe presentViewController:activityViewController animated:YES completion:nil];
-		});
+		[self presentViewController:activityViewController animated:YES completion:nil];
 	}];
 }
 
