@@ -240,7 +240,9 @@ Here are the main differences between this new capability and `Web View Login Su
 * In `Web View Login Support` only Logins are available to fill, while `Browser filling Support` offers the ability to fill Logins, Credit Cards and Identities into web views. 
 * In `Web View Login Support` the 1Password Extension is the only extension visible in the share sheet while in `Browser filling Support` the 1Password Extension appears along side other extensions in the share sheet.
 
-This new capablity is designed for browsing scenarios. Let's say that you have an app with a web view in which the user can browse. This means that the content of your web view is variable. So the user may need 1Password to fill Logins, Credit Cards or Identities while using your app. This capability allows you to offer the 1Password Extension in the share sheet, along side other extensions.
+#### This new capablity is designed for browsing scenarios 
+
+Let's say that you have an app with a web view in which the user is allowed to browse. This means that the content of your web view is variable. So the user may need to fill Logins, Credit Cards or Identities while using your app. This capability allows you to offer the 1Password Extension in the share sheet along side other extensions.
 
 So here's how to set it up:
 
