@@ -5,9 +5,9 @@
       location = "group:App Demo for iOS/App Demo for iOS.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:WebView Demo for iOS/../Browser Filling Demo for iOS/Browser Filling Demo for iOS.xcodeproj">
+      location = "group:WebView Demo for iOS/WebView Demo for iOS.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:WebView Demo for iOS/WebView Demo for iOS.xcodeproj">
+      location = "group:WebView Demo for iOS/../Browser Filling Demo for iOS/Browser Filling Demo for iOS.xcodeproj">
    </FileRef>
 </Workspace>
