@@ -47,7 +47,7 @@
 	[onePasswordExtension createExtensionItemForWebView:self.webView completion:^(NSExtensionItem *extensionItem, NSError *error) {
 
 		if (extensionItem == nil) {
-			NSLog(@"Failed to creared an extension item: <%@>", error);
+			NSLog(@"Failed to create an extension item: <%@>", error);
 			return;
 		}
 
