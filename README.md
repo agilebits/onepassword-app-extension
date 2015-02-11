@@ -233,24 +233,24 @@ This cabablity is designed for oauth-like situations. If you want the 1Password 
 
 ### Use Case #5: Browser filling Support
 
-This new capability is offered since version `1.1.3` of `1Password App Extension API` and 1Password for iOS 5.3. 
+This new capability is offered since version `1.1.3` of `1Password App Extension API` and 1Password for iOS 5.3 and it is showcased in ACME Browser 3.
 
 Here are the main differences between this new capability and `Web View Login Support`:
 
 * In `Web View Login Support` only Logins are available to fill, while `Browser filling Support` offers the ability to fill Logins, Credit Cards and Identities into web views. 
 * In `Web View Login Support` the 1Password Extension is the only extension visible in the share sheet while in `Browser filling Support` the 1Password Extension appears along side other extensions in the share sheet.
 
-This new capablity is designed for browsing scenarios. Let's say that you have an app with a web view where the user can browse. This means that the content of your web view is variable. So your user may need 1Password to fill Logins, Credit Cards or Identities while using your app. This capability allows you to offer the 1Password Extension in the share sheet, along side other extensions.
+This new capablity is designed for browsing scenarios. Let's say that you have an app with a web view in which the user can browse. This means that the content of your web view is variable. So the user may need 1Password to fill Logins, Credit Cards or Identities while using your app. This capability allows you to offer the 1Password Extension in the share sheet, along side other extensions.
 
 So here's how to set it up:
 
-1. Make sure that your view controller implements `UIActivityItemSource`.
+1. Make sure that your view controller implements the `UIActivityItemSource` protocol.
 
 	```objective-c
 	@interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate, UIActivityItemSource>
 	```
 	
-2. Implement the `UIActivityItemSource` protocol by copy/pasting the code below into your view controller
+2. Implement the following methods of the `UIActivityItemSource` protocol in your view controller, as shown in the example bellow.
 
 	```objective-c
 	#pragma mark - UIActivityItemSource Protocol
@@ -277,7 +277,7 @@ So here's how to set it up:
 	}
 	```
 
-3. Go to Your Target > Info and set up its `Imported UTIs`. This will enable the 1Password Extension custom activity type (@"org.appextension.fill-browser-action") to conform to `public.url` 
+3. Go to your Target > Info and set up its `Imported UTIs`. This will enable the 1Password Extension custom activity type (@"org.appextension.fill-browser-action") to conform to `public.url`. 
 
 	![](https://www.evernote.com/shard/s340/sh/308760bd-0bde-4de0-810a-b96e9a3c247e/3e30f35cfa65f1b02d75253db90d1875/deep/0/Browser-Filling-Demo-for-iOS.xcodeproj.png)
 	
