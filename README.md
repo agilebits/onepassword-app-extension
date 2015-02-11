@@ -250,7 +250,7 @@ So here's how to set it up:
 @interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate, UIActivityItemSource>
 ```
 
-3. Implement the `UIActivityItemSource` protocol by copy/pasting the code below into your view controller
+2. Implement the `UIActivityItemSource` protocol by copy/pasting the code below into your view controller
 
 ```objective-c
 #pragma mark - UIActivityItemSource Protocol
