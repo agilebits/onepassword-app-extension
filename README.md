@@ -252,7 +252,7 @@ So here's how to set it up:
 	@interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate, UIActivityItemSource>
 	```
 	
-2. Implement the following methods of the `UIActivityItemSource` protocol in your view controller, as shown in the example bellow.
+2. Implement the following methods of the `UIActivityItemSource` protocol in your view controller, as shown in the example below.
 
 	```objective-c
 	#pragma mark - UIActivityItemSource Protocol
@@ -283,7 +283,7 @@ So here's how to set it up:
 
 	![](https://www.evernote.com/shard/s340/sh/308760bd-0bde-4de0-810a-b96e9a3c247e/3e30f35cfa65f1b02d75253db90d1875/deep/0/Browser-Filling-Demo-for-iOS.xcodeproj.png)
 	
-4. Add an action for the share sheet button, the code that will to present the `UIActivityViewCotroller` in a similar fashion to the example bellow.
+4. Add an action for the share sheet button (the code that will present the `UIActivityViewCotroller`) in a similar fashion to the example below.
 
 	```objective-c
 	- (IBAction)fillUsing1Password:(id)sender {
@@ -293,7 +293,7 @@ So here's how to set it up:
 		[onePasswordExtension createExtensionItemForWebView:self.webView completion:^(NSExtensionItem *extensionItem, NSError *error) {
 
 			if (extensionItem == nil) {
-				NSLog(@"Failed to creared an extension item: <%@>", error);
+				NSLog(@"Failed to create an extension item: <%@>", error);
 				return;
 			}
 
