@@ -252,85 +252,85 @@ So here's how to set it up:
 	
 2. Implement the `UIActivityItemSource` protocol by copy/pasting the code below into your view controller
 
-```objective-c
-#pragma mark - UIActivityItemSource Protocol
+	```objective-c
+	#pragma mark - UIActivityItemSource Protocol
 
-- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
-	// Return the current URL as a placeholder
-	return self.webView.URL;
-}
-
-- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
-	if ([[OnePasswordExtension sharedExtension] isOnePasswordExtensionActivityType:activityType]) {
-		// Return the 1Password extension item
-		return self.onePasswordExtensionItem;
-	}
-	else {
-		// Return the current URL
+	- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
+		// Return the current URL as a placeholder
 		return self.webView.URL;
 	}
-}
 
-- (NSString *)activityViewController:(UIActivityViewController *)activityViewController dataTypeIdentifierForActivityType:(NSString *)activityType {
-	// Because of our UTI declaration, this UTI now satisfies both the 1Password Extension and the usual NSURL for Share extensions.
-	return @"org.appextension.fill-browser-action";
-}
-```
+	- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
+		if ([[OnePasswordExtension sharedExtension] isOnePasswordExtensionActivityType:activityType]) {
+			// Return the 1Password extension item
+			return self.onePasswordExtensionItem;
+		}
+		else {
+			// Return the current URL
+			return self.webView.URL;
+		}
+	}
+
+	- (NSString *)activityViewController:(UIActivityViewController *)activityViewController dataTypeIdentifierForActivityType:(NSString *)activityType {
+		// Because of our UTI declaration, this UTI now satisfies both the 1Password Extension and the usual NSURL for Share extensions.
+		return @"org.appextension.fill-browser-action";
+	}
+	```
 
 3. Go to Your Target > Info and set up its `Imported UTIs`. This will enable the 1Password Extension custom activity type (@"org.appextension.fill-browser-action") to conform to `public.url` 
 
-![](https://www.evernote.com/shard/s340/sh/308760bd-0bde-4de0-810a-b96e9a3c247e/3e30f35cfa65f1b02d75253db90d1875/deep/0/Browser-Filling-Demo-for-iOS.xcodeproj.png)
-
+	![](https://www.evernote.com/shard/s340/sh/308760bd-0bde-4de0-810a-b96e9a3c247e/3e30f35cfa65f1b02d75253db90d1875/deep/0/Browser-Filling-Demo-for-iOS.xcodeproj.png)
+	
 4. Add an action for the share sheet button, the code that will to present the `UIActivityViewCotroller` in a similar fashion to the example bellow.
 
-```objective-c
-- (IBAction)fillUsing1Password:(id)sender {
-	OnePasswordExtension *onePasswordExtension = [OnePasswordExtension sharedExtension];
+	```objective-c
+	- (IBAction)fillUsing1Password:(id)sender {
+		OnePasswordExtension *onePasswordExtension = [OnePasswordExtension sharedExtension];
 
-	// Create the 1Password extension item.
-	[onePasswordExtension createExtensionItemForWebView:self.webView completion:^(NSExtensionItem *extensionItem, NSError *error) {
+		// Create the 1Password extension item.
+		[onePasswordExtension createExtensionItemForWebView:self.webView completion:^(NSExtensionItem *extensionItem, NSError *error) {
 
-		if (extensionItem == nil) {
-			NSLog(@"Failed to creared an extension item: <%@>", error);
-			return;
-		}
+			if (extensionItem == nil) {
+				NSLog(@"Failed to creared an extension item: <%@>", error);
+				return;
+			}
 
-		// Initialize the 1Password extension item property
-		self.onePasswordExtensionItem = extensionItem;
+			// Initialize the 1Password extension item property
+			self.onePasswordExtensionItem = extensionItem;
 
-		NSArray *activityItems = @[ self ]; // Add as many custom activity items as you please
+			NSArray *activityItems = @[ self ]; // Add as many custom activity items as you please
 
-		// Setting up the activity view controller
-		UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems  applicationActivities:nil];
+			// Setting up the activity view controller
+			UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems  applicationActivities:nil];
 
-		if ([sender isKindOfClass:[UIBarButtonItem class]]) {
-			self.popoverPresentationController.barButtonItem = sender;
-		}
-		else if ([sender isKindOfClass:[UIView class]]) {
-			self.popoverPresentationController.sourceView = [sender superview];
-			self.popoverPresentationController.sourceRect = [sender frame];
-		}
+			if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+				self.popoverPresentationController.barButtonItem = sender;
+			}
+			else if ([sender isKindOfClass:[UIView class]]) {
+				self.popoverPresentationController.sourceView = [sender superview];
+				self.popoverPresentationController.sourceRect = [sender frame];
+			}
 
-		activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-			// Executed when the 1Password Extension is called
-			if ([onePasswordExtension isOnePasswordExtensionActivityType:activityType]) {
-				if (returnedItems.count > 0) {
-					[onePasswordExtension fillReturnedItems:returnedItems intoWebView:self.webView completion:^(BOOL success, NSError *returnedItemsError) {
-						if (!success) {
-							NSLog(@"Failed to fill login in webview: <%@>", returnedItemsError);
-						}
-					}];
+			activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+				// Executed when the 1Password Extension is called
+				if ([onePasswordExtension isOnePasswordExtensionActivityType:activityType]) {
+					if (returnedItems.count > 0) {
+						[onePasswordExtension fillReturnedItems:returnedItems intoWebView:self.webView completion:^(BOOL success, NSError *returnedItemsError) {
+							if (!success) {
+								NSLog(@"Failed to fill login in webview: <%@>", returnedItemsError);
+							}
+						}];
+					}
 				}
-			}
-			else {
-				// Code for other custom activity types
-			}
-		};
+				else {
+					// Code for other custom activity types
+				}
+			};
 
-		[self presentViewController:activityViewController animated:YES completion:nil];
-	}];
-}
-```
+			[self presentViewController:activityViewController animated:YES completion:nil];
+		}];
+	}
+	```
 
 ## Projects supporting iOS 7.1 and earlier
 
