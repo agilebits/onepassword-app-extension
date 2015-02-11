@@ -279,7 +279,7 @@ So here's how to set it up:
 	}
 	```
 
-3. Go to your Target > Info and set up its `Imported UTIs`. This will enable the 1Password Extension custom activity type (@"org.appextension.fill-browser-action") to conform to `public.url`. 
+3. Go to your **Target > Info** and set up its `Imported UTIs`. This will enable the 1Password Extension custom activity type (`org.appextension.fill-browser-action`) to conform to `public.url`. 
 
 	![](https://www.evernote.com/shard/s340/sh/308760bd-0bde-4de0-810a-b96e9a3c247e/3e30f35cfa65f1b02d75253db90d1875/deep/0/Browser-Filling-Demo-for-iOS.xcodeproj.png)
 	
