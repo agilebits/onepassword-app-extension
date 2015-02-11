@@ -246,13 +246,13 @@ So here's how to set it up:
 
 1. Make sure that your view controller implements `UIActivityItemSource`.
 
-...```objective-c
-@interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate, UIActivityItemSource>
-```
-
+	```objective-c
+	@interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate, UIActivityItemSource>
+	```
+	
 2. Implement the `UIActivityItemSource` protocol by copy/pasting the code below into your view controller
 
-...```objective-c
+```objective-c
 #pragma mark - UIActivityItemSource Protocol
 
 - (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
@@ -279,11 +279,11 @@ So here's how to set it up:
 
 3. Go to Your Target > Info and set up its `Imported UTIs`. This will enable the 1Password Extension custom activity type (@"org.appextension.fill-browser-action") to conform to `public.url` 
 
-...![](https://www.evernote.com/shard/s340/sh/308760bd-0bde-4de0-810a-b96e9a3c247e/3e30f35cfa65f1b02d75253db90d1875/deep/0/Browser-Filling-Demo-for-iOS.xcodeproj.png)
+![](https://www.evernote.com/shard/s340/sh/308760bd-0bde-4de0-810a-b96e9a3c247e/3e30f35cfa65f1b02d75253db90d1875/deep/0/Browser-Filling-Demo-for-iOS.xcodeproj.png)
 
 4. Add an action for the share sheet button, the code that will to present the `UIActivityViewCotroller` in a similar fashion to the example bellow.
 
-...```objective-c
+```objective-c
 - (IBAction)fillUsing1Password:(id)sender {
 	OnePasswordExtension *onePasswordExtension = [OnePasswordExtension sharedExtension];
 
