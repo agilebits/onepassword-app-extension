@@ -1,5 +1,8 @@
 # 1Password App Extension
 
+**Important:**
+The [`add-low-level-api`](https://github.com/AgileBits/onepassword-app-extension/tree/add-low-level-api) branch is no longer maintained. To add the 1Password extension to a custom `UIActivityViewController` please consult the [documentation](https://github.com/AgileBits/onepassword-app-extension/tree/feature/org.appextension.fill-browser-action#use-case-5-browser-filling-support) on the [`feature/org.appextension.fill-browser-action`](https://github.com/AgileBits/onepassword-app-extension/tree/feature/org.appextension.fill-browser-action) branch.
+
 Welcome! With just a few lines of code, your app can add 1Password support, enabling your users to:
 
 1. Access their 1Password Logins to automatically fill your login page.
