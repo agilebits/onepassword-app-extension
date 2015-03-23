@@ -8,9 +8,8 @@
 
 #import "LoginViewController.h"
 #import "OnePasswordExtension.h"
-#import "LoginInformation.h"
 
-@interface LoginViewController () <UITextFieldDelegate>
+@interface LoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *onepasswordSigninButton;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -43,17 +42,7 @@
 		
 		self.usernameTextField.text = loginDict[AppExtensionUsernameKey];
 		self.passwordTextField.text = loginDict[AppExtensionPasswordKey];
-
-		[LoginInformation sharedLoginInformation].username = loginDict[AppExtensionUsernameKey];
 	}];
-}
-
-#pragma mark - UITextFieldDelegate
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-	if (textField == self.usernameTextField) {
-		[LoginInformation sharedLoginInformation].username = textField.text;
-	}
 }
 
 @end

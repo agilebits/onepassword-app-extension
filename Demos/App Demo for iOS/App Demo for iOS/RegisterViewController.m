@@ -8,9 +8,8 @@
 
 #import "RegisterViewController.h"
 #import "OnePasswordExtension.h"
-#import "LoginInformation.h"
 
-@interface RegisterViewController () <UITextFieldDelegate>
+@interface RegisterViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *onepasswordSignupButton;
 
@@ -66,16 +65,7 @@
 		self.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
 		self.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
 		// retrieve any additional fields that were passed in newLoginDetails dictionary
-
-		[LoginInformation sharedLoginInformation].username = loginDict[AppExtensionUsernameKey];
 	}];
 }
 
-#pragma mark - UITextFieldDelegate
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-	if (textField == self.usernameTextField) {
-		[LoginInformation sharedLoginInformation].username = textField.text;
-	}
-}
 @end
