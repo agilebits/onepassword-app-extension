@@ -15,7 +15,7 @@ Empowering your users to use strong, unique passwords has never been easier. Let
 
 ## Just Give Me the Code (TL;DR)
 
-You might be looking at this 13 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
+You might be looking at this 22 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
 
 If you're the type that just wants the code, here it is:
 
@@ -211,7 +211,7 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 }
 ```
 
-### Use Case #4: Web View Support
+### Use Case #4: Web View Login Support
 
 The 1Password App Extension is not limited to filling native UIs. With just a little bit of extra effort, users can fill `UIWebView`s and `WKWebView`s within your application as well.
 
@@ -229,6 +229,110 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 1Password will take care of all the details of collecting information about the currently displayed page, allow the user to select the desired login, and then fill the web form details within the page.
 
+This cabablity is designed for oauth-like situations. If you want the 1Password Extension to show up in the share sheed along side other extensions, please take a look at the `Browser filling Support` use case.  
+
+### Use Case #5: Browser filling Support
+
+This new capability is offered since version `1.1.3` of `1Password App Extension API` and 1Password for iOS 5.3 and it is showcased in ACME Browser 3.
+
+Here are the main differences between this new capability and `Web View Login Support`:
+
+* In `Web View Login Support` only Logins are available to fill, while `Browser filling Support` offers the ability to fill Logins, Credit Cards and Identities into web views. 
+* In `Web View Login Support` the 1Password Extension is the only extension visible in the share sheet while in `Browser filling Support` the 1Password Extension appears along side other extensions in the share sheet.
+
+#### This new capablity is designed for browsing scenarios 
+
+Let's say that you have an app with a web view in which the user is allowed to browse. This means that the content of your web view is variable. So the user may need to fill Logins, Credit Cards or Identities while using your app. This capability allows you to offer the 1Password Extension in the share sheet along side other extensions.
+
+So here's how to set it up:
+
+1. Make sure that your view controller implements the `UIActivityItemSource` protocol.
+
+	```objective-c
+	@interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate, UIActivityItemSource>
+	```
+	
+2. Implement the following methods of the `UIActivityItemSource` protocol in your view controller, as shown in the example below.
+
+	```objective-c
+	#pragma mark - UIActivityItemSource Protocol
+
+	- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
+		// Return the current URL as a placeholder
+		return self.webView.URL;
+	}
+
+	- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
+		if ([[OnePasswordExtension sharedExtension] isOnePasswordExtensionActivityType:activityType]) {
+			// Return the 1Password extension item
+			return self.onePasswordExtensionItem;
+		}
+		else {
+			// Return the current URL
+			return self.webView.URL;
+		}
+	}
+
+	- (NSString *)activityViewController:(UIActivityViewController *)activityViewController dataTypeIdentifierForActivityType:(NSString *)activityType {
+		// Because of our UTI declaration, this UTI now satisfies both the 1Password Extension and the usual NSURL for Share extensions.
+		return @"org.appextension.fill-browser-action";
+	}
+	```
+
+3. Go to your **Target > Info** and set up its `Imported UTIs`. This will enable the 1Password Extension custom activity type (`org.appextension.fill-browser-action`) to conform to `public.url`. 
+
+	![](https://www.evernote.com/shard/s340/sh/308760bd-0bde-4de0-810a-b96e9a3c247e/3e30f35cfa65f1b02d75253db90d1875/deep/0/Browser-Filling-Demo-for-iOS.xcodeproj.png)
+	
+4. Add an action for the share sheet button (the code that will present the `UIActivityViewCotroller`) in a similar fashion to the example below.
+
+	```objective-c
+	- (IBAction)fillUsing1Password:(id)sender {
+		OnePasswordExtension *onePasswordExtension = [OnePasswordExtension sharedExtension];
+
+		// Create the 1Password extension item.
+		[onePasswordExtension createExtensionItemForWebView:self.webView completion:^(NSExtensionItem *extensionItem, NSError *error) {
+
+			if (extensionItem == nil) {
+				NSLog(@"Failed to create an extension item: <%@>", error);
+				return;
+			}
+
+			// Initialize the 1Password extension item property
+			self.onePasswordExtensionItem = extensionItem;
+
+			NSArray *activityItems = @[ self ]; // Add as many custom activity items as you please
+
+			// Setting up the activity view controller
+			UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems  applicationActivities:nil];
+
+			if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+				self.popoverPresentationController.barButtonItem = sender;
+			}
+			else if ([sender isKindOfClass:[UIView class]]) {
+				self.popoverPresentationController.sourceView = [sender superview];
+				self.popoverPresentationController.sourceRect = [sender frame];
+			}
+
+			activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+				// Executed when the 1Password Extension is called
+				if ([onePasswordExtension isOnePasswordExtensionActivityType:activityType]) {
+					if (returnedItems.count > 0) {
+						[onePasswordExtension fillReturnedItems:returnedItems intoWebView:self.webView completion:^(BOOL success, NSError *returnedItemsError) {
+							if (!success) {
+								NSLog(@"Failed to fill login in webview: <%@>", returnedItemsError);
+							}
+						}];
+					}
+				}
+				else {
+					// Code for other custom activity types
+				}
+			};
+
+			[self presentViewController:activityViewController animated:YES completion:nil];
+		}];
+	}
+	```
 
 ## Projects supporting iOS 7.1 and earlier
 
