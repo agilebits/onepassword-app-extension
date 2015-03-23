@@ -8,7 +8,7 @@
 
 #import "WebViewController.h"
 
-#import "OnePasswordExtension.h"
+#import <OnePasswordExtension/OnePasswordExtension.h>
 
 @interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate, UIActivityItemSource>
 
