@@ -65,34 +65,51 @@
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	[self loadURLString:searchBar.text];
+	[self performSearch:searchBar.text];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-	[self loadURLString:searchBar.text];
+	[self performSearch:searchBar.text];
 }
 
 - (void)handleSearch:(UISearchBar *)searchBar {
-	[self loadURLString:searchBar.text];
-	[searchBar resignFirstResponder];
+	[self performSearch:searchBar.text];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
-	[self loadURLString:searchBar.text];
-	[searchBar resignFirstResponder];
+	[self performSearch:searchBar.text];
 }
 
 #pragma mark - Convenience Methods
 
-- (void)loadURLString:(NSString *)URLString {
-	if (![URLString hasPrefix:@"http"]) {
-		URLString = [NSString stringWithFormat:@"https://%@", URLString];
+- (void)performSearch:(NSString *)text {
+	NSString *lowercaseText = [text lowercaseStringWithLocale:[NSLocale currentLocale]];
+	NSURL *URL = nil;
+
+	BOOL hasSpaces = [lowercaseText rangeOfString:@" "].location != NSNotFound;
+	BOOL hasDots = [lowercaseText rangeOfString:@"."].location != NSNotFound;
+	BOOL search = !hasSpaces || !hasDots;
+	if (search) {
+		BOOL hasScheme = [lowercaseText hasPrefix:@"http:"] || [lowercaseText hasPrefix:@"https:"];
+		if (hasScheme) {
+			URL = [NSURL URLWithString:lowercaseText];
+		}
+		else {
+			URL = [NSURL URLWithString:[@"https://" stringByAppendingString:lowercaseText]];
+		}
 	}
-	
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:URLString]];
+
+	if (URL == nil) {
+		NSString *escapedText = [lowercaseText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSString *googleSearch = @"http://www.google.com/search?q=";
+		URL = [NSURL URLWithString:[googleSearch stringByAppendingString:escapedText]];
+	}
+
+	self.searchBar.text = [URL absoluteString];
+	[self.searchBar resignFirstResponder];
+
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:URL];
 	[self.webView loadRequest:request];
-	
-	self.searchBar.text = URLString;
 }
 
 #pragma mark - WKNavigationDelegate
