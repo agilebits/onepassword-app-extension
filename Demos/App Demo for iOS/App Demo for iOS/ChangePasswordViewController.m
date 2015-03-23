@@ -8,7 +8,6 @@
 
 #import "ChangePasswordViewController.h"
 #import "OnePasswordExtension.h"
-#import "LoginInformation.h"
 
 @interface ChangePasswordViewController ()
 
