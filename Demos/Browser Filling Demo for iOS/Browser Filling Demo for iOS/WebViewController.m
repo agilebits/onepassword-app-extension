@@ -8,14 +8,15 @@
 
 #import "WebViewController.h"
 
-#import <OnePasswordExtension/OnePasswordExtension.h>
+#import "OnePasswordExtension.h"
 
-@interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate>
+@interface WebViewController() <UISearchBarDelegate, WKNavigationDelegate, UIActivityItemSource>
 
 @property (weak, nonatomic) IBOutlet UIButton *onepasswordFillButton;
 @property (weak, nonatomic) IBOutlet UIView *webViewContainer;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) WKWebView *webView;
+@property (nonatomic) NSExtensionItem *onePasswordExtensionItem;
 
 @end
 
@@ -24,9 +25,6 @@
 #pragma mark - Life Cycle
 
 - (void)viewDidLoad {
-	NSBundle *onePasswordExtensionBundle = [NSBundle bundleForClass:[OnePasswordExtension class]];
-	UIImage *onePasswordToolbarImage = [UIImage imageNamed:@"onepassword-toolbar" inBundle:onePasswordExtensionBundle compatibleWithTraitCollection:self.traitCollection];
-	[self.onepasswordFillButton setImage:onePasswordToolbarImage forState:UIControlStateNormal];
 	[self.onepasswordFillButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 
 	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
@@ -43,10 +41,49 @@
 #pragma mark - Actions
 
 - (IBAction)fillUsing1Password:(id)sender {
-	[[OnePasswordExtension sharedExtension] fillLoginIntoWebView:self.webView forViewController:self sender:sender completion:^(BOOL success, NSError *error) {
-		if (!success) {
-			NSLog(@"Failed to fill login in webview: <%@>", error);
+	OnePasswordExtension *onePasswordExtension = [OnePasswordExtension sharedExtension];
+
+	// Create the 1Password extension item.
+	[onePasswordExtension createExtensionItemForWebView:self.webView completion:^(NSExtensionItem *extensionItem, NSError *error) {
+
+		if (extensionItem == nil) {
+			NSLog(@"Failed to create an extension item: <%@>", error);
+			return;
 		}
+
+		// Initialize the 1Password extension item property
+		self.onePasswordExtensionItem = extensionItem;
+
+		NSArray *activityItems = @[ self ]; // Add as many custom activity items as you please
+
+		// Setting up the activity view controller
+		UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems  applicationActivities:nil];
+
+		if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+			self.popoverPresentationController.barButtonItem = sender;
+		}
+		else if ([sender isKindOfClass:[UIView class]]) {
+			self.popoverPresentationController.sourceView = [sender superview];
+			self.popoverPresentationController.sourceRect = [sender frame];
+		}
+
+		activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+			// Executed when the 1Password Extension is called
+			if ([onePasswordExtension isOnePasswordExtensionActivityType:activityType]) {
+				if (returnedItems.count > 0) {
+					[onePasswordExtension fillReturnedItems:returnedItems intoWebView:self.webView completion:^(BOOL success, NSError *returnedItemsError) {
+						if (!success) {
+							NSLog(@"Failed to fill login in webview: <%@>", returnedItemsError);
+						}
+					}];
+				}
+			}
+			else {
+				// Code for other custom activity types
+			}
+		};
+
+		[self presentViewController:activityViewController animated:YES completion:nil];
 	}];
 }
 
@@ -123,6 +160,29 @@
 	if ([self.searchBar.text isEqualToString:@"about:blank"]) {
 		self.searchBar.text = @"";
 	}
+}
+
+#pragma mark - UIActivityItemSource Protocol
+
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
+	// Return the current URL as a placeholder
+	return self.webView.URL;
+}
+
+- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
+	if ([[OnePasswordExtension sharedExtension] isOnePasswordExtensionActivityType:activityType]) {
+		// Return the 1Password extension item
+		return self.onePasswordExtensionItem;
+	}
+	else {
+		// Return the current URL
+		return self.webView.URL;
+	}
+}
+
+- (NSString *)activityViewController:(UIActivityViewController *)activityViewController dataTypeIdentifierForActivityType:(NSString *)activityType {
+	// Because of our UTI declaration, this UTI now satisfies both the 1Password Extension and the usual NSURL for Share extensions.
+	return @"org.appextension.fill-browser-action";
 }
 
 @end
