@@ -12,7 +12,6 @@
 		C03001B71A88F8EF00B27AC8 /* welcome.html in Resources */ = {isa = PBXBuildFile; fileRef = C03001B51A88F8EF00B27AC8 /* welcome.html */; };
 		C03001B91A88F8FE00B27AC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03001B81A88F8FE00B27AC8 /* Images.xcassets */; };
 		C03001BC1A88F91C00B27AC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03001BA1A88F91C00B27AC8 /* Main.storyboard */; };
-		C03001BF1A88F92900B27AC8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C03001BD1A88F92900B27AC8 /* Info.plist */; };
 		C03001C01A88F92900B27AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C03001BE1A88F92900B27AC8 /* main.m */; };
 		C04CEC4A19887A9C00673F85 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C04CEC4919887A9C00673F85 /* 1Password.xcassets */; };
 		C0F0C1A61988955C000B261F /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C1A51988955C000B261F /* OnePasswordExtension.m */; };
@@ -115,7 +114,7 @@
 		C0169CCD197D6C3C006E7618 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = AgileBits;
 				TargetAttributes = {
 					C0169CD4197D6C3C006E7618 = {
@@ -149,7 +148,6 @@
 				C03001BC1A88F91C00B27AC8 /* Main.storyboard in Resources */,
 				C03001B91A88F8FE00B27AC8 /* Images.xcassets in Resources */,
 				C04CEC4A19887A9C00673F85 /* 1Password.xcassets in Resources */,
-				C03001BF1A88F92900B27AC8 /* Info.plist in Resources */,
 				C03001B71A88F8EF00B27AC8 /* welcome.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
