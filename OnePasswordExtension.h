@@ -14,32 +14,32 @@
 #endif
 
 // Login Dictionary keys
-#define AppExtensionURLStringKey                  @"url_string"
-#define AppExtensionUsernameKey                   @"username"
-#define AppExtensionPasswordKey                   @"password"
-#define AppExtensionTitleKey                      @"login_title"
-#define AppExtensionNotesKey                      @"notes"
-#define AppExtensionSectionTitleKey               @"section_title"
-#define AppExtensionFieldsKey                     @"fields"
-#define AppExtensionReturnedFieldsKey             @"returned_fields"
-#define AppExtensionOldPasswordKey                @"old_password"
-#define AppExtensionPasswordGereratorOptionsKey   @"password_generator_options"
+#define OnePasswordExtensionURLStringKey                  @"url_string"
+#define OnePasswordExtensionUsernameKey                   @"username"
+#define OnePasswordExtensionPasswordKey                   @"password"
+#define OnePasswordExtensionTitleKey                      @"login_title"
+#define OnePasswordExtensionNotesKey                      @"notes"
+#define OnePasswordExtensionSectionTitleKey               @"section_title"
+#define OnePasswordExtensionFieldsKey                     @"fields"
+#define OnePasswordExtensionReturnedFieldsKey             @"returned_fields"
+#define OnePasswordExtensionOldPasswordKey                @"old_password"
+#define OnePasswordExtensionPasswordGereratorOptionsKey   @"password_generator_options"
 
 // Password Generator options
-#define AppExtensionGeneratedPasswordMinLengthKey @"password_min_length"
-#define AppExtensionGeneratedPasswordMaxLengthKey @"password_max_length"
+#define OnePasswordExtensionGeneratedPasswordMinLengthKey @"password_min_length"
+#define OnePasswordExtensionGeneratedPasswordMaxLengthKey @"password_max_length"
 
 // Errors
-#define AppExtensionErrorDomain                   @"OnePasswordExtension"
+#define OnePasswordExtensionErrorDomain                   @"OnePasswordExtension"
 
-#define AppExtensionErrorCodeCancelledByUser                    0
-#define AppExtensionErrorCodeAPINotAvailable                    1
-#define AppExtensionErrorCodeFailedToContactExtension           2
-#define AppExtensionErrorCodeFailedToLoadItemProviderData       3
-#define AppExtensionErrorCodeCollectFieldsScriptFailed          4
-#define AppExtensionErrorCodeFillFieldsScriptFailed             5
-#define AppExtensionErrorCodeUnexpectedData                     6
-#define AppExtensionErrorCodeFailedToObtainURLStringFromWebView 7
+#define OnePasswordExtensionErrorCodeCancelledByUser                    0
+#define OnePasswordExtensionErrorCodeAPINotAvailable                    1
+#define OnePasswordExtensionErrorCodeFailedToContactExtension           2
+#define OnePasswordExtensionErrorCodeFailedToLoadItemProviderData       3
+#define OnePasswordExtensionErrorCodeCollectFieldsScriptFailed          4
+#define OnePasswordExtensionErrorCodeFillFieldsScriptFailed             5
+#define OnePasswordExtensionErrorCodeUnexpectedData                     6
+#define OnePasswordExtensionErrorCodeFailedToObtainURLStringFromWebView 7
 
 // Note to creators of libraries or frameworks:
 // If you include this code within your library, then to prevent potential duplicate symbol
