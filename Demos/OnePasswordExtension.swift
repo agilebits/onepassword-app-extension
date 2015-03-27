@@ -44,6 +44,24 @@ let AppExtensionErrorCodeFailedToObtainURLStringFromWebView = 7
 // conflicts for adopters of your library, you should rename the OnePasswordExtension class.
 // You might to so by adding your own project prefix, e.g., MyLibraryOnePasswordExtension.
 
+
+// Version
+private let VERSION_NUMBER = 112
+private let AppExtensionVersionNumberKey = "version_number"
+
+// Available App Extension Actions
+private let kUTTypeAppExtensionFindLoginAction = "org.appextension.find-login-action"
+private let kUTTypeAppExtensionSaveLoginAction = "org.appextension.save-login-action"
+private let kUTTypeAppExtensionChangePasswordAction = "org.appextension.change-password-action"
+private let kUTTypeAppExtensionFillWebViewAction = "org.appextension.fill-webview-action"
+private let kUTTypeAppExtensionFillBrowserAction = "org.appextension.fill-browser-action"
+
+// WebView Dictionary keys
+private let AppExtensionWebViewPageFillScript = "fillScript"
+private let AppExtensionWebViewPageDetails = "pageDetails"
+
+private let _OnePasswordExtensionSharedInstance = OnePasswordExtension()
+
 class OnePasswordExtension: NSObject {
    
 }
