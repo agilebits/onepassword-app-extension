@@ -11,6 +11,8 @@ import UIKit
 import MobileCoreServices
 import WebKit
 
+//MARK: - Public Constants
+
 // Login Dictionary keys
 let AppExtensionURLStringKey = "url_string"
 let AppExtensionUsernameKey = "username"
@@ -45,6 +47,8 @@ let AppExtensionErrorCodeFailedToObtainURLStringFromWebView = 7
 // You might to so by adding your own project prefix, e.g., MyLibraryOnePasswordExtension.
 
 
+//MARK: - Private Constants
+
 // Version
 private let VERSION_NUMBER = 112
 private let AppExtensionVersionNumberKey = "version_number"
@@ -62,6 +66,7 @@ private let AppExtensionWebViewPageDetails = "pageDetails"
 
 private let _OnePasswordExtensionSharedInstance = OnePasswordExtension()
 
+//MARK: - 
 class OnePasswordExtension: NSObject {
    
 }
