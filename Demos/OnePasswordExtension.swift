@@ -95,6 +95,50 @@ class OnePasswordExtension: NSObject {
 		}
 	}
 	
+	//MARK: Errors
+	class func systemAppExtensionAPINotAvailableError() -> NSError {
+		var userInfo:NSDictionary = [ NSLocalizedDescriptionKey: NSLocalizedString("App Extension API is not available is this version of iOS", comment: "1Password Extension Error Message") ]
+		return NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeAPINotAvailable, userInfo: userInfo)
+	}
+	
+	class func extensionCancelledByUserError() -> NSError {
+		var userInfo:NSDictionary = [ NSLocalizedDescriptionKey: NSLocalizedString("1Password Extension was cancelled by the user", comment: "1Password Extension Error Message") ]
+		return NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeCancelledByUser, userInfo: userInfo)
+	}
+	
+	class func failedToContactExtensionErrorWithActivityError(activityError:NSError) -> NSError {
+		var userInfo:NSMutableDictionary = NSMutableDictionary()
+		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("Failed to contact the 1Password Extension", comment: "1Password Extension Error Message")
+		userInfo[NSUnderlyingErrorKey] = activityError
+		return NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeFailedToContactExtension, userInfo: userInfo)
+	}
+	
+	class func failedToCollectFieldsErrorWithUnderlyingError(underlyingError:NSError) -> NSError {
+		var userInfo:NSMutableDictionary = NSMutableDictionary()
+		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("Failed to execute script that collects web page information", comment: "1Password Extension Error Message")
+		userInfo[NSUnderlyingErrorKey] = underlyingError
+		return NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeCollectFieldsScriptFailed, userInfo: userInfo)
+	}
+	
+	class func failedToCollectFieldsErrorWithErrorMessage(errorMessage:String, underlyingError:NSError) -> NSError {
+		var userInfo:NSMutableDictionary = NSMutableDictionary()
+		userInfo[NSLocalizedDescriptionKey] = errorMessage
+		userInfo[NSUnderlyingErrorKey] = underlyingError
+		return NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeFillFieldsScriptFailed, userInfo: userInfo)
+	}
+	
+	class func failedToLoadItemProviderDataErrorWithUnderlyingError(underlyingError:NSError) -> NSError {
+		var userInfo:NSMutableDictionary = NSMutableDictionary()
+		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("Failed to parse information returned by 1Password Extension", comment: "1Password Extension Error Message")
+		userInfo[NSUnderlyingErrorKey] = underlyingError
+		return NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeFailedToLoadItemProviderData, userInfo: userInfo)
+	}
+	
+	class func failedToObtainURLStringFromWebViewError() -> NSError {
+		var userInfo:NSDictionary = [ NSLocalizedDescriptionKey: NSLocalizedString("Failed to obtain URL String from web view. The web view must be loaded completely when calling the 1Password Extension", comment: "1Password Extension Error Message") ]
+		return NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeFailedToObtainURLStringFromWebView, userInfo: userInfo)
+	}
+	
 	
 	//MARK: WebView field collection and filling scripts
 	class var OPWebViewCollectFieldsScript:String {
