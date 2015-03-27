@@ -69,6 +69,29 @@ private let _OnePasswordExtensionSharedInstance = OnePasswordExtension()
 //MARK: - 
 class OnePasswordExtension: NSObject {
    
+	//MARK: Public Methods
+	class var sharedInstance: OnePasswordExtension {
+		return _OnePasswordExtensionSharedInstance
+	}
+	
+	func isSystemAppExtensionAPIAvailable() -> Bool {
+		if NSProcessInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 8, minorVersion: 0, patchVersion: 0)) {
+			return NSClassFromString("NSExtensionItem") != nil
+		}
+		else {
+			return false
+		}
+	}
+	
+	func isAppExtensionAvailable() -> Bool {
+		if isSystemAppExtensionAPIAvailable() {
+			return UIApplication.sharedApplication().canOpenURL(NSURL(string: "org-appextension-feature-password-management://")!)
+		}
+		else {
+			return false
+		}
+	}
+	
 	
 	//MARK: WebView field collection and filling scripts
 	class var OPWebViewCollectFieldsScript:String {
