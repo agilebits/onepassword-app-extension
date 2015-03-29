@@ -3,7 +3,7 @@
 //  App Demo for iOS
 //
 //  Created by Diego Márquez Arzate on 3/27/15.
-//  Copyright (c) 2015 Diego. All rights reserved.
+//  Copyright (c) 2015 Diego Márquez Arzate. All rights reserved.
 //
 
 import Foundation
