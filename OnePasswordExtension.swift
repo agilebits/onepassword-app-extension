@@ -106,7 +106,7 @@ class OnePasswordExtension: NSObject {
 			var item = [AppExtensionVersionNumberKey:VERSION_NUMBER, AppExtensionURLStringKey:URLString]
 			var activityViewController = activityViewControllerForItem(item, viewController: viewController, sender: sender, typeIdentifier: kUTTypeAppExtensionFindLoginAction)
 			activityViewController?.completionWithItemsHandler = { (activityType:String!, completed:Bool, returnedItems:[AnyObject]!, activityError:NSError!) in
-				if returnedItems.count == 0 {
+				if returnedItems == nil || returnedItems.count == 0 {
 					var error:NSError!
 					
 					if activityError != nil {
@@ -362,7 +362,7 @@ class OnePasswordExtension: NSObject {
 		
 		itemProvider.loadItemForTypeIdentifier(kUTTypePropertyList as String, options: nil) { (loginDictionary, itemProviderError:NSError?) -> Void in
 			var error:NSError!
-			if loginDictionary != nil {
+			if loginDictionary == nil {
 				NSLog("Failed to loadItemForTypeIdentifier: %@", itemProviderError!)
 				error = OnePasswordExtension.failedToLoadItemProviderDataErrorWithUnderlyingError(itemProviderError!)
 			}
