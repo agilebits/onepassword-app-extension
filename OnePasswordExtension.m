@@ -123,7 +123,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	newLoginAttributesDict[AppExtensionURLStringKey] = URLString;
 	[newLoginAttributesDict addEntriesFromDictionary:loginDetailsDict];
 	if (passwordGenerationOptions.count > 0) {
-		newLoginAttributesDict[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
+		newLoginAttributesDict[AppExtensionPasswordGeneratorOptionsKey] = passwordGenerationOptions;
 	}
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:newLoginAttributesDict viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
@@ -177,7 +177,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	item[AppExtensionURLStringKey] = URLString;
 	[item addEntriesFromDictionary:loginDetailsDict];
 	if (passwordGenerationOptions.count > 0) {
-		item[AppExtensionPasswordGereratorOptionsKey] = passwordGenerationOptions;
+		item[AppExtensionPasswordGeneratorOptionsKey] = passwordGenerationOptions;
 	}
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionChangePasswordAction];
