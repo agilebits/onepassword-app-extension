@@ -95,6 +95,45 @@ class OnePasswordExtension: NSObject {
 		}
 	}
 	
+	//MARK: Change Password
+	func changePasswordForLoginForURLString(URLString:String, loginDetails:NSDictionary, passwordGenerationOptions:NSDictionary, viewController:UIViewController, sender:AnyObject, completion:( (NSDictionary?, NSError?) -> Void)) {
+		if isSystemAppExtensionAPIAvailable() == false {
+			NSLog("Failed to changePasswordForLoginWithUsername, system API is not available")
+			completion(nil, OnePasswordExtension.systemAppExtensionAPINotAvailableError())
+			return
+		}
+		
+		var item = NSMutableDictionary()
+		item[AppExtensionVersionNumberKey] = VERSION_NUMBER
+		item[AppExtensionURLStringKey] = URLString
+		item.addEntriesFromDictionary(loginDetails)
+		if passwordGenerationOptions.count > 0 {
+			item[AppExtensionPasswordGeneratorOptionsKey] = passwordGenerationOptions
+		}
+		var activityViewController = activityViewControllerForItem(item, viewController: viewController, sender: sender, typeIdentifier: kUTTypeAppExtensionChangePasswordAction)
+		activityViewController?.completionWithItemsHandler = { (activityType:String!, completed:Bool, returnedItems:[AnyObject]!, activityError:NSError!) in
+			if returnedItems.count == 0 {
+				var error:NSError!
+				
+				if activityError != nil {
+					NSLog("Failed to changePasswordForLoginWithUsername: %@", activityError)
+					error = OnePasswordExtension.failedToContactExtensionErrorWithActivityError(activityError)
+				}
+				else {
+					error = OnePasswordExtension.extensionCancelledByUserError()
+				}
+				
+				completion(nil, error)
+				
+				return
+			}
+			
+			self.processExtensionItem(returnedItems.first as NSExtensionItem, completion: completion)
+		}
+		
+		viewController.presentViewController(activityViewController!, animated: true, completion: nil)
+	}
+	
 	//MARK: Web View Login Support
 	func fillLoginIntoWebView(webView:WKWebView, viewController:UIViewController, sender:AnyObject, completion:( (Bool, NSError?) -> Void )) {
 		//TODO: check if this is redundant (maybe it is)
