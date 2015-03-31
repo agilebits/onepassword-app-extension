@@ -95,6 +95,47 @@ class OnePasswordExtension: NSObject {
 		}
 	}
 	
+	//MARK: New User Registration
+	func storeLoginForURLString(URLString:String, loginDetails:NSDictionary, passwordGenerationOptions:NSDictionary, viewController:UIViewController, sender:AnyObject, completion:( (NSDictionary?, NSError?) -> Void)) {
+		if isSystemAppExtensionAPIAvailable() == false {
+			NSLog("Failed to changePasswordForLoginWithUsername, system API is not available")
+			completion(nil, OnePasswordExtension.systemAppExtensionAPINotAvailableError())
+			return
+		}
+		
+		if NSProcessInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 8, minorVersion: 0, patchVersion: 0)) {
+			var newLoginAttributesDict = NSMutableDictionary()
+			newLoginAttributesDict[AppExtensionVersionNumberKey] = VERSION_NUMBER
+			newLoginAttributesDict[AppExtensionURLStringKey] = URLString
+			newLoginAttributesDict.addEntriesFromDictionary(loginDetails)
+			if passwordGenerationOptions.count > 0 {
+				newLoginAttributesDict[AppExtensionPasswordGeneratorOptionsKey] = passwordGenerationOptions
+			}
+			var activityViewController = activityViewControllerForItem(newLoginAttributesDict, viewController: viewController, sender: sender, typeIdentifier: kUTTypeAppExtensionSaveLoginAction)
+			activityViewController?.completionWithItemsHandler = { (activityType:String!, completed:Bool, returnedItems:[AnyObject]!, activityError:NSError!) in
+				if returnedItems.count == 0 {
+					var error:NSError!
+					
+					if activityError != nil {
+						NSLog("Failed to storeLoginForURLString: %@", activityError)
+						error = OnePasswordExtension.failedToContactExtensionErrorWithActivityError(activityError)
+					}
+					else {
+						error = OnePasswordExtension.extensionCancelledByUserError()
+					}
+					
+					completion(nil, error)
+					
+					return
+				}
+				
+				self.processExtensionItem(returnedItems.first as NSExtensionItem, completion: completion)
+			}
+			
+			viewController.presentViewController(activityViewController!, animated: true, completion: nil)
+		}
+	}
+	
 	//MARK: Change Password
 	func changePasswordForLoginForURLString(URLString:String, loginDetails:NSDictionary, passwordGenerationOptions:NSDictionary, viewController:UIViewController, sender:AnyObject, completion:( (NSDictionary?, NSError?) -> Void)) {
 		if isSystemAppExtensionAPIAvailable() == false {
