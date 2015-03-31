@@ -95,6 +95,40 @@ class OnePasswordExtension: NSObject {
 		}
 	}
 	
+	//MARK: Native app Login
+	func findLoginWithURLString(URLString:String, viewController:UIViewController, sender:AnyObject, completion:( (NSDictionary?, NSError?) -> Void)) {
+		if !isSystemAppExtensionAPIAvailable() {
+			NSLog("Failed to findLoginForURLString, system API is not available")
+			completion(nil, OnePasswordExtension.systemAppExtensionAPINotAvailableError())
+		}
+		
+		if NSProcessInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 8, minorVersion: 0, patchVersion: 0)) {
+			var item = [AppExtensionVersionNumberKey:VERSION_NUMBER, AppExtensionURLStringKey:URLString]
+			var activityViewController = activityViewControllerForItem(item, viewController: viewController, sender: sender, typeIdentifier: kUTTypeAppExtensionFindLoginAction)
+			activityViewController?.completionWithItemsHandler = { (activityType:String!, completed:Bool, returnedItems:[AnyObject]!, activityError:NSError!) in
+				if returnedItems.count == 0 {
+					var error:NSError!
+					
+					if activityError != nil {
+						NSLog("Failed to findLoginForURLString: %@", activityError)
+						error = OnePasswordExtension.failedToContactExtensionErrorWithActivityError(activityError)
+					}
+					else {
+						error = OnePasswordExtension.extensionCancelledByUserError()
+					}
+					
+					completion(nil, error)
+					
+					return
+				}
+				
+				self.processExtensionItem(returnedItems.first as NSExtensionItem, completion: completion)
+			}
+			
+			viewController.presentViewController(activityViewController!, animated: true, completion: nil)
+		}
+	}
+	
 	//MARK: New User Registration
 	func storeLoginForURLString(URLString:String, loginDetails:NSDictionary, passwordGenerationOptions:NSDictionary, viewController:UIViewController, sender:AnyObject, completion:( (NSDictionary?, NSError?) -> Void)) {
 		if isSystemAppExtensionAPIAvailable() == false {
