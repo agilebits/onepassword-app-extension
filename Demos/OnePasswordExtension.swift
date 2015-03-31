@@ -95,6 +95,178 @@ class OnePasswordExtension: NSObject {
 		}
 	}
 	
+	//MARK: Private Methods
+	private func findLoginIn1PasswordWithURLString(URLString:String?, collectedPageDetails:String, webViewController:UIViewController, sender:AnyObject, webView:WKWebView, completion:( (Bool, NSError?) -> Void )) {
+		if URLString != nil {
+			var URLStringError = OnePasswordExtension.failedToObtainURLStringFromWebViewError()
+			NSLog("Failed to findLoginIn1PasswordWithURLString: %@", URLStringError)
+			completion(false, URLStringError)
+			return
+		}
+		
+		var jsonError: NSError?
+		var data = collectedPageDetails.dataUsingEncoding(NSUTF8StringEncoding)!
+		var collectedPageDetailsDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &jsonError) as NSDictionary
+		if collectedPageDetailsDictionary.count == 0 {
+			NSLog("Failed to parse JSON collected page details: %@", jsonError!)
+			completion(false, jsonError)
+			return
+		}
+		
+		var item = [AppExtensionVersionNumberKey:VERSION_NUMBER, AppExtensionURLStringKey:URLString!, AppExtensionWebViewPageDetails:collectedPageDetailsDictionary]
+		
+		var activityViewController = activityViewControllerForItem(item, viewController: webViewController, sender: sender, typeIdentifier: kUTTypeAppExtensionFillWebViewAction)
+		activityViewController?.completionWithItemsHandler = { (activityType:String!, completed:Bool, returnedItems:[AnyObject]!, activityError:NSError!) -> Void in
+			if returnedItems.count == 0 {
+				var error:NSError!
+				if activityError != nil {
+					NSLog("Failed to findLoginIn1PasswordWithURLString: %@", activityError)
+					error = OnePasswordExtension.failedToContactExtensionErrorWithActivityError(activityError)
+				}
+				else {
+					error = OnePasswordExtension.extensionCancelledByUserError()
+				}
+				
+				completion(false, error)
+				return
+			}
+			
+			self.processExtensionItem(returnedItems[0] as NSExtensionItem, completion: { (loginDictionary:NSDictionary?, processExtensionItemError:NSError?) -> Void in
+				if loginDictionary != nil {
+					completion(false, processExtensionItemError)
+					return
+				}
+				
+				var fillScript:String = loginDictionary![AppExtensionWebViewPageFillScript] as String
+				self.executeFillScript(fillScript, webView: webView, completion: { (success:Bool, executeFillScriptError:NSError?) in
+					completion(success, executeFillScriptError)
+				})
+			})
+		}
+		
+		webViewController.presentViewController(activityViewController!, animated: true, completion: nil)
+	}
+	
+	private func fillLoginIntoWKWebView(webView:WKWebView, webViewController:UIViewController, sender:AnyObject, completion:( (Bool, NSError?) -> Void )) {
+		webView.evaluateJavaScript(OnePasswordExtension.OPWebViewCollectFieldsScript, completionHandler: { (result, evaluateJSError) in
+			if evaluateJSError == nil {
+				NSLog("1Password Extension failed to collect web page fields: %@", evaluateJSError)
+				completion(false, OnePasswordExtension.failedToCollectFieldsErrorWithUnderlyingError(evaluateJSError))
+				return
+			}
+			
+			self.findLoginIn1PasswordWithURLString(webView.URL?.absoluteString, collectedPageDetails: result as String, webViewController: webViewController, sender: sender, webView: webView, completion: { (success:Bool, findLoginError:NSError?) in
+				completion(success, findLoginError)
+			})
+		})
+	}
+	
+	private func executeFillScript(fillScript:String, webView:WKWebView, completion:( (Bool, NSError?) -> Void )) {
+		if fillScript.isEmpty {
+			NSLog("Failed to executeFillScript, fillScript is missing")
+			completion(false, OnePasswordExtension.failedToFillFieldsErrorWithLocalizedErrorMessage(NSLocalizedString("Failed to fill web page because script is missing", comment: "1Password Extension Error Message"), underlyingError: nil))
+			return
+		}
+		
+		var scriptSource = "\(OnePasswordExtension.OPWebViewFillScript)(document, \(fillScript));"
+		
+		webView.evaluateJavaScript(scriptSource, completionHandler: { (result, evaluationError:NSError!) in
+			var success = (result != nil)
+			var error:NSError!
+			
+			if !success {
+				NSLog("Cannot executeFillScript, stringByEvaluatingJavaScriptFromString failed")
+				error = OnePasswordExtension.failedToFillFieldsErrorWithLocalizedErrorMessage(NSLocalizedString("Failed to fill web page because script could not be evaluated", comment:"1Password Extension Error Message"), underlyingError: nil)
+			}
+			
+			completion(success, error)
+		})
+	}
+	
+	private func processExtensionItem(extensionItem:NSExtensionItem, completion:( (NSDictionary?, NSError?) -> Void )) {
+		if extensionItem.attachments?.count == 0 {
+			var userInfo = [NSLocalizedDescriptionKey:"Unexpected data returned by App Extension: extension item had no attachments."]
+			var error = NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeUnexpectedData, userInfo: userInfo)
+			completion(nil, error)
+			return
+		}
+		
+		var itemProvider = extensionItem.attachments?.first as NSItemProvider
+		if !itemProvider.hasItemConformingToTypeIdentifier(kUTTypePropertyList) {
+			var userInfo = [NSLocalizedDescriptionKey:"Unexpected data returned by App Extension: extension item attachment does not conform to kUTTypePropertyList type identifier"]
+			var error = NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeUnexpectedData, userInfo: userInfo)
+			completion(nil, error)
+			return
+		}
+		
+		itemProvider.loadItemForTypeIdentifier(kUTTypePropertyList as String, options: nil) { (loginDictionary, itemProviderError:NSError?) -> Void in
+			var error:NSError!
+			if loginDictionary != nil {
+				NSLog("Failed to loadItemForTypeIdentifier: %@", itemProviderError!)
+				error = OnePasswordExtension.failedToLoadItemProviderDataErrorWithUnderlyingError(itemProviderError!)
+			}
+			if NSThread.isMainThread() {
+				completion(loginDictionary as? NSDictionary, error)
+			}
+			else {
+				dispatch_async(dispatch_get_main_queue()) {
+					completion(loginDictionary as? NSDictionary, error)
+				}
+			}
+		}
+	}
+	
+	private func activityViewControllerForItem(item:NSDictionary, viewController:UIViewController, sender:AnyObject, typeIdentifier:String) -> UIActivityViewController? {
+		if NSProcessInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 8, minorVersion: 0, patchVersion: 0)) {
+			var itemProvider = NSItemProvider(item: item, typeIdentifier: typeIdentifier)
+			var extensionItem = NSExtensionItem()
+			extensionItem.attachments = [itemProvider]
+			var controller = UIActivityViewController(activityItems: [extensionItem], applicationActivities: nil)
+			if sender.isKindOfClass(UIBarButtonItem) {
+				controller.popoverPresentationController?.barButtonItem = sender as UIBarButtonItem
+			}
+			else if sender.isKindOfClass(UIView) {
+				controller.popoverPresentationController?.sourceView = sender as UIView
+				controller.popoverPresentationController?.sourceRect = (sender as UIView).frame
+			}
+			else {
+				NSLog("sender can be nil on iPhone")
+			}
+			return controller
+		}
+		else {
+			return nil
+		}
+	}
+	
+	private func createExtensionItemForURLString(URLString:String, webPageDetails:String, completion:( (NSExtensionItem?, NSError?) -> Void )) {
+		var jsonError: NSError?
+		var data = webPageDetails.dataUsingEncoding(NSUTF8StringEncoding)!
+		var webPageDetailsDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &jsonError) as NSDictionary
+		
+		if webPageDetailsDictionary.count == 0 {
+			NSLog("Failed to parse JSON collected page details: %@", jsonError!)
+			completion(nil, jsonError)
+			return
+		}
+		
+		var item = [AppExtensionVersionNumberKey:VERSION_NUMBER, AppExtensionURLStringKey:URLString, AppExtensionWebViewPageDetails:webPageDetailsDictionary]
+		
+		var itemProvider = NSItemProvider(item: item, typeIdentifier: kUTTypeAppExtensionFillBrowserAction)
+		
+		var extensionItem = NSExtensionItem()
+		extensionItem.attachments = [itemProvider]
+		
+		if NSThread.isMainThread() {
+			completion(extensionItem, nil)
+		}
+		else {
+			dispatch_async(dispatch_get_main_queue()) {
+				completion(extensionItem, nil)
+			}
+		}
+	}
+	
 	//MARK: Errors
 	class func systemAppExtensionAPINotAvailableError() -> NSError {
 		var userInfo:NSDictionary = [ NSLocalizedDescriptionKey: NSLocalizedString("App Extension API is not available is this version of iOS", comment: "1Password Extension Error Message") ]
