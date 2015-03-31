@@ -23,7 +23,7 @@ let AppExtensionSectionTitleKey = "section_title"
 let AppExtensionFieldsKey = "fields"
 let AppExtensionReturnedFieldsKey = "returned_fields"
 let AppExtensionOldPasswordKey = "old_password"
-let AppExtensionPasswordGereratorOptionsKey = "password_generator_options"
+let AppExtensionPasswordGeneratorOptionsKey = "password_generator_options"
 
 // Password Generator options
 let AppExtensionGeneratedPasswordMinLengthKey = "password_min_length"
