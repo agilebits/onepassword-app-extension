@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F13452331ACA937600FE6B08 /* OnePasswordExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13452321ACA937600FE6B08 /* OnePasswordExtension.swift */; };
+		F13452351ACA96C300FE6B08 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F13452341ACA96C300FE6B08 /* 1Password.xcassets */; };
 		F1B11CED1ACA827600BBB963 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B11CEC1ACA827600BBB963 /* AppDelegate.swift */; };
 		F1B11CF01ACA827600BBB963 /* App_Demo_for_iOS_Swift.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1B11CEE1ACA827600BBB963 /* App_Demo_for_iOS_Swift.xcdatamodeld */; };
 		F1B11CF21ACA827600BBB963 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B11CF11ACA827600BBB963 /* ViewController.swift */; };
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F13452321ACA937600FE6B08 /* OnePasswordExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnePasswordExtension.swift; path = ../../../OnePasswordExtension.swift; sourceTree = "<group>"; };
+		F13452341ACA96C300FE6B08 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../../1Password.xcassets; sourceTree = "<group>"; };
 		F1B11CE71ACA827600BBB963 /* App Demo for iOS Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Demo for iOS Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1B11CEB1ACA827600BBB963 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1B11CEC1ACA827600BBB963 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +83,7 @@
 		F1B11CE91ACA827600BBB963 /* App Demo for iOS Swift */ = {
 			isa = PBXGroup;
 			children = (
+				F13452321ACA937600FE6B08 /* OnePasswordExtension.swift */,
 				F1B11CEC1ACA827600BBB963 /* AppDelegate.swift */,
 				F1B11CF11ACA827600BBB963 /* ViewController.swift */,
 				F1B11CF31ACA827600BBB963 /* Main.storyboard */,
@@ -93,6 +98,7 @@
 		F1B11CEA1ACA827600BBB963 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F13452341ACA96C300FE6B08 /* 1Password.xcassets */,
 				F1B11CEB1ACA827600BBB963 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -197,6 +203,7 @@
 			files = (
 				F1B11CF51ACA827600BBB963 /* Main.storyboard in Resources */,
 				F1B11CFA1ACA827600BBB963 /* LaunchScreen.xib in Resources */,
+				F13452351ACA96C300FE6B08 /* 1Password.xcassets in Resources */,
 				F1B11CF71ACA827600BBB963 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,6 +225,7 @@
 				F1B11CF21ACA827600BBB963 /* ViewController.swift in Sources */,
 				F1B11CF01ACA827600BBB963 /* App_Demo_for_iOS_Swift.xcdatamodeld in Sources */,
 				F1B11CED1ACA827600BBB963 /* AppDelegate.swift in Sources */,
+				F13452331ACA937600FE6B08 /* OnePasswordExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
