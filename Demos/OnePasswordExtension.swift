@@ -457,6 +457,15 @@ class OnePasswordExtension: NSObject {
 		var userInfo:NSMutableDictionary = NSMutableDictionary()
 		userInfo[NSLocalizedDescriptionKey] = errorMessage
 		userInfo[NSUnderlyingErrorKey] = underlyingError
+		return NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeCollectFieldsScriptFailed, userInfo: userInfo)
+	}
+	
+	class func failedToFillFieldsErrorWithLocalizedErrorMessage(errorMessage:String, underlyingError:NSError?) -> NSError {
+		var userInfo:NSMutableDictionary = NSMutableDictionary()
+		userInfo[NSLocalizedDescriptionKey] = errorMessage
+		if underlyingError != nil {
+			userInfo[NSUnderlyingErrorKey] = underlyingError
+		}
 		return NSError(domain: AppExtensionErrorDomain, code: AppExtensionErrorCodeFillFieldsScriptFailed, userInfo: userInfo)
 	}
 	
