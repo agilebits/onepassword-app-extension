@@ -23,7 +23,7 @@
 #define AppExtensionFieldsKey                     @"fields"
 #define AppExtensionReturnedFieldsKey             @"returned_fields"
 #define AppExtensionOldPasswordKey                @"old_password"
-#define AppExtensionPasswordGereratorOptionsKey   @"password_generator_options"
+#define AppExtensionPasswordGeneratorOptionsKey   @"password_generator_options"
 
 // Password Generator options
 #define AppExtensionGeneratedPasswordMinLengthKey @"password_min_length"
