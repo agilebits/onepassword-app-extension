@@ -95,6 +95,53 @@ class OnePasswordExtension: NSObject {
 		}
 	}
 	
+	//MARK: Web View Login Support
+	func fillLoginIntoWebView(webView:WKWebView, viewController:UIViewController, sender:AnyObject, completion:( (Bool, NSError?) -> Void )) {
+		//TODO: check if this is redundant (maybe it is)
+		fillLoginIntoWKWebView(webView, webViewController: viewController, sender: sender, completion: completion)
+	}
+	
+	//MARK: Browser filling Support
+	func isOnePasswordExtensionActivityType(activityType:String) -> Bool {
+		return ( activityType == "com.agilebits.onepassword-ios.extension" || activityType == "com.agilebits.beta.onepassword-ios.extension" )
+	}
+	
+	func createExtensionItemForWebView(webView:WKWebView, completion: ( (NSExtensionItem!, NSError!) -> Void )) {
+		webView.evaluateJavaScript(OnePasswordExtension.OPWebViewCollectFieldsScript, completionHandler: { (result, evaluateError) in
+			if result == nil {
+				NSLog("1Password Extension failed to collect web page fields: %@", evaluateError)
+				var failedToCollectFieldsError = OnePasswordExtension.failedToCollectFieldsErrorWithUnderlyingError(evaluateError)
+				if NSThread.isMainThread() {
+					completion(nil, failedToCollectFieldsError)
+				}
+				else {
+					dispatch_async(dispatch_get_main_queue()) {
+						completion(nil, failedToCollectFieldsError)
+					}
+				}
+				return
+			}
+			self.createExtensionItemForWebView(webView, completion: completion)
+		})
+	}
+	
+	func fillReturnedItems(returnedItems:[AnyObject]!, webView:WKWebView, completion:( (Bool, NSError?) -> Void)) {
+		if returnedItems.count == 0 {
+			var error = OnePasswordExtension.extensionCancelledByUserError()
+			completion(false, error)
+		}
+		
+		processExtensionItem(returnedItems.first as NSExtensionItem, completion: { (loginDictionary, error) in
+			if loginDictionary == nil {
+				completion(false,error)
+				return
+			}
+			
+			var fillScript = loginDictionary![AppExtensionWebViewPageFillScript] as String
+			self.executeFillScript(fillScript, webView: webView, completion: completion)
+		})
+	}
+	
 	//MARK: Private Methods
 	private func findLoginIn1PasswordWithURLString(URLString:String?, collectedPageDetails:String, webViewController:UIViewController, sender:AnyObject, webView:WKWebView, completion:( (Bool, NSError?) -> Void )) {
 		if URLString != nil {
