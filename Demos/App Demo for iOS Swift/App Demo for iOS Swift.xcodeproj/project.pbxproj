@@ -15,6 +15,7 @@
 		F1B11CFA1ACA827600BBB963 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1B11CF81ACA827600BBB963 /* LaunchScreen.xib */; };
 		F1B11D061ACA827600BBB963 /* App_Demo_for_iOS_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B11D051ACA827600BBB963 /* App_Demo_for_iOS_SwiftTests.swift */; };
 		F1DBAA951ACB0E8700170FE5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1DBAA941ACB0E8700170FE5 /* Images.xcassets */; };
+		F1EC502D1ACB1DC8000676BA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EC502C1ACB1DC8000676BA /* LoginVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		F1B11D041ACA827600BBB963 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1B11D051ACA827600BBB963 /* App_Demo_for_iOS_SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App_Demo_for_iOS_SwiftTests.swift; sourceTree = "<group>"; };
 		F1DBAA941ACB0E8700170FE5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F1EC502C1ACB1DC8000676BA /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,9 +85,8 @@
 			children = (
 				F13452321ACA937600FE6B08 /* OnePasswordExtension.swift */,
 				F1B11CEC1ACA827600BBB963 /* AppDelegate.swift */,
-				F1B11CF11ACA827600BBB963 /* ViewController.swift */,
-				F1B11CF31ACA827600BBB963 /* Main.storyboard */,
-				F1B11CF81ACA827600BBB963 /* LaunchScreen.xib */,
+				F1EC502E1ACB1E7D000676BA /* Controllers */,
+				F1EC502F1ACB1E9F000676BA /* UI */,
 				F1B11CEA1ACA827600BBB963 /* Supporting Files */,
 			);
 			path = "App Demo for iOS Swift";
@@ -116,6 +117,24 @@
 				F1B11D041ACA827600BBB963 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F1EC502E1ACB1E7D000676BA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F1B11CF11ACA827600BBB963 /* ViewController.swift */,
+				F1EC502C1ACB1DC8000676BA /* LoginVC.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		F1EC502F1ACB1E9F000676BA /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F1B11CF31ACA827600BBB963 /* Main.storyboard */,
+				F1B11CF81ACA827600BBB963 /* LaunchScreen.xib */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +240,7 @@
 			files = (
 				F1B11CF21ACA827600BBB963 /* ViewController.swift in Sources */,
 				F1B11CED1ACA827600BBB963 /* AppDelegate.swift in Sources */,
+				F1EC502D1ACB1DC8000676BA /* LoginVC.swift in Sources */,
 				F13452331ACA937600FE6B08 /* OnePasswordExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
