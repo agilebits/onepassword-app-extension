@@ -27,6 +27,6 @@ Pod::Spec.new do |s|
   s.frameworks        = "UIKit"
   s.weak_framework    = "WebKit"
   s.exclude_files     = "Demos"
-  s.resources         = "1Password.xcassets"
+  s.resource_bundles  = "1Password.xcassets"
   s.requires_arc      = true
 end
