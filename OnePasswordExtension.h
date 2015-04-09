@@ -13,7 +13,7 @@
 #import <WebKit/WebKit.h>
 #endif
 
-// Login Dictionary keys
+// Login Dictionary keys - Used to get or set the properties of a 1Password Login
 #define AppExtensionURLStringKey                  @"url_string"
 #define AppExtensionUsernameKey                   @"username"
 #define AppExtensionPasswordKey                   @"password"
@@ -25,11 +25,11 @@
 #define AppExtensionOldPasswordKey                @"old_password"
 #define AppExtensionPasswordGeneratorOptionsKey   @"password_generator_options"
 
-// Password Generator options
+// Password Generator options - Used to set the 1Password Password Generator options when saving a new Login or when changing the password for for an existing Login
 #define AppExtensionGeneratedPasswordMinLengthKey @"password_min_length"
 #define AppExtensionGeneratedPasswordMaxLengthKey @"password_max_length"
 
-// Errors
+// Errors codes
 #define AppExtensionErrorDomain                   @"OnePasswordExtension"
 
 #define AppExtensionErrorCodeCancelledByUser                    0
