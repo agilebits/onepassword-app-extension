@@ -664,11 +664,7 @@ function w(a){var b;if(void 0===a||null===a)return null;try{var c=Array.prototyp
 #pragma mark - Deprecated methods
 
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
-	[self fillItemIntoWebView:webView forViewController:viewController sender:sender showOnlyLogins:YES completion:^(BOOL success, NSError *error) {
-		if (completion) {
-			completion(success, error);
-		}
-	}];
+	[self fillItemIntoWebView:webView forViewController:viewController sender:sender showOnlyLogins:YES completion:completion];
 }
 
 @end
