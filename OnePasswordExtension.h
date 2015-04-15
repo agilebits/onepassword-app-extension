@@ -82,7 +82,7 @@
 
  @param success Reply parameter that is YES if the 1Password Extension has been successfully completed or NO otherwise.
 
- @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure failure.
+ @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
 - (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
@@ -105,7 +105,7 @@
 
  @param Login dictionary Reply parameter which contain all the information about the newly saved Login. Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the newly generated password lets the user know their action was successful.
 
- @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure failure.
+ @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
 - (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
@@ -131,7 +131,7 @@
 
  @param Login dictionary Reply parameter which contain all the information about the newly updated Login, including the newly generated and the old password. Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the newly generated password lets the user know their action was successful.
 
- @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure failure.
+ @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
 - (void)changePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
 
@@ -151,7 +151,7 @@
 
  @param success Reply parameter that is YES if the 1Password Extension has been successfully completed or NO otherwise.
 
- @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure failure.
+ @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
 - (void)fillItemIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError *error))completion;
 
