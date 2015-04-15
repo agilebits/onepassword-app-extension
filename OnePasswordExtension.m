@@ -321,8 +321,10 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	if ([URLString length] == 0) {
 		NSError *URLStringError = [OnePasswordExtension failedToObtainURLStringFromWebViewError];
 		NSLog(@"Failed to findLoginIn1PasswordWithURLString: %@", URLStringError);
-		completion(NO, URLStringError);
-        return;
+		if (completion) {
+			completion(NO, URLStringError);
+		}
+		return;
 	}
 
 	NSError *jsonError = nil;
@@ -331,8 +333,10 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 	if (collectedPageDetailsDictionary.count == 0) {
 		NSLog(@"Failed to parse JSON collected page details: %@", jsonError);
-		completion(NO, jsonError);
-        return;
+		if (completion) {
+			completion(NO, jsonError);
+		}
+		return;
 	}
 
 	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetailsDictionary };
@@ -539,7 +543,10 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 	if (webPageDetailsDictionary.count == 0) {
 		NSLog(@"Failed to parse JSON collected page details: %@", jsonError);
-		completion(nil, jsonError);
+		if (completion) {
+			completion(nil, jsonError);
+		}
+		return;
 	}
 
 	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : webPageDetailsDictionary };
