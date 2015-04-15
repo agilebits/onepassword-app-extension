@@ -153,7 +153,7 @@
 
  @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure failure.
  */
-- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion;
+- (void)fillItemIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError *error))completion;
 
 /*!
  Called in the UIActivityViewController completion block to find if the activity was performed by 1Password Extension.
@@ -169,5 +169,14 @@
  Method used in the UIActivityViewController completion block to fill information into a web view.
  */
 - (void)fillReturnedItems:(NSArray *)returnedItems intoWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion;
+
+
+#pragma mark - Deprecated methods
+
+/*!
+ Deprecated in version 1.3.
+ Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead
+ */
+- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion;
 
 @end
