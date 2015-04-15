@@ -229,7 +229,7 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 1Password will take care of all the details of collecting information about the currently displayed page, allow the user to select the desired login, and then fill the web form details within the page.
 
-If you are in an oauth-like situation - where you do not want other item categories, such as Identities and Credit Cards, to show up in the 1Password Extension - you need to pass `YES` to `showOnlyLogins`. 
+If you are in an oauth-like situation - where you do not want other item categories, such as Identities and Credit Cards, to show up in the 1Password Extension - you need to pass `YES` for `showOnlyLogins`. 
 
 If you want the 1Password Extension to show up in the share sheet along side other extensions, please take a look at our `Advanced Web View filling Support` [gist](https://gist.github.com/radazzouz/1f32eca216b1963dfc78) or download our [sample project](https://com-agilebits-users.s3.amazonaws.com/rad/ACME%20Browser%202.zip), **ACME Browser 2**.  
 
