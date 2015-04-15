@@ -145,7 +145,7 @@
 
  @param the URLString for matching Logins in the 1Password database.
 
- @param the view controller from which the 1Password Extension is invoked. Usually `self`
+ @param the view controller from which the 1Password Extension is invoked. Usually `self`.
 
  @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil.
 
@@ -158,13 +158,15 @@
 /*!
  Called in the UIActivityViewController completion block to find out whether or not the user selected the 1Password Extension activity.
 
- @param the bundle identidier of the selected activity in the share sheet
+ @param the bundle identidier of the selected activity in the share sheet.
  @return YES if the selected activity is the 1Password extension, NO otherwise.
  */
 - (BOOL)isOnePasswordExtensionActivityType:(NSString *)activityType;
 
 /*!
  The returned NSExtensionItem can be used to create your own UIActivityViewController. Use `isOnePasswordExtensionActivityType:` and `fillReturnedItems:intoWebView:completion:` in the activity view controller completion block to process the result. The completion block is guaranteed to be called on the main thread.
+
+ @param the active UIWebView Or WKWebView. Must not be nil.
 
  @param extension item Reply parameter that is contains all the info required by the 1Password extension if has been successfully completed or nil otherwise.
 
