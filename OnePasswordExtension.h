@@ -164,7 +164,11 @@
 - (BOOL)isOnePasswordExtensionActivityType:(NSString *)activityType;
 
 /*!
- The returned NSExtensionItem can be used to create your own UIActivityViewController. Use `isOnePasswordExtensionActivityType:` and `fillReturnedItems:intoWebView:completion:` in the activity view controller completion block to process the result.
+ The returned NSExtensionItem can be used to create your own UIActivityViewController. Use `isOnePasswordExtensionActivityType:` and `fillReturnedItems:intoWebView:completion:` in the activity view controller completion block to process the result. The completion block is guaranteed to be called on the main thread.
+
+ @param extension item Reply parameter that is contains all the info required by the 1Password extension if has been successfully completed or nil otherwise.
+
+ @param error Reply parameter that is nil if the 1Password extension item has been successfully created, or it contains error information about the completion failure.
  */
 - (void)createExtensionItemForWebView:(id)webView completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion;
 
