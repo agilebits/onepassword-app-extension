@@ -176,11 +176,15 @@
 
 /*!
  Method used in the UIActivityViewController completion block to fill information into a web view.
+
+ @param array that contains the selected activity in the share sheet. Empty array if the share sheet is cancelled by the user.
+ @param the active UIWebView Or WKWebView. Must not be nil.
+ 
+ @param success Reply parameter that is YES if the 1Password Extension has been successfully completed or NO otherwise.
+
+ @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
 - (void)fillReturnedItems:(NSArray *)returnedItems intoWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion;
-
-
-#pragma mark - Deprecated methods
 
 /*!
  Deprecated in version 1.3.
