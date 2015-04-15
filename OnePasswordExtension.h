@@ -156,7 +156,10 @@
 - (void)fillItemIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError *error))completion;
 
 /*!
- Called in the UIActivityViewController completion block to find if the activity was performed by 1Password Extension.
+ Called in the UIActivityViewController completion block to find out whether or not the user selected the 1Password Extension activity.
+
+ @param the bundle identidier of the selected activity in the share sheet
+ @return YES if the selected activity is the 1Password extension, NO otherwise.
  */
 - (BOOL)isOnePasswordExtensionActivityType:(NSString *)activityType;
 
