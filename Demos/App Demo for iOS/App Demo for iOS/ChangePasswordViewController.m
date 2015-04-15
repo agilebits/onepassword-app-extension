@@ -49,7 +49,7 @@
 	}
 
 	/* 
-	 These three scenarios that are supported:
+	 These are the three scenarios that are supported:
 	 1. A signle matching Login is found: 1Password will enter edit mode for that Login and will update its password using the value for AppExtensionPasswordKey.
 	 2. More than a one matching Logins are found: 1Password will display a list of all matching Logins. The user must choose which one to update. Once in edit mode, the Login will be updated with the new password.
 	 3. No matching login is found: 1Password will create a new Login using the optional fields if available to populate its properties.
