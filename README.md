@@ -32,13 +32,13 @@ Adding 1Password support to your app is easy. To demonstrate how it works, we ha
 
 ### Step 1: Download the Source Code and Sample Apps
 
-To get started, download the 1Password Extension project from https://github.com/AgileBits/onepassword-app-extension/archive/master.zip, or [clone it from GitHub](https://github.com/AgileBits/onepassword-app-extension).
+To get started, download the 1Password App Extension API project from https://github.com/AgileBits/onepassword-app-extension/archive/master.zip, or [clone it from GitHub](https://github.com/AgileBits/onepassword-app-extension).
 
 Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Registration features, as well as a web browser that showcases the web view Filling feature.
 
-The 1Password extension is also available via CocoaPods, simply add `pod '1PasswordExtension', '~> 1.1.2'` to your Podfile, run `pod install` from your project directory and you're ready to go.
+The 1Password App Extension API is also available via CocoaPods, simply add `pod '1PasswordExtension', '~> 1.2'` (for the latest stable release) or `pod '1PasswordExtension', :git => 'https://github.com/AgileBits/onepassword-app-extension.git', :branch => 'master'` (for the latest nightly) to your Podfile, run `pod install` from your project directory and you're ready to go.
 
-The 1Password extension is available via Carthage as well. Simply add `github AgileBits/onepassword-extension "add-framework-support"` to your Cartfile, then run `carthage boostrap` and add it to your project.
+The 1Password App Extension API is available via Carthage as well. Simply add `github AgileBits/onepassword-extension "add-framework-support"` to your Cartfile, then run `carthage boostrap` and add it to your project.
 
 ### Step 2: Install the Latest versions of 1Password & Xcode
 
