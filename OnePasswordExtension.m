@@ -663,6 +663,10 @@ function w(a){var b;if(void 0===a||null===a)return null;try{var c=Array.prototyp
 
 #pragma mark - Deprecated methods
 
+/*
+ Deprecated in version 1.3.
+ Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead
+ */
 - (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion {
 	[self fillItemIntoWebView:webView forViewController:viewController sender:sender showOnlyLogins:YES completion:completion];
 }
