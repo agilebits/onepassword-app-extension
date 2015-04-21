@@ -17,6 +17,7 @@
 #define AppExtensionURLStringKey                  @"url_string"
 #define AppExtensionUsernameKey                   @"username"
 #define AppExtensionPasswordKey                   @"password"
+#define AppExtensionTOTPKey                       @"totp"
 #define AppExtensionTitleKey                      @"login_title"
 #define AppExtensionNotesKey                      @"notes"
 #define AppExtensionSectionTitleKey               @"section_title"
