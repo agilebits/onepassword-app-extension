@@ -116,7 +116,7 @@ Next we need to wire up the action for this button to this method in your UIView
 This code is pretty straight forward:
 
 1. Provide a `URLString` that uniquely identifies your service. For example, if your app required a Twitter login, you would pass in `@"https://twitter.com"`. See _Best Practices_ for details.
-2. Pass in the `UIViewController` that you want the share sheet to be presented upon.
+2. Pass in the `UIViewController` that you want the activity sheet to be presented upon.
 3. Provide a completion block that will be called when the user finishes their selection. This block is guaranteed to be called on the main thread.
 4. Extract the needed information from the login dictionary and update your UI elements.
 
@@ -229,7 +229,7 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 1Password will take care of all the details of collecting information about the currently displayed page, allow the user to select the desired login, and then fill the web form details within the page.
 
-If you use a web view to login (i.e. OAuth) and you do not want other activities to show up in the share sheet and other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
+If you use a web view to login (i.e. OAuth) and you do not want other activities to show up in the activity sheet and other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
 
 ## Projects supporting iOS 7.1 and earlier
 
