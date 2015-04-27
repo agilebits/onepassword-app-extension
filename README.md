@@ -115,7 +115,7 @@ Next we need to wire up the action for this button to this method in your UIView
 
 This code is pretty straight forward:
 
-1. Provide a `URLString` that uniquely identifies your service. For example, if your app required a Twitter login, you would pass in `@"https://twitter.com"`. See _Best Practices_ for details.
+1. Provide a `URLString` that uniquely identifies your service. For example, if your app required a Twitter login, you would pass in `@"https://twitter.com"`. See [Best Practices](https://github.com/AgileBits/onepassword-app-extension#best-practices) for details.
 2. Pass in the `UIViewController` that you want the activity sheet to be presented upon.
 3. Provide a completion block that will be called when the user finishes their selection. This block is guaranteed to be called on the main thread.
 4. Extract the needed information from the login dictionary and update your UI elements.
