@@ -80,7 +80,7 @@ Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcass
 
 ### Use Case #1: Native App Login
 
-In this use case we'll learn how to enable your existing users to fill their credentials into your native app's login form. If your application is using a web view to login (i.e. OAuth), you'll want to follow the web view integration steps in Use Case #3.
+In this use case we'll learn how to enable your existing users to fill their credentials into your native app's login form. If your application is using a web view to login (i.e. OAuth), you'll want to follow the web view integration steps in [Use Case #4: Web View Login Support]().
 
 The first step is to add a UIButton to your login page. Use an existing 1Password image from the _1Password.xcassets_ catalog so users recognize the button.
 
@@ -229,9 +229,7 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 1Password will take care of all the details of collecting information about the currently displayed page, allow the user to select the desired login, and then fill the web form details within the page.
 
-If your use-case is an oauth-like scenario, where you do not want other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
-
-If you want the 1Password Extension to show up in the share sheet along side other extensions, please refer take a look at the detailed instruction for [Advanced Web View filling Support](https://gist.github.com/radazzouz/1f32eca216b1963dfc78#comment-1434211) or download our [sample project](https://com-agilebits-users.s3.amazonaws.com/rad/ACME%20Browser%202.zip).  
+If you use a web view for OAuth and you do not want other activities to show in the share sheet and other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
 
 ## Projects supporting iOS 7.1 and earlier
 
