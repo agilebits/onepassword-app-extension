@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -37,7 +37,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an ACME account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVH-91-167">
-                                <rect key="frame" x="197" y="304" width="205" height="21"/>
+                                <rect key="frame" x="198" y="341" width="205" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="205" id="QX0-jz-Vzi"/>
                                     <constraint firstAttribute="height" constant="21" id="uPK-It-d2H"/>
@@ -57,7 +57,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzs-00-LBD">
-                                <rect key="frame" x="272" y="220" width="56" height="30"/>
+                                <rect key="frame" x="273" y="257" width="56" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="kNa-CB-5Cb"/>
                                 </constraints>
@@ -67,11 +67,11 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="t8j-XO-qaX" kind="show" id="i5d-BB-fYp"/>
+                                    <segue destination="t8j-XO-qaX" kind="show" identifier="showThankYouViewController" id="i5d-BB-fYp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAX-NX-Utp">
-                                <rect key="frame" x="246" y="333" width="109" height="34"/>
+                                <rect key="frame" x="247" y="370" width="109" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="109" id="6NE-L2-KPX"/>
                                 </constraints>
@@ -99,30 +99,43 @@
                                     <action selector="findLoginFrom1Password:" destination="vXZ-lx-hvc" eventType="touchDown" id="7Y1-l1-KN0"/>
                                 </connections>
                             </button>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="One-time password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Ud-6a-a66">
+                                <rect key="frame" x="191" y="211" width="220" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Sn2-u6-2fE"/>
+                                    <constraint firstAttribute="width" constant="220" id="Tb4-ka-JOz"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="KVH-91-167" firstAttribute="centerX" secondItem="Fzs-00-LBD" secondAttribute="centerX" id="3hX-Oy-Ugb"/>
                             <constraint firstItem="4my-NG-1Ao" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="106" id="9Ke-oV-8qg"/>
                             <constraint firstItem="Za2-pr-tWA" firstAttribute="trailing" secondItem="ZLv-94-XOA" secondAttribute="trailing" id="AoS-b4-gEh"/>
-                            <constraint firstAttribute="centerX" secondItem="Fzs-00-LBD" secondAttribute="centerX" id="E3x-Og-o5i"/>
+                            <constraint firstAttribute="centerX" secondItem="Fzs-00-LBD" secondAttribute="centerX" constant="-1" id="E3x-Og-o5i"/>
                             <constraint firstItem="JAX-NX-Utp" firstAttribute="top" secondItem="KVH-91-167" secondAttribute="bottom" constant="8" symbolic="YES" id="H33-Xy-iKV"/>
                             <constraint firstItem="4my-NG-1Ao" firstAttribute="leading" secondItem="Za2-pr-tWA" secondAttribute="leading" id="IDr-Qh-aBc"/>
-                            <constraint firstItem="ZLv-94-XOA" firstAttribute="centerX" secondItem="Fzs-00-LBD" secondAttribute="centerX" id="IaI-RI-m2m"/>
+                            <constraint firstItem="ZLv-94-XOA" firstAttribute="centerX" secondItem="Fzs-00-LBD" secondAttribute="centerX" constant="-1" id="IaI-RI-m2m"/>
                             <constraint firstItem="Za2-pr-tWA" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="JGc-lh-jaP"/>
+                            <constraint firstItem="Fzs-00-LBD" firstAttribute="top" secondItem="3Ud-6a-a66" secondAttribute="bottom" constant="16" id="KiL-hi-Av7"/>
                             <constraint firstItem="cDc-DW-cLJ" firstAttribute="centerY" secondItem="ZLv-94-XOA" secondAttribute="centerY" id="P3e-4o-N0P"/>
                             <constraint firstItem="4my-NG-1Ao" firstAttribute="trailing" secondItem="Za2-pr-tWA" secondAttribute="trailing" id="SSC-xu-nUR"/>
                             <constraint firstItem="KVH-91-167" firstAttribute="top" secondItem="Fzs-00-LBD" secondAttribute="bottom" constant="54" id="Xvd-r5-WED"/>
                             <constraint firstItem="ZLv-94-XOA" firstAttribute="leading" secondItem="Za2-pr-tWA" secondAttribute="leading" id="ZjZ-UF-9wx"/>
                             <constraint firstItem="cDc-DW-cLJ" firstAttribute="leading" secondItem="ZLv-94-XOA" secondAttribute="trailing" id="adu-W9-0JV"/>
                             <constraint firstItem="Za2-pr-tWA" firstAttribute="top" secondItem="4my-NG-1Ao" secondAttribute="bottom" constant="8" symbolic="YES" id="m0x-iP-Tro"/>
+                            <constraint firstItem="3Ud-6a-a66" firstAttribute="top" secondItem="ZLv-94-XOA" secondAttribute="bottom" constant="8" symbolic="YES" id="qy3-Rq-l9c"/>
                             <constraint firstItem="KVH-91-167" firstAttribute="centerX" secondItem="JAX-NX-Utp" secondAttribute="centerX" constant="-1" id="rMJ-mt-zcr"/>
+                            <constraint firstItem="3Ud-6a-a66" firstAttribute="centerX" secondItem="Fzs-00-LBD" secondAttribute="centerX" id="rVY-sF-baW"/>
                             <constraint firstItem="ZLv-94-XOA" firstAttribute="top" secondItem="Za2-pr-tWA" secondAttribute="bottom" constant="8" id="sy1-lj-h7T"/>
-                            <constraint firstItem="Fzs-00-LBD" firstAttribute="top" secondItem="ZLv-94-XOA" secondAttribute="bottom" constant="17" id="tww-t3-uE6"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="oneTimePasswordTextField" destination="3Ud-6a-a66" id="zFW-t6-b6s"/>
                         <outlet property="onepasswordSigninButton" destination="cDc-DW-cLJ" id="OqN-tt-ATm"/>
                         <outlet property="passwordTextField" destination="ZLv-94-XOA" id="5EJ-lR-Hpe"/>
                         <outlet property="usernameTextField" destination="Za2-pr-tWA" id="deo-tZ-W5r"/>
@@ -274,7 +287,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="zYf-Es-cb4" kind="show" id="EWE-df-z6O"/>
+                                    <segue destination="zYf-Es-cb4" kind="show" identifier="" id="EWE-df-z6O"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -411,6 +424,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="60D-yv-qSt"/>
+        <segue reference="i5d-BB-fYp"/>
     </inferredMetricsTieBreakers>
 </document>
