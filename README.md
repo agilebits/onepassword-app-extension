@@ -4,7 +4,7 @@ Welcome! With just a few lines of code, your app can add 1Password support, enab
 
 1. Access their 1Password Logins to automatically fill your login page.
 2. Use the Strong Password Generator to create unique passwords during registration, and save the new Login within 1Password.
-3. Quickly fill 1Password Logins directly into web views.
+3. Quickly fill 1Password Logins, Credit Cared and Identities directly into web views.
 
 Empowering your users to use strong, unique passwords has never been easier. Let's get started!
 
@@ -15,7 +15,7 @@ Empowering your users to use strong, unique passwords has never been easier. Let
 
 ## Just Give Me the Code (TL;DR)
 
-You might be looking at this 22 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
+You might be looking at this 18 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
 
 If you're the type that just wants the code, here it is:
 
