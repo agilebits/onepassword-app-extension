@@ -80,7 +80,7 @@ Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcass
 
 ### Use Case #1: Native App Login
 
-In this use case we'll learn how to enable your existing users to fill their credentials into your native app's login form. If your application is using a web view to login (i.e. OAuth), you'll want to follow the web view integration steps in [Use Case #4: Web View Login Support](https://github.com/AgileBits/onepassword-app-extension#use-case-4-web-view-login-support).
+In this use case we'll learn how to enable your existing users to fill their credentials into your native app's login form. If your application is using a web view to login (i.e. OAuth), you'll want to follow the web view integration steps in [Use Case #4: Web View Filling Support](https://github.com/AgileBits/onepassword-app-extension#use-case-4-web-view-filling-support).
 
 The first step is to add a UIButton to your login page. Use an existing 1Password image from the _1Password.xcassets_ catalog so users recognize the button.
 
@@ -221,7 +221,7 @@ Simply add a button to your UI with its action assigned to this method in your w
 - (IBAction)fillUsing1Password:(id)sender {
 	[[OnePasswordExtension sharedExtension] fillItemIntoWebView:self.webView forViewController:self sender:sender showOnlyLogins:NO completion:^(BOOL success, NSError *error) {
 		if (!success) {
-			NSLog(@"Failed to fill login in webview: <%@>", error);
+			NSLog(@"Failed to fill into webview: <%@>", error);
 		}
 	}];
 }
