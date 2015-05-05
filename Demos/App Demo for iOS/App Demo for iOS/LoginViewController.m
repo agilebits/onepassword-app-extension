@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *onepasswordSigninButton;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
-
+@property (weak, nonatomic) IBOutlet UITextField *oneTimePasswordTextField;
 @end
 
 @implementation LoginViewController
@@ -42,6 +42,19 @@
 		
 		self.usernameTextField.text = loginDict[AppExtensionUsernameKey];
 		self.passwordTextField.text = loginDict[AppExtensionPasswordKey];
+
+		// Optional
+		// Retrive the generated one-time Password from the 1Password Login if available.
+		NSString *generatedOneTimePassword = loginDict[AppExtensionTOTPKey];
+		if (generatedOneTimePassword.length > 0) {
+			[self.oneTimePasswordTextField setHidden:NO];
+			self.oneTimePasswordTextField.text = generatedOneTimePassword;
+
+			// Important: It is recommended that you submit the OTP/TOTP to your validation server as soon as you receive it, otherwise it may expire.
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				[self performSegueWithIdentifier:@"showThankYouViewController" sender:self];
+			});
+		}
 	}];
 }
 
