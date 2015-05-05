@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+	
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
 	[self.onepasswordExtensionButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }

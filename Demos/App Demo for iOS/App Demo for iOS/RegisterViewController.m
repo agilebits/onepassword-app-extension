@@ -23,6 +23,8 @@
 @implementation RegisterViewController
 
 - (void)viewDidLoad {
+	[super viewDidLoad];
+
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"register-background.png"]]];
 	[self.onepasswordSignupButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }

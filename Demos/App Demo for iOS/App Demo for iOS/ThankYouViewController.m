@@ -15,6 +15,8 @@
 @implementation ThankYouViewController
 
 - (void)viewDidLoad {
+	[super viewDidLoad];
+
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
 }
 
