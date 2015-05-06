@@ -143,11 +143,11 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 	};
 	
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
-	NSDictionary *passwordGenerationOptions = @{
-		AppExtensionGeneratedPasswordMinLengthKey: @(6),
-		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
-	};
-
+		NSDictionary *passwordGenerationOptions = @{
+												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
+												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
+												};
+												
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 
 		if (!loginDict) {
@@ -191,10 +191,10 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 									};
 
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
-	NSDictionary *passwordGenerationOptions = @{
-		AppExtensionGeneratedPasswordMinLengthKey: @(6),
-		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
-	};
+		NSDictionary *passwordGenerationOptions = @{
+												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
+												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
+												};
 
 	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {

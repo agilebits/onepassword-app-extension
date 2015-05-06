@@ -49,9 +49,9 @@
 	
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
-		AppExtensionGeneratedPasswordMinLengthKey: @(6),
-		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
-	};
+												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
+												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
+												};
 
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 
