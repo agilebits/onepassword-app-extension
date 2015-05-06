@@ -130,18 +130,18 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 ```objective-c
 - (IBAction)saveLoginTo1Password:(id)sender {
 	NSDictionary *newLoginDetails = @{
-		AppExtensionTitleKey: @"ACME",
-		AppExtensionUsernameKey: self.usernameTextField.text ? : @"",
-		AppExtensionPasswordKey: self.passwordTextField.text ? : @"",
-		AppExtensionNotesKey: @"Saved with the ACME app",
-		AppExtensionSectionTitleKey: @"ACME Browser",
-		AppExtensionFieldsKey: @{
-			  @"firstname" : self.firstnameTextField.text ? : @"",
-			  @"lastname" : self.lastnameTextField.text ? : @""
-			  // Add as many string fields as you please.
-		}
-	};
-	
+									  AppExtensionTitleKey: @"ACME",
+									  AppExtensionUsernameKey: self.usernameTextField.text ? : @"",
+									  AppExtensionPasswordKey: self.passwordTextField.text ? : @"",
+									  AppExtensionNotesKey: @"Saved with the ACME app",
+									  AppExtensionSectionTitleKey: @"ACME Browser",
+									  AppExtensionFieldsKey: @{
+											  @"firstname" : self.firstnameTextField.text ? : @"",
+											  @"lastname" : self.lastnameTextField.text ? : @""
+											  // Add as many string fields as you please.
+											  }
+									  };
+									  
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 		NSDictionary *passwordGenerationOptions = @{
 												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
