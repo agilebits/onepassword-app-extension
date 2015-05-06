@@ -61,7 +61,7 @@ Open `1Password Extension Demos` Xcode workspace from within the `Demos` folder 
 
 Since you will not have 1Password running within your iOS Simulator, it is important that you run on your device.
 
-If all goes well, The ACME app will launch and you'll be able to test the 1Password App Extension. The first time you attempt to access the 1Password extension you will need to enable it by tapping on the _More_ button in the activity sheet and then enable the _1Password_ item in the _Activities_ list. If the 1Password icons are missing, it likely means you do not have 1Password installed.
+If all goes well, The ACME app will launch and you'll be able to test the 1Password App Extension. The first time you attempt to access the 1Password extension you will need to enable it by tapping on the _More_ button in the share sheet and then enable the _1Password_ item in the _Activities_ list. If the 1Password icons are missing, it likely means you do not have 1Password installed.
 
 Back in Xcode you can change the scheme to ACME Browser to test the web view filling feature.
 
@@ -116,7 +116,7 @@ Next we need to wire up the action for this button to this method in your UIView
 This code is pretty straight forward:
 
 1. Provide a `URLString` that uniquely identifies your service. For example, if your app required a Twitter login, you would pass in `@"https://twitter.com"`. See [Best Practices](https://github.com/AgileBits/onepassword-app-extension#best-practices) for details.
-2. Pass in the `UIViewController` that you want the activity sheet to be presented upon.
+2. Pass in the `UIViewController` that you want the share sheet to be presented upon.
 3. Provide a completion block that will be called when the user finishes their selection. This block is guaranteed to be called on the main thread.
 4. Extract the needed information from the login dictionary and update your UI elements.
 
@@ -229,7 +229,7 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 1Password will take care of all the details of collecting information about the currently displayed page, allow the user to select the desired login, and then fill the web form details within the page.
 
-If you use a web view to login (i.e. OAuth) and you do not want other activities to show up in the activity sheet and other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
+If you use a web view to login (i.e. OAuth) and you do not want other activities to show up in the share sheet and other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
 
 ## Projects supporting iOS 7.1 and earlier
 
