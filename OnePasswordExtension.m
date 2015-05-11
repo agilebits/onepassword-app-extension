@@ -38,10 +38,10 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 }
 
 - (BOOL)isSystemAppExtensionAPIAvailable {
-#ifdef __IPHONE_8_0
-	return NSClassFromString(@"NSExtensionItem") != nil;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    return [NSExtensionItem class] != nil;
 #else
-	return NO;
+    return NO;
 #endif
 }
 
@@ -67,7 +67,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-#ifdef __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 	NSDictionary *item = @{ AppExtensionVersionNumberKey: VERSION_NUMBER, AppExtensionURLStringKey: URLString };
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionFindLoginAction];
@@ -117,7 +117,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	}
 
 
-#ifdef __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 	NSMutableDictionary *newLoginAttributesDict = [NSMutableDictionary new];
 	newLoginAttributesDict[AppExtensionVersionNumberKey] = VERSION_NUMBER;
 	newLoginAttributesDict[AppExtensionURLStringKey] = URLString;
@@ -171,7 +171,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-#ifdef __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 	NSMutableDictionary *item = [NSMutableDictionary new];
 	item[AppExtensionVersionNumberKey] = VERSION_NUMBER;
 	item[AppExtensionURLStringKey] = URLString;
@@ -217,7 +217,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	NSAssert(webView != nil, @"webView must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
-#ifdef __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 	if ([webView isKindOfClass:[UIWebView class]]) {
 		[self fillItemIntoUIWebView:webView webViewController:viewController sender:(id)sender showOnlyLogins:yesOrNo completion:^(BOOL success, NSError *error) {
 			if (completion) {
@@ -225,7 +225,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			}
 		}];
 	}
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	else if ([webView isKindOfClass:[WKWebView class]]) {
 		[self fillItemIntoWKWebView:webView forViewController:viewController sender:(id)sender showOnlyLogins:yesOrNo completion:^(BOOL success, NSError *error) {
 			if (completion) {
@@ -233,7 +232,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			}
 		}];
 	}
-#endif
 	else {
 		[NSException raise:@"Invalid argument: web view must be an instance of WKWebView or UIWebView." format:@""];
 	}
@@ -249,14 +247,13 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 - (void)createExtensionItemForWebView:(id)webView completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion {
 	NSAssert(webView != nil, @"webView must not be nil");
 
-#ifdef __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 	if ([webView isKindOfClass:[UIWebView class]]) {
 		UIWebView *uiWebView = (UIWebView *)webView;
 		NSString *collectedPageDetails = [uiWebView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
 
 		[self createExtensionItemForURLString:uiWebView.request.URL.absoluteString webPageDetails:collectedPageDetails completion:completion];
 	}
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 	else if ([webView isKindOfClass:[WKWebView class]]) {
 		WKWebView *wkWebView = (WKWebView *)webView;
 		[wkWebView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *evaluateError) {
@@ -280,7 +277,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			[self createExtensionItemForURLString:wkWebView.URL.absoluteString webPageDetails:result completion:completion];
 		}];
 	}
-#endif
 	else {
 		[NSException raise:@"Invalid argument: web view must be an instance of WKWebView or UIWebView." format:@""];
 	}
@@ -382,7 +378,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	[forViewController presentViewController:activityViewController animated:YES completion:nil];
 }
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 - (void)fillItemIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController sender:(id)sender showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError *error))completion {
 	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
@@ -442,7 +438,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 	if ([webView isKindOfClass:[WKWebView class]]) {
 		[((WKWebView *)webView) evaluateJavaScript:scriptSource completionHandler:^(NSString *result, NSError *evaluationError) {
 			BOOL success = (result != nil);
@@ -465,7 +461,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	[NSException raise:@"Invalid argument: web view must be an instance of WKWebView or UIWebView." format:@""];
 }
 
-#ifdef __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 - (void)processExtensionItem:(NSExtensionItem *)extensionItem completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion {
 	if (extensionItem.attachments.count == 0) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item had no attachments." };
@@ -509,7 +505,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 }
 
 - (UIActivityViewController *)activityViewControllerForItem:(NSDictionary *)item viewController:(UIViewController*)viewController sender:(id)sender typeIdentifier:(NSString *)typeIdentifier {
-#ifdef __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:typeIdentifier];
 

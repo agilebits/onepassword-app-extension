@@ -15,6 +15,7 @@
 		C0F0C1AC198895C8000B261F /* welcome.html in Resources */ = {isa = PBXBuildFile; fileRef = C0F0C1AB198895C8000B261F /* welcome.html */; };
 		C0F0C1AF198895F6000B261F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F0C1AD198895F6000B261F /* Main.storyboard */; };
 		C0F0C1B319889604000B261F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C1B119889604000B261F /* main.m */; };
+		D020FC1A1B004E1F00F8ECFE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D020FC191B004E1F00F8ECFE /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		C0F0C1AE198895F6000B261F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "WebView Demo for iOS/Base.lproj/Main.storyboard"; sourceTree = SOURCE_ROOT; };
 		C0F0C1B019889604000B261F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "WebView Demo for iOS/Info.plist"; sourceTree = SOURCE_ROOT; };
 		C0F0C1B119889604000B261F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "WebView Demo for iOS/main.m"; sourceTree = SOURCE_ROOT; };
+		D020FC191B004E1F00F8ECFE /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D020FC1A1B004E1F00F8ECFE /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +85,7 @@
 		C0169CD8197D6C3C006E7618 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D020FC191B004E1F00F8ECFE /* WebKit.framework */,
 				C0F0C1B019889604000B261F /* Info.plist */,
 				C0F0C1B119889604000B261F /* main.m */,
 			);
@@ -264,6 +268,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "acme-browser-corp";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Demo for iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "WebView Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -276,6 +281,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "acme-browser-corp";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Demo for iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "WebView Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;

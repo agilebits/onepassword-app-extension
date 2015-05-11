@@ -17,6 +17,7 @@
 		C0F0C19519889479000B261F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0F0C19419889479000B261F /* Images.xcassets */; };
 		C0F0C19C198894F8000B261F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C19B198894F8000B261F /* main.m */; };
 		C0F0C19D19889519000B261F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F0C19619889498000B261F /* Main.storyboard */; };
+		D020FC181B004E1000F8ECFE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D020FC171B004E1000F8ECFE /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		C0F0C199198894ED000B261F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "App Demo for iOS/App Demo for iOS/Info.plist"; sourceTree = "<group>"; };
 		C0F0C19B198894F8000B261F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "App Demo for iOS/App Demo for iOS/main.m"; sourceTree = "<group>"; };
 		C0FA52971974821100570166 /* App Demo for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Demo for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D020FC171B004E1000F8ECFE /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D020FC181B004E1000F8ECFE /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +97,7 @@
 		C0FA529A1974821100570166 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D020FC171B004E1000F8ECFE /* WebKit.framework */,
 				C0F0C199198894ED000B261F /* Info.plist */,
 				C0F0C19B198894F8000B261F /* main.m */,
 			);
@@ -276,6 +280,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "acme-anvil-corp";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/App Demo for iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "App Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -288,6 +293,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "acme-anvil-corp";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/App Demo for iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "App Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
