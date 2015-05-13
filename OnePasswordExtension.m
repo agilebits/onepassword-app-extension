@@ -225,15 +225,13 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			}
 		}];
 	}
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-	else if ([webView isKindOfClass:[WKWebView class]]) {
+	else if ([WKWebView class] && [webView isKindOfClass:[WKWebView class]]) {
 		[self fillItemIntoWKWebView:webView forViewController:viewController sender:(id)sender showOnlyLogins:yesOrNo completion:^(BOOL success, NSError *error) {
 			if (completion) {
 				completion(success, error);
 			}
 		}];
 	}
-#endif
 	else {
 		[NSException raise:@"Invalid argument: web view must be an instance of WKWebView or UIWebView." format:@""];
 	}
@@ -256,8 +254,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 		[self createExtensionItemForURLString:uiWebView.request.URL.absoluteString webPageDetails:collectedPageDetails completion:completion];
 	}
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-	else if ([webView isKindOfClass:[WKWebView class]]) {
+	else if ([WKWebView class] && [webView isKindOfClass:[WKWebView class]]) {
 		WKWebView *wkWebView = (WKWebView *)webView;
 		[wkWebView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *evaluateError) {
 			if (!result) {
@@ -280,7 +277,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			[self createExtensionItemForURLString:wkWebView.URL.absoluteString webPageDetails:result completion:completion];
 		}];
 	}
-#endif
 	else {
 		[NSException raise:@"Invalid argument: web view must be an instance of WKWebView or UIWebView." format:@""];
 	}
@@ -382,7 +378,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	[forViewController presentViewController:activityViewController animated:YES completion:nil];
 }
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 - (void)fillItemIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController sender:(id)sender showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError *error))completion {
 	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
@@ -401,7 +396,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		}];
 	}];
 }
-#endif
 
 - (void)fillItemIntoUIWebView:(UIWebView *)webView webViewController:(UIViewController *)viewController sender:(id)sender showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError *error))completion {
 	NSString *collectedPageDetails = [webView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
@@ -442,8 +436,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-	if ([webView isKindOfClass:[WKWebView class]]) {
+	if ([WKWebView class] && [webView isKindOfClass:[WKWebView class]]) {
 		[((WKWebView *)webView) evaluateJavaScript:scriptSource completionHandler:^(NSString *result, NSError *evaluationError) {
 			BOOL success = (result != nil);
 			NSError *error = nil;
@@ -460,7 +453,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 		return;
 	}
-#endif
 
 	[NSException raise:@"Invalid argument: web view must be an instance of WKWebView or UIWebView." format:@""];
 }
