@@ -9,7 +9,7 @@
 import Foundation
 
 class ChangePasswordViewController: UIViewController {
-	@IBOutlet weak var onepasswordSigninButton: UIButton!
+	@IBOutlet weak var onepasswordButton: UIButton!
 	@IBOutlet weak var oldPasswordTextField: UITextField!
 	@IBOutlet weak var freshPasswordTextField: UITextField!
 	@IBOutlet weak var confirmPasswordTextField: UITextField!
@@ -18,7 +18,7 @@ class ChangePasswordViewController: UIViewController {
 		super.viewDidLoad()
 		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation:UIStatusBarAnimation.None)
 		self.view.backgroundColor = UIColor(patternImage: UIImage(named: "login-background.png")!)
-		self.onepasswordSigninButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
 	}
 
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {

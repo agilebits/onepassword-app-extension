@@ -9,7 +9,7 @@
 import Foundation
 
 class RegisterViewController: UIViewController {
-	@IBOutlet weak var onepasswordSignupButton: UIButton!
+	@IBOutlet weak var onepasswordButton: UIButton!
 	@IBOutlet weak var firstnameTextField: UITextField!
 	@IBOutlet weak var lastnameTextField: UITextField!
 	@IBOutlet weak var usernameTextField: UITextField!
@@ -19,7 +19,7 @@ class RegisterViewController: UIViewController {
 		super.viewDidLoad()
 		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation:UIStatusBarAnimation.None)
 		self.view.backgroundColor = UIColor(patternImage: UIImage(named: "register-background.png")!)
-		self.onepasswordSignupButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
 	}
 
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {

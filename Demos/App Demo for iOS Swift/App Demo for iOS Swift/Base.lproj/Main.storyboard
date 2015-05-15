@@ -136,7 +136,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="oneTimePasswordTextField" destination="3Ud-6a-a66" id="zFW-t6-b6s"/>
-                        <outlet property="onepasswordSigninButton" destination="cDc-DW-cLJ" id="OqN-tt-ATm"/>
+                        <outlet property="onepasswordButton" destination="cDc-DW-cLJ" id="fkU-rv-Qpq"/>
                         <outlet property="passwordTextField" destination="ZLv-94-XOA" id="5EJ-lR-Hpe"/>
                         <outlet property="usernameTextField" destination="Za2-pr-tWA" id="deo-tZ-W5r"/>
                     </connections>
@@ -243,7 +243,7 @@
                     <connections>
                         <outlet property="firstnameTextField" destination="fwb-0l-b5N" id="jzn-C1-vHy"/>
                         <outlet property="lastnameTextField" destination="tjm-G7-GAO" id="iMF-6e-8xt"/>
-                        <outlet property="onepasswordSignupButton" destination="auP-WD-mbm" id="shh-KY-v0u"/>
+                        <outlet property="onepasswordButton" destination="auP-WD-mbm" id="shh-KY-v0u"/>
                         <outlet property="passwordTextField" destination="Tad-KG-Pea" id="kih-wU-v6C"/>
                         <outlet property="usernameTextField" destination="b1j-uQ-34p" id="ZSp-Se-GzP"/>
                     </connections>
@@ -416,7 +416,7 @@
                         <outlet property="confirmPasswordTextField" destination="3fV-Ft-xek" id="2AI-mx-WCe"/>
                         <outlet property="freshPasswordTextField" destination="L9B-vu-VdN" id="7ep-cx-IAQ"/>
                         <outlet property="oldPasswordTextField" destination="naa-0h-M0B" id="pn9-Gg-qtA"/>
-                        <outlet property="onepasswordSigninButton" destination="uar-xe-DZO" id="MtH-C6-BAh"/>
+                        <outlet property="onepasswordButton" destination="uar-xe-DZO" id="k5c-sB-K6c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CJ1-B2-Xid" sceneMemberID="firstResponder"/>
@@ -427,6 +427,6 @@
         <image name="onepassword-button" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="foP-f5-tCm"/>
+        <segue reference="i5d-BB-fYp"/>
     </inferredMetricsTieBreakers>
 </document>

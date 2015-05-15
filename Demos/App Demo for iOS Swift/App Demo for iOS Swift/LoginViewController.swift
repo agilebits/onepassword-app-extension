@@ -10,7 +10,7 @@ import Foundation
 
 class LoginViewController: UIViewController {
 
-	@IBOutlet weak var onepasswordSigninButton: UIButton!
+	@IBOutlet weak var onepasswordButton: UIButton!
 	@IBOutlet weak var usernameTextField: UITextField!
 	@IBOutlet weak var passwordTextField: UITextField!
 	@IBOutlet weak var oneTimePasswordTextField: UITextField!
@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
 		super.viewDidLoad()
 		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation:UIStatusBarAnimation.None)
 		self.view.backgroundColor = UIColor(patternImage: UIImage(named: "login-background.png")!)
-		self.onepasswordSigninButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
 	}
 
 	override func viewDidAppear(animated: Bool) {
