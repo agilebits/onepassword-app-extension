@@ -11,7 +11,7 @@
 
 @interface LoginViewController ()
 
-@property (weak, nonatomic) IBOutlet UIButton *onepasswordSigninButton;
+@property (weak, nonatomic) IBOutlet UIButton *onepasswordButton;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *oneTimePasswordTextField;
@@ -20,9 +20,10 @@
 @implementation LoginViewController
 
 - (void)viewDidLoad {
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+	[super viewDidLoad];
+
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
-	[self.onepasswordSigninButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
+	[self.onepasswordButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
