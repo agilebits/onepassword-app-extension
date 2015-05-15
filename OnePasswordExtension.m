@@ -226,7 +226,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			}
 		}];
 	}
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0 || ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW
 	else if ([webView isKindOfClass:[WKWebView class]]) {
 		[self fillItemIntoWKWebView:webView forViewController:viewController sender:(id)sender showOnlyLogins:yesOrNo completion:^(BOOL success, NSError *error) {
 			if (completion) {
@@ -257,7 +257,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 		[self createExtensionItemForURLString:uiWebView.request.URL.absoluteString webPageDetails:collectedPageDetails completion:completion];
 	}
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0 || ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW
 	else if ([webView isKindOfClass:[WKWebView class]]) {
 		WKWebView *wkWebView = (WKWebView *)webView;
 		[wkWebView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *evaluateError) {
@@ -383,7 +383,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	[forViewController presentViewController:activityViewController animated:YES completion:nil];
 }
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0 || ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW
 - (void)fillItemIntoWKWebView:(WKWebView *)webView forViewController:(UIViewController *)viewController sender:(id)sender showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError *error))completion {
 	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
 		if (!result) {
@@ -443,7 +443,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0 || ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW
 	if ([webView isKindOfClass:[WKWebView class]]) {
 		[((WKWebView *)webView) evaluateJavaScript:scriptSource completionHandler:^(NSString *result, NSError *evaluationError) {
 			BOOL success = (result != nil);
