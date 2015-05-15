@@ -22,7 +22,7 @@ If you're the type that just wants the code, here it is:
 * [OnePasswordExtension.h](https://raw.githubusercontent.com/AgileBits/onepassword-app-extension/master/OnePasswordExtension.h?token=110676__eyJzY29wZSI6IlJhd0Jsb2I6QWdpbGVCaXRzL29uZXBhc3N3b3JkLWFwcC1leHRlbnNpb24vbWFzdGVyL09uZVBhc3N3b3JkRXh0ZW5zaW9uLmgiLCJleHBpcmVzIjoxNDA3Mjg0MTMwfQ%3D%3D--3867c64b22a5923bead5948001ce2ff048892799)
 * [OnePasswordExtension.m](https://raw.githubusercontent.com/AgileBits/onepassword-app-extension/master/OnePasswordExtension.m?token=110676__eyJzY29wZSI6IlJhd0Jsb2I6QWdpbGVCaXRzL29uZXBhc3N3b3JkLWFwcC1leHRlbnNpb24vbWFzdGVyL09uZVBhc3N3b3JkRXh0ZW5zaW9uLm0iLCJleHBpcmVzIjoxNDA3Mjg0MTA5fQ%3D%3D--05c6ea9c73d0afb9f30e53a31d81df00b7c02077)
 
-Simply include these two files in your project, add a button with a [1Password login image](https://github.com/AgileBits/onepassword-app-extension/tree/master/1Password.xcassets) on it to your view, set the button's action to call the appropriate OnePasswordExtension method, and you're all set!
+Simply include these two files in your project, add a button with a [1Password login image](https://github.com/AgileBits/onepassword-app-extension/tree/master/1Password.xcassets) on it to your view, set the button's action to call the appropriate `OnePasswordExtension` method, and you're all set!
 
 
 ## Running the Sample Apps
@@ -61,7 +61,7 @@ Open `1Password Extension Demos` Xcode workspace from within the `Demos` folder 
 
 Since you will not have 1Password running within your iOS Simulator, it is important that you run on your device.
 
-If all goes well, The ACME app will launch and you'll be able to test the 1Password App Extension. The first time you attempt to access the 1Password extension you will need to enable it by tapping on the _More_ button in the activity sheet and then enable the _1Password_ item in the _Activities_ list. If the 1Password icons are missing, it likely means you do not have 1Password installed.
+If all goes well, The ACME app will launch and you'll be able to test the 1Password App Extension. The first time you attempt to access the 1Password extension you will need to enable it by tapping on the _More_ button in the share sheet and then enable the _1Password_ item in the _Activities_ list. If the 1Password icons are missing, it likely means you do not have 1Password installed.
 
 Back in Xcode you can change the scheme to ACME Browser to test the web view filling feature.
 
@@ -116,7 +116,7 @@ Next we need to wire up the action for this button to this method in your UIView
 This code is pretty straight forward:
 
 1. Provide a `URLString` that uniquely identifies your service. For example, if your app required a Twitter login, you would pass in `@"https://twitter.com"`. See [Best Practices](https://github.com/AgileBits/onepassword-app-extension#best-practices) for details.
-2. Pass in the `UIViewController` that you want the activity sheet to be presented upon.
+2. Pass in the `UIViewController` that you want the share sheet to be presented upon.
 3. Provide a completion block that will be called when the user finishes their selection. This block is guaranteed to be called on the main thread.
 4. Extract the needed information from the login dictionary and update your UI elements.
 
@@ -130,24 +130,24 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 ```objective-c
 - (IBAction)saveLoginTo1Password:(id)sender {
 	NSDictionary *newLoginDetails = @{
-		AppExtensionTitleKey: @"ACME",
-		AppExtensionUsernameKey: self.usernameTextField.text ? : @"",
-		AppExtensionPasswordKey: self.passwordTextField.text ? : @"",
-		AppExtensionNotesKey: @"Saved with the ACME app",
-		AppExtensionSectionTitleKey: @"ACME Browser",
-		AppExtensionFieldsKey: @{
-			  @"firstname" : self.firstnameTextField.text ? : @"",
-			  @"lastname" : self.lastnameTextField.text ? : @""
-			  // Add as many string fields as you please.
-		}
-	};
-	
+									  AppExtensionTitleKey: @"ACME",
+									  AppExtensionUsernameKey: self.usernameTextField.text ? : @"",
+									  AppExtensionPasswordKey: self.passwordTextField.text ? : @"",
+									  AppExtensionNotesKey: @"Saved with the ACME app",
+									  AppExtensionSectionTitleKey: @"ACME Browser",
+									  AppExtensionFieldsKey: @{
+											  @"firstname" : self.firstnameTextField.text ? : @"",
+											  @"lastname" : self.lastnameTextField.text ? : @""
+											  // Add as many string fields as you please.
+											  }
+									  };
+									  
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
-	NSDictionary *passwordGenerationOptions = @{
-		AppExtensionGeneratedPasswordMinLengthKey: @(6),
-		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
-	};
-
+		NSDictionary *passwordGenerationOptions = @{
+												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
+												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
+												};
+												
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 
 		if (!loginDict) {
@@ -191,10 +191,10 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 									};
 
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
-	NSDictionary *passwordGenerationOptions = @{
-		AppExtensionGeneratedPasswordMinLengthKey: @(6),
-		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
-	};
+		NSDictionary *passwordGenerationOptions = @{
+												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
+												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
+												};
 
 	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {
@@ -229,7 +229,7 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 1Password will take care of all the details of collecting information about the currently displayed page, allow the user to select the desired login, and then fill the web form details within the page.
 
-If you use a web view to login (i.e. OAuth) and you do not want other activities to show up in the activity sheet and other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
+If you use a web view to login (i.e. OAuth) and you do not want other activities to show up in the share sheet and other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
 
 ## Projects supporting iOS 7.1 and earlier
 
