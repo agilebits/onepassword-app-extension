@@ -239,7 +239,7 @@ If your project's Deployment Target is earlier than iOS 8.0, please make sure th
 
 #### WKWebView support for projects with iOS 7.1 or earler as the Deployment Target
 
-If your project's **Deployment Target** is `7.1` or earlier and you are using `WKWebViews` on iOS 8 devices (runtime checks), you need to add `ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW=1` to your project's `Preprocessor Macros`.
+If the **Deployment Target** is `7.1` or earlier in your project or target and you are using `WKWebViews` for iOS 8 devices (runtime checks), you simply need to add `ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW=1` to your `Preprocessor Macros`.
 
 <a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTawUykz6dHea_aKawqBwTCza2zvJYbeVMB/image.png" width="640"></a>
 
