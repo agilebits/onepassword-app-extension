@@ -54,6 +54,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 }
 
 #pragma mark - Native app Login
+
 - (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
@@ -240,7 +241,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #endif
 }
 
-#pragma mark - Advanced Web View filling Support
+#pragma mark - Support for custom UIActivityViewControllers
 
 - (BOOL)isOnePasswordExtensionActivityType:(NSString *)activityType {
 	return [@"com.agilebits.onepassword-ios.extension" isEqualToString:activityType] || [@"com.agilebits.beta.onepassword-ios.extension" isEqualToString:activityType];

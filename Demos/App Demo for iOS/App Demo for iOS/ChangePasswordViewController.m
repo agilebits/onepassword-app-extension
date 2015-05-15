@@ -11,7 +11,7 @@
 
 @interface ChangePasswordViewController ()
 
-@property (weak, nonatomic) IBOutlet UIButton *onepasswordSigninButton;
+@property (weak, nonatomic) IBOutlet UIButton *onepasswordButton;
 @property (weak, nonatomic) IBOutlet UITextField *oldPasswordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *freshPasswordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
@@ -22,13 +22,12 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+	
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
-
 	NSBundle *onePasswordExtensionBundle = [NSBundle bundleForClass:[OnePasswordExtension class]];
 	UIImage *onePasswordButtonImage = [UIImage imageNamed:@"onepassword-button" inBundle:onePasswordExtensionBundle compatibleWithTraitCollection:self.traitCollection];
-	[self.onepasswordSigninButton setImage:onePasswordButtonImage forState:UIControlStateNormal];
-	[self.onepasswordSigninButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
+	[self.onepasswordButton setImage:onePasswordButtonImage forState:UIControlStateNormal];
+	[self.onepasswordButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
@@ -69,9 +68,9 @@
 
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
-		AppExtensionGeneratedPasswordMinLengthKey: @(6),
-		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
-	};
+												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
+												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
+												};
 
 	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 		if (!loginDict) {

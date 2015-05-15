@@ -11,7 +11,7 @@
 
 @interface RegisterViewController ()
 
-@property (weak, nonatomic) IBOutlet UIButton *onepasswordSignupButton;
+@property (weak, nonatomic) IBOutlet UIButton *onepasswordButton;
 
 @property (weak, nonatomic) IBOutlet UITextField *firstnameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
@@ -23,12 +23,14 @@
 @implementation RegisterViewController
 
 - (void)viewDidLoad {
+	[super viewDidLoad];
+
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"register-background.png"]]];
 
 	NSBundle *onePasswordExtensionBundle = [NSBundle bundleForClass:[OnePasswordExtension class]];
 	UIImage *onePasswordButtonImage = [UIImage imageNamed:@"onepassword-button" inBundle:onePasswordExtensionBundle compatibleWithTraitCollection:self.traitCollection];
-	[self.onepasswordSignupButton setImage:onePasswordButtonImage forState:UIControlStateNormal];
-	[self.onepasswordSignupButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
+	[self.onepasswordButton setImage:onePasswordButtonImage forState:UIControlStateNormal];
+	[self.onepasswordButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
@@ -37,23 +39,23 @@
 
 - (IBAction)saveLoginTo1Password:(id)sender {
 	NSDictionary *newLoginDetails = @{
-		AppExtensionTitleKey: @"ACME",
-		AppExtensionUsernameKey: self.usernameTextField.text ? : @"",
-		AppExtensionPasswordKey: self.passwordTextField.text ? : @"",
-		AppExtensionNotesKey: @"Saved with the ACME app",
-		AppExtensionSectionTitleKey: @"ACME Browser",
-		AppExtensionFieldsKey: @{
-			  @"firstname" : self.firstnameTextField.text ? : @"",
-			  @"lastname" : self.lastnameTextField.text ? : @""
-			  // Add as many string fields as you please.
-		}
-	};
-	
+									  AppExtensionTitleKey: @"ACME",
+									  AppExtensionUsernameKey: self.usernameTextField.text ? : @"",
+									  AppExtensionPasswordKey: self.passwordTextField.text ? : @"",
+									  AppExtensionNotesKey: @"Saved with the ACME app",
+									  AppExtensionSectionTitleKey: @"ACME Browser",
+									  AppExtensionFieldsKey: @{
+											  @"firstname" : self.firstnameTextField.text ? : @"",
+											  @"lastname" : self.lastnameTextField.text ? : @""
+											  // Add as many string fields as you please.
+											  }
+									  };
+
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
-		AppExtensionGeneratedPasswordMinLengthKey: @(6),
-		AppExtensionGeneratedPasswordMaxLengthKey: @(50)
-	};
+												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
+												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
+												};
 
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
 
