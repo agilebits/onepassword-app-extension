@@ -11,7 +11,7 @@
 
 @interface ChangePasswordViewController ()
 
-@property (weak, nonatomic) IBOutlet UIButton *onepasswordExtensionButton;
+@property (weak, nonatomic) IBOutlet UIButton *onepasswordButton;
 @property (weak, nonatomic) IBOutlet UITextField *oldPasswordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *freshPasswordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
@@ -24,7 +24,7 @@
 	[super viewDidLoad];
 	
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
-	[self.onepasswordExtensionButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
+	[self.onepasswordButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{

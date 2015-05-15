@@ -11,7 +11,7 @@
 
 @interface RegisterViewController ()
 
-@property (weak, nonatomic) IBOutlet UIButton *onepasswordSignupButton;
+@property (weak, nonatomic) IBOutlet UIButton *onepasswordButton;
 
 @property (weak, nonatomic) IBOutlet UITextField *firstnameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
@@ -26,7 +26,7 @@
 	[super viewDidLoad];
 
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"register-background.png"]]];
-	[self.onepasswordSignupButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
+	[self.onepasswordButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E11f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E17e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
@@ -43,7 +43,7 @@
                                     <constraint firstAttribute="height" constant="21" id="uPK-It-d2H"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already an ACME user?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4my-NG-1Ao">
@@ -53,7 +53,7 @@
                                     <constraint firstAttribute="width" constant="220" id="skZ-rM-lAU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzs-00-LBD">
@@ -136,7 +136,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="oneTimePasswordTextField" destination="3Ud-6a-a66" id="zFW-t6-b6s"/>
-                        <outlet property="onepasswordSigninButton" destination="cDc-DW-cLJ" id="OqN-tt-ATm"/>
+                        <outlet property="onepasswordButton" destination="cDc-DW-cLJ" id="fkU-rv-Qpq"/>
                         <outlet property="passwordTextField" destination="ZLv-94-XOA" id="5EJ-lR-Hpe"/>
                         <outlet property="usernameTextField" destination="Za2-pr-tWA" id="deo-tZ-W5r"/>
                     </connections>
@@ -243,7 +243,7 @@
                     <connections>
                         <outlet property="firstnameTextField" destination="fwb-0l-b5N" id="jzn-C1-vHy"/>
                         <outlet property="lastnameTextField" destination="tjm-G7-GAO" id="iMF-6e-8xt"/>
-                        <outlet property="onepasswordSignupButton" destination="auP-WD-mbm" id="shh-KY-v0u"/>
+                        <outlet property="onepasswordButton" destination="auP-WD-mbm" id="shh-KY-v0u"/>
                         <outlet property="passwordTextField" destination="Tad-KG-Pea" id="kih-wU-v6C"/>
                         <outlet property="usernameTextField" destination="b1j-uQ-34p" id="ZSp-Se-GzP"/>
                     </connections>
@@ -267,7 +267,7 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for using ACME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l33-Vm-wqT">
                                 <rect key="frame" x="160" y="150" width="280" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're Awesome!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64q-Fa-jIv">
@@ -277,7 +277,7 @@
                                     <constraint firstAttribute="width" constant="220" id="x6X-We-kQO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ar-iw-7WP">
@@ -337,7 +337,7 @@
                                     <constraint firstAttribute="width" constant="220" id="byx-Mx-Z5q"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOj-o3-aPF">
@@ -416,7 +416,7 @@
                         <outlet property="confirmPasswordTextField" destination="3fV-Ft-xek" id="2AI-mx-WCe"/>
                         <outlet property="freshPasswordTextField" destination="L9B-vu-VdN" id="7ep-cx-IAQ"/>
                         <outlet property="oldPasswordTextField" destination="naa-0h-M0B" id="pn9-Gg-qtA"/>
-                        <outlet property="onepasswordExtensionButton" destination="uar-xe-DZO" id="k5c-sB-K6c"/>
+                        <outlet property="onepasswordButton" destination="uar-xe-DZO" id="k5c-sB-K6c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CJ1-B2-Xid" sceneMemberID="firstResponder"/>
