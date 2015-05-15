@@ -34,8 +34,14 @@
 	self.webView.navigationDelegate = self;
 	[self.webViewContainer addSubview:self.webView];
 
-	NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
-	NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+	NSString *htmlFilePath = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
+	NSError *htmlStringError = nil;
+	NSString* htmlString = [NSString stringWithContentsOfFile:htmlFilePath encoding:NSUTF8StringEncoding error:&htmlStringError];
+
+	if (htmlString.length == 0) {
+		NSLog(@"Failed to obtain the html string from file %@ with error: <%@>", htmlFilePath, htmlStringError);
+	}
+
 	[self.webView loadHTMLString:htmlString baseURL:nil];
 }
 
