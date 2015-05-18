@@ -1,9 +1,7 @@
 # 1Password App Extension
 
-<font color="red">
 **Important:**
 The [`add-low-level-api`](https://github.com/AgileBits/onepassword-app-extension/tree/add-low-level-api) branch is no longer maintained. To add the 1Password extension to a custom `UIActivityViewController` please consult the [Adding the 1Password extension to a custom UIActivityViewController](https://gist.github.com/radazzouz/1f32eca216b1963dfc78) gist.
-</font>
 
 Welcome! With just a few lines of code, your app can add 1Password support, enabling your users to:
 
