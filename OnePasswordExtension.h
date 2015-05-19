@@ -79,13 +79,13 @@
 
  @param the view controller from which the 1Password Extension is invoked. Usually `self`
 
- @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil.
+ @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on the iPhone, but not on the iPad.
 
- @param success Reply parameter that is YES if the 1Password Extension has been successfully completed or NO otherwise.
+ @param Login Dictionary Reply parameter that contains the username, password and the One-Time Password if available.
 
  @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion;
 
 /*!
  Create a new login within 1Password and allow the user to generate a new password before saving.
@@ -102,13 +102,13 @@
 
  @param the view controller from which the 1Password Extension is invoked. Usually `self`
 
- @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil.
+ @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on the iPhone, but not on the iPad.
 
  @param Login dictionary Reply parameter which contain all the information about the newly saved Login. Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the newly generated password lets the user know their action was successful.
 
  @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDict, NSError *error))completion;
+- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDictionary passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion;
 
 /*!
  Change the password for an existing login within 1Password.
@@ -128,7 +128,7 @@
 
  @param the view controller from which the 1Password Extension is invoked. Usually `self`
 
- @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil.
+ @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on the iPhone, but not on the iPad.
 
  @param Login dictionary Reply parameter which contain all the information about the newly updated Login, including the newly generated and the old password. Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the newly generated password lets the user know their action was successful.
 
@@ -148,7 +148,7 @@
 
  @param the view controller from which the 1Password Extension is invoked. Usually `self`.
 
- @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil.
+ @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on the iPhone, but not on the iPad.
 
  @param success Reply parameter that is YES if the 1Password Extension has been successfully completed or NO otherwise.
 
