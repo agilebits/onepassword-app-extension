@@ -90,9 +90,9 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			return;
 		}
 
-		[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
+		[self processExtensionItem:returnedItems.firstObject completion:^(NSDictionary *itemDictionary, NSError *error) {
 			if (completion) {
-				completion(loginDictionary, error);
+				completion(itemDictionary, error);
 			}
 		}];
 	};
@@ -146,9 +146,9 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			return;
 		}
 
-		[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
+		[self processExtensionItem:returnedItems.firstObject completion:^(NSDictionary *itemDictionary, NSError *error) {
 			if (completion) {
-				completion(loginDictionary, error);
+				completion(itemDictionary, error);
 			}
 		}];
 	};
@@ -201,9 +201,9 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			return;
 		}
 
-		[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
+		[self processExtensionItem:returnedItems.firstObject completion:^(NSDictionary *itemDictionary, NSError *error) {
 			if (completion) {
-				completion(loginDictionary, error);
+				completion(itemDictionary, error);
 			}
 		}];
 	};
@@ -298,8 +298,8 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-	[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
-		if (loginDictionary.count == 0) {
+	[self processExtensionItem:returnedItems.firstObject completion:^(NSDictionary *itemDictionary, NSError *error) {
+		if (itemDictionary.count == 0) {
 			if (completion) {
 				completion(NO, error);
 			}
@@ -307,7 +307,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			return;
 		}
 
-		NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
+		NSString *fillScript = itemDictionary[AppExtensionWebViewPageFillScript];
 		[self executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *executeFillScriptError) {
 			if (completion) {
 				completion(success, executeFillScriptError);
@@ -362,8 +362,8 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 			return;
 		}
 
-		[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *processExtensionItemError) {
-			if (loginDictionary.count == 0) {
+		[self processExtensionItem:returnedItems.firstObject completion:^(NSDictionary *itemDictionary, NSError *processExtensionItemError) {
+			if (itemDictionary.count == 0) {
 				if (completion) {
 					completion(NO, processExtensionItemError);
 				}
@@ -371,7 +371,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 				return;
 			}
 
-			NSString *fillScript = loginDictionary[AppExtensionWebViewPageFillScript];
+			NSString *fillScript = itemDictionary[AppExtensionWebViewPageFillScript];
 			[self executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *executeFillScriptError) {
 				if (completion) {
 					completion(success, executeFillScriptError);
@@ -467,7 +467,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 }
 
 #ifdef __IPHONE_8_0
-- (void)processExtensionItem:(NSExtensionItem *)extensionItem completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion {
+- (void)processExtensionItem:(NSExtensionItem *)extensionItem completion:(void (^)(NSDictionary *itemDictionary, NSError *error))completion {
 	if (extensionItem.attachments.count == 0) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item had no attachments." };
 		NSError *error = [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeUnexpectedData userInfo:userInfo];
@@ -477,7 +477,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-	NSItemProvider *itemProvider = extensionItem.attachments[0];
+	NSItemProvider *itemProvider = extensionItem.attachments.firstObject;
 	if (NO == [itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item attachment does not conform to kUTTypePropertyList type identifier" };
 		NSError *error = [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeUnexpectedData userInfo:userInfo];
@@ -488,21 +488,20 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	}
 
 
-	[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *loginDictionary, NSError *itemProviderError)
-	 {
+	[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *itemDictionary, NSError *itemProviderError) {
 		 NSError *error = nil;
-		 if (loginDictionary.count == 0) {
+		 if (itemDictionary.count == 0) {
 			 NSLog(@"Failed to loadItemForTypeIdentifier: %@", itemProviderError);
 			 error = [OnePasswordExtension failedToLoadItemProviderDataErrorWithUnderlyingError:itemProviderError];
 		 }
 
 		 if (completion) {
 			 if ([NSThread isMainThread]) {
-				 completion(loginDictionary, error);
+				 completion(itemDictionary, error);
 			 }
 			 else {
 				 dispatch_async(dispatch_get_main_queue(), ^{
-					 completion(loginDictionary, error);
+					 completion(itemDictionary, error);
 				 });
 			 }
 		 }
