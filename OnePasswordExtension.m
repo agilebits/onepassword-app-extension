@@ -299,7 +299,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	}
 
 	[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *error) {
-		if (!loginDictionary) {
+		if (loginDictionary.count == 0) {
 			if (completion) {
 				completion(NO, error);
 			}
@@ -363,7 +363,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		}
 
 		[self processExtensionItem:returnedItems[0] completion:^(NSDictionary *loginDictionary, NSError *processExtensionItemError) {
-			if (!loginDictionary) {
+			if (loginDictionary.count == 0) {
 				if (completion) {
 					completion(NO, processExtensionItemError);
 				}
@@ -491,7 +491,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *loginDictionary, NSError *itemProviderError)
 	 {
 		 NSError *error = nil;
-		 if (!loginDictionary) {
+		 if (loginDictionary.count == 0) {
 			 NSLog(@"Failed to loadItemForTypeIdentifier: %@", itemProviderError);
 			 error = [OnePasswordExtension failedToLoadItemProviderDataErrorWithUnderlyingError:itemProviderError];
 		 }
