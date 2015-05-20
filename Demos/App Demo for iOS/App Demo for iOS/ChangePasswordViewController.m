@@ -69,17 +69,17 @@
 												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
 												};
 
-	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
-		if (!loginDict) {
+	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
+		if (!loginDictionary) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
 			}
 			return;
 		}
 
-		self.oldPasswordTextField.text = loginDict[AppExtensionOldPasswordKey];
-		self.freshPasswordTextField.text = loginDict[AppExtensionPasswordKey];
-		self.confirmPasswordTextField.text = loginDict[AppExtensionPasswordKey];
+		self.oldPasswordTextField.text = loginDictionary[AppExtensionOldPasswordKey];
+		self.freshPasswordTextField.text = loginDictionary[AppExtensionPasswordKey];
+		self.confirmPasswordTextField.text = loginDictionary[AppExtensionPasswordKey];
 	}];
 }
 
