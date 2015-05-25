@@ -17,7 +17,7 @@
             
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	if (![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
+	if (NO == [[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
 		UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"1Password is not installed" message:@"Get 1Password from the App Store" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Get 1Password", nil];
 		[alertView show];
 	}

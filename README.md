@@ -99,16 +99,16 @@ Next we need to wire up the action for this button to this method in your UIView
 
 ```objective-c
 - (IBAction)findLoginFrom1Password:(id)sender {
-	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
-		if (!loginDict) {
+	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
+		if (loginDictionary.count == 0) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
 			}
 			return;
 		}
 		
-		self.usernameTextField.text = loginDict[AppExtensionUsernameKey];
-		self.passwordTextField.text = loginDict[AppExtensionPasswordKey];
+		self.usernameTextField.text = loginDictionary[AppExtensionUsernameKey];
+		self.passwordTextField.text = loginDictionary[AppExtensionPasswordKey];
 	}];
 }
 ```
@@ -148,19 +148,19 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
 												};
 												
-	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
+	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
 
-		if (!loginDict) {
+		if (loginDictionary.count == 0) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Failed to use 1Password App Extension to save a new Login: %@", error);
 			}
 			return;
 		}
 
-		self.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
-		self.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
-		self.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
-		self.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
+		self.usernameTextField.text = loginDictionary[AppExtensionUsernameKey] ? : @"";
+		self.passwordTextField.text = loginDictionary[AppExtensionPasswordKey] ? : @"";
+		self.firstnameTextField.text = loginDictionary[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
+		self.lastnameTextField.text = loginDictionary[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
 		// retrieve any additional fields that were passed in newLoginDetails dictionary
 	}];
 }
@@ -196,17 +196,17 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
 												};
 
-	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
-		if (!loginDict) {
+	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
+		if (loginDictionary.count == 0) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
 			}
 			return;
 		}
 
-		self.oldPasswordTextField.text = loginDict[AppExtensionOldPasswordKey];
-		self.freshPasswordTextField.text = loginDict[AppExtensionPasswordKey];
-		self.confirmPasswordTextField.text = loginDict[AppExtensionPasswordKey];
+		self.oldPasswordTextField.text = loginDictionary[AppExtensionOldPasswordKey];
+		self.freshPasswordTextField.text = loginDictionary[AppExtensionPasswordKey];
+		self.confirmPasswordTextField.text = loginDictionary[AppExtensionPasswordKey];
 	}];
 }
 ```
