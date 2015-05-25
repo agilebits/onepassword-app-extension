@@ -53,19 +53,19 @@
 												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
 												};
 
-	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDict, NSError *error) {
+	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
 
-		if (!loginDict) {
+		if (loginDictionary.count == 0) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Failed to use 1Password App Extension to save a new Login: %@", error);
 			}
 			return;
 		}
 
-		self.usernameTextField.text = loginDict[AppExtensionUsernameKey] ? : @"";
-		self.passwordTextField.text = loginDict[AppExtensionPasswordKey] ? : @"";
-		self.firstnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
-		self.lastnameTextField.text = loginDict[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
+		self.usernameTextField.text = loginDictionary[AppExtensionUsernameKey] ? : @"";
+		self.passwordTextField.text = loginDictionary[AppExtensionPasswordKey] ? : @"";
+		self.firstnameTextField.text = loginDictionary[AppExtensionReturnedFieldsKey][@"firstname"] ? : @"";
+		self.lastnameTextField.text = loginDictionary[AppExtensionReturnedFieldsKey][@"lastname"] ? : @"";
 		// retrieve any additional fields that were passed in newLoginDetails dictionary
 	}];
 }
