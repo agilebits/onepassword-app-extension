@@ -46,18 +46,18 @@ class RegisterViewController: UIViewController {
 			AppExtensionGeneratedPasswordMaxLengthKey: (30)
 		]
 
-		OnePasswordExtension.sharedExtension().storeLoginForURLString("https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, forViewController: self, sender: sender) { (loginDict, error) -> Void in
-			if loginDict == nil {
+		OnePasswordExtension.sharedExtension().storeLoginForURLString("https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, forViewController: self, sender: sender) { (loginDictionary, error) -> Void in
+			if loginDictionary == nil {
 				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
 					NSLog("Error invoking 1Password App Extension for find login: %@", error!)
 				}
 				return
 			}
 
-			self.usernameTextField.text = loginDict?[AppExtensionUsernameKey] as? String
-			self.passwordTextField.text = loginDict?[AppExtensionPasswordKey] as? String
-			self.firstnameTextField.text = loginDict?[AppExtensionReturnedFieldsKey]?["firstname"] as? String
-			self.lastnameTextField.text = loginDict?[AppExtensionReturnedFieldsKey]?["lastname"] as? String
+			self.usernameTextField.text = loginDictionary?[AppExtensionUsernameKey] as? String
+			self.passwordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
+			self.firstnameTextField.text = loginDictionary?[AppExtensionReturnedFieldsKey]?["firstname"] as? String
+			self.lastnameTextField.text = loginDictionary?[AppExtensionReturnedFieldsKey]?["lastname"] as? String
 		}
 	}
 }

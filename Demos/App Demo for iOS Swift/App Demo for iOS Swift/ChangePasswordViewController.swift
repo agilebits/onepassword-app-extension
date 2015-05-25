@@ -61,17 +61,17 @@ class ChangePasswordViewController: UIViewController {
 			AppExtensionGeneratedPasswordMaxLengthKey: (30)
 		]
 
-		OnePasswordExtension.sharedExtension().changePasswordForLoginForURLString("https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, forViewController: self, sender: sender) { (loginDict, error) -> Void in
-			if loginDict == nil {
+		OnePasswordExtension.sharedExtension().changePasswordForLoginForURLString("https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, forViewController: self, sender: sender) { (loginDictionary, error) -> Void in
+			if loginDictionary == nil {
 				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
 					NSLog("Error invoking 1Password App Extension for find login: %@", error!)
 				}
 				return
 			}
 
-			self.oldPasswordTextField.text = loginDict?[AppExtensionOldPasswordKey] as? String
-			self.freshPasswordTextField.text = loginDict?[AppExtensionPasswordKey] as? String
-			self.confirmPasswordTextField.text = loginDict?[AppExtensionPasswordKey] as? String
+			self.oldPasswordTextField.text = loginDictionary?[AppExtensionOldPasswordKey] as? String
+			self.freshPasswordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
+			self.confirmPasswordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
 		}
 	}
 

@@ -44,18 +44,18 @@ class LoginViewController: UIViewController {
 	}
 
 	@IBAction func findLoginFrom1Password(sender:AnyObject) -> Void {
-		OnePasswordExtension.sharedExtension().findLoginForURLString("https://www.acme.com", forViewController: self, sender: sender, completion: { (loginDict, error) -> Void in
-			if loginDict == nil {
+		OnePasswordExtension.sharedExtension().findLoginForURLString("https://www.acme.com", forViewController: self, sender: sender, completion: { (loginDictionary, error) -> Void in
+			if loginDictionary == nil {
 				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
 					NSLog("Error invoking 1Password App Extension for find login: %@", error!)
 				}
 				return
 			}
 			
-			self.usernameTextField.text = loginDict?[AppExtensionUsernameKey] as? String
-			self.passwordTextField.text = loginDict?[AppExtensionPasswordKey] as? String
+			self.usernameTextField.text = loginDictionary?[AppExtensionUsernameKey] as? String
+			self.passwordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
 
-			var generatedOneTimePassword = loginDict[AppExtensionTOTPKey] as? String
+			var generatedOneTimePassword = loginDictionary[AppExtensionTOTPKey] as? String
 			if generatedOneTimePassword != nil {
 				self.oneTimePasswordTextField.hidden = false
 				self.oneTimePasswordTextField.text = generatedOneTimePassword
