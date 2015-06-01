@@ -49,9 +49,17 @@
 
 	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
 	NSDictionary *passwordGenerationOptions = @{
-												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
-												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
-												};
+		AppExtensionGeneratedPasswordMinLengthKey: @(8),
+		AppExtensionGeneratedPasswordMaxLengthKey: @(30),
+		AppExtensionGeneratedPasswordUseDigitsKey: @(YES),
+		AppExtensionGeneratedPasswordUseSymbolsKey: @(YES),
+		
+		// Here are all the symbols used by the 1Password generator:
+		// @"!", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"_", @"-", @"+", @"=", @"|", @"[", @"]", @"{", @"}", @"'", @"\"", @;", @".". @",", @">", @"?", @"/", @"~", @"`"
+		// The array for AppExtensionGeneratedPasswordBlacklistedSymbolsKey should contain the symbols that you wish 1Password to exclude from the generated password.
+
+		AppExtensionGeneratedPasswordBlacklistedSymbolsKey: @[@"&", @"*", @"@", @"#", @"~", @"`", @"$", @"^", @"/", @"|", @"<", @">", @":", @";"]
+	};
 
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
 
