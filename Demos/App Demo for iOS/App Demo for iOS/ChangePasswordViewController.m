@@ -67,7 +67,11 @@
 	NSDictionary *passwordGenerationOptions = @{
 												AppExtensionGeneratedPasswordMinLengthKey: @(8),
 												AppExtensionGeneratedPasswordMaxLengthKey: @(30),
+
+												// If YES the 1Password will guarantee that the generated password will contain at least one digit (number between 0 and 9). Passing NO with not exculde digits from the generated password.
 												AppExtensionGeneratedPasswordUseDigitsKey: @(YES),
+
+												// If YES the 1Password will guarantee that the generated password will contain at least one symbol (See the list bellow). Passing NO with not exculde symbols from the generated password.
 												AppExtensionGeneratedPasswordUseSymbolsKey: @(YES),
 
 												// Here are all the symbols available in the the 1Password Password Generator:
