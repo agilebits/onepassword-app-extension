@@ -70,7 +70,7 @@
 												AppExtensionGeneratedPasswordUseDigitsKey: @(YES),
 												AppExtensionGeneratedPasswordUseSymbolsKey: @(YES),
 
-												// Here are all the symbols used by the 1Password generator:
+												// Here are all the symbols available in the the 1Password Password Generator:
 												// @"!", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"_", @"-", @"+", @"=", @"|", @"[", @"]", @"{", @"}", @"'", @"\"", @;", @".". @",", @">", @"?", @"/", @"~", @"`"
 												// The array for AppExtensionGeneratedPasswordBlacklistedSymbolsKey should contain the symbols that you wish 1Password to exclude from the generated password.
 
