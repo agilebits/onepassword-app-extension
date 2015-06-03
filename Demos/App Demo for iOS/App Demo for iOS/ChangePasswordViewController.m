@@ -81,7 +81,7 @@
 												// @"!", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"_", @"-", @"+", @"=", @"|", @"[", @"]", @"{", @"}", @"'", @"\"", @;", @".". @",", @">", @"?", @"/", @"~", @"`"
 												// The array for AppExtensionGeneratedPasswordBlacklistedSymbolsKey should contain the symbols that you wish 1Password to exclude from the generated password.
 
-												AppExtensionGeneratedPasswordBlacklistedSymbolsKey: @[@"&", @"*", @"@", @"#", @"~", @"`", @"$", @"^", @"/", @"|", @"<", @">", @":", @";"]
+												AppExtensionGeneratedPasswordBlacklistedSymbolsKey: @[@"&", @"*", @"@"]
 												};
 
 	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
