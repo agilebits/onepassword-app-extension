@@ -63,7 +63,7 @@
 									  AppExtensionNotesKey: @"Saved with the ACME app", // Optional, used for the third schenario only
 									};
 
-	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
+	// The password generation options are optional, but are very handy in case you have strict rules about password lengths, symbols and digits.
 	NSDictionary *passwordGenerationOptions = @{
 												AppExtensionGeneratedPasswordMinLengthKey: @(8),
 												AppExtensionGeneratedPasswordMaxLengthKey: @(30),
