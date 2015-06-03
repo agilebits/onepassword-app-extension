@@ -141,13 +141,16 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 											  // Add as many string fields as you please.
 											  }
 									  };
-									  
-	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
-		NSDictionary *passwordGenerationOptions = @{
-												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
-												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
+
+	// The password generation options are optional, but are very handy in case you have strict rules about password lengths, symbols and digits.
+	NSDictionary *passwordGenerationOptions = @{
+												AppExtensionGeneratedPasswordMinLengthKey: @(8),
+												AppExtensionGeneratedPasswordMaxLengthKey: @(30),
+												AppExtensionGeneratedPasswordUseDigitsKey: @(YES),
+												AppExtensionGeneratedPasswordUseSymbolsKey: @(YES),
+												AppExtensionGeneratedPasswordBlacklistedSymbolsKey: @[@"&", @"*", @"@"]
 												};
-												
+
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
 
 		if (loginDictionary.count == 0) {
@@ -178,22 +181,24 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 
 ```objective-c
 - (IBAction)changePasswordIn1Password:(id)sender {
-	NSString *changedPassword = self.freshPasswordTextField.text ? : @"";
+	NSString *newPassword = self.freshPasswordTextField.text ? : @"";
 	NSString *oldPassword = self.oldPasswordTextField.text ? : @"";
-	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
-
+	
 	NSDictionary *loginDetails = @{
-									  AppExtensionTitleKey: @"ACME",
-									  AppExtensionUsernameKey: username, // 1Password will prompt the user to create a new item if no matching logins are found with this username.
-									  AppExtensionPasswordKey: changedPassword,
+									  AppExtensionTitleKey: @"ACME", // Optional, used for the third schenario only
+									  AppExtensionUsernameKey: @"aUsername", // Optional, used for the third schenario only
+									  AppExtensionPasswordKey: newPassword,
 									  AppExtensionOldPasswordKey: oldPassword,
-									  AppExtensionNotesKey: @"Saved with the ACME app",
+									  AppExtensionNotesKey: @"Saved with the ACME app", // Optional, used for the third schenario only
 									};
 
-	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
-		NSDictionary *passwordGenerationOptions = @{
-												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
-												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
+	// The password generation options are optional, but are very handy in case you have strict rules about password lengths, symbols and digits.
+	NSDictionary *passwordGenerationOptions = @{
+												AppExtensionGeneratedPasswordMinLengthKey: @(8),
+												AppExtensionGeneratedPasswordMaxLengthKey: @(30),
+												AppExtensionGeneratedPasswordUseDigitsKey: @(YES),
+												AppExtensionGeneratedPasswordUseSymbolsKey: @(YES),
+												AppExtensionGeneratedPasswordBlacklistedSymbolsKey: @[@"&", @"*", @"@"]
 												};
 
 	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
