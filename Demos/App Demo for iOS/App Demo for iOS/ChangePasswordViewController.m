@@ -65,7 +65,10 @@
 
 	// The password generation options are optional, but are very handy in case you have strict rules about password lengths, symbols and digits.
 	NSDictionary *passwordGenerationOptions = @{
+												// The minimum password length can be 4 or more.
 												AppExtensionGeneratedPasswordMinLengthKey: @(8),
+
+												// The maximum password length can be 50 or less.
 												AppExtensionGeneratedPasswordMaxLengthKey: @(30),
 
 												// If YES, the 1Password will guarantee that the generated password will contain at least one digit (number between 0 and 9). Passing NO will not exclude digits from the generated password.
