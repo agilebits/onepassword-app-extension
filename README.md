@@ -148,7 +148,7 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 												AppExtensionGeneratedPasswordMaxLengthKey: @(30),
 												AppExtensionGeneratedPasswordUseDigitsKey: @(YES),
 												AppExtensionGeneratedPasswordUseSymbolsKey: @(YES),
-												AppExtensionGeneratedPasswordBlacklistedSymbolsKey: @[@"&", @"*", @"@"]
+												AppExtensionGeneratedPasswordForbiddenSymbolsKey: @"!@#$%/"												
 												};
 
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
@@ -198,7 +198,7 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 												AppExtensionGeneratedPasswordMaxLengthKey: @(30),
 												AppExtensionGeneratedPasswordUseDigitsKey: @(YES),
 												AppExtensionGeneratedPasswordUseSymbolsKey: @(YES),
-												AppExtensionGeneratedPasswordBlacklistedSymbolsKey: @[@"&", @"*", @"@"]
+												AppExtensionGeneratedPasswordForbiddenSymbolsKey: @"!@#$%/"
 												};
 
 	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
