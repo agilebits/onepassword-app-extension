@@ -31,7 +31,7 @@
 #define AppExtensionGeneratedPasswordMaxLengthKey @"password_max_length"
 #define AppExtensionGeneratedPasswordUseDigitsKey @"password_use_digits"
 #define AppExtensionGeneratedPasswordUseSymbolsKey @"password_use_symbols"
-#define AppExtensionGeneratedPasswordBlacklistedSymbolsKey @"password_backlisted_symbols"
+#define AppExtensionGeneratedPasswordForbiddenSymbolsKey @"password_forbidden_symbols"
 
 // Errors codes
 #define AppExtensionErrorDomain                   @"OnePasswordExtension"

@@ -63,9 +63,9 @@
 
 												// Here are all the symbols available in the the 1Password Password Generator:
 												// @"!", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"_", @"-", @"+", @"=", @"|", @"[", @"]", @"{", @"}", @"'", @"\"", @;", @".". @",", @">", @"?", @"/", @"~", @"`"
-												// The array for AppExtensionGeneratedPasswordBlacklistedSymbolsKey should contain the symbols that you wish 1Password to exclude from the generated password.
+												// The array for AppExtensionGeneratedPasswordForbiddenSymbolsKey should contain the symbols that you wish 1Password to exclude from the generated password.
 
-												AppExtensionGeneratedPasswordBlacklistedSymbolsKey: @[@"&", @"*", @"@"]
+												AppExtensionGeneratedPasswordForbiddenSymbolsKey: @[@"&", @"*", @"@"]
 												};
 
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
