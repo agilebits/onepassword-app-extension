@@ -109,6 +109,7 @@
 		C0525F5F1B05831F003613F5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "AgileBits Inc.";
 				TargetAttributes = {

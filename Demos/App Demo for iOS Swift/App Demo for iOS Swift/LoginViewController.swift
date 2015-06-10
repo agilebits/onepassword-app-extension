@@ -25,13 +25,12 @@ class LoginViewController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		if OnePasswordExtension.sharedExtension().isAppExtensionAvailable() == false {
-			var alertController = UIAlertController(title: "1Password is not installed", message: "Get 1Password from the App Store", preferredStyle: UIAlertControllerStyle.Alert)
+			let alertController = UIAlertController(title: "1Password is not installed", message: "Get 1Password from the App Store", preferredStyle: UIAlertControllerStyle.Alert)
 
-			var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+			let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
 			alertController.addAction(cancelAction)
 
-			var OKAction = UIAlertAction(title: "Get 1Password", style: .Default) { (action) in
-				var dummy = UIApplication.sharedApplication().openURL(NSURL(string: "https://itunes.apple.com/app/1password-password-manager/id568903335")!)
+			let OKAction = UIAlertAction(title: "Get 1Password", style: .Default) { (action) in UIApplication.sharedApplication().openURL(NSURL(string: "https://itunes.apple.com/app/1password-password-manager/id568903335")!)
 			}
 
 			alertController.addAction(OKAction)
@@ -55,8 +54,7 @@ class LoginViewController: UIViewController {
 			self.usernameTextField.text = loginDictionary?[AppExtensionUsernameKey] as? String
 			self.passwordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
 
-			var generatedOneTimePassword = loginDictionary[AppExtensionTOTPKey] as? String
-			if generatedOneTimePassword != nil {
+			if let generatedOneTimePassword = loginDictionary?[AppExtensionTOTPKey] as? String {
 				self.oneTimePasswordTextField.hidden = false
 				self.oneTimePasswordTextField.text = generatedOneTimePassword
 

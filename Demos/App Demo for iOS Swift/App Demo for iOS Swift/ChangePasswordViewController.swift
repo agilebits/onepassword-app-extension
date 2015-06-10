@@ -26,18 +26,18 @@ class ChangePasswordViewController: UIViewController {
 	}
 	
 	@IBAction func changePasswordIn1Password(sender:AnyObject) -> Void {
-		var newPassword = self.freshPasswordTextField.text!
-		var oldPassword = self.oldPasswordTextField.text!
-		var confirmationPassword = self.confirmPasswordTextField.text!
+		let newPassword = self.freshPasswordTextField.text!
+		let oldPassword = self.oldPasswordTextField.text!
+		let confirmationPassword = self.confirmPasswordTextField.text!
 
 		// Validate that the new password and the old password are not the same.
-		if (count(oldPassword) > 0 && oldPassword == newPassword) {
+		if (oldPassword.characters.count > 0 && oldPassword == newPassword) {
 			self.showChangePasswordFailedAlertWithMessage("The old and the new password must not be the same")
 			return;
 		}
 
 		// Validate that the new and confirmation passwords match.
-		if (count(newPassword) > 0 && newPassword != confirmationPassword) {
+		if (newPassword.characters.count > 0 && newPassword != confirmationPassword) {
 			self.showChangePasswordFailedAlertWithMessage("The new passwords and the confirmation password must match")
 			return;
 		}
@@ -77,9 +77,9 @@ class ChangePasswordViewController: UIViewController {
 
 	// Convenience function
 	func showChangePasswordFailedAlertWithMessage(message:String) -> Void {
-		var alertController = UIAlertController(title: "Change Password Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+		let alertController = UIAlertController(title: "Change Password Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
 
-		var dismissAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+		let dismissAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
 			self.freshPasswordTextField.text = ""
 			self.confirmPasswordTextField.text = ""
 			self.freshPasswordTextField.becomeFirstResponder()
