@@ -15,7 +15,7 @@ Empowering your users to use strong, unique passwords has never been easier. Let
 
 ## Just Give Me the Code (TL;DR)
 
-You might be looking at this 18 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
+You might be looking at this 19 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
 
 If you're the type that just wants the code, here it is:
 
@@ -94,6 +94,12 @@ You'll need to hide this button (or educate users on the benefits of strong, uni
 ```
 
 Note that `isAppExtensionAvailable` looks to see if any app is installed that supports the generic `org-appextension-feature-password-management` feature. Any application that supports password management actions can be used.
+
+**Important:** `isAppExtensionAvailable` uses `- [UIApplication canOpenURL:]`. Since iOS 9 it is recommended that you add the custom URL scheme, `org-appextension-feature-password-management`, in your target's `info.plist` as follows:
+
+<img src="https://www.evernote.com/l/AVQvX8E3k-RFGaA-k2VnquPhoPI5V-zZby8B/image.png" width="640">
+
+For more information about URL schemes in iOS 9, please refer to the [Privacy and Your Apps session](https://developer.apple.com/videos/wwdc/2015/?id=703) from WWDC 2015 at around the the 9th minute mark.
 
 Next we need to wire up the action for this button to this method in your UIViewController:
 
@@ -233,9 +239,9 @@ If you use a web view to login (i.e. OAuth) and you do not want other activities
 
 ## Projects supporting iOS 7.1 and earlier
 
-If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link to the `MobileCoreServices` and `WebKit` frameworks.
+If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link to the `WebKit` framework.
 
-<a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/shard/s340/sh/7547419d-6c49-4b45-bdb1-575c28678164/49cb7e0c1f508d1f67f5cf0361d58d3a/deep/0/WebView-Demo-for-iOS.xcodeproj.png" width="640"></a>
+<a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTlW927xn9ACbJ4nPcFhYrDKHDCSSmIYIYB/image.png" width="640"></a>
 
 #### WKWebView support for projects with iOS 7.1 or earler as the Deployment Target
 
