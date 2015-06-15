@@ -49,7 +49,7 @@ class RegisterViewController: UIViewController {
 		OnePasswordExtension.sharedExtension().storeLoginForURLString("https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, forViewController: self, sender: sender) { (loginDictionary, error) -> Void in
 			if loginDictionary == nil {
 				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
-					NSLog("Error invoking 1Password App Extension for find login: %@", error!)
+					println("Error invoking 1Password App Extension for find login: \(error)")
 				}
 				return
 			}

@@ -30,7 +30,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		var htmlStringError: NSError?
 		var htmlString: String? = String(contentsOfFile: htmlFilePath!, encoding:NSUTF8StringEncoding, error: &htmlStringError)
 		if htmlString == nil {
-			NSLog("Failed to obtain the html string from file %@ with error: <%@>", htmlFilePath!, htmlStringError!)
+			println("Failed to obtain the html string from file \(htmlFilePath) with error: <\(htmlStringError)>")
 		}
 
 		self.webView.loadHTMLString(htmlString!, baseURL: nil)
@@ -39,7 +39,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 	@IBAction func fillUsing1Password(sender: AnyObject) -> Void {
 		OnePasswordExtension.sharedExtension().fillItemIntoWebView(self.webView, forViewController: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
 			if success == false {
-				NSLog("Failed to fill into webview: <%@>", error)
+				println("Failed to fill into webview: <\(error)>")
 			}
 		}
 	}
@@ -52,7 +52,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 			var error: NSError?
 			var htmlString: String? = String(contentsOfFile: htmlFile!, encoding:NSUTF8StringEncoding, error: &error)
 			if htmlString == nil {
-				NSLog("Failed to obtain the html string from file %@ with error <%@>", htmlFile!, error!)
+				println("Failed to obtain the html string from file \(htmlFile) with error <\(error)>")
 			}
 
 			self.webView.loadHTMLString(htmlString!, baseURL: nil)
