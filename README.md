@@ -15,7 +15,7 @@ Empowering your users to use strong, unique passwords has never been easier. Let
 
 ## Just Give Me the Code (TL;DR)
 
-You might be looking at this 18 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
+You might be looking at this 19 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
 
 If you're the type that just wants the code, here it is:
 
@@ -94,6 +94,12 @@ You'll need to hide this button (or educate users on the benefits of strong, uni
 ```
 
 Note that `isAppExtensionAvailable` looks to see if any app is installed that supports the generic `org-appextension-feature-password-management` feature. Any application that supports password management actions can be used.
+
+**Important:** `isAppExtensionAvailable` uses `- [UIApplication canOpenURL:]`. Since iOS 9 it is recommended that you add the custom URL scheme, `org-appextension-feature-password-management`, in your target's `info.plist` as follows:
+
+<img src="https://www.evernote.com/l/AVQvX8E3k-RFGaA-k2VnquPhoPI5V-zZby8B/image.png" width="640">
+
+For more information about URL schemes in iOS 9, please refer to the [Privacy and Your Apps session](https://developer.apple.com/videos/wwdc/2015/?id=703) from WWDC 2015 at around the the 9th minute mark.
 
 Next we need to wire up the action for this button to this method in your UIViewController:
 
