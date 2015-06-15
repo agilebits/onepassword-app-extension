@@ -64,7 +64,7 @@ class ChangePasswordViewController: UIViewController {
 		OnePasswordExtension.sharedExtension().changePasswordForLoginForURLString("https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, forViewController: self, sender: sender) { (loginDictionary, error) -> Void in
 			if loginDictionary == nil {
 				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
-					NSLog("Error invoking 1Password App Extension for find login: %@", error!)
+					print("Error invoking 1Password App Extension for find login: \(error)")
 				}
 				return
 			}

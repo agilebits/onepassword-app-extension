@@ -22,7 +22,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		let configuration = WKWebViewConfiguration.new()
 		
 		self.webView = WKWebView(frame: self.webViewContainer.bounds, configuration: configuration)
-		self.webView.autoresizingMask = UIViewAutoresizing(UIViewAutoresizing.FlexibleHeight.rawValue, UIViewAutoresizing.FlexibleWidth.rawValue)
+		self.webView.autoresizingMask = UIViewAutoresizing(arrayLiteral: .FlexibleHeight, .FlexibleWidth)
 		self.webView.navigationDelegate = self
 		self.webViewContainer.addSubview(self.webView)
 
@@ -41,7 +41,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 	@IBAction func fillUsing1Password(sender: AnyObject) -> Void {
 		OnePasswordExtension.sharedExtension().fillItemIntoWebView(self.webView, forViewController: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
 			if success == false {
-				NSLog("Failed to fill into webview: <%@>", error)
+				print("Failed to fill into webview: <\(error)>")
 			}
 		}
 	}
