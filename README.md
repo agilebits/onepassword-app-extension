@@ -239,9 +239,9 @@ If you use a web view to login (i.e. OAuth) and you do not want other activities
 
 ## Projects supporting iOS 7.1 and earlier
 
-If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link to the `MobileCoreServices` and `WebKit` frameworks.
+If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link to the `WebKit` framework.
 
-<a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/shard/s340/sh/7547419d-6c49-4b45-bdb1-575c28678164/49cb7e0c1f508d1f67f5cf0361d58d3a/deep/0/WebView-Demo-for-iOS.xcodeproj.png" width="640"></a>
+<a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTlW927xn9ACbJ4nPcFhYrDKHDCSSmIYIYB/image.png" width="640"></a>
 
 #### WKWebView support for projects with iOS 7.1 or earler as the Deployment Target
 
