@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(NSDictionary * __nullable loginDictionary, NSError *error))completion;
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(NSDictionary * __nullable loginDictionary, NSError * __nullable error))completion;
 
 /*!
  Create a new login within 1Password and allow the user to generate a new password before saving.
