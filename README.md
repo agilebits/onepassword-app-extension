@@ -42,7 +42,7 @@ The 1Password App Extension API is available via Carthage as well. Simply add `g
 
 ### Step 2: Install the Latest versions of 1Password & Xcode
 
-The sample project depends upon having the latest version of Xcode 6, as well as the latest version of 1Password installed on your iOS device.
+The sample project depends upon having the latest version of Xcode, as well as the latest version of 1Password installed on your iOS device.
 
 <!---
 If you are developing for OS X, you can enable betas within the 1Password > Preferences > Updates window (as shown [here](i.agilebits.com/Preferences_197C0C6B.png)) and enabling the _Include beta builds_ checkbox. Mac App Store users should [download the web store version](https://agilebits.com/downloads) in order to enable betas.
@@ -55,7 +55,7 @@ Let us know that you're an app developer and planning to add 1Password support b
 
 ### Step 3: Run the Apps
 
-Open `1Password Extension Demos` Xcode workspace from within the `Demos` folder with Xcode 6, and then select the `ACME` target and set it to run your iOS device:
+Open `1Password Extension Demos` Xcode workspace from within the `Demos` folder with Xcode, and then select the `ACME` target and set it to run your iOS device:
 
 <img src="http://i.agilebits.com/dt/Menubar_and_SignInViewController_m_and_README_md_—_onepassword-extension__git__master__197DEA31.png" width="342" height="150">
 
