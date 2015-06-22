@@ -13,6 +13,8 @@
 #import <WebKit/WebKit.h>
 #endif
 
+NS_ASSUME_NONNULL_BEGIN
+
 // Login Dictionary keys - Used to get or set the properties of a 1Password Login
 #define AppExtensionURLStringKey                  @"url_string"
 #define AppExtensionUsernameKey                   @"username"
@@ -88,7 +90,7 @@
 
  @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion;
+- (void)findLoginForURLString:(NSString *)URLString forViewController:(UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(NSDictionary * __nullable loginDictionary, NSError * __nullable error))completion;
 
 /*!
  Create a new login within 1Password and allow the user to generate a new password before saving.
@@ -111,7 +113,7 @@
 
  @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDictionary passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion;
+- (void)storeLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDictionary passwordGenerationOptions:(nullable NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(NSDictionary * __nullable loginDictionary, NSError * __nullable error))completion;
 
 /*!
  Change the password for an existing login within 1Password.
@@ -137,7 +139,7 @@
 
  @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)changePasswordForLoginForURLString:(NSString *)URLString loginDetails:(NSDictionary *)loginDetailsDict passwordGenerationOptions:(NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(NSDictionary *loginDictionary, NSError *error))completion;
+- (void)changePasswordForLoginForURLString:(NSString *)URLString loginDetails:(nullable NSDictionary *)loginDetailsDict passwordGenerationOptions:(nullable NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(NSDictionary * __nullable loginDictionary, NSError * __nullable error))completion;
 
 /*!
  Called from your web view controller, this method will show all the saved logins for the active page in the provided web
@@ -157,7 +159,7 @@
 
  @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)fillItemIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError *error))completion;
+- (void)fillItemIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(nullable id)sender showOnlyLogins:(BOOL)yesOrNo completion:(nullable void (^)(BOOL success, NSError * __nullable error))completion;
 
 /*!
  Called in the UIActivityViewController completion block to find out whether or not the user selected the 1Password Extension activity.
@@ -165,7 +167,7 @@
  @param the bundle identidier of the selected activity in the share sheet.
  @return YES if the selected activity is the 1Password extension, NO otherwise.
  */
-- (BOOL)isOnePasswordExtensionActivityType:(NSString *)activityType;
+- (BOOL)isOnePasswordExtensionActivityType:(nullable NSString *)activityType;
 
 /*!
  The returned NSExtensionItem can be used to create your own UIActivityViewController. Use `isOnePasswordExtensionActivityType:` and `fillReturnedItems:intoWebView:completion:` in the activity view controller completion block to process the result. The completion block is guaranteed to be called on the main thread.
@@ -176,7 +178,7 @@
 
  @param error Reply parameter that is nil if the 1Password extension item has been successfully created, or it contains error information about the completion failure.
  */
-- (void)createExtensionItemForWebView:(id)webView completion:(void (^)(NSExtensionItem *extensionItem, NSError *error))completion;
+- (void)createExtensionItemForWebView:(id)webView completion:(void (^)(NSExtensionItem * __nullable extensionItem, NSError * __nullable error))completion;
 
 /*!
  Method used in the UIActivityViewController completion block to fill information into a web view.
@@ -188,11 +190,13 @@
 
  @param error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)fillReturnedItems:(NSArray *)returnedItems intoWebView:(id)webView completion:(void (^)(BOOL success, NSError *error))completion;
+- (void)fillReturnedItems:(NSArray *)returnedItems intoWebView:(id)webView completion:(nullable void (^)(BOOL success, NSError * __nullable error))completion;
 
 /*!
  Deprecated in version 1.3.
  @see Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead
  */
-- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(id)sender completion:(void (^)(BOOL success, NSError *error))completion __attribute__((deprecated("Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead. Deprecated in version 1.3")));
+- (void)fillLoginIntoWebView:(id)webView forViewController:(UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(BOOL success, NSError * __nullable error))completion __attribute__((deprecated("Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead. Deprecated in version 1.3")));
 @end
+
+NS_ASSUME_NONNULL_END
