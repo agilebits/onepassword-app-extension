@@ -42,7 +42,7 @@ The 1Password App Extension API is available via Carthage as well. Simply add `g
 
 ### Step 2: Install the Latest versions of 1Password & Xcode
 
-The sample project depends upon having the latest version of Xcode 6, as well as the latest version of 1Password installed on your iOS device.
+The sample project depends upon having the latest version of Xcode, as well as the latest version of 1Password installed on your iOS device.
 
 <!---
 If you are developing for OS X, you can enable betas within the 1Password > Preferences > Updates window (as shown [here](i.agilebits.com/Preferences_197C0C6B.png)) and enabling the _Include beta builds_ checkbox. Mac App Store users should [download the web store version](https://agilebits.com/downloads) in order to enable betas.
@@ -55,7 +55,7 @@ Let us know that you're an app developer and planning to add 1Password support b
 
 ### Step 3: Run the Apps
 
-Open `1Password Extension Demos` Xcode workspace from within the `Demos` folder with Xcode 6, and then select the `ACME` target and set it to run your iOS device:
+Open `1Password Extension Demos` Xcode workspace from within the `Demos` folder with Xcode, and then select the `ACME` target and set it to run your iOS device:
 
 <img src="http://i.agilebits.com/dt/Menubar_and_SignInViewController_m_and_README_md_—_onepassword-extension__git__master__197DEA31.png" width="342" height="150">
 
@@ -80,7 +80,7 @@ Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcass
 
 ### Use Case #1: Native App Login
 
-In this use case we'll learn how to enable your existing users to fill their credentials into your native app's login form. If your application is using a web view to login (i.e. OAuth), you'll want to follow the web view integration steps in [Use Case #4: Web View Filling Support](https://github.com/AgileBits/onepassword-app-extension#use-case-4-web-view-filling-support).
+In this use case we'll learn how to enable your existing users to fill their credentials into your native app's login form. If your application is using a web view to login (i.e. OAuth), you'll want to follow the web view integration steps in [Use Case #4: Web View Filling](https://github.com/AgileBits/onepassword-app-extension#use-case-4-web-view-filling-support).
 
 The first step is to add a UIButton to your login page. Use an existing 1Password image from the _1Password.xcassets_ catalog so users recognize the button.
 
@@ -217,7 +217,7 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 }
 ```
 
-### Use Case #4: Web View Filling Support
+### Use Case #4: Web View Filling
 
 The 1Password App Extension is not limited to filling native UIs. With just a little bit of extra effort, users can fill `UIWebView`s and `WKWebView`s within your application as well.
 
@@ -273,4 +273,4 @@ If you open up OnePasswordExtension.m and start poking around, you'll be interes
 
 Contact us, please! We'd love to hear from you about how you integrated 1Password within your app, how we can further improve things, and add your app to [apps that integrate with 1Password](https://blog.agilebits.com/1password-apps/).
 
-You can reach us at support+appex@agilebits.com, or if you prefer, [@1PasswordBeta](https://twitter.com/1PasswordBeta) on Twitter.
+You can reach us at support+appex@agilebits.com, or if you prefer, [@1Password](https://twitter.com/1Password) on Twitter.
