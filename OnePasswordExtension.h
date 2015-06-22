@@ -16,27 +16,27 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // Login Dictionary keys - Used to get or set the properties of a 1Password Login
-#define AppExtensionURLStringKey                  @"url_string"
-#define AppExtensionUsernameKey                   @"username"
-#define AppExtensionPasswordKey                   @"password"
-#define AppExtensionTOTPKey                       @"totp"
-#define AppExtensionTitleKey                      @"login_title"
-#define AppExtensionNotesKey                      @"notes"
-#define AppExtensionSectionTitleKey               @"section_title"
-#define AppExtensionFieldsKey                     @"fields"
-#define AppExtensionReturnedFieldsKey             @"returned_fields"
-#define AppExtensionOldPasswordKey                @"old_password"
-#define AppExtensionPasswordGeneratorOptionsKey   @"password_generator_options"
+#define AppExtensionURLStringKey                         @"url_string"
+#define AppExtensionUsernameKey                          @"username"
+#define AppExtensionPasswordKey                          @"password"
+#define AppExtensionTOTPKey                              @"totp"
+#define AppExtensionTitleKey                             @"login_title"
+#define AppExtensionNotesKey                             @"notes"
+#define AppExtensionSectionTitleKey                      @"section_title"
+#define AppExtensionFieldsKey                            @"fields"
+#define AppExtensionReturnedFieldsKey                    @"returned_fields"
+#define AppExtensionOldPasswordKey                       @"old_password"
+#define AppExtensionPasswordGeneratorOptionsKey          @"password_generator_options"
 
 // Password Generator options - Used to set the 1Password Password Generator options when saving a new Login or when changing the password for for an existing Login
-#define AppExtensionGeneratedPasswordMinLengthKey @"password_min_length"
-#define AppExtensionGeneratedPasswordMaxLengthKey @"password_max_length"
-#define AppExtensionGeneratedPasswordUseDigitsKey @"password_use_digits"
-#define AppExtensionGeneratedPasswordUseSymbolsKey @"password_use_symbols"
+#define AppExtensionGeneratedPasswordMinLengthKey        @"password_min_length"
+#define AppExtensionGeneratedPasswordMaxLengthKey        @"password_max_length"
+#define AppExtensionGeneratedPasswordRequireDigitsKey    @"password_require_digits"
+#define AppExtensionGeneratedPasswordRequireSymbolsKey   @"password_require_symbols"
 #define AppExtensionGeneratedPasswordForbiddenSymbolsKey @"password_forbidden_symbols"
 
 // Errors codes
-#define AppExtensionErrorDomain                   @"OnePasswordExtension"
+#define AppExtensionErrorDomain                          @"OnePasswordExtension"
 
 #define AppExtensionErrorCodeCancelledByUser                    0
 #define AppExtensionErrorCodeAPINotAvailable                    1

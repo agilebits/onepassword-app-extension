@@ -56,10 +56,10 @@
 												AppExtensionGeneratedPasswordMaxLengthKey: @(30),
 
 												// If YES, the 1Password will guarantee that the generated password will contain at least one digit (number between 0 and 9). Passing NO will not exclude digits from the generated password.
-												AppExtensionGeneratedPasswordUseDigitsKey: @(YES),
+												AppExtensionGeneratedPasswordRequireDigitsKey: @(YES),
 
 												// If YES, the 1Password will guarantee that the generated password will contain at least one symbol (See the list bellow). Passing NO with will exclude symbols from the generated password.
-												AppExtensionGeneratedPasswordUseSymbolsKey: @(YES),
+												AppExtensionGeneratedPasswordRequireSymbolsKey: @(YES),
 
 												// Here are all the symbols available in the the 1Password Password Generator:
 												// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
