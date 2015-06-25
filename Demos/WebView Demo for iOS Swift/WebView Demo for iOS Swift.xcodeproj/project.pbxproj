@@ -110,7 +110,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "AgileBits Inc.";
 				TargetAttributes = {
 					C0525F661B05831F003613F5 = {
@@ -267,6 +267,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Demo for iOS Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "WebView Demo for iOS Swift";
 				SWIFT_OBJC_BRIDGING_HEADER = "WebView Demo for iOS Swift/WebView Demo for iOS Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -280,6 +281,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Demo for iOS Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "WebView Demo for iOS Swift";
 				SWIFT_OBJC_BRIDGING_HEADER = "WebView Demo for iOS Swift/WebView Demo for iOS Swift-Bridging-Header.h";
 			};
