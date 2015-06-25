@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param the view controller from which the 1Password Extension is invoked. Usually `self`
 
- @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on the iPhone, but not on the iPad.
+ @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on iPhone, but not on iPad.
 
  @param Login Dictionary Reply parameter that contains the username, password and the One-Time Password if available.
 
@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param the view controller from which the 1Password Extension is invoked. Usually `self`
 
- @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on the iPhone, but not on the iPad.
+ @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on iPhone, but not on iPad.
 
  @param Login dictionary Reply parameter which contain all the information about the newly saved Login. Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the newly generated password lets the user know their action was successful.
 
@@ -130,7 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param the view controller from which the 1Password Extension is invoked. Usually `self`
 
- @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on the iPhone, but not on the iPad.
+ @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on iPhone, but not on iPad.
 
  @param Login dictionary Reply parameter which contain all the information about the newly updated Login, including the newly generated and the old password. Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the newly generated password lets the user know their action was successful.
 
@@ -150,7 +150,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param the view controller from which the 1Password Extension is invoked. Usually `self`.
 
- @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on the iPhone, but not on the iPad.
+ @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on iPhone, but not on iPad.
 
  @param success Reply parameter that is YES if the 1Password Extension has been successfully completed or NO otherwise.
 
