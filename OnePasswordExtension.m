@@ -513,6 +513,10 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 - (UIActivityViewController *)activityViewControllerForItem:(NSDictionary *)item viewController:(UIViewController*)viewController sender:(id)sender typeIdentifier:(NSString *)typeIdentifier {
 #ifdef __IPHONE_8_0
 
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && sender == nil) {
+		[NSException raise:@"Invalid argument: sender must not be nil on iPad." format:@""];
+	}
+
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:typeIdentifier];
 
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
