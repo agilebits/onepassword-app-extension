@@ -314,7 +314,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 - (BOOL)isSystemAppExtensionAPIAvailable {
 #ifdef __IPHONE_8_0
-	return NSClassFromString(@"NSExtensionItem") != nil;
+	return [NSExtensionItem class] != nil;
 #else
 	return NO;
 #endif
