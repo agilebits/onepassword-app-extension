@@ -37,14 +37,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	return __sharedExtension;
 }
 
-- (BOOL)isSystemAppExtensionAPIAvailable {
-#ifdef __IPHONE_8_0
-	return NSClassFromString(@"NSExtensionItem") != nil;
-#else
-	return NO;
-#endif
-}
-
 - (BOOL)isAppExtensionAvailable {
 	if ([self isSystemAppExtensionAPIAvailable]) {
 		return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"org-appextension-feature-password-management://"]];
@@ -319,6 +311,14 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 }
 
 #pragma mark - Private methods
+
+- (BOOL)isSystemAppExtensionAPIAvailable {
+#ifdef __IPHONE_8_0
+	return [NSExtensionItem class] != nil;
+#else
+	return NO;
+#endif
+}
 
 - (void)findLoginIn1PasswordWithURLString:(NSString *)URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController sender:(id)sender withWebView:(id)webView showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError *error))completion {
 	if ([URLString length] == 0) {
