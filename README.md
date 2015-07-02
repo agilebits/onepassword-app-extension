@@ -32,7 +32,7 @@ Adding 1Password support to your app is easy. To demonstrate how it works, we ha
 
 ### Step 1: Download the Source Code and Sample Apps
 
-To get started, download the 1Password App Extension API project from https://github.com/AgileBits/onepassword-app-extension/archive/master.zip, or [clone it from GitHub](https://github.com/AgileBits/onepassword-app-extension).
+To get started, download the [zip version](https://github.com/AgileBits/onepassword-app-extension/archive/master.zip) of the1Password App Extension API project or [clone it from GitHub](https://github.com/AgileBits/onepassword-app-extension).
 
 Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Registration features, as well as a web browser that showcases the web view Filling feature.
 
