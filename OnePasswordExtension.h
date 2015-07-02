@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define AppExtensionGeneratedPasswordMaxLengthKey        @"password_max_length"
 #define AppExtensionGeneratedPasswordRequireDigitsKey    @"password_require_digits"
 #define AppExtensionGeneratedPasswordRequireSymbolsKey   @"password_require_symbols"
-#define AppExtensionGeneratedPasswordForbiddenSymbolsKey @"password_forbidden_symbols"
+#define AppExtensionGeneratedPasswordForbiddenCharactersKey @"password_forbidden_characters"
 
 // Errors codes
 #define AppExtensionErrorDomain                          @"OnePasswordExtension"
