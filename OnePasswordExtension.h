@@ -13,7 +13,14 @@
 #import <WebKit/WebKit.h>
 #endif
 
+#if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
+#else
+#define nullable
+#define __nullable
+#define nonnull
+#define __nonnull
+#endif
 
 // Login Dictionary keys - Used to get or set the properties of a 1Password Login
 #define AppExtensionURLStringKey                  @"url_string"
@@ -196,4 +203,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fillLoginIntoWebView:(nonnull id)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(BOOL success, NSError * __nullable error))completion __attribute__((deprecated("Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead. Deprecated in version 1.3")));
 @end
 
+#if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
+#endif
