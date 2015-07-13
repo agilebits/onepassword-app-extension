@@ -53,7 +53,7 @@
 												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
 												};
 
-	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:nil passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
+	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
 
 		if (loginDictionary.count == 0) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
