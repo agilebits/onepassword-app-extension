@@ -114,7 +114,7 @@
 		C0169CCD197D6C3C006E7618 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = AgileBits;
 				TargetAttributes = {
 					C0169CD4197D6C3C006E7618 = {
@@ -265,6 +265,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "WebView Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -277,6 +278,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/WebView Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "WebView Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
