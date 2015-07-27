@@ -32,18 +32,18 @@
 }
 
 - (IBAction)changePasswordIn1Password:(id)sender {
-	NSString *newPassword = self.freshPasswordTextField.text ? : @"";
+	NSString *changedPassword = self.freshPasswordTextField.text ? : @"";
 	NSString *oldPassword = self.oldPasswordTextField.text ? : @"";
 	NSString *confirmationPassword = self.confirmPasswordTextField.text ? : @"";
 
 	// Validate that the new password and the old password are not the same.
-	if (oldPassword.length > 0 && [oldPassword isEqualToString:newPassword]) {
+	if (oldPassword.length > 0 && [oldPassword isEqualToString:changedPassword]) {
 		[self showChangePasswordFailedAlertWithMessage:@"The old and the new password must not be the same"];
 		return;
 	}
 
 	// Validate that the new and confirmation passwords match.
-	if (NO == [newPassword isEqualToString:confirmationPassword]) {
+	if (NO == [changedPassword isEqualToString:confirmationPassword]) {
 		[self showChangePasswordFailedAlertWithMessage:@"The new passwords and the confirmation password must match"];
 		return;
 	}
@@ -58,7 +58,7 @@
 	NSDictionary *loginDetails = @{
 									  AppExtensionTitleKey: @"ACME", // Optional, used for the third schenario only
 									  AppExtensionUsernameKey: @"aUsername", // Optional, used for the third schenario only
-									  AppExtensionPasswordKey: newPassword,
+									  AppExtensionPasswordKey: changedPassword,
 									  AppExtensionOldPasswordKey: oldPassword,
 									  AppExtensionNotesKey: @"Saved with the ACME app", // Optional, used for the third schenario only
 									};
