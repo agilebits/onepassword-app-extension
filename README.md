@@ -15,7 +15,7 @@ Empowering your users to use strong, unique passwords has never been easier. Let
 
 ## Just Give Me the Code (TL;DR)
 
-You might be looking at this 19 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
+You might be looking at this 22 KB README and think integrating with 1Password is very complicated. Nothing could be further from the truth!
 
 If you're the type that just wants the code, here it is:
 
@@ -147,13 +147,28 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 											  // Add as many string fields as you please.
 											  }
 									  };
-									  
-	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
-		NSDictionary *passwordGenerationOptions = @{
-												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
-												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
-												};
+
+	// The password generation options are optional, but are very handy in case you have strict rules about password lengths, symbols and digits.
+	NSDictionary *passwordGenerationOptions = @{
+												// The minimum password length can be 4 or more.
+												AppExtensionGeneratedPasswordMinLengthKey: @(8),
 												
+												// The maximum password length can be 50 or less.
+												AppExtensionGeneratedPasswordMaxLengthKey: @(30),
+
+												// If YES, the 1Password will guarantee that the generated password will contain at least one digit (number between 0 and 9). Passing NO will not exclude digits from the generated password.
+												AppExtensionGeneratedPasswordRequireDigitsKey: @(YES),
+
+												// If YES, the 1Password will guarantee that the generated password will contain at least one symbol (See the list bellow). Passing NO with will exclude symbols from the generated password.
+												AppExtensionGeneratedPasswordRequireSymbolsKey: @(YES),
+
+												// Here are all the symbols available in the the 1Password Password Generator:
+												// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
+												// The string for AppExtensionGeneratedPasswordForbiddenCharactersKey should contain the symbols and characters that you wish 1Password to exclude from the generated password.
+
+												AppExtensionGeneratedPasswordForbiddenCharactersKey: @"!@#$%/0lIO"
+												};
+
 	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
 
 		if (loginDictionary.count == 0) {
@@ -186,20 +201,54 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 - (IBAction)changePasswordIn1Password:(id)sender {
 	NSString *changedPassword = self.freshPasswordTextField.text ? : @"";
 	NSString *oldPassword = self.oldPasswordTextField.text ? : @"";
-	NSString *username = [LoginInformation sharedLoginInformation].username ? : @"";
+	NSString *confirmationPassword = self.confirmPasswordTextField.text ? : @"";
 
+	// Validate that the new password and the old password are not the same.
+	if (oldPassword.length > 0 && [oldPassword isEqualToString:changedPassword]) {
+		[self showChangePasswordFailedAlertWithMessage:@"The old and the new password must not be the same"];
+		return;
+	}
+
+	// Validate that the new and confirmation passwords match.
+	if (NO == [changedPassword isEqualToString:confirmationPassword]) {
+		[self showChangePasswordFailedAlertWithMessage:@"The new passwords and the confirmation password must match"];
+		return;
+	}
+
+	/* 
+	 These are the three scenarios that are supported:
+	 1. A signle matching Login is found: 1Password will enter edit mode for that Login and will update its password using the value for AppExtensionPasswordKey.
+	 2. More than a one matching Logins are found: 1Password will display a list of all matching Logins. The user must choose which one to update. Once in edit mode, the Login will be updated with the new password.
+	 3. No matching login is found: 1Password will create a new Login using the optional fields if available to populate its properties.
+	*/
+	
 	NSDictionary *loginDetails = @{
-									  AppExtensionTitleKey: @"ACME",
-									  AppExtensionUsernameKey: username, // 1Password will prompt the user to create a new item if no matching logins are found with this username.
+									  AppExtensionTitleKey: @"ACME", // Optional, used for the third schenario only
+									  AppExtensionUsernameKey: @"aUsername", // Optional, used for the third schenario only
 									  AppExtensionPasswordKey: changedPassword,
 									  AppExtensionOldPasswordKey: oldPassword,
-									  AppExtensionNotesKey: @"Saved with the ACME app",
+									  AppExtensionNotesKey: @"Saved with the ACME app", // Optional, used for the third schenario only
 									};
 
-	// Password generation options are optional, but are very handy in case you have strict rules about password lengths
-		NSDictionary *passwordGenerationOptions = @{
-												AppExtensionGeneratedPasswordMinLengthKey: @(6), // The minimum value can be 4 or more
-												AppExtensionGeneratedPasswordMaxLengthKey: @(50) // The maximum value can be 50 or less
+	// The password generation options are optional, but are very handy in case you have strict rules about password lengths, symbols and digits.
+	NSDictionary *passwordGenerationOptions = @{
+												// The minimum password length can be 4 or more.
+												AppExtensionGeneratedPasswordMinLengthKey: @(8),
+
+												// The maximum password length can be 50 or less.
+												AppExtensionGeneratedPasswordMaxLengthKey: @(30),
+
+												// If YES, the 1Password will guarantee that the generated password will contain at least one digit (number between 0 and 9). Passing NO will not exclude digits from the generated password.
+												AppExtensionGeneratedPasswordRequireDigitsKey: @(YES),
+
+												// If YES, the 1Password will guarantee that the generated password will contain at least one symbol (See the list bellow). Passing NO with will exclude symbols from the generated password.
+												AppExtensionGeneratedPasswordRequireSymbolsKey: @(YES),
+
+												// Here are all the symbols available in the the 1Password Password Generator:
+												// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
+												// The string for AppExtensionGeneratedPasswordForbiddenCharactersKey should contain the symbols and characters that you wish 1Password to exclude from the generated password.
+
+												AppExtensionGeneratedPasswordForbiddenCharactersKey: @"!@#$%/0lIO"
 												};
 
 	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
