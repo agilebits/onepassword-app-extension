@@ -26,18 +26,18 @@ class ChangePasswordViewController: UIViewController {
 	}
 	
 	@IBAction func changePasswordIn1Password(sender:AnyObject) -> Void {
-		let newPassword = self.freshPasswordTextField.text!
+		let changedPassword = self.freshPasswordTextField.text!
 		let oldPassword = self.oldPasswordTextField.text!
 		let confirmationPassword = self.confirmPasswordTextField.text!
 
 		// Validate that the new password and the old password are not the same.
-		if (oldPassword.characters.count > 0 && oldPassword == newPassword) {
+		if (oldPassword.characters.count > 0 && oldPassword == changedPassword) {
 			self.showChangePasswordFailedAlertWithMessage("The old and the new password must not be the same")
 			return;
 		}
 
 		// Validate that the new and confirmation passwords match.
-		if (newPassword.characters.count > 0 && newPassword != confirmationPassword) {
+		if (changedPassword.characters.count > 0 && changedPassword != confirmationPassword) {
 			self.showChangePasswordFailedAlertWithMessage("The new passwords and the confirmation password must match")
 			return;
 		}
@@ -50,7 +50,7 @@ class ChangePasswordViewController: UIViewController {
 		let newLoginDetails:[String: AnyObject] = [
 			AppExtensionTitleKey: "ACME", // Optional, used for the third schenario only
 			AppExtensionUsernameKey: "aUsername", // Optional, used for the third schenario only
-			AppExtensionPasswordKey: newPassword,
+			AppExtensionPasswordKey: changedPassword,
 			AppExtensionOldPasswordKey: oldPassword,
 			AppExtensionNotesKey: "Saved with the ACME app", // Optional, used for the third schenario only
 		]
