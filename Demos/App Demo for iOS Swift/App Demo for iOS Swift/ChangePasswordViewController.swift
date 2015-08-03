@@ -26,9 +26,9 @@ class ChangePasswordViewController: UIViewController {
 	}
 	
 	@IBAction func changePasswordIn1Password(sender:AnyObject) -> Void {
-		var changedPassword = self.freshPasswordTextField.text!
-		var oldPassword = self.oldPasswordTextField.text!
-		var confirmationPassword = self.confirmPasswordTextField.text!
+		let changedPassword = self.freshPasswordTextField.text!
+		let oldPassword = self.oldPasswordTextField.text!
+		let confirmationPassword = self.confirmPasswordTextField.text!
 
 		// Validate that the new password and the old password are not the same.
 		if (count(oldPassword) > 0 && oldPassword == changedPassword) {
@@ -94,7 +94,7 @@ class ChangePasswordViewController: UIViewController {
 	func showChangePasswordFailedAlertWithMessage(message:String) -> Void {
 		var alertController = UIAlertController(title: "Change Password Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
 
-		var dismissAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+		let dismissAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
 			self.freshPasswordTextField.text = ""
 			self.confirmPasswordTextField.text = ""
 			self.freshPasswordTextField.becomeFirstResponder()
