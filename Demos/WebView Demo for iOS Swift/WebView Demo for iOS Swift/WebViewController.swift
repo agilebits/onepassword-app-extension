@@ -19,7 +19,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		super.viewDidLoad()
 		self.onepasswordFillButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
 
-		let configuration = WKWebViewConfiguration.new()
+		let configuration = WKWebViewConfiguration()
 		
 		self.webView = WKWebView(frame: self.webViewContainer.bounds, configuration: configuration)
 		self.webView.autoresizingMask = UIViewAutoresizing(arrayLiteral: .FlexibleHeight, .FlexibleWidth)
@@ -103,7 +103,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		}
 
 		if (URL == nil) {
-			let escapedText = lowercaseText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding);
+			let escapedText = lowercaseText.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
 			let googleSearch = "http://www.google.com/search?q="
 			URL = NSURL(string: googleSearch.stringByAppendingString(escapedText!))
 		}
