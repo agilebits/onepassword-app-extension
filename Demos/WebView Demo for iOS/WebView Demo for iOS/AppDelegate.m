@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import <OnePasswordExtension/OnePasswordExtension.h>
 
-@interface AppDelegate () <UIAlertViewDelegate>
+@interface AppDelegate ()
 
 @end
 
@@ -17,11 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	if (NO == [[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
-		UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"1Password is not installed" message:@"Get 1Password from the App Store" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Get 1Password", nil];
-		[alertView show];
-	}
-
+	// Override point for customization after application launch.
 	return YES;
 }
 
@@ -45,14 +41,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == alertView.firstOtherButtonIndex) {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/ca/app/1password-password-manager/id568903335?mt=8"]];
-	}
 }
 
 @end
