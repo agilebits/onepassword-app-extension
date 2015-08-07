@@ -29,7 +29,7 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	
-	if ([[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
+	if (NO == [[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 		}];
 		
