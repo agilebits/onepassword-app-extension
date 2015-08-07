@@ -45,6 +45,26 @@
 	[self.webView loadHTMLString:htmlString baseURL:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	if (NO == [[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
+		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+		}];
+		
+		UIAlertAction *get1PasswordAction = [UIAlertAction actionWithTitle:@"Get 1Password" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/ca/app/1password-password-manager/id568903335?mt=8"]];
+		}];
+		
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"1Password is not installed" message:@"Get 1Password from the App Store" preferredStyle:UIAlertControllerStyleAlert];
+		
+		[alertController addAction:cancelAction];
+		[alertController addAction:get1PasswordAction];
+		
+		[self presentViewController:alertController animated:YES completion:nil];
+	}
+}
+
 #pragma mark - Actions
 
 - (IBAction)fillUsing1Password:(id)sender {
