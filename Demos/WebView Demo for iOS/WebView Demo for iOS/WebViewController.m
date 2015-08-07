@@ -128,7 +128,7 @@
 	}
 
 	if (URL == nil) {
-		NSString *escapedText = [lowercaseText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSString *escapedText = [lowercaseText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 		NSString *googleSearch = @"http://www.google.com/search?q=";
 		URL = [NSURL URLWithString:[googleSearch stringByAppendingString:escapedText]];
 	}
