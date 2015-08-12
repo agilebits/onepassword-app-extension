@@ -131,9 +131,15 @@
 	}
 
 	if (URL == nil) {
-		NSString *escapedText = [lowercaseText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-		NSString *googleSearch = @"http://www.google.com/search?q=";
-		URL = [NSURL URLWithString:[googleSearch stringByAppendingString:escapedText]];
+		NSURLComponents *URLComponents = [[NSURLComponents alloc] init];
+		URLComponents.scheme = @"https";
+		URLComponents.host = @"www.google.com";
+		URLComponents.path = @"/search";
+		
+		NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"q" value:text];
+		URLComponents.queryItems = @[queryItem];
+		
+		URL = URLComponents.URL;
 	}
 
 	self.searchBar.text = [URL absoluteString];
