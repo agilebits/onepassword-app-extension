@@ -669,7 +669,7 @@ function w(a){var b;if(void 0===a||null===a)return null;try{var c=Array.prototyp
 #pragma mark - Deprecated methods
 
 /*
- Deprecated in version 1.3.
+ Deprecated in version 1.5
  Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead
  */
 - (void)fillLoginIntoWebView:(nonnull id)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(BOOL success, NSError * __nullable error))completion {
