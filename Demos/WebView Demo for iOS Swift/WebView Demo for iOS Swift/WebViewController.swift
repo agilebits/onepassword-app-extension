@@ -99,7 +99,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		}
 
 		if (URL == nil) {
-			var URLComponents = NSURLComponents()
+			let URLComponents = NSURLComponents()
 			URLComponents.scheme = "https"
 			URLComponents.host = "www.google.com"
 			URLComponents.path = "/search"
