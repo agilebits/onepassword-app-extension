@@ -103,9 +103,15 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		}
 
 		if (URL == nil) {
-			let escapedText = lowercaseText.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-			let googleSearch = "http://www.google.com/search?q="
-			URL = NSURL(string: googleSearch.stringByAppendingString(escapedText!))
+			let URLComponents = NSURLComponents()
+			URLComponents.scheme = "https"
+			URLComponents.host = "www.google.com"
+			URLComponents.path = "/search"
+			
+			let queryItem = NSURLQueryItem(name: "q", value: text)
+			URLComponents.queryItems = [queryItem]
+			
+			URL = URLComponents.URL;
 		}
 
 		self.searchBar.text = URL?.absoluteString
