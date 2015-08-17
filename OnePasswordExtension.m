@@ -315,7 +315,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #endif
 }
 
-- (void)findLoginIn1PasswordWithURLString:(NSString *)URLString collectedPageDetails:(NSString *)collectedPageDetails forWebViewController:(UIViewController *)forViewController sender:(id)sender withWebView:(id)webView showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError *error))completion {
+- (void)findLoginIn1PasswordWithURLString:(nonnull NSString *)URLString collectedPageDetails:(nullable NSString *)collectedPageDetails forWebViewController:(nonnull UIViewController *)forViewController sender:(nullable id)sender withWebView:(nonnull id)webView showOnlyLogins:(BOOL)yesOrNo completion:(void (^)(BOOL success, NSError * __nullable error))completion {
 	if ([URLString length] == 0) {
 		NSError *URLStringError = [OnePasswordExtension failedToObtainURLStringFromWebViewError];
 		NSLog(@"Failed to findLoginIn1PasswordWithURLString: %@", URLStringError);
