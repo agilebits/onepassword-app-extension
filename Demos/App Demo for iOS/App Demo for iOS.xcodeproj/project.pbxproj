@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84E236551B83C4D6006F1AF0 /* ACMEUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E236541B83C4D6006F1AF0 /* ACMEUITests.m */; };
 		C015EF6919992AC70044A194 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C015EF6819992AC70044A194 /* ChangePasswordViewController.m */; };
 		C053E05B19945A45002E80C5 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C053E05A19945A45002E80C5 /* 1Password.xcassets */; };
 		C0F0C18519889441000B261F /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F0C18419889441000B261F /* OnePasswordExtension.m */; };
@@ -19,7 +20,20 @@
 		C0F0C19D19889519000B261F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F0C19619889498000B261F /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		84E236571B83C4D6006F1AF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0FA528F1974821100570166 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C0FA52961974821100570166;
+			remoteInfo = ACME;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		84E236521B83C4D6006F1AF0 /* ACMEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACMEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		84E236541B83C4D6006F1AF0 /* ACMEUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACMEUITests.m; sourceTree = "<group>"; };
+		84E236561B83C4D6006F1AF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C015EF6719992AC70044A194 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswordViewController.h; path = "App Demo for iOS/App Demo for iOS/ChangePasswordViewController.h"; sourceTree = "<group>"; };
 		C015EF6819992AC70044A194 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswordViewController.m; path = "App Demo for iOS/App Demo for iOS/ChangePasswordViewController.m"; sourceTree = "<group>"; };
 		C053E05A19945A45002E80C5 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../1Password.xcassets; sourceTree = "<group>"; };
@@ -41,6 +55,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		84E2364F1B83C4D6006F1AF0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C0FA52941974821100570166 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,10 +72,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84E236531B83C4D6006F1AF0 /* ACMEUITests */ = {
+			isa = PBXGroup;
+			children = (
+				84E236541B83C4D6006F1AF0 /* ACMEUITests.m */,
+				84E236561B83C4D6006F1AF0 /* Info.plist */,
+			);
+			path = ACMEUITests;
+			sourceTree = "<group>";
+		};
 		C0FA528E1974821100570166 = {
 			isa = PBXGroup;
 			children = (
 				C0FA52991974821100570166 /* App Demo for iOS */,
+				84E236531B83C4D6006F1AF0 /* ACMEUITests */,
 				C0FA52981974821100570166 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				C0FA52971974821100570166 /* App Demo for iOS.app */,
+				84E236521B83C4D6006F1AF0 /* ACMEUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +135,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		84E236511B83C4D6006F1AF0 /* ACMEUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84E2365B1B83C4D6006F1AF0 /* Build configuration list for PBXNativeTarget "ACMEUITests" */;
+			buildPhases = (
+				84E2364E1B83C4D6006F1AF0 /* Sources */,
+				84E2364F1B83C4D6006F1AF0 /* Frameworks */,
+				84E236501B83C4D6006F1AF0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84E236581B83C4D6006F1AF0 /* PBXTargetDependency */,
+			);
+			name = ACMEUITests;
+			productName = ACMEUITests;
+			productReference = 84E236521B83C4D6006F1AF0 /* ACMEUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		C0FA52961974821100570166 /* ACME */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0FA52B71974821100570166 /* Build configuration list for PBXNativeTarget "ACME" */;
@@ -129,6 +179,10 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = AgileBits;
 				TargetAttributes = {
+					84E236511B83C4D6006F1AF0 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = C0FA52961974821100570166;
+					};
 					C0FA52961974821100570166 = {
 						CreatedOnToolsVersion = 6.0;
 					};
@@ -148,11 +202,19 @@
 			projectRoot = "";
 			targets = (
 				C0FA52961974821100570166 /* ACME */,
+				84E236511B83C4D6006F1AF0 /* ACMEUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		84E236501B83C4D6006F1AF0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C0FA52951974821100570166 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -166,6 +228,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		84E2364E1B83C4D6006F1AF0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84E236551B83C4D6006F1AF0 /* ACMEUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C0FA52931974821100570166 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -182,6 +252,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		84E236581B83C4D6006F1AF0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C0FA52961974821100570166 /* ACME */;
+			targetProxy = 84E236571B83C4D6006F1AF0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		C0F0C19619889498000B261F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -194,6 +272,38 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		84E236591B83C4D6006F1AF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ACMEUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.agilebits.ACMEUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ACME;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		84E2365A1B83C4D6006F1AF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ACMEUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.agilebits.ACMEUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ACME;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		C0FA52B51974821100570166 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -297,6 +407,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		84E2365B1B83C4D6006F1AF0 /* Build configuration list for PBXNativeTarget "ACMEUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84E236591B83C4D6006F1AF0 /* Debug */,
+				84E2365A1B83C4D6006F1AF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C0FA52921974821100570166 /* Build configuration list for PBXProject "App Demo for iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
