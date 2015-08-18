@@ -67,8 +67,10 @@
 	[app.sheets.collectionViews.collectionViews.buttons[@"1Password"] tap];
 	
 	XCUIElement *button = app.buttons[@"1."];
-	[button doubleTap];
-	[button doubleTap];
+	[button tap];
+	[button tap];
+	[button tap];
+	[button tap];
 	
 	XCUIElementQuery *elementsQuery = app.scrollViews.otherElements;
 	[elementsQuery.textFields[@"Username or email"] tap];
@@ -76,18 +78,36 @@
 	[app.navigationBars[@"1Password"].buttons[@"Save"] tap];
 	
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		XCTAssertTrue(NO == [@"1234" isEqualToString: passwordSecureTextField.value], @"Passwords should be different.");
+		NSString *newPassword = passwordSecureTextField.value;
+		XCTAssertTrue(NO == [@"1234" isEqualToString:newPassword], @"Passwords should be different.");
 	});
 }
 
 - (void)testChangePassword {
-	// TODO:	
+	XCUIApplication *app = [[XCUIApplication alloc] init];
+	[app.buttons[@"Sign in"] tap];
+	[app.buttons[@"Change Password"] tap];
+	[app.buttons[@"onepassword button"] tap];
+	[app.sheets.collectionViews.collectionViews.buttons[@"1Password"] tap];
+	
+	XCUIElement *button = app.buttons[@"1."];
+	[button tap];
+	[button tap];
+	[button tap];
+	[button tap];
+
+	[app.tables.buttons[@"Generate New Password"] tap];
+	[app.navigationBars[@"OPItemDetailView"].buttons[@"Done"] tap];
+	
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		NSString *oldPassword = app.secureTextFields[@"Old Password"].value;
+		NSString *newPassword = app.secureTextFields[@"New Password"].value;
+		
+		XCTAssertTrue(NO == [oldPassword isEqualToString:newPassword], @"Passwords should be different.");
+	});
 }
 
 - (void)testFindLogin {
-	// Use recording to get started writing UI tests.
-	// Use XCTAssert and related functions to verify your tests produce the correct results.
-	
 	XCUIApplication *app = [[XCUIApplication alloc] init];
 	[app.buttons[@"onepassword button"] tap];
 	[app.sheets.collectionViews.collectionViews.buttons[@"1Password"] tap];
