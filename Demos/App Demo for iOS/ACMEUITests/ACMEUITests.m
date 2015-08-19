@@ -8,18 +8,22 @@
 
 #import <XCTest/XCTest.h>
 
+#define __WAIT__ [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:3]];
+
 @interface ACMEUITests : XCTestCase
 
 @end
 
 /*!
- Note that you need to have 1Password installed on your test device with the following configuration:
+ You need to have 1Password installed on your test device with the following configuration:
  
  Security setting:
  "Lock On Exit" enabled and the PIN Code should be "1111"
  
  Required Items:
- Make sure that you have a Login item  in your vault with named "ACME - Test" and make sure that its username and password are valid (non-empty strings)
+ Make sure that you have no matching Logins in your vault for "acme.com"
+ 
+ Tests must me executed in order.
  */
 
 @implementation ACMEUITests
@@ -40,9 +44,7 @@
     [super tearDown];
 }
 
-- (void)testStoreLogin {
-	// Use recording to get started writing UI tests.
-	// Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)test1StoreLogin {
 	[XCUIDevice sharedDevice].orientation = UIDeviceOrientationPortrait;
 	
 	XCUIApplication *app = [[XCUIApplication alloc] init];
@@ -72,18 +74,20 @@
 	[button tap];
 	[button tap];
 	
+	__WAIT__
+	
 	XCUIElementQuery *elementsQuery = app.scrollViews.otherElements;
 	[elementsQuery.textFields[@"Username or email"] tap];
 	[elementsQuery.buttons[@"Generate New Password"] tap];
 	[app.navigationBars[@"1Password"].buttons[@"Save"] tap];
 	
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		NSString *newPassword = passwordSecureTextField.value;
-		XCTAssertTrue(NO == [@"1234" isEqualToString:newPassword], @"Passwords should be different.");
-	});
+	__WAIT__
+
+	NSString *newPassword = passwordSecureTextField.value;
+	XCTAssertTrue(NO == [@"1234" isEqualToString:newPassword], @"Passwords should be different.");
 }
 
-- (void)testChangePassword {
+- (void)test2ChangePassword {
 	XCUIApplication *app = [[XCUIApplication alloc] init];
 	[app.buttons[@"Sign in"] tap];
 	[app.buttons[@"Change Password"] tap];
@@ -96,18 +100,26 @@
 	[button tap];
 	[button tap];
 
+	__WAIT__
+	
 	[app.tables.buttons[@"Generate New Password"] tap];
 	[app.navigationBars[@"OPItemDetailView"].buttons[@"Done"] tap];
+
+	__WAIT__
+
+	NSString *oldPassword = app.secureTextFields[@"Old Password"].value;
+	NSString *newPassword = app.secureTextFields[@"New Password"].value;
+	NSString *confirmPassword = app.secureTextFields[@"Confirm Password"].value;
 	
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		NSString *oldPassword = app.secureTextFields[@"Old Password"].value;
-		NSString *newPassword = app.secureTextFields[@"New Password"].value;
-		
-		XCTAssertTrue(NO == [oldPassword isEqualToString:newPassword], @"Passwords should be different.");
-	});
+	XCTAssertTrue(oldPassword.length > 0, @"A valid old username is required.");
+	XCTAssertTrue(newPassword.length > 0, @"A valid new password is required.");
+	XCTAssertTrue(confirmPassword.length > 0, @"A valid confirmation password is required.");
+	
+	// This would've been a good test case, but since the old, new and the confirm passwords are all "••••••••••••••••••••••••••••••", we can not use it.
+	// XCTAssertTrue(NO == [oldPassword isEqualToString:newPassword], @"Passwords should be different.");
 }
 
-- (void)testFindLogin {
+- (void)test3FindLogin {
 	XCUIApplication *app = [[XCUIApplication alloc] init];
 	[app.buttons[@"onepassword button"] tap];
 	[app.sheets.collectionViews.collectionViews.buttons[@"1Password"] tap];
@@ -117,15 +129,18 @@
 	[button tap];
 	[button tap];
 	[button tap];
-	[app.tables.staticTexts[@"ACME - Test"] tap];
 	
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		NSString *username = app.textFields[@"Username or email"].value;
-		NSString *password = app.secureTextFields[@"Password"].value;
-		
-		XCTAssertTrue(username.length > 0, @"A valid username is required.");
-		XCTAssertTrue(password.length > 0, @"A valid password is required.");
-	});
+	__WAIT__
+
+	[app.tables.staticTexts[@"ACME"] tap];
+	
+	__WAIT__
+
+	NSString *username = app.textFields[@"Username or email"].value;
+	NSString *password = app.secureTextFields[@"Password"].value;
+	
+	XCTAssertTrue(username.length > 0, @"A valid username is required.");
+	XCTAssertTrue(password.length > 0, @"A valid password is required.");
 }
 
 @end
