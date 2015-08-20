@@ -200,10 +200,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fillReturnedItems:(nullable NSArray *)returnedItems intoWebView:(nonnull id)webView completion:(nullable void (^)(BOOL success, NSError * __nullable error))completion;
 
 /*!
- Deprecated in version 1.3.
+ Deprecated in version 1.5
  @see Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead
  */
-- (void)fillLoginIntoWebView:(nonnull id)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(BOOL success, NSError * __nullable error))completion __attribute__((deprecated("Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead. Deprecated in version 1.3")));
+- (void)fillLoginIntoWebView:(nonnull id)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(BOOL success, NSError * __nullable error))completion __attribute__((deprecated("Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead. Deprecated in version 1.5")));
 @end
 
 #if __has_feature(nullability)
