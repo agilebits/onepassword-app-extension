@@ -328,6 +328,12 @@ You can reach us at support+appex@agilebits.com, or if you prefer, [@1Password](
 
 You can also subscribe to our 1Password App Extension Developers newsletter. We’ll send you an occasional newsletter containing 1Password App Extension news, updates, and tricks, to help you realize the full potential of the 1Password Extension API in your iOS apps.
 
-<div class="createsend-button" style="height:27px;display:inline-block;" data-listid="r/28/DFD/CD0/45224696166C470F">
-</div><script type="text/javascript">(function () { var e = document.createElement('script'); e.type = 'text/javascript'; e.async = true; e.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://btn.createsend1.com/js/sb.min.js?v=3'; e.className = 'createsend-script'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(e, s); })();</script>
-
+<form action="http://email.agilebits.com/t/r/s/tucurr/" method="post" id="subForm">
+    <p>
+        <label for="fieldEmail">Email</label><br />
+        <input id="fieldEmail" name="cm-tucurr-tucurr" type="email" required />
+    </p>
+    <p>
+        <button type="submit">Subscribe</button>
+    </p>
+</form>
