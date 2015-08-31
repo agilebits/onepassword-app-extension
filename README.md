@@ -323,3 +323,11 @@ If you open up OnePasswordExtension.m and start poking around, you'll be interes
 Contact us, please! We'd love to hear from you about how you integrated 1Password within your app, how we can further improve things, and add your app to [apps that integrate with 1Password](https://blog.agilebits.com/1password-apps/).
 
 You can reach us at support+appex@agilebits.com, or if you prefer, [@1Password](https://twitter.com/1Password) on Twitter.
+
+### Sign up for the newsletter
+
+You can also subscribe to our 1Password App Extension Developers newsletter. We’ll send you an occasional newsletter containing 1Password App Extension news, updates, and tricks, to help you realize the full potential of the 1Password Extension API in your iOS apps.
+
+<div class="createsend-button" style="height:27px;display:inline-block;" data-listid="r/28/DFD/CD0/45224696166C470F">
+</div><script type="text/javascript">(function () { var e = document.createElement('script'); e.type = 'text/javascript'; e.async = true; e.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://btn.createsend1.com/js/sb.min.js?v=3'; e.className = 'createsend-script'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(e, s); })();</script>
+
