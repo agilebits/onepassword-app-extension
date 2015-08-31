@@ -324,16 +324,4 @@ Contact us, please! We'd love to hear from you about how you integrated 1Passwor
 
 You can reach us at support+appex@agilebits.com, or if you prefer, [@1Password](https://twitter.com/1Password) on Twitter.
 
-### Sign up for the newsletter
-
-You can also subscribe to our 1Password App Extension Developers newsletter. We’ll send you an occasional newsletter containing 1Password App Extension news, updates, and tricks, to help you realize the full potential of the 1Password Extension API in your iOS apps.
-
-<form action="http://email.agilebits.com/t/r/s/tucurr/" method="post" id="subForm">
-    <p>
-        <label for="fieldEmail">Email</label><br />
-        <input id="fieldEmail" name="cm-tucurr-tucurr" type="email" required />
-    </p>
-    <p>
-        <button type="submit">Subscribe</button>
-    </p>
-</form>
+You can also [subscribe to our 1Password App Extension Developers newsletter](https://blog.agilebits.com/1password-extension-developers-newsletter/). We’ll send you an occasional newsletter containing 1Password App Extension news, updates, and tricks, to help you realize the full potential of the 1Password Extension API in your iOS apps.
