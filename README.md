@@ -323,3 +323,5 @@ If you open up OnePasswordExtension.m and start poking around, you'll be interes
 Contact us, please! We'd love to hear from you about how you integrated 1Password within your app, how we can further improve things, and add your app to [apps that integrate with 1Password](https://blog.agilebits.com/1password-apps/).
 
 You can reach us at support+appex@agilebits.com, or if you prefer, [@1Password](https://twitter.com/1Password) on Twitter.
+
+You can also [subscribe to our 1Password App Extension Developers newsletter](https://blog.agilebits.com/1password-extension-developers-newsletter/). We’ll send you an occasional newsletter containing 1Password App Extension news, updates, and tricks, to help you realize the full potential of the 1Password Extension API in your iOS apps.
