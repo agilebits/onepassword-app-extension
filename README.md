@@ -103,7 +103,15 @@ For more information about URL schemes in iOS 9, please refer to the [Privacy an
 
 Next we need to wire up the action for this button to this method in your UIViewController:
 
-```objective-c
+<div id="swift-1-link" style="display:block; text-align:right;">
+<a href="javascript:SwapDivsWithClick('swift-1-link','objective-c-1-link'); SwapDivsWithClick('objective-c-1-code','swift-1-code')">Swift</a></div>
+
+<div id="objective-c-1-link" style="display:none; text-align:right;">
+<a href="javascript:SwapDivsWithClick('swift-1-link','objective-c-1-link'); SwapDivsWithClick('objective-c-1-code','swift-1-code')">Objective-C</a></div>
+</p>
+
+<div id="objective-c-1-code" style="display:block;">
+<pre lang="objective-c">
 - (IBAction)findLoginFrom1Password:(id)sender {
 	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
 		if (loginDictionary.count == 0) {
@@ -117,7 +125,37 @@ Next we need to wire up the action for this button to this method in your UIView
 		self.passwordTextField.text = loginDictionary[AppExtensionPasswordKey];
 	}];
 }
-```
+</pre>
+</div>
+<div id="swift-1-code" style="display:none;">
+<pre lang="swift">
+@IBAction func findLoginFrom1Password(sender:AnyObject) -> Void {
+		OnePasswordExtension.sharedExtension().findLoginForURLString("https://www.acme.com", forViewController: self, sender: sender, completion: { (loginDictionary, error) -> Void in
+			if loginDictionary == nil {
+				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
+					print("Error invoking 1Password App Extension for find login: \(error)")
+				}
+				return
+			}
+			
+			self.usernameTextField.text = loginDictionary?[AppExtensionUsernameKey] as? String
+			self.passwordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
+
+			if let generatedOneTimePassword = loginDictionary?[AppExtensionTOTPKey] as? String {
+				self.oneTimePasswordTextField.hidden = false
+				self.oneTimePasswordTextField.text = generatedOneTimePassword
+
+				// Important: It is recommended that you submit the OTP/TOTP to your validation server as soon as you receive it, otherwise it may expire.
+				let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+				dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+					self.performSegueWithIdentifier("showThankYouViewController", sender: self)
+				})
+			}
+
+		})
+	}
+</pre>
+</div>
 
 This code is pretty straight forward:
 
@@ -325,3 +363,23 @@ Contact us, please! We'd love to hear from you about how you integrated 1Passwor
 You can reach us at support+appex@agilebits.com, or if you prefer, [@1Password](https://twitter.com/1Password) on Twitter.
 
 You can also [subscribe to our 1Password App Extension Developers newsletter](https://blog.agilebits.com/1password-extension-developers-newsletter/). We’ll send you an occasional newsletter containing 1Password App Extension news, updates, and tricks, to help you realize the full potential of the 1Password Extension API in your iOS apps.
+
+<!--
+Javascript function to swap between divs.
+-->
+<script type="text/javascript">
+function SwapDivsWithClick(div1,div2) {
+	d1 = document.getElementById(div1);
+	d2 = document.getElementById(div2);
+	if( d2.style.display == "none" ) {
+		d1.style.display = "none";
+		d2.style.display = "block";
+	}
+	else {
+		d1.style.display = "block";
+		d2.style.display = "none";
+	}
+}
+</script>
+
+
