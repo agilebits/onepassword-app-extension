@@ -189,7 +189,7 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 
 You'll notice that we're passing a lot more information into 1Password than just the `URLString` key used in the sign in example. This is because at the end of the password generation process, 1Password will create a brand new login and save it. It's not possible for 1Password to ask your app for additional information later on, so we pass in everything we can before showing the password generator screen.
 
-An important thing to notice is the `AppExtensionURLStringKey` is set to the exact same value we used in the login scenario. This allows users to quickly find the login they saved for your app the next time they need to sign in.
+An important thing to notice is that the `URLString` is set to the exact same value we used in the login scenario. This allows users to quickly find the login they saved for your app the next time they need to sign in.
 
 ### Use Case #3: Change Password
 
