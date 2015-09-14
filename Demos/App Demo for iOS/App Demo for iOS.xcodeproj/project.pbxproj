@@ -176,7 +176,7 @@
 		C0FA528F1974821100570166 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = AgileBits;
 				TargetAttributes = {
 					84E236511B83C4D6006F1AF0 = {
@@ -387,6 +387,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/App Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "App Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -399,6 +400,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/App Demo for iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "App Demo for iOS";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
