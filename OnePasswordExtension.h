@@ -156,11 +156,13 @@ NS_ASSUME_NONNULL_BEGIN
 
  However, if no matching login is found for "https://domain.com", the 1Password Extension will display the "New Login" button so that the user can create a new Login for the current website.
 
- @param the URLString for matching Logins in the 1Password database.
+ @param the web view which displays the form to be filled.
 
  @param the view controller from which the 1Password Extension is invoked. Usually `self`.
 
  @param the sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on iPhone, but not on iPad.
+
+ @param boolean if YES will only show matching Login items, otherwise the 1Password Extension will also display Credit Cards and Identities.
 
  @param success Reply parameter that is YES if the 1Password Extension has been successfully completed or NO otherwise.
 
