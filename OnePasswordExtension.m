@@ -167,7 +167,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	NSMutableDictionary *item = [NSMutableDictionary new];
 	item[AppExtensionVersionNumberKey] = VERSION_NUMBER;
 	item[AppExtensionURLStringKey] = URLString;
-	[item addEntriesFromDictionary:loginDetailsDict];
+	[item addEntriesFromDictionary:loginDetailsDictionary];
 	if (passwordGenerationOptions.count > 0) {
 		item[AppExtensionPasswordGeneratorOptionsKey] = passwordGenerationOptions;
 	}
