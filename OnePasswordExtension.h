@@ -80,14 +80,14 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  Called from your login page, this method will find all available logins for the given URLString.
 
- @discussion 1Password will show all matching Login for the naked domain of the given URLString. For example if the user has an item in your 1Password database with "subdomain1.domain.com” as the website and another one with "subdomain2.domain.com”, and the URLString is "https://domain.com", 1Password will show both items.
+ @discussion 1Password will show all matching Login for the naked domain of the given URLString. For example if the user has an item in your 1Password vault with "subdomain1.domain.com” as the website and another one with "subdomain2.domain.com”, and the URLString is "https://domain.com", 1Password will show both items.
 
- However, if no matching login is found for "https://domain.com", the 1Password Extension will display the "Show all Logins" button so that the user can search among all the Logins in the database. This is especially useful when the user has a login for "https://olddomain.com".
+ However, if no matching login is found for "https://domain.com", the 1Password Extension will display the "Show all Logins" button so that the user can search among all the Logins in the vault. This is especially useful when the user has a login for "https://olddomain.com".
 
  After the user selects a login, it is stored into an NSDictionary and given to your completion handler. Use the `Login Dictionary keys` above to
  extract the needed information and update your UI. The completion block is guaranteed to be called on the main thread.
 
- @param the URLString for matching Logins in the 1Password database.
+ @param the URLString for matching Logins in the 1Password vault.
 
  @param the view controller from which the 1Password Extension is invoked. Usually `self`
 
@@ -152,7 +152,7 @@ NS_ASSUME_NONNULL_BEGIN
  Called from your web view controller, this method will show all the saved logins for the active page in the provided web
  view, and automatically fill the HTML form fields. Supports both WKWebView and UIWebView.
 
- @discussion 1Password will show all matching Login for the naked domain of the current website. For example if the user has an item in your 1Password database with "subdomain1.domain.com” as the website and another one with "subdomain2.domain.com”, and the current website is "https://domain.com", 1Password will show both items.
+ @discussion 1Password will show all matching Login for the naked domain of the current website. For example if the user has an item in your 1Password vault with "subdomain1.domain.com” as the website and another one with "subdomain2.domain.com”, and the current website is "https://domain.com", 1Password will show both items.
 
  However, if no matching login is found for "https://domain.com", the 1Password Extension will display the "New Login" button so that the user can create a new Login for the current website.
 
