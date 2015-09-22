@@ -36,7 +36,7 @@ To get started, download the [zip version](https://github.com/AgileBits/onepassw
 
 Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Registration features, as well as a web browser that showcases the web view Filling feature.
 
-The 1Password App Extension API is also available via CocoaPods, simply add `pod '1PasswordExtension', '~> 1.6'` (for the latest stable release) or `pod '1PasswordExtension', :git => 'https://github.com/AgileBits/onepassword-app-extension.git', :branch => 'master'` (for the latest nightly) to your Podfile, run `pod install` from your project directory and you're ready to go.
+The 1Password App Extension API is also available via CocoaPods, simply add `pod '1PasswordExtension', '~> 1.6.1'` (for the latest stable release) or `pod '1PasswordExtension', :git => 'https://github.com/AgileBits/onepassword-app-extension.git', :branch => 'master'` (for the latest nightly) to your Podfile, run `pod install` from your project directory and you're ready to go.
 
 The 1Password App Extension API is available via Carthage as well. Simply add `github "AgileBits/onepassword-extension" "add-framework-support"` to your Cartfile, then run `carthage update` and add it to your project.
 
@@ -214,13 +214,6 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 		[self showChangePasswordFailedAlertWithMessage:@"The new passwords and the confirmation password must match"];
 		return;
 	}
-
-	/* 
-	 These are the three scenarios that are supported:
-	 1. A single matching Login is found: 1Password will enter edit mode for that Login and will update its password using the value for AppExtensionPasswordKey.
-	 2. More than a one matching Logins are found: 1Password will display a list of all matching Logins. The user must choose which one to update. Once in edit mode, the Login will be updated with the new password.
-	 3. No matching login is found: 1Password will create a new Login using the optional fields if available to populate its properties.
-	*/
 	
 	NSDictionary *loginDetails = @{
 									  AppExtensionTitleKey: @"ACME", // Optional, used for the third schenario only
