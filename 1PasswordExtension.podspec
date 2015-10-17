@@ -1,32 +1,31 @@
+Pod::Spec.new do |spec|
 
-Pod::Spec.new do |s|
+  spec.name 				= "1PasswordExtension"
+  spec.header_dir 			= "OnePasswordExtension"
+  spec.header_mappings_dir 	= "OnePasswordExtension"
+  spec.version 				= "1.6.3"
+  spec.summary 				= "With just a few lines of code, your app can add 1Password support."
+  spec.description 			= <<-DESC
+ 							With just a few lines of code, your app can add 1Password support, enabling your users to:
 
-  s.name         = "1PasswordExtension"
-  s.header_dir   = "OnePasswordExtension"
-  s.version      = "1.6.2"
-  s.summary      = "With just a few lines of code, your app can add 1Password support."
+ 							- Access their 1Password Logins to automatically fill your login page.
+ 							- Use the Strong Password Generator to create unique passwords during registration, and save the new Login within 1Password.
+ 							- Quickly fill 1Password Logins directly into web views.
 
-  s.description  = <<-DESC
-                   With just a few lines of code, your app can add 1Password support, enabling your users to:
+ 							Empowering your users to use strong, unique passwords has never been easier.
+ 							DESC
 
-                  - Access their 1Password Logins to automatically fill your login page.
-                  - Use the Strong Password Generator to create unique passwords during registration, and save the new Login within 1Password.
-                  - Quickly fill 1Password Logins directly into web views.
+  spec.homepage 			= "https://github.com/AgileBits/onepassword-app-extension"
+  spec.license 				= { :type => 'MIT', :file => 'LICENSE.txt' }
+  spec.authors 				= [ "Dave Teare", "Michael Fey", "Rad Azzouz", "Roustem Karimov" ]
+  spec.social_media_url 	= "https://twitter.com/1Password"
 
-                   Empowering your users to use strong, unique passwords has never been easier.
-                   DESC
-
-  s.homepage          = "https://github.com/AgileBits/onepassword-app-extension"
-  s.license           = { :type => 'MIT', :file => 'LICENSE.txt' }
-  s.authors           = [ "Dave Teare", "Michael Fey", "Rad Azzouz", "Roustem Karimov" ]
-  s.social_media_url  = "https://twitter.com/1Password"
-
-  s.source            = { :git => "https://github.com/AgileBits/onepassword-app-extension.git", :tag => s.version }
-  s.platform          = :ios, 7.0
-  s.source_files      = "*.{h,m}"
-  s.frameworks        = "UIKit"
-  s.weak_framework    = "WebKit"
-  s.exclude_files     = "Demos"
-  s.resource_bundles  = { 'OnePasswordExtensionResources' => ['1Password.xcassets/*.imageset/*.png', '1Password.xcassets'] }
-  s.requires_arc      = true
+  spec.source 				= { :git => "https://github.com/AgileBits/onepassword-app-extension.git", :tag => spec.version }
+  spec.platform 			= :ios, 7.0
+  spec.source_files 		= "*.{h,m}"
+  spec.frameworks 			= "UIKit"
+  spec.weak_framework 		= "WebKit"
+  spec.exclude_files 		= "Demos"
+  spec.resource_bundles 	= { 'OnePasswordExtensionResources' => ['1Password.xcassets/*.imageset/*.png', '1Password.xcassets'] }
+  spec.requires_arc 		= true
 end
