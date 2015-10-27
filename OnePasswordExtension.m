@@ -567,7 +567,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #pragma mark - Errors
 
 + (NSError *)systemAppExtensionAPINotAvailableError {
-	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"App Extension API is not available is this version of iOS", @"OnePasswordExtension", @"1Password Extension Error Message") };
+	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"App Extension API is not available in this version of iOS", @"OnePasswordExtension", @"1Password Extension Error Message") };
 	return [NSError errorWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeAPINotAvailable userInfo:userInfo];
 }
 
