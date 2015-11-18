@@ -279,6 +279,10 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 If you use a web view to login (i.e. OAuth) and you do not want other activities to show up in the share sheet and other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
 
+#### SFSafariViewController
+
+If your app uses `SFSafariViewController`, the 1Password App Extension will show up in the share sheet on devices running iOS 9.2 or later just like it does in Safari. No implementation is required.
+ 
 ## Projects supporting iOS 7.1 and earlier
 
 If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link to the `WebKit` framework.
