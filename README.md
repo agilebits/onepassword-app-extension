@@ -74,7 +74,7 @@ Be forewarned, however, that there is not much code to get dirty with. If you we
 
 ### Add 1Password Files to Your Project
 
-Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcassets` to your project and import `OnePasswordExtension.h` in your view contoller that implements the action for the 1Password button.
+Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcassets` to your project and import `OnePasswordExtension.h` in your view controller that implements the action for the 1Password button.
 
 <img src="http://cl.ly/image/2g3B1r2O2z0L/Image%202014-07-29%20at%209.19.36%20AM.png" width="260" height="237"/>
 
@@ -289,9 +289,9 @@ If your project's Deployment Target is earlier than iOS 8.0, please make sure th
 
 <a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTlW927xn9ACbJ4nPcFhYrDKHDCSSmIYIYB/image.png" width="640"></a>
 
-#### WKWebView support for projects with iOS 7.1 or earler as the Deployment Target
+#### WKWebView support for projects with iOS 7.1 or earlier as the Deployment Target
 
-If the **Deployment Target** is `7.1` or earlier in your project or target and you are using `WKWebViews` (runtime checks for iOS 8 deveices), you simply need to add `ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW=1` to your `Preprocessor Macros`.
+If the **Deployment Target** is `7.1` or earlier in your project or target and you are using `WKWebViews` (runtime checks for iOS 8 devices), you simply need to add `ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW=1` to your `Preprocessor Macros`.
 
 <a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTawUykz6dHea_aKawqBwTCza2zvJYbeVMB/image.png" width="640"></a>
 
