@@ -3,7 +3,7 @@ Pod::Spec.new do |spec|
   spec.name 				= "1PasswordExtension"
   spec.header_dir 			= "OnePasswordExtension"
   spec.header_mappings_dir 	= "OnePasswordExtension"
-  spec.version 				= "1.6.4"
+  spec.version 				= "1.7.0"
   spec.summary 				= "With just a few lines of code, your app can add 1Password support."
   spec.description 			= <<-DESC
  							With just a few lines of code, your app can add 1Password support, enabling your users to:
