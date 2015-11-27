@@ -1,0 +1,11 @@
+{
+  "name": "1PasswordExtension",
+  "version": "1.6.4",
+  "description": "With just a few lines of code, your app can add 1Password support.",
+  "homepage": "https://github.com/AgileBits/onepassword-app-extension",
+  "license": "MIT",
+  "author": "Dave Teare, Michael Fey, Rad Azzouz, Roustem Karimov",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
