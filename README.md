@@ -36,7 +36,7 @@ To get started, download the [zip version](https://github.com/AgileBits/onepassw
 
 Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Registration features, as well as a web browser that showcases the web view Filling feature.
 
-The 1Password App Extension API is also available via CocoaPods, simply add `pod '1PasswordExtension', '~> 1.6.4'` (for the latest stable release) or `pod '1PasswordExtension', :git => 'https://github.com/AgileBits/onepassword-app-extension.git', :branch => 'master'` (for the latest nightly) to your Podfile, run `pod install` from your project directory and you're ready to go.
+The 1Password App Extension API is also available via CocoaPods, simply add `pod '1PasswordExtension', '~> 1.7'` (for the latest stable release) or `pod '1PasswordExtension', :git => 'https://github.com/AgileBits/onepassword-app-extension.git', :branch => 'master'` (for the latest nightly) to your Podfile, run `pod install` from your project directory and you're ready to go.
 
 The 1Password App Extension API is available via Carthage as well. Simply add `github "AgileBits/onepassword-extension" "add-framework-support"` to your Cartfile, then run `carthage update` and add it to your project.
 
@@ -74,7 +74,7 @@ Be forewarned, however, that there is not much code to get dirty with. If you we
 
 ### Add 1Password Files to Your Project
 
-Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcassets` to your project and import `OnePasswordExtension.h` in your view contoller that implements the action for the 1Password button.
+Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcassets` to your project and import `OnePasswordExtension.h` in your view controller that implements the action for the 1Password button.
 
 <img src="http://cl.ly/image/2g3B1r2O2z0L/Image%202014-07-29%20at%209.19.36%20AM.png" width="260" height="237"/>
 
@@ -279,15 +279,19 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 If you use a web view to login (i.e. OAuth) and you do not want other activities to show up in the share sheet and other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
 
+#### SFSafariViewController
+
+If your app uses `SFSafariViewController`, the 1Password App Extension will show up in the share sheet on devices running iOS 9.2 or later just like it does in Safari. No implementation is required.
+ 
 ## Projects supporting iOS 7.1 and earlier
 
 If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link to the `WebKit` framework.
 
 <a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTlW927xn9ACbJ4nPcFhYrDKHDCSSmIYIYB/image.png" width="640"></a>
 
-#### WKWebView support for projects with iOS 7.1 or earler as the Deployment Target
+#### WKWebView support for projects with iOS 7.1 or earlier as the Deployment Target
 
-If the **Deployment Target** is `7.1` or earlier in your project or target and you are using `WKWebViews` (runtime checks for iOS 8 deveices), you simply need to add `ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW=1` to your `Preprocessor Macros`.
+If the **Deployment Target** is `7.1` or earlier in your project or target and you are using `WKWebViews` (runtime checks for iOS 8 devices), you simply need to add `ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW=1` to your `Preprocessor Macros`.
 
 <a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTawUykz6dHea_aKawqBwTCza2zvJYbeVMB/image.png" width="640"></a>
 
