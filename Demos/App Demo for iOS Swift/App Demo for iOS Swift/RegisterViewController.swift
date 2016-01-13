@@ -17,7 +17,6 @@ class RegisterViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation:UIStatusBarAnimation.None)
 		self.view.backgroundColor = UIColor(patternImage: UIImage(named: "register-background.png")!)
 		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
 	}
