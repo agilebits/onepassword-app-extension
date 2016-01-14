@@ -11,7 +11,10 @@ import Foundation
 class ThankYouViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation:UIStatusBarAnimation.None)
 		self.view.backgroundColor = UIColor(patternImage: UIImage(named: "login-background.png")!)
+	}
+	
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return UIStatusBarStyle.LightContent
 	}
 }
