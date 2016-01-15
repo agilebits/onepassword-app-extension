@@ -76,7 +76,6 @@
 												// Here are all the symbols available in the the 1Password Password Generator:
 												// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
 												// The string for AppExtensionGeneratedPasswordForbiddenCharactersKey should contain the symbols and characters that you wish 1Password to exclude from the generated password.
-												
 												AppExtensionGeneratedPasswordForbiddenCharactersKey: @"!@#$%/0lIO"
 												};
 	

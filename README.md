@@ -165,7 +165,6 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 												// Here are all the symbols available in the the 1Password Password Generator:
 												// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
 												// The string for AppExtensionGeneratedPasswordForbiddenCharactersKey should contain the symbols and characters that you wish 1Password to exclude from the generated password.
-
 												AppExtensionGeneratedPasswordForbiddenCharactersKey: @"!@#$%/0lIO"
 												};
 
@@ -240,7 +239,6 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 												// Here are all the symbols available in the the 1Password Password Generator:
 												// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
 												// The string for AppExtensionGeneratedPasswordForbiddenCharactersKey should contain the symbols and characters that you wish 1Password to exclude from the generated password.
-
 												AppExtensionGeneratedPasswordForbiddenCharactersKey: @"!@#$%/0lIO"
 												};
 
