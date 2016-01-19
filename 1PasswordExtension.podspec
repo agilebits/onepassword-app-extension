@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
 
-  spec.name 				= "1PasswordExtension"
+  spec.name 				= "OnePasswordExtension"
   spec.header_dir 			= "OnePasswordExtension"
   spec.header_mappings_dir 	= "OnePasswordExtension"
   spec.version 				= "1.7"
