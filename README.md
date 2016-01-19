@@ -283,9 +283,9 @@ If your app uses `SFSafariViewController`, the 1Password App Extension will show
  
 ## Projects supporting iOS 7.1 and earlier
 
-If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link to the `WebKit` framework.
+If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link the `MobileCoreServices` and the `WebKit` frameworks as follows:
 
-<a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTlW927xn9ACbJ4nPcFhYrDKHDCSSmIYIYB/image.png" width="640"></a>
+<a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTd9p24XDVEiJDpcsxCWSFPlznTY7HtBRcB/image.png" width="640"></a>
 
 #### WKWebView support for projects with iOS 7.1 or earlier as the Deployment Target
 
