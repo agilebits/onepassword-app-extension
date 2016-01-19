@@ -32,13 +32,13 @@ class ChangePasswordViewController: UIViewController {
 		// Validate that the new password and the old password are not the same.
 		if (oldPassword.characters.count > 0 && oldPassword == changedPassword) {
 			self.showChangePasswordFailedAlertWithMessage("The old and the new password must not be the same")
-			return;
+			return
 		}
 		
 		// Validate that the new and confirmation passwords match.
 		if (changedPassword.characters.count > 0 && changedPassword != confirmationPassword) {
 			self.showChangePasswordFailedAlertWithMessage("The new passwords and the confirmation password must match")
-			return;
+			return
 		}
 		
 		let newLoginDetails:[String: AnyObject] = [

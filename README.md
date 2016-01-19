@@ -10,7 +10,7 @@ Empowering your users to use strong, unique passwords has never been easier. Let
 
 ## App Extension in Action
 
-<a href="https://vimeo.com/102142106" target="_blank"><img src="http://cl.ly/image/3Q232U370v0W/1PasswordAppExtensionPlayVideo.png" width="640" height="360"></a>
+<a href="https://vimeo.com/102142106" target="_blank"><img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/1Password_App_Extension_Play_Video.png" width="640" height="360"></a>
 
 
 ## Just Give Me the Code (TL;DR)
@@ -57,7 +57,7 @@ Let us know that you're an app developer and planning to add 1Password support b
 
 Open `1Password Extension Demos` Xcode workspace from within the `Demos` folder with Xcode, and then select the `ACME` target and set it to run your iOS device:
 
-<img src="http://i.agilebits.com/dt/Menubar_and_SignInViewController_m_and_README_md_—_onepassword-extension__git__master__197DEA31.png" width="342" height="150">
+<img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/Run_The_Apps.png" width="342" height="150">
 
 Since you will not have 1Password running within your iOS Simulator, it is important that you run on your device.
 
@@ -76,7 +76,7 @@ Be forewarned, however, that there is not much code to get dirty with. If you we
 
 Add the `OnePasswordExtension.h`, `OnePasswordExtension.m`, and `1Password.xcassets` to your project and import `OnePasswordExtension.h` in your view controller that implements the action for the 1Password button.
 
-<img src="http://cl.ly/image/2g3B1r2O2z0L/Image%202014-07-29%20at%209.19.36%20AM.png" width="260" height="237"/>
+<img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/Add_Files_To_project.png" width="260" height="237"/>
 
 ### Use Case #1: Native App Login
 
@@ -97,7 +97,7 @@ Note that `isAppExtensionAvailable` looks to see if any app is installed that su
 
 **Important:** `isAppExtensionAvailable` uses `- [UIApplication canOpenURL:]`. Since iOS 9 it is recommended that you add the custom URL scheme, `org-appextension-feature-password-management`, in your target's `info.plist` as follows:
 
-<img src="https://www.evernote.com/l/AVQvX8E3k-RFGaA-k2VnquPhoPI5V-zZby8B/image.png" width="640">
+<img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/LSApplicationQueriesSchemes.png" width="640">
 
 For more information about URL schemes in iOS 9, please refer to the [Privacy and Your Apps session](https://developer.apple.com/videos/wwdc/2015/?id=703) from WWDC 2015 at around the the 9th minute mark.
 
@@ -283,15 +283,15 @@ If your app uses `SFSafariViewController`, the 1Password App Extension will show
  
 ## Projects supporting iOS 7.1 and earlier
 
-If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link to the `WebKit` framework.
+If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link the `MobileCoreServices` and the `WebKit` frameworks as follows:
 
-<a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTlW927xn9ACbJ4nPcFhYrDKHDCSSmIYIYB/image.png" width="640"></a>
+<a href="https://vimeo.com/102142106" target="_blank"><img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/Projects_Targeting_iOS_7.1_Or_Earlier.png" width="640"></a>
 
 #### WKWebView support for projects with iOS 7.1 or earlier as the Deployment Target
 
 If the **Deployment Target** is `7.1` or earlier in your project or target and you are using `WKWebViews` (runtime checks for iOS 8 devices), you simply need to add `ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW=1` to your `Preprocessor Macros`.
 
-<a href="https://vimeo.com/102142106" target="_blank"><img src="https://www.evernote.com/l/AVTawUykz6dHea_aKawqBwTCza2zvJYbeVMB/image.png" width="640"></a>
+<a href="https://vimeo.com/102142106" target="_blank"><img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW.png" width="640"></a>
 
 ## Best Practices
 
