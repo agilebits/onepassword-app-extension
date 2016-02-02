@@ -1,6 +1,6 @@
 //
 //  WebViewController.h
-//  1Password Extension Demo
+//  WebView Demo for iOS
 //
 //  Created by Dave Teare on 2014-07-19.
 //  Copyright (c) 2014 AgileBits. All rights reserved.
