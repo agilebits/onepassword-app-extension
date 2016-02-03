@@ -2,7 +2,7 @@
 //  ChangePasswordViewController.swift
 //  App Demo for iOS Swift
 //
-//  Created by Rad on 2015-05-14.
+//  Created by Rad Azzouz on 2015-05-14.
 //  Copyright (c) 2015 Agilebits. All rights reserved.
 //
 

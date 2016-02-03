@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  ACME Browser Swift
+//  WebView Demo for iOS Swift
 //
-//  Created by Rad on 2015-05-14.
+//  Created by Rad Azzouz on 2015-05-14.
 //  Copyright (c) 2015 AgileBits Inc. All rights reserved.
 //
 
