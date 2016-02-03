@@ -1,6 +1,6 @@
 //
-//  SignUpViewController.h
-//  1Password Extension Demo
+//  RegisterViewController.h
+//  App Demo for iOS
 //
 //  Created by Rad Azzouz on 2014-07-17.
 //  Copyright (c) 2014 AgileBits. All rights reserved.
