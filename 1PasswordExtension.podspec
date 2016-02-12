@@ -23,7 +23,7 @@ Pod::Spec.new do |spec|
   spec.source 				= { :git => "https://github.com/AgileBits/onepassword-app-extension.git", :tag => spec.version }
   spec.platform 			= :ios, 7.0
   spec.source_files 		= "*.{h,m}"
-  spec.frameworks 			= "UIKit"
+  spec.frameworks 			= [ 'Foundation', 'MobileCoreServices', 'UIKit' ]
   spec.weak_framework 		= "WebKit"
   spec.exclude_files 		= "Demos"
   spec.resource_bundles 	= { 'OnePasswordExtensionResources' => ['1Password.xcassets/*.imageset/*.png', '1Password.xcassets'] }

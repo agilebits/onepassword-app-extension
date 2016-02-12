@@ -2,7 +2,7 @@
 //  RegisterViewController.swift
 //  App Demo for iOS Swift
 //
-//  Created by Rad on 2015-05-14.
+//  Created by Rad Azzouz on 2015-05-14.
 //  Copyright (c) 2015 Agilebits. All rights reserved.
 //
 
@@ -17,7 +17,6 @@ class RegisterViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation:UIStatusBarAnimation.None)
 		self.view.backgroundColor = UIColor(patternImage: UIImage(named: "register-background.png")!)
 		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
 	}
@@ -57,7 +56,6 @@ class RegisterViewController: UIViewController {
 			// Here are all the symbols available in the the 1Password Password Generator:
 			// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
 			// The string for AppExtensionGeneratedPasswordForbiddenCharactersKey should contain the symbols and characters that you wish 1Password to exclude from the generated password.
-			
 			AppExtensionGeneratedPasswordForbiddenCharactersKey: "!@#$%/0lIO"
 		]
 		

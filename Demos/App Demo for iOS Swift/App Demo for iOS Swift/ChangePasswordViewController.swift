@@ -2,7 +2,7 @@
 //  ChangePasswordViewController.swift
 //  App Demo for iOS Swift
 //
-//  Created by Rad on 2015-05-14.
+//  Created by Rad Azzouz on 2015-05-14.
 //  Copyright (c) 2015 Agilebits. All rights reserved.
 //
 
@@ -16,7 +16,6 @@ class ChangePasswordViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation:UIStatusBarAnimation.None)
 		self.view.backgroundColor = UIColor(patternImage: UIImage(named: "login-background.png")!)
 		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
 	}
@@ -33,13 +32,13 @@ class ChangePasswordViewController: UIViewController {
 		// Validate that the new password and the old password are not the same.
 		if (oldPassword.characters.count > 0 && oldPassword == changedPassword) {
 			self.showChangePasswordFailedAlertWithMessage("The old and the new password must not be the same")
-			return;
+			return
 		}
 		
 		// Validate that the new and confirmation passwords match.
 		if (changedPassword.characters.count > 0 && changedPassword != confirmationPassword) {
 			self.showChangePasswordFailedAlertWithMessage("The new passwords and the confirmation password must match")
-			return;
+			return
 		}
 		
 		let newLoginDetails:[String: AnyObject] = [
@@ -67,7 +66,6 @@ class ChangePasswordViewController: UIViewController {
 			// Here are all the symbols available in the the 1Password Password Generator:
 			// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
 			// The string for AppExtensionGeneratedPasswordForbiddenCharactersKey should contain the symbols and characters that you wish 1Password to exclude from the generated password.
-			
 			AppExtensionGeneratedPasswordForbiddenCharactersKey: "!@#$%/0lIO"
 		]
 		

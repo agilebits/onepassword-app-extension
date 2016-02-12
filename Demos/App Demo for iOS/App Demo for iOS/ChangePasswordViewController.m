@@ -2,7 +2,7 @@
 //  ChangePasswordViewController.m
 //  App Demo for iOS
 //
-//  Created by Rad on 2014-08-11.
+//  Created by Rad Azzouz on 2014-08-11.
 //  Copyright (c) 2014 AgileBits. All rights reserved.
 //
 
@@ -73,7 +73,6 @@
 												// Here are all the symbols available in the the 1Password Password Generator:
 												// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
 												// The string for AppExtensionGeneratedPasswordForbiddenCharactersKey should contain the symbols and characters that you wish 1Password to exclude from the generated password.
-												
 												AppExtensionGeneratedPasswordForbiddenCharactersKey: @"!@#$%/0lIO"
 												};
 	

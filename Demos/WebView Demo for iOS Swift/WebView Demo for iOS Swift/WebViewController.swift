@@ -1,8 +1,8 @@
 //
-//  FirstViewController.swift
-//  ACME Browser Swift
+//  WebViewController.swift
+//  WebView Demo for iOS Swift
 //
-//  Created by Rad on 2015-05-14.
+//  Created by Rad Azzouz on 2015-05-14.
 //  Copyright (c) 2015 AgileBits Inc. All rights reserved.
 //
 
@@ -91,7 +91,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		let hasSpaces = lowercaseText.rangeOfString(" ") != nil
 		let hasDots = lowercaseText.rangeOfString(".") != nil
 
-		let search: Bool = !hasSpaces || !hasDots;
+		let search: Bool = !hasSpaces || !hasDots
 		if (search) {
 			let hasScheme = lowercaseText.hasPrefix("http:") || lowercaseText.hasPrefix("https:")
 			if (hasScheme) {
@@ -111,13 +111,13 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 			let queryItem = NSURLQueryItem(name: "q", value: text)
 			URLComponents.queryItems = [queryItem]
 			
-			URL = URLComponents.URL;
+			URL = URLComponents.URL
 		}
 
 		self.searchBar.text = URL?.absoluteString
 		self.searchBar.resignFirstResponder()
 
-		let request = NSURLRequest(URL: URL!);
+		let request = NSURLRequest(URL: URL!)
 		self.webView.loadRequest(request)
 	}
 	
