@@ -48,6 +48,10 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #pragma mark - Native app Login
 
 - (void)findLoginForURLString:(nonnull NSString *)URLString forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(NSDictionary * __nullable loginDictionary, NSError * __nullable error))completion {
+    [self findLoginForURLString:URLString forViewController:viewController sender:sender applicationActivities:nil completion:completion];
+}
+
+- (void)findLoginForURLString:(nonnull NSString *)URLString forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender applicationActivities:(nullable NSArray<UIActivity *> *)applicationActivities completion:(nullable void (^)(NSDictionary * __nullable loginDictionary, NSError * __nullable error))completion {
 	NSAssert(URLString != nil, @"URLString must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 
@@ -63,7 +67,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #ifdef __IPHONE_8_0
 	NSDictionary *item = @{ AppExtensionVersionNumberKey: VERSION_NUMBER, AppExtensionURLStringKey: URLString };
 
-	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionFindLoginAction];
+	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item applicationActivities:applicationActivities viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionFindLoginAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
 			NSError *error = nil;
@@ -118,7 +122,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		newLoginAttributesDict[AppExtensionPasswordGeneratorOptionsKey] = passwordGenerationOptions;
 	}
 
-	UIActivityViewController *activityViewController = [self activityViewControllerForItem:newLoginAttributesDict viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
+	UIActivityViewController *activityViewController = [self activityViewControllerForItem:newLoginAttributesDict applicationActivities:nil viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionSaveLoginAction];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
 			NSError *error = nil;
@@ -172,7 +176,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		item[AppExtensionPasswordGeneratorOptionsKey] = passwordGenerationOptions;
 	}
 
-	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionChangePasswordAction];
+	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item applicationActivities:nil viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionChangePasswordAction];
 
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
@@ -340,7 +344,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : collectedPageDetailsDictionary };
 
 	NSString *typeIdentifier = yesOrNo ? kUTTypeAppExtensionFillWebViewAction  : kUTTypeAppExtensionFillBrowserAction;
-	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:forViewController sender:sender typeIdentifier:typeIdentifier];
+	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item applicationActivities:nil viewController:forViewController sender:sender typeIdentifier:typeIdentifier];
 	activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 		if (returnedItems.count == 0) {
 			NSError *error = nil;
@@ -502,7 +506,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	 }];
 }
 
-- (UIActivityViewController *)activityViewControllerForItem:(nonnull NSDictionary *)item viewController:(nonnull UIViewController*)viewController sender:(nullable id)sender typeIdentifier:(nonnull NSString *)typeIdentifier {
+- (UIActivityViewController *)activityViewControllerForItem:(nonnull NSDictionary *)item applicationActivities:(nullable NSArray<UIActivity *> *)applicationActivities viewController:(nonnull UIViewController*)viewController sender:(nullable id)sender typeIdentifier:(nonnull NSString *)typeIdentifier {
 #ifdef __IPHONE_8_0
 	NSAssert(NO == (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && sender == nil), @"sender must not be nil on iPad.");
 
@@ -511,7 +515,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
 
-	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:nil];
+	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[ extensionItem ]  applicationActivities:applicationActivities];
 
 	if ([sender isKindOfClass:[UIBarButtonItem class]]) {
 		controller.popoverPresentationController.barButtonItem = sender;
