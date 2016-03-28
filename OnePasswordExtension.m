@@ -472,7 +472,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	}
 
 	NSItemProvider *itemProvider = extensionItem.attachments.firstObject;
-	if (NO == [itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypePropertyList]) {
+	if (NO == [itemProvider hasItemConformingToTypeIdentifier:(__bridge NSString *)kUTTypePropertyList]) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item attachment does not conform to kUTTypePropertyList type identifier" };
 		NSError *error = [[NSError alloc] initWithDomain:AppExtensionErrorDomain code:AppExtensionErrorCodeUnexpectedData userInfo:userInfo];
 		if (completion) {
@@ -482,7 +482,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	}
 
 
-	[itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *itemDictionary, NSError *itemProviderError) {
+	[itemProvider loadItemForTypeIdentifier:(__bridge NSString *)kUTTypePropertyList options:nil completionHandler:^(NSDictionary *itemDictionary, NSError *itemProviderError) {
 		 NSError *error = nil;
 		 if (itemDictionary.count == 0) {
 			 NSLog(@"Failed to loadItemForTypeIdentifier: %@", itemProviderError);
