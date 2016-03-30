@@ -1,3 +1,5 @@
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 # 1Password App Extension
 
 Welcome! With just a few lines of code, your app can add 1Password support, enabling your users to:
