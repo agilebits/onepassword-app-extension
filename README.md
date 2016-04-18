@@ -1,7 +1,7 @@
 # 1Password App Extension
 
-[![CocoaPods](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/AgileBits/onepassword-app-extension/blob/master/LICENSE.txt)
-[![CocoaPods](https://img.shields.io/cocoapods/v/AFNetworking.svg)](https://github.com/AgileBits/onepassword-app-extension/wiki/CocoaPods)
+[![CocoaPods](https://img.shields.io/cocoapods/l/1PasswordExtension.svg)](https://github.com/AgileBits/onepassword-app-extension/blob/master/LICENSE.txt)
+[![CocoaPods](https://img.shields.io/cocoapods/v/1PasswordExtension.svg)](https://github.com/AgileBits/onepassword-app-extension/wiki/CocoaPods)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/AgileBits/onepassword-app-extension/wiki/Carthage)
 
 Welcome! With just a few lines of code, your app can add 1Password support, enabling your users to:
