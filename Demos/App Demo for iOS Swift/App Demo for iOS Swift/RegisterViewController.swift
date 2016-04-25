@@ -17,7 +17,11 @@ class RegisterViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor(patternImage: UIImage(named: "register-background.png")!)
+		
+		if let patternImage = UIImage(named: "register-background.png") {
+			self.view.backgroundColor = UIColor(patternImage: patternImage)
+		}
+		
 		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
 	}
 
