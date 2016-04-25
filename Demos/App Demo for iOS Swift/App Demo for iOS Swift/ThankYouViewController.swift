@@ -11,7 +11,11 @@ import Foundation
 class ThankYouViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor(patternImage: UIImage(named: "login-background.png")!)
+		
+		if let patternImage = UIImage(named: "login-background.png") {
+			self.view.backgroundColor = UIColor(patternImage: patternImage)
+		}
+
 	}
 	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
