@@ -40,7 +40,7 @@ To get started, download the [zip version](https://github.com/AgileBits/onepassw
 
 Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Registration features, as well as a web browser that showcases the web view Filling feature.
 
-The 1Password App Extension API is also available via CocoaPods, simply add `pod '1PasswordExtension', '~> 1.8.1'` (for the latest stable release) or `pod '1PasswordExtension', :git => 'https://github.com/AgileBits/onepassword-app-extension.git', :branch => 'master'` (for the latest nightly) to your Podfile, run `pod install` from your project directory and you're ready to go.
+The 1Password App Extension API is also available via CocoaPods, simply add `pod '1PasswordExtension', '~> 1.8.2'` (for the latest stable release) or `pod '1PasswordExtension', :git => 'https://github.com/AgileBits/onepassword-app-extension.git', :branch => 'master'` (for the latest nightly) to your Podfile, run `pod install` from your project directory and you're ready to go.
 
 The 1Password App Extension API is available via Carthage as well. Simply add `github "AgileBits/onepassword-extension" "add-framework-support"` to your Cartfile, then run `carthage update` and add it to your project.
 
