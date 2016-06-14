@@ -17,29 +17,29 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.onepasswordFillButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+		self.onepasswordFillButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
 
 		let configuration = WKWebViewConfiguration()
 		
 		self.webView = WKWebView(frame: self.webViewContainer.bounds, configuration: configuration)
-		self.webView.autoresizingMask = UIViewAutoresizing(arrayLiteral: .FlexibleHeight, .FlexibleWidth)
+		self.webView.autoresizingMask = UIViewAutoresizing(arrayLiteral: .flexibleHeight, .flexibleWidth)
 		self.webView.navigationDelegate = self
 		self.webViewContainer.addSubview(self.webView)
 
-		let htmlFilePath = NSBundle.mainBundle().pathForResource("welcome", ofType: "html")
+		let htmlFilePath = Bundle.main().pathForResource("welcome", ofType: "html")
 		var htmlString : String!
 		do {
-			htmlString = try String(contentsOfFile: htmlFilePath!, encoding: NSUTF8StringEncoding)
+			htmlString = try String(contentsOfFile: htmlFilePath!, encoding: String.Encoding.utf8)
 		}
 		catch {
 			print("Failed to obtain the html string from file \(htmlFilePath) with error: <\(error)>")
 		}
 
-		self.webView.loadHTMLString(htmlString, baseURL: NSURL(string: "https://agilebits.com"))
+		self.webView.loadHTMLString(htmlString, baseURL: URL(string: "https://agilebits.com"))
 	}
 
 	@IBAction func fillUsing1Password(sender: AnyObject) -> Void {
-		OnePasswordExtension.sharedExtension().fillItemIntoWebView(self.webView, forViewController: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
+		OnePasswordExtension.shared().fillItem(intoWebView: self.webView, for: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
 			if success == false {
 				print("Failed to fill into webview: <\(error)>")
 			}
@@ -50,16 +50,16 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		let navigation = self.webView.goBack()
 
 		if navigation == nil {
-			let htmlFilePath = NSBundle.mainBundle().pathForResource("welcome", ofType: "html")
+			let htmlFilePath = Bundle.main().pathForResource("welcome", ofType: "html")
 			var htmlString : String!
 			do {
-				htmlString = try String(contentsOfFile: htmlFilePath!, encoding: NSUTF8StringEncoding)
+				htmlString = try String(contentsOfFile: htmlFilePath!, encoding: String.Encoding.utf8)
 			}
 			catch {
 				print("Failed to obtain the html string from file \(htmlFilePath) with error: <\(error)>")
 			}
 
-			self.webView.loadHTMLString(htmlString, baseURL: NSURL(string: "https://agilebits.com"))
+			self.webView.loadHTMLString(htmlString, baseURL: URL(string: "https://agilebits.com"))
 		}
 	}
 	@IBAction func goForward(sender: AnyObject) -> Void {
@@ -67,29 +67,29 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 	}
 
 	// UISearchBarDelegate
-	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-		self.performSearch(searchBar.text)
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		self.performSearch(text: searchBar.text)
 	}
 
-	func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-		self.performSearch(searchBar.text)
+	func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+		self.performSearch(text: searchBar.text)
 	}
 
 	func handleSearch(searchBar: UISearchBar) {
-		self.performSearch(searchBar.text)
+		self.performSearch(text: searchBar.text)
 	}
 
-	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-		self.performSearch(searchBar.text)
+	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+		self.performSearch(text: searchBar.text)
 	}
 
 	// Convenience
 	func performSearch(text: String!) {
-		let lowercaseText = text.lowercaseStringWithLocale(NSLocale.currentLocale())
+		let lowercaseText = text.lowercased(with:Locale.current())
 		var URL: NSURL?
 
-		let hasSpaces = lowercaseText.rangeOfString(" ") != nil
-		let hasDots = lowercaseText.rangeOfString(".") != nil
+		let hasSpaces = lowercaseText.range(of: " ") != nil
+		let hasDots = lowercaseText.range(of: ".") != nil
 
 		let search: Bool = !hasSpaces || !hasDots
 		if (search) {
@@ -98,7 +98,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 				URL = NSURL(string: lowercaseText)
 			}
 			else {
-				URL = NSURL(string: "https://".stringByAppendingString(lowercaseText))
+				URL = NSURL(string: "https://".appending(lowercaseText))
 			}
 		}
 
@@ -109,22 +109,22 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 			URLComponents.path = "/search"
 			
 			let queryItem = NSURLQueryItem(name: "q", value: text)
-			URLComponents.queryItems = [queryItem]
+			URLComponents.queryItems = [queryItem as URLQueryItem]
 			
-			URL = URLComponents.URL
+			URL = URLComponents.url as NSURL?
 		}
 
 		self.searchBar.text = URL?.absoluteString
 		self.searchBar.resignFirstResponder()
 
-		let request = NSURLRequest(URL: URL!)
-		self.webView.loadRequest(request)
+		let request = URLRequest(url: (URL?.absoluteURL)!)
+		self.webView.load(request)
 	}
 	
 	// WKNavigationDelegate
 
-	func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-		self.searchBar.text = webView.URL?.absoluteString
+	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+		self.searchBar.text = webView.url?.absoluteString
 
 		if self.searchBar.text == "about:blank" {
 			self.searchBar.text = ""

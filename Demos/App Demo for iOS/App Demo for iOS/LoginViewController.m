@@ -23,13 +23,13 @@
 	[super viewDidLoad];
 
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
-	[self.onepasswordButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
+	[self.onepasswordButton setHidden:![[OnePasswordExtension shared] isAppExtensionAvailable]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	
-	if (NO == [[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
+	if (NO == [[OnePasswordExtension shared] isAppExtensionAvailable]) {
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 		}];
 		
@@ -53,7 +53,7 @@
 #pragma mark - Actions
 
 - (IBAction)findLoginFrom1Password:(id)sender {
-	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
+	[[OnePasswordExtension shared] findLoginForURLString:@"https://www.acme.com" forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
 		if (loginDictionary.count == 0) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);

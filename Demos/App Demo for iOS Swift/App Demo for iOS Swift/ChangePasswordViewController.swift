@@ -21,11 +21,11 @@ class ChangePasswordViewController: UIViewController {
 			self.view.backgroundColor = UIColor(patternImage: patternImage)
 		}
 		
-		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+		self.onepasswordButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
 	}
 	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return UIStatusBarStyle.LightContent
+		return UIStatusBarStyle.lightContent
 	}
 	
 	@IBAction func changePasswordIn1Password(sender:AnyObject) -> Void {
@@ -35,13 +35,13 @@ class ChangePasswordViewController: UIViewController {
 		
 		// Validate that the new password and the old password are not the same.
 		if (oldPassword.characters.count > 0 && oldPassword == changedPassword) {
-			self.showChangePasswordFailedAlertWithMessage("The old and the new password must not be the same")
+			self.showChangePasswordFailedAlertWithMessage(message: "The old and the new password must not be the same")
 			return
 		}
 		
 		// Validate that the new and confirmation passwords match.
 		if (changedPassword.characters.count > 0 && changedPassword != confirmationPassword) {
-			self.showChangePasswordFailedAlertWithMessage("The new passwords and the confirmation password must match")
+			self.showChangePasswordFailedAlertWithMessage(message: "The new passwords and the confirmation password must match")
 			return
 		}
 		
@@ -73,7 +73,7 @@ class ChangePasswordViewController: UIViewController {
 			AppExtensionGeneratedPasswordForbiddenCharactersKey: "!@#$%/0lIO"
 		]
 		
-		OnePasswordExtension.sharedExtension().changePasswordForLoginForURLString("https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, forViewController: self, sender: sender) { (loginDictionary, error) -> Void in
+		OnePasswordExtension.shared().changePasswordForLogin(forURLString: "https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, for: self, sender: sender) { (loginDictionary, error) -> Void in
 			if loginDictionary == nil {
 				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
 					print("Error invoking 1Password App Extension for find login: \(error)")
@@ -89,15 +89,15 @@ class ChangePasswordViewController: UIViewController {
 	
 	// Convenience function
 	func showChangePasswordFailedAlertWithMessage(message:String) -> Void {
-		let alertController = UIAlertController(title: "Change Password Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+		let alertController = UIAlertController(title: "Change Password Error", message: message, preferredStyle: UIAlertControllerStyle.alert)
 		
-		let dismissAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+		let dismissAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (action) -> Void in
 			self.freshPasswordTextField.text = ""
 			self.confirmPasswordTextField.text = ""
 			self.freshPasswordTextField.becomeFirstResponder()
 		}
 		
 		alertController.addAction(dismissAction)
-		self.presentViewController(alertController, animated: true, completion: nil)
+		self.present(alertController, animated: true, completion: nil)
 	}
 }

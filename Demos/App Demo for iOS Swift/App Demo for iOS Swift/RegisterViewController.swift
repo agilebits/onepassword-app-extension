@@ -22,11 +22,11 @@ class RegisterViewController: UIViewController {
 			self.view.backgroundColor = UIColor(patternImage: patternImage)
 		}
 		
-		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+		self.onepasswordButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
 	}
 
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return UIStatusBarStyle.Default
+		return UIStatusBarStyle.default
 	}
 
 	@IBAction func saveLoginTo1Password(sender:AnyObject) -> Void {
@@ -63,7 +63,7 @@ class RegisterViewController: UIViewController {
 			AppExtensionGeneratedPasswordForbiddenCharactersKey: "!@#$%/0lIO"
 		]
 		
-		OnePasswordExtension.sharedExtension().storeLoginForURLString("https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, forViewController: self, sender: sender) { (loginDictionary, error) -> Void in
+		OnePasswordExtension.shared().storeLogin(forURLString: "https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, for: self, sender: sender) { (loginDictionary, error) -> Void in
 			if loginDictionary == nil {
 				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
 					print("Error invoking 1Password App Extension for find login: \(error)")
