@@ -27,7 +27,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		self.webView.navigationDelegate = self
 		self.webViewContainer.addSubview(self.webView)
 
-		let htmlFilePath = Bundle.main().pathForResource("welcome", ofType: "html")
+		let htmlFilePath = Bundle.main.pathForResource("welcome", ofType: "html")
 		var htmlString : String!
 		do {
 			htmlString = try String(contentsOfFile: htmlFilePath!, encoding: String.Encoding.utf8)
@@ -51,7 +51,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		let navigation = self.webView.goBack()
 
 		if navigation == nil {
-			let htmlFilePath = Bundle.main().pathForResource("welcome", ofType: "html")
+			let htmlFilePath = Bundle.main.pathForResource("welcome", ofType: "html")
 			var htmlString : String!
 			do {
 				htmlString = try String(contentsOfFile: htmlFilePath!, encoding: String.Encoding.utf8)
@@ -86,7 +86,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 
 	// Convenience
 	func performSearch(text: String!) {
-		let lowercaseText = text.lowercased(with:Locale.current())
+		let lowercaseText = text.lowercased(with:Locale.current)
 		var URL: NSURL?
 
 		let hasSpaces = lowercaseText.range(of: " ") != nil
