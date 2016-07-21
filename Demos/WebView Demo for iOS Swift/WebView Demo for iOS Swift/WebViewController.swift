@@ -85,7 +85,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 
 	// Convenience
 	func performSearch(text: String!) {
-		let lowercaseText = text.lowercased(with:Locale.current())
+		let lowercaseText = text.lowercased(with:Locale.current)
 		var URL: NSURL?
 
 		let hasSpaces = lowercaseText.range(of: " ") != nil
