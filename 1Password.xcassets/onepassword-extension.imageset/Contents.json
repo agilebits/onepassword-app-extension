@@ -16,6 +16,10 @@
       "filename" : "onepassword-extension@3x~compact.png"
     },
     {
+      "idiom" : "iphone",
+      "scale" : "3x"
+    },
+    {
       "idiom" : "ipad",
       "scale" : "1x",
       "filename" : "onepassword-extension~regular.png"
