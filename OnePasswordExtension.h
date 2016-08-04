@@ -97,6 +97,28 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)findLoginForURLString:(nonnull NSString *)URLString forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable void (^)(NSDictionary * __nullable loginDictionary, NSError * __nullable error))completion;
 
 /*!
+ Called from your login page, this method will find all available logins for the given URLString, allowing you to pass in application activities to be includes in the UIActivityViewController.
+ 
+ @discussion 1Password will show all matching Login for the naked domain of the given URLString. For example if the user has an item in your 1Password vault with "subdomain1.domain.com” as the website and another one with "subdomain2.domain.com”, and the URLString is "https://domain.com", 1Password will show both items.
+ 
+ However, if no matching login is found for "https://domain.com", the 1Password Extension will display the "Show all Logins" button so that the user can search among all the Logins in the vault. This is especially useful when the user has a login for "https://olddomain.com".
+ 
+ After the user selects a login, it is stored into an NSDictionary and given to your completion handler. Use the `Login Dictionary keys` above to
+ extract the needed information and update your UI. The completion block is guaranteed to be called on the main thread.
+ 
+ @param URLString For the matching Logins in the 1Password vault.
+ 
+ @param viewController The view controller from which the 1Password Extension is invoked. Usually `self`
+ 
+ @param sender The sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on iPhone, but not on iPad.
+ 
+ @param applicationActivities Any custom UIActivity objects defined by the application that should be displayed in the UIActivityViewController that will be presented.
+ 
+ @param completion A completion block called with two parameters loginDictionary and error once completed. The loginDictionary reply parameter that contains the username, password and the One-Time Password if available. The error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
+ */
+- (void)findLoginForURLString:(nonnull NSString *)URLString forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender applicationActivities:(nullable NSArray<UIActivity *> *)applicationActivities completion:(nullable void (^)(NSDictionary * __nullable loginDictionary, NSError * __nullable error))completion;
+
+/*!
  Create a new login within 1Password and allow the user to generate a new password before saving.
  
  @discussion The provided URLString should be unique to your app or service and be identical to what you pass into the find login method.
