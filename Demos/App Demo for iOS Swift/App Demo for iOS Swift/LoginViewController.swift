@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
 			let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 			alertController.addAction(cancelAction)
 
-			let OKAction = UIAlertAction(title: "Get 1Password", style: .default) { (action) in UIApplication.shared().openURL(NSURL(string: "https://itunes.apple.com/app/1password-password-manager/id568903335")! as URL)
+			let OKAction = UIAlertAction(title: "Get 1Password", style: .default) { (action) in UIApplication.shared.openURL(NSURL(string: "https://itunes.apple.com/app/1password-password-manager/id568903335")! as URL)
 			}
 
 			alertController.addAction(OKAction)
@@ -41,14 +41,14 @@ class LoginViewController: UIViewController {
 		}
 	}
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+	override public var preferredStatusBarStyle: UIStatusBarStyle {
 		return UIStatusBarStyle.lightContent
 	}
 
 	@IBAction func findLoginFrom1Password(sender:AnyObject) -> Void {
 		OnePasswordExtension.shared().findLogin(forURLString: "https://www.acme.com", for: self, sender: sender, completion: { (loginDictionary, error) -> Void in
 			if loginDictionary == nil {
-				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
+				if error!._code == Int(AppExtensionErrorCodeCancelledByUser) {
 					print("Error invoking 1Password App Extension for find login: \(error)")
 				}
 				return
@@ -63,9 +63,9 @@ class LoginViewController: UIViewController {
 
 				// Important: It is recommended that you submit the OTP/TOTP to your validation server as soon as you receive it, otherwise it may expire.				
 				let dispatchTime = DispatchTime.now() + 0.5
-				DispatchQueue.main.after(when: dispatchTime) {
+				DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: { 
 					self.performSegue(withIdentifier: "showThankYouViewController", sender: self)
-				}
+				})
 			}
 
 		})
