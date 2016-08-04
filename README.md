@@ -28,6 +28,8 @@ If you're the type that just wants the code, here it is:
 
 Simply include these two files in your project, add a button with a [1Password login image](https://github.com/AgileBits/onepassword-app-extension/tree/master/1Password.xcassets) on it to your view, set the button's action to call the appropriate `OnePasswordExtension` method, and you're all set!
 
+Remember also to link the `WebKit` framework!
+
 
 ## Running the Sample Apps
 
