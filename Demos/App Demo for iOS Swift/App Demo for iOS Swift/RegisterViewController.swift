@@ -25,7 +25,7 @@ class RegisterViewController: UIViewController {
 		self.onepasswordButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
 	}
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+	override public var preferredStatusBarStyle: UIStatusBarStyle {
 		return UIStatusBarStyle.default
 	}
 
@@ -65,7 +65,7 @@ class RegisterViewController: UIViewController {
 		
 		OnePasswordExtension.shared().storeLogin(forURLString: "https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, for: self, sender: sender) { (loginDictionary, error) -> Void in
 			if loginDictionary == nil {
-				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
+				if error!._code != Int(AppExtensionErrorCodeCancelledByUser) {
 					print("Error invoking 1Password App Extension for find login: \(error)")
 				}
 				return
