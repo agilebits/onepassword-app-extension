@@ -60,9 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
 // and associated typedefs. You might to so by adding your own project prefix, e.g.,
 // MyLibraryOnePasswordExtension.
 
-typedef void (^OnePasswordLoginCompletionBlock)(NSDictionary * __nullable loginDictionary, NSError * __nullable error);
+typedef void (^OnePasswordLoginDictionaryCompletionBlock)(NSDictionary * __nullable loginDictionary, NSError * __nullable error);
 typedef void (^OnePasswordSuccessCompletionBlock)(BOOL success, NSError * __nullable error);
-typedef void (^OnePasswordExtensionCompletionBlock)(NSExtensionItem * __nullable extensionItem, NSError * __nullable error);
+typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __nullable extensionItem, NSError * __nullable error);
 
 @interface OnePasswordExtension : NSObject
 
@@ -99,7 +99,7 @@ typedef void (^OnePasswordExtensionCompletionBlock)(NSExtensionItem * __nullable
  
  @param completion A completion block called with two parameters loginDictionary and error once completed. The loginDictionary reply parameter that contains the username, password and the One-Time Password if available. The error Reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)findLoginForURLString:(nonnull NSString *)URLString forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable OnePasswordLoginCompletionBlock)completion;
+- (void)findLoginForURLString:(nonnull NSString *)URLString forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable OnePasswordLoginDictionaryCompletionBlock)completion;
 
 /*!
  Create a new login within 1Password and allow the user to generate a new password before saving.
@@ -120,7 +120,7 @@ typedef void (^OnePasswordExtensionCompletionBlock)(NSExtensionItem * __nullable
  
  @param completion A completion block which is called with type parameters loginDictionary and error. The loginDictionary peply parameter which contain all the information about the newly saved Login. Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the newly generated password lets the user know their action was successful. The error reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)storeLoginForURLString:(nonnull NSString *)URLString loginDetails:(nullable NSDictionary *)loginDetailsDictionary passwordGenerationOptions:(nullable NSDictionary *)passwordGenerationOptions forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable OnePasswordLoginCompletionBlock)completion;
+- (void)storeLoginForURLString:(nonnull NSString *)URLString loginDetails:(nullable NSDictionary *)loginDetailsDictionary passwordGenerationOptions:(nullable NSDictionary *)passwordGenerationOptions forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable OnePasswordLoginDictionaryCompletionBlock)completion;
 
 /*!
  Change the password for an existing login within 1Password.
@@ -148,7 +148,7 @@ typedef void (^OnePasswordExtensionCompletionBlock)(NSExtensionItem * __nullable
  
  @param completion A completion block which is called with type parameters loginDictionary and error. The loginDictionary reply parameter which contain all the information about the newly updated Login, including the newly generated and the old password. Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the newly generated password lets the user know their action was successful. The error reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
-- (void)changePasswordForLoginForURLString:(nonnull NSString *)URLString loginDetails:(nullable NSDictionary *)loginDetailsDictionary passwordGenerationOptions:(nullable NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(nullable id)sender completion:(nullable OnePasswordLoginCompletionBlock)completion;
+- (void)changePasswordForLoginForURLString:(nonnull NSString *)URLString loginDetails:(nullable NSDictionary *)loginDetailsDictionary passwordGenerationOptions:(nullable NSDictionary *)passwordGenerationOptions forViewController:(UIViewController *)viewController sender:(nullable id)sender completion:(nullable OnePasswordLoginDictionaryCompletionBlock)completion;
 
 /*!
  Called from your web view controller, this method will show all the saved logins for the active page in the provided web
@@ -186,7 +186,7 @@ typedef void (^OnePasswordExtensionCompletionBlock)(NSExtensionItem * __nullable
  
  @param completion Completion block called on completion with extensionItem and error. The extensionItem reply parameter that is contains all the info required by the 1Password extension if has been successfully completed or nil otherwise. The error reply parameter that is nil if the 1Password extension item has been successfully created, or it contains error information about the completion failure.
  */
-- (void)createExtensionItemForWebView:(nonnull id)webView completion:(OnePasswordExtensionCompletionBlock)completion;
+- (void)createExtensionItemForWebView:(nonnull id)webView completion:(OnePasswordExtensionItemCompletionBlock)completion;
 
 /*!
  Method used in the UIActivityViewController completion block to fill information into a web view.
