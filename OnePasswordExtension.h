@@ -118,7 +118,7 @@ typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __null
  
  @param sender The sender which triggers the share sheet to show. UIButton, UIBarButtonItem or UIView. Can also be nil on iPhone, but not on iPad.
  
- @param completion A completion block which is called with type parameters loginDictionary and error. The loginDictionary peply parameter which contain all the information about the newly saved Login. Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the newly generated password lets the user know their action was successful. The error reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
+ @param completion A completion block which is called with type parameters loginDictionary and error. The loginDictionary reply parameter which contain all the information about the newly saved Login. Use the `Login Dictionary keys` above to extract the needed information and update your UI. For example, updating the UI with the newly generated password lets the user know their action was successful. The error reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
 - (void)storeLoginForURLString:(nonnull NSString *)URLString loginDetails:(nullable NSDictionary *)loginDetailsDictionary passwordGenerationOptions:(nullable NSDictionary *)passwordGenerationOptions forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nullable OnePasswordLoginDictionaryCompletionBlock)completion;
 
