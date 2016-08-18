@@ -31,36 +31,36 @@ class RegisterViewController: UIViewController {
 
 	@IBAction func saveLoginTo1Password(sender:AnyObject) -> Void {
 		let newLoginDetails:[String: AnyObject] = [
-			AppExtensionTitleKey: "ACME",
-			AppExtensionUsernameKey: self.usernameTextField.text!,
-			AppExtensionPasswordKey: self.passwordTextField.text!,
-			AppExtensionNotesKey: "Saved with the ACME app",
-			AppExtensionSectionTitleKey: "ACME Browser",
+			AppExtensionTitleKey: "ACME" as AnyObject,
+			AppExtensionUsernameKey: self.usernameTextField.text! as AnyObject,
+			AppExtensionPasswordKey: self.passwordTextField.text! as AnyObject,
+			AppExtensionNotesKey: "Saved with the ACME app" as AnyObject,
+			AppExtensionSectionTitleKey: "ACME Browser" as AnyObject,
 			AppExtensionFieldsKey: [
 				"firstname" : self.firstnameTextField.text!,
 				"lastname" : self.lastnameTextField.text!
 				// Add as many string fields as you please.
-			]
+			] as AnyObject
 		]
 
 		// The password generation options are optional, but are very handy in case you have strict rules about password lengths, symbols and digits.
 		let passwordGenerationOptions:[String: AnyObject] = [
 			// The minimum password length can be 4 or more.
-			AppExtensionGeneratedPasswordMinLengthKey: (8),
+			AppExtensionGeneratedPasswordMinLengthKey: (8 as AnyObject),
 			
 			// The maximum password length can be 50 or less.
-			AppExtensionGeneratedPasswordMaxLengthKey: (30),
+			AppExtensionGeneratedPasswordMaxLengthKey: (30 as AnyObject),
 			
 			// If YES, the 1Password will guarantee that the generated password will contain at least one digit (number between 0 and 9). Passing NO will not exclude digits from the generated password.
-			AppExtensionGeneratedPasswordRequireDigitsKey: (true),
+			AppExtensionGeneratedPasswordRequireDigitsKey: (true as AnyObject),
 			
 			// If YES, the 1Password will guarantee that the generated password will contain at least one symbol (See the list bellow). Passing NO with will exclude symbols from the generated password.
-			AppExtensionGeneratedPasswordRequireSymbolsKey: (true),
+			AppExtensionGeneratedPasswordRequireSymbolsKey: (true as AnyObject),
 			
 			// Here are all the symbols available in the the 1Password Password Generator:
 			// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
 			// The string for AppExtensionGeneratedPasswordForbiddenCharactersKey should contain the symbols and characters that you wish 1Password to exclude from the generated password.
-			AppExtensionGeneratedPasswordForbiddenCharactersKey: "!@#$%/0lIO"
+			AppExtensionGeneratedPasswordForbiddenCharactersKey: "!@#$%/0lIO" as AnyObject
 		]
 		
 		OnePasswordExtension.shared().storeLogin(forURLString: "https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, for: self, sender: sender) { (loginDictionary, error) -> Void in
@@ -73,8 +73,8 @@ class RegisterViewController: UIViewController {
 
 			self.usernameTextField.text = loginDictionary?[AppExtensionUsernameKey] as? String
 			self.passwordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
-			self.firstnameTextField.text = loginDictionary?[AppExtensionReturnedFieldsKey]?["firstname"] as? String
-			self.lastnameTextField.text = loginDictionary?[AppExtensionReturnedFieldsKey]?["lastname"] as? String
+			self.firstnameTextField.text = loginDictionary?[AppExtensionReturnedFieldsKey] as? String
+			self.lastnameTextField.text = loginDictionary?[AppExtensionReturnedFieldsKey] as? String
 		}
 	}
 }
