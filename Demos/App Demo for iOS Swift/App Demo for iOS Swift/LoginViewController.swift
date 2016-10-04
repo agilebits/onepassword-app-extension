@@ -42,7 +42,7 @@ class LoginViewController: UIViewController {
 		}
 	}
 
-	override var preferredStatusBarStyle : UIStatusBarStyle {
+	override public var preferredStatusBarStyle : UIStatusBarStyle {
 		return UIStatusBarStyle.lightContent
 	}
 
@@ -69,7 +69,6 @@ class LoginViewController: UIViewController {
 					self.performSegue(withIdentifier: "showThankYouViewController", sender: self)
 				})
 			}
-
 		})
 	}
 }

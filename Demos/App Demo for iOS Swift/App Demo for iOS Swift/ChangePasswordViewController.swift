@@ -24,7 +24,7 @@ class ChangePasswordViewController: UIViewController {
 		self.onepasswordButton.isHidden = !OnePasswordExtension.shared().isAppExtensionAvailable()
 	}
 	
-	override var preferredStatusBarStyle : UIStatusBarStyle {
+	override public var preferredStatusBarStyle : UIStatusBarStyle {
 		return .lightContent
 	}
 	
@@ -35,13 +35,13 @@ class ChangePasswordViewController: UIViewController {
 		
 		// Validate that the new password and the old password are not the same.
 		if (oldPassword.characters.count > 0 && oldPassword == changedPassword) {
-			self.showChangePasswordFailedAlertWithMessage("The old and the new password must not be the same")
+			self.showChangePasswordFailedAlertWith(message: "The old and the new password must not be the same")
 			return
 		}
 		
 		// Validate that the new and confirmation passwords match.
 		if (changedPassword.characters.count > 0 && changedPassword != confirmationPassword) {
-			self.showChangePasswordFailedAlertWithMessage("The new passwords and the confirmation password must match")
+			self.showChangePasswordFailedAlertWith(message: "The new passwords and the confirmation password must match")
 			return
 		}
 		
@@ -90,7 +90,7 @@ class ChangePasswordViewController: UIViewController {
 	}
 	
 	// Convenience function
-	func showChangePasswordFailedAlertWithMessage(_ message: String) -> Void {
+	func showChangePasswordFailedAlertWith(message: String) -> Void {
 		let alertController = UIAlertController(title: "Change Password Error", message: message, preferredStyle: .alert)
 		
 		let dismissAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in

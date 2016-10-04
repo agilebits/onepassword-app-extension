@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	[self.onepasswordFillButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
+	[self.onepasswordFillButton setHidden:![[OnePasswordExtension shared] isAppExtensionAvailable]];
 
 	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
 	self.webView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds configuration:configuration];
@@ -48,7 +48,7 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	
-	if (NO == [[OnePasswordExtension sharedExtension] isAppExtensionAvailable]) {
+	if (NO == [[OnePasswordExtension shared] isAppExtensionAvailable]) {
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 		}];
 		
@@ -68,7 +68,7 @@
 #pragma mark - Actions
 
 - (IBAction)fillUsing1Password:(id)sender {
-	[[OnePasswordExtension sharedExtension] fillItemIntoWebView:self.webView forViewController:self sender:sender showOnlyLogins:NO completion:^(BOOL success, NSError *error) {
+	[[OnePasswordExtension shared] fillItemIntoWebView:self.webView forViewController:self sender:sender showOnlyLogins:NO completion:^(BOOL success, NSError *error) {
 		if (!success) {
 			NSLog(@"Failed to fill into webview: <%@>", error);
 		}

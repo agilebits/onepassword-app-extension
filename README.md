@@ -93,11 +93,11 @@ You'll need to hide this button (or educate users on the benefits of strong, uni
 ```objective-c
 -(void)viewDidLoad {
 	[super viewDidLoad];
-	[self.onepasswordSigninButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
+	[self.onepasswordSigninButton setHidden:![[OnePasswordExtension shared] isAppExtensionAvailable]];
 }
 ```
 
-Note that `isAppExtensionAvailable` looks to see if any app is installed that supports the generic `org-appextension-feature-password-management` feature. Any application that supports password management actions can be used.
+Note that `isAppExtensionAvailable` looks toshared is installed that supports the generic `org-appextension-feature-password-management` feature. Any application that supports password management actions can be used.
 
 **Important:** `isAppExtensionAvailable` uses `- [UIApplication canOpenURL:]`. Since iOS 9 it is recommended that you add the custom URL scheme, `org-appextension-feature-password-management`, in your target's `info.plist` as follows:
 
@@ -109,7 +109,7 @@ Next we need to wire up the action for this button to this method in your UIView
 
 ```objective-c
 - (IBAction)findLoginFrom1Password:(id)sender {
-	[[OnePasswordExtension sharedExtension] findLoginForURLString:@"https://www.acme.com" forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
+	[[OnePasswordExtension shared] findLoginForURLString:@"https://www.acme.com" forViewController:self sender:sender completion:shared*loginDictionary, NSError *error) {
 		if (loginDictionary.count == 0) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
@@ -172,7 +172,7 @@ Adding 1Password to your registration screen is very similar to adding 1Password
 												AppExtensionGeneratedPasswordForbiddenCharactersKey: @"!@#$%/0lIO"
 												};
 
-	[[OnePasswordExtension sharedExtension] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
+	[[OnePasswordExtension shared] storeLoginForURLString:@"https://www.acme.com" loginDetails:newLoginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sendersharedion:^(NSDictionary *loginDictionary, NSError *error) {
 
 		if (loginDictionary.count == 0) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
@@ -246,8 +246,7 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 												AppExtensionGeneratedPasswordForbiddenCharactersKey: @"!@#$%/0lIO"
 												};
 
-	[[OnePasswordExtension sharedExtension] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *error) {
-		if (loginDictionary.count == 0) {
+	[[OnePasswordExtension shared] changePasswordForLoginForURLString:@"https://www.acme.com" loginDetails:loginDetails passwordGenerationOptions:passwordGenerationOptions forViewController:self sender:sender completion:^(NSDictionary *loginDictionary, NSError *errosharednDictionary.count == 0) {
 			if (error.code != AppExtensionErrorCodeCancelledByUser) {
 				NSLog(@"Error invoking 1Password App Extension for find login: %@", error);
 			}
@@ -269,7 +268,7 @@ Simply add a button to your UI with its action assigned to this method in your w
 
 ```objective-c
 - (IBAction)fillUsing1Password:(id)sender {
-	[[OnePasswordExtension sharedExtension] fillItemIntoWebView:self.webView forViewController:self sender:sender showOnlyLogins:NO completion:^(BOOL success, NSError *error) {
+	[[OnePasswordExtension shared] fillItemIntoWebView:self.webView forViewController:self sender:sender showOnlyLogins:NO completion:^(BOOL success, NSError *error) {
 		if (!success) {
 			NSLog(@"Failed to fill into webview: <%@>", error);
 		}
@@ -277,7 +276,7 @@ Simply add a button to your UI with its action assigned to this method in your w
 }
 ```
 
-1Password will take care of all the details of collecting information about the currently displayed page, allow the user to select the desired login, and then fill the web form details within the page.
+1Password will take care of all sharedcollecting information about the currently displayed page, allow the user to select the desired login, and then fill the web form details within the page.
 
 If you use a web view to login (i.e. OAuth) and you do not want other activities to show up in the share sheet and other item categories (Credit Cards and Identities) to show up in the 1Password Extension, you need to pass `YES` for `showOnlyLogins`. 
 

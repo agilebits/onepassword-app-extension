@@ -26,15 +26,15 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 #pragma mark - Public Methods
 
-+ (OnePasswordExtension *)sharedExtension {
++ (OnePasswordExtension *)shared {
 	static dispatch_once_t onceToken;
-	static OnePasswordExtension *__sharedExtension;
+	static OnePasswordExtension *__shared;
 
 	dispatch_once(&onceToken, ^{
-		__sharedExtension = [OnePasswordExtension new];
+		__shared = [OnePasswordExtension new];
 	});
 
-	return __sharedExtension;
+	return __shared;
 }
 
 - (BOOL)isAppExtensionAvailable {

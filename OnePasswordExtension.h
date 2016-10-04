@@ -66,7 +66,7 @@ typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __null
 
 @interface OnePasswordExtension : NSObject
 
-+ (OnePasswordExtension *)sharedExtension;
++ (OnePasswordExtension *)shared;
 
 /*!
  @discussion Determines if the 1Password Extension is available. Allows you to only show the 1Password login button to those
