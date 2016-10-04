@@ -18,7 +18,7 @@ class ThankYouViewController: UIViewController {
 
 	}
 	
-	override public var preferredStatusBarStyle: UIStatusBarStyle {
-		return UIStatusBarStyle.lightContent
+	override public var preferredStatusBarStyle : UIStatusBarStyle {
+		return .lightContent
 	}
 }

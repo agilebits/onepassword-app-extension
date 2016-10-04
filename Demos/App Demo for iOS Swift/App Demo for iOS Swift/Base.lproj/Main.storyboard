@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11185.3" systemVersion="16A270f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11151.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -91,7 +91,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="findLoginFrom1PasswordWithSender:" destination="vXZ-lx-hvc" eventType="touchDown" id="4UH-3V-t4g"/>
+                                    <action selector="findLoginFrom1Password:" destination="vXZ-lx-hvc" eventType="touchDown" id="7Y1-l1-KN0"/>
                                 </connections>
                             </button>
                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="One-time password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Ud-6a-a66">
@@ -137,6 +137,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-1676" y="206"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="Qs5-Kt-zDs">
@@ -201,7 +202,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="saveLoginTo1PasswordWithSender:" destination="A1b-Kh-Nlq" eventType="touchDown" id="4VN-3o-L7r"/>
+                                    <action selector="saveLoginTo1Password:" destination="A1b-Kh-Nlq" eventType="touchDown" id="le6-YC-Kg2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -237,7 +238,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydt-8P-TwA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="766" y="206"/>
+            <point key="canvasLocation" x="241" y="206"/>
         </scene>
         <!--Thank You View Controller-->
         <scene sceneID="sr0-hc-cBX">
@@ -289,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6kf-6t-s0t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="45" y="191"/>
+            <point key="canvasLocation" x="241" y="-562"/>
         </scene>
         <!--Change Password View Controller-->
         <scene sceneID="PKo-01-Eyr">
@@ -356,7 +357,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="changePasswordIn1PasswordWithSender:" destination="zYf-Es-cb4" eventType="touchDown" id="1wd-YB-CLs"/>
+                                    <action selector="changePasswordIn1Password:" destination="zYf-Es-cb4" eventType="touchDown" id="Fhx-K3-Vic"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -393,17 +394,18 @@
                         <outlet property="confirmPasswordTextField" destination="3fV-Ft-xek" id="2AI-mx-WCe"/>
                         <outlet property="freshPasswordTextField" destination="L9B-vu-VdN" id="7ep-cx-IAQ"/>
                         <outlet property="oldPasswordTextField" destination="naa-0h-M0B" id="pn9-Gg-qtA"/>
-                        <outlet property="onepasswordButton" destination="uar-xe-DZO" id="aeu-QC-dow"/>
+                        <outlet property="onepasswordButton" destination="uar-xe-DZO" id="k5c-sB-K6c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CJ1-B2-Xid" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-702" y="206"/>
         </scene>
     </scenes>
     <resources>
         <image name="onepassword-button" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hT8-ad-pIG"/>
+        <segue reference="foP-f5-tCm"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -22,18 +22,19 @@ class LoginViewController: UIViewController {
 			self.view.backgroundColor = UIColor(patternImage: patternImage)
 		}
 		
-		self.onepasswordButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
+		self.onepasswordButton.isHidden = !OnePasswordExtension.shared().isAppExtensionAvailable()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		if OnePasswordExtension.shared().isAppExtensionAvailable() == false {
-			let alertController = UIAlertController(title: "1Password is not installed", message: "Get 1Password from the App Store", preferredStyle: UIAlertControllerStyle.alert)
+			let alertController = UIAlertController(title: "1Password is not installed", message: "Get 1Password from the App Store", preferredStyle: .alert)
 
 			let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 			alertController.addAction(cancelAction)
 
-			let OKAction = UIAlertAction(title: "Get 1Password", style: .default) { (action) in UIApplication.shared.openURL(NSURL(string: "https://itunes.apple.com/app/1password-password-manager/id568903335")! as URL)
+			let OKAction = UIAlertAction(title: "Get 1Password", style: .default) { action in
+                UIApplication.shared.openURL(URL(string: "https://itunes.apple.com/app/1password-password-manager/id568903335")!)
 			}
 
 			alertController.addAction(OKAction)
@@ -41,33 +42,33 @@ class LoginViewController: UIViewController {
 		}
 	}
 
-	override public var preferredStatusBarStyle: UIStatusBarStyle {
+	override public var preferredStatusBarStyle : UIStatusBarStyle {
 		return UIStatusBarStyle.lightContent
 	}
 
-	@IBAction func findLoginFrom1Password(sender:AnyObject) -> Void {
+	@IBAction func findLoginFrom1Password(_ sender: Any) -> Void {
 		OnePasswordExtension.shared().findLogin(forURLString: "https://www.acme.com", for: self, sender: sender, completion: { (loginDictionary, error) -> Void in
-			if loginDictionary == nil {
-				if error!._code == Int(AppExtensionErrorCodeCancelledByUser) {
-					print("Error invoking 1Password App Extension for find login: \(error)")
-				}
-				return
-			}
+            guard let loginDictionary = loginDictionary else {
+                if let error = error as? NSError {
+                    if error.code != Int(AppExtensionErrorCodeCancelledByUser) {
+                        print("Error invoking 1Password App Extension for find login: \(error)")
+                    }
+                }
+                return
+            }
 			
-			self.usernameTextField.text = loginDictionary?[AppExtensionUsernameKey] as? String
-			self.passwordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
+			self.usernameTextField.text = loginDictionary[AppExtensionUsernameKey] as? String
+			self.passwordTextField.text = loginDictionary[AppExtensionPasswordKey] as? String
 
-			if let generatedOneTimePassword = loginDictionary?[AppExtensionTOTPKey] as? String {
+			if let generatedOneTimePassword = loginDictionary[AppExtensionTOTPKey] as? String {
 				self.oneTimePasswordTextField.isHidden = false
 				self.oneTimePasswordTextField.text = generatedOneTimePassword
 
-				// Important: It is recommended that you submit the OTP/TOTP to your validation server as soon as you receive it, otherwise it may expire.				
-				let dispatchTime = DispatchTime.now() + 0.5
-				DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: { 
+				// Important: It is recommended that you submit the OTP/TOTP to your validation server as soon as you receive it, otherwise it may expire.
+				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { () -> Void in
 					self.performSegue(withIdentifier: "showThankYouViewController", sender: self)
 				})
 			}
-
 		})
 	}
 }
