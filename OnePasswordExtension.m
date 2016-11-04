@@ -504,8 +504,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 - (UIActivityViewController *)activityViewControllerForItem:(nonnull NSDictionary *)item viewController:(nonnull UIViewController*)viewController sender:(nullable id)sender typeIdentifier:(nonnull NSString *)typeIdentifier {
 #ifdef __IPHONE_8_0
-	NSAssert(NO == (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && sender == nil), @"sender must not be nil on iPad.");
-
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:typeIdentifier];
 
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
@@ -521,7 +519,9 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		controller.popoverPresentationController.sourceRect = [sender frame];
 	}
 	else {
-		NSLog(@"sender can be nil on iPhone");
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+			NSAssert(NO, @"sender must be a UIBarButtonItem or UIView object on iPad, but can be nil on iPhone");
+		}
 	}
 
 	return controller;
