@@ -78,7 +78,7 @@
 - (IBAction)goBack:(id)sender {
 	WKNavigation *navigation = [self.webView goBack];
 
-	if (navigation != nil) {
+	if (navigation == nil) {
 		NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
 		NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
 		[self.webView loadHTMLString:htmlString baseURL:nil];
