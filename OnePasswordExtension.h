@@ -112,7 +112,7 @@ typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __null
  
  @param loginDetailsDictionary about the Login to be saved, including custom fields, are stored in an dictionary and given to the 1Password Extension.
  
- @param passwordGenerationOptions The Password generator options epresented in a dictionary form.
+ @param passwordGenerationOptions The Password generator options represented in a dictionary form.
  
  @param viewController The view controller from which the 1Password Extension is invoked. Usually `self`
  
