@@ -547,7 +547,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : webPageDetailsDictionary };
 
-	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFillBrowserAction];
+	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFillWebViewAction];
 
 	NSExtensionItem *extensionItem = [[NSExtensionItem alloc] init];
 	extensionItem.attachments = @[ itemProvider ];
