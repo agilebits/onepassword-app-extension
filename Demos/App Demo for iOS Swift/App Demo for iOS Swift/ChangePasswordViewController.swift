@@ -21,14 +21,14 @@ class ChangePasswordViewController: UIViewController {
 			self.view.backgroundColor = UIColor(patternImage: patternImage)
 		}
 		
-		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+		self.onepasswordButton.isHidden = !OnePasswordExtension.shared().isAppExtensionAvailable()
 	}
 	
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return UIStatusBarStyle.LightContent
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return .lightContent
 	}
 	
-	@IBAction func changePasswordIn1Password(sender:AnyObject) -> Void {
+	@IBAction func changePasswordIn1Password(_ sender: Any) -> Void {
 		let changedPassword = self.freshPasswordTextField.text!
 		let oldPassword = self.oldPasswordTextField.text!
 		let confirmationPassword = self.confirmPasswordTextField.text!
@@ -45,27 +45,27 @@ class ChangePasswordViewController: UIViewController {
 			return
 		}
 		
-		let newLoginDetails:[String: AnyObject] = [
-			AppExtensionTitleKey: "ACME", // Optional, used for the third schenario only
-			AppExtensionUsernameKey: "aUsername", // Optional, used for the third schenario only
+		let newLoginDetails: [String: Any] = [
+			AppExtensionTitleKey: "ACME", // Optional, used for the third scenario only
+			AppExtensionUsernameKey: "aUsername", // Optional, used for the third scenario only
 			AppExtensionPasswordKey: changedPassword,
 			AppExtensionOldPasswordKey: oldPassword,
-			AppExtensionNotesKey: "Saved with the ACME app", // Optional, used for the third schenario only
+			AppExtensionNotesKey: "Saved with the ACME app" // Optional, used for the third scenario only
 		]
 		
 		// The password generation options are optional, but are very handy in case you have strict rules about password lengths, symbols and digits.
-		let passwordGenerationOptions:[String: AnyObject] = [
+		let passwordGenerationOptions: [String: Any] = [
 			// The minimum password length can be 4 or more.
-			AppExtensionGeneratedPasswordMinLengthKey: (8),
+			AppExtensionGeneratedPasswordMinLengthKey: 8,
 			
 			// The maximum password length can be 50 or less.
-			AppExtensionGeneratedPasswordMaxLengthKey: (30),
+			AppExtensionGeneratedPasswordMaxLengthKey: 30,
 			
 			// If YES, the 1Password will guarantee that the generated password will contain at least one digit (number between 0 and 9). Passing NO will not exclude digits from the generated password.
-			AppExtensionGeneratedPasswordRequireDigitsKey: (true),
+			AppExtensionGeneratedPasswordRequireDigitsKey: true,
 			
 			// If YES, the 1Password will guarantee that the generated password will contain at least one symbol (See the list bellow). Passing NO with will exclude symbols from the generated password.
-			AppExtensionGeneratedPasswordRequireSymbolsKey: (true),
+			AppExtensionGeneratedPasswordRequireSymbolsKey: true,
 			
 			// Here are all the symbols available in the the 1Password Password Generator:
 			// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
@@ -73,31 +73,33 @@ class ChangePasswordViewController: UIViewController {
 			AppExtensionGeneratedPasswordForbiddenCharactersKey: "!@#$%/0lIO"
 		]
 		
-		OnePasswordExtension.sharedExtension().changePasswordForLoginForURLString("https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, forViewController: self, sender: sender) { (loginDictionary, error) -> Void in
-			if loginDictionary == nil {
-				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
-					print("Error invoking 1Password App Extension for find login: \(error)")
-				}
-				return
-			}
+		OnePasswordExtension.shared().changePasswordForLogin(forURLString: "https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, for: self, sender: sender) { (loginDictionary, error) -> Void in
+            guard let loginDictionary = loginDictionary else {
+                if let error = error as? NSError {
+                    if error.code != Int(AppExtensionErrorCodeCancelledByUser) {
+                        print("Error invoking 1Password App Extension for find login: \(error)")
+                    }
+                }
+                return
+            }
 			
-			self.oldPasswordTextField.text = loginDictionary?[AppExtensionOldPasswordKey] as? String
-			self.freshPasswordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
-			self.confirmPasswordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
+			self.oldPasswordTextField.text = loginDictionary[AppExtensionOldPasswordKey] as? String
+			self.freshPasswordTextField.text = loginDictionary[AppExtensionPasswordKey] as? String
+			self.confirmPasswordTextField.text = loginDictionary[AppExtensionPasswordKey] as? String
 		}
 	}
 	
 	// Convenience function
-	func showChangePasswordFailedAlertWithMessage(message:String) -> Void {
-		let alertController = UIAlertController(title: "Change Password Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+	func showChangePasswordFailedAlertWithMessage(_ message: String) -> Void {
+		let alertController = UIAlertController(title: "Change Password Error", message: message, preferredStyle: .alert)
 		
-		let dismissAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+		let dismissAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
 			self.freshPasswordTextField.text = ""
 			self.confirmPasswordTextField.text = ""
 			self.freshPasswordTextField.becomeFirstResponder()
 		}
 		
 		alertController.addAction(dismissAction)
-		self.presentViewController(alertController, animated: true, completion: nil)
+		self.present(alertController, animated: true, completion: nil)
 	}
 }
