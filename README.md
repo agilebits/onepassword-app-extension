@@ -1,3 +1,5 @@
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 # 1Password App Extension
 
 [![CocoaPods](https://img.shields.io/cocoapods/l/1PasswordExtension.svg)](https://github.com/AgileBits/onepassword-app-extension/blob/master/LICENSE.txt)
