@@ -30,7 +30,7 @@ class RegisterViewController: UIViewController {
 	}
 
 	@IBAction func saveLoginTo1Password(_ sender:AnyObject) -> Void {
-		let newLoginDetails:[String: AnyObject] = [
+		let newLoginDetails:[String: Any] = [
 			AppExtensionTitleKey: "ACME" as AnyObject,
 			AppExtensionUsernameKey: self.usernameTextField.text! as AnyObject,
 			AppExtensionPasswordKey: self.passwordTextField.text! as AnyObject,
@@ -65,16 +65,18 @@ class RegisterViewController: UIViewController {
 		
 		OnePasswordExtension.shared().storeLogin(forURLString: "https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, for: self, sender: sender) { (loginDictionary, error) -> Void in
 			if loginDictionary == nil {
-				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
-					print("Error invoking 1Password App Extension for find login: \(error)")
+				if error!._code != Int(AppExtensionErrorCodeCancelledByUser) {
+					print("Error invoking 1Password App Extension for find login: \(String(describing: error))")
 				}
 				return
 			}
 
 			self.usernameTextField.text = loginDictionary?[AppExtensionUsernameKey] as? String
 			self.passwordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
-			self.firstnameTextField.text = loginDictionary?[AppExtensionReturnedFieldsKey]?["firstname"] as? String
-			self.lastnameTextField.text = loginDictionary?[AppExtensionReturnedFieldsKey]?["lastname"] as? String
+			if let additionalAttributes =  loginDictionary?[AppExtensionReturnedFieldsKey] as? [String: Any] {
+				self.firstnameTextField.text = additionalAttributes["firstname"] as? String
+				self.lastnameTextField.text = additionalAttributes["lastname"] as? String
+			}
 		}
 	}
 }

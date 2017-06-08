@@ -48,8 +48,8 @@ class LoginViewController: UIViewController {
 	@IBAction func findLoginFrom1Password(_ sender:AnyObject) -> Void {
 		OnePasswordExtension.shared().findLogin(forURLString: "https://www.acme.com", for: self, sender: sender, completion: { (loginDictionary, error) -> Void in
 			if loginDictionary == nil {
-				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
-					print("Error invoking 1Password App Extension for find login: \(error)")
+				if error!._code != Int(AppExtensionErrorCodeCancelledByUser) {
+					print("Error invoking 1Password App Extension for find login: \(String(describing: error))")
 				}
 				return
 			}
