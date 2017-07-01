@@ -654,8 +654,6 @@ function I(b){var a;if(void 0===b||null===b)return null;if(a=FieldCollector.b(b)
 	return JSON.stringify(FieldCollector.a(document, 'oneshotUUID'));\
 })(document);\
 \
-//# sourceMappingURL=collect_lib.1browser.min.js.map\
-\
 ";
 
 static NSString *const OPWebViewFillScript = @";(function(document, fillScript, undefined) {\
@@ -677,8 +675,6 @@ function z(a){var b;if(void 0===a||null===a)return null;if(b=FieldCollector.b(a)
 	l(fillScript);\
 	return JSON.stringify({'success': true});\
 })\
-\
-//# sourceMappingURL=fill_lib.1browser.min.js.map\
 \
 ";
 
