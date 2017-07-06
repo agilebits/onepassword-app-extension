@@ -64,7 +64,7 @@ class ChangePasswordViewController: UIViewController {
 			// If YES, the 1Password will guarantee that the generated password will contain at least one digit (number between 0 and 9). Passing NO will not exclude digits from the generated password.
 			AppExtensionGeneratedPasswordRequireDigitsKey: (true),
 			
-			// If YES, the 1Password will guarantee that the generated password will contain at least one symbol (See the list bellow). Passing NO with will exclude symbols from the generated password.
+			// If YES, the 1Password will guarantee that the generated password will contain at least one symbol (See the list below). Passing NO will not exclude symbols from the generated password.
 			AppExtensionGeneratedPasswordRequireSymbolsKey: (true),
 			
 			// Here are all the symbols available in the the 1Password Password Generator:
