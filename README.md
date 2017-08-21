@@ -303,7 +303,7 @@ If the **Deployment Target** is `7.1` or earlier in your project or target and y
 * Ensure your `URLString` is set to your actual service so your users can easily find their logins within the main 1Password app.
 * You should only ask for the login information of your own service or one specific to your app. Giving a URL for a service which you do not own or support may seriously break the customer's trust in your service/app.
 * If you don't have a website for your app you should specify your bundle identifier as the `URLString`, like so: `app://bundleIdentifier` (e.g. `app://com.acme.awesome-app`).
-* [Send us an icon](mailto:support+appex@agilebits.com) to use for our Rich Icon service so the user can see your lovely icon after creating new items. Make sure that you also include the URL string that you used, so we can associate it with the icon on our Rich Icons server.
+* [Send us an icon](mailto:support+appex@agilebits.com) to use for our Rich Icon service so the user can see your lovely icon after creating new items. Please send an icon that is 1024x1024px. Make sure that you also include the URL string that you used, so we can associate it with the icon on our Rich Icons server.
 * Use the icons provided in the `1Password.xcassets` asset catalog so users are familiar with what it will do. Contact us if you'd like additional sizes or have other special requirements.
 * Enable users to set 1Password as their default browser for external web links.
 * On your registration page, pre-validate fields before calling 1Password. For example, display a message if the username is not available so the user can fix it before calling the 1Password extension.
