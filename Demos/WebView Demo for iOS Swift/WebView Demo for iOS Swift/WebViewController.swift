@@ -67,11 +67,11 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 	}
 
 	// UISearchBarDelegate
-	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		self.performSearch(text: searchBar.text)
 	}
 
-	func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+	func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
 		self.performSearch(text: searchBar.text)
 	}
 
@@ -79,7 +79,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		self.performSearch(text: searchBar.text)
 	}
 
-	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		self.performSearch(text: searchBar.text)
 	}
 
