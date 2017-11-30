@@ -91,7 +91,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		let hasSpaces = lowercaseText.range(of: " ") != nil
 		let hasDots = lowercaseText.range(of: ".") != nil
 
-		let search: Bool = !hasSpaces || !hasDots
+		let search: Bool = hasSpaces || hasDots
 		if (search) {
 			let hasScheme = lowercaseText.hasPrefix("http:") || lowercaseText.hasPrefix("https:")
 			if (hasScheme) {
