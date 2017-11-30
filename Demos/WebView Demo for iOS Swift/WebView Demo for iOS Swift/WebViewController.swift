@@ -17,114 +17,113 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.onepasswordFillButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+		self.onepasswordFillButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
 
 		let configuration = WKWebViewConfiguration()
 		
 		self.webView = WKWebView(frame: self.webViewContainer.bounds, configuration: configuration)
-		self.webView.autoresizingMask = UIViewAutoresizing(arrayLiteral: .FlexibleHeight, .FlexibleWidth)
+		self.webView.autoresizingMask = UIViewAutoresizing(arrayLiteral: .flexibleHeight, .flexibleWidth)
 		self.webView.navigationDelegate = self
 		self.webViewContainer.addSubview(self.webView)
 
-		let htmlFilePath = NSBundle.mainBundle().pathForResource("welcome", ofType: "html")
+		let htmlFilePath = Bundle.main.path(forResource: "welcome", ofType: "html")
 		var htmlString : String!
 		do {
-			htmlString = try String(contentsOfFile: htmlFilePath!, encoding: NSUTF8StringEncoding)
+			htmlString = try String(contentsOfFile: htmlFilePath!, encoding: String.Encoding.utf8)
 		}
 		catch {
-			print("Failed to obtain the html string from file \(htmlFilePath) with error: <\(error)>")
+			print("Failed to obtain the html string from file \(String(describing: htmlFilePath)) with error: <\(String(describing: error))>")
 		}
 
-		self.webView.loadHTMLString(htmlString, baseURL: NSURL(string: "https://agilebits.com"))
+		self.webView.loadHTMLString(htmlString, baseURL: URL(string: "https://agilebits.com"))
 	}
 
-	@IBAction func fillUsing1Password(sender: AnyObject) -> Void {
-		OnePasswordExtension.sharedExtension().fillItemIntoWebView(self.webView, forViewController: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
+	@IBAction func fillUsing1Password(_ sender: AnyObject) -> Void {
+		OnePasswordExtension.shared().fillItem(intoWebView: self.webView, for: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
 			if success == false {
-				print("Failed to fill into webview: <\(error)>")
+				print("Failed to fill into webview: <\(String(describing: error))>")
 			}
 		}
 	}
 
-	@IBAction func goBack(sender: AnyObject) -> Void {
+	@IBAction func goBack(_ sender: AnyObject) -> Void {
 		let navigation = self.webView.goBack()
 
 		if navigation == nil {
-			let htmlFilePath = NSBundle.mainBundle().pathForResource("welcome", ofType: "html")
+			let htmlFilePath = Bundle.main.path(forResource: "welcome", ofType: "html")
 			var htmlString : String!
 			do {
-				htmlString = try String(contentsOfFile: htmlFilePath!, encoding: NSUTF8StringEncoding)
+				htmlString = try String(contentsOfFile: htmlFilePath!, encoding: String.Encoding.utf8)
 			}
 			catch {
-				print("Failed to obtain the html string from file \(htmlFilePath) with error: <\(error)>")
+				print("Failed to obtain the html string from file \(String(describing: htmlFilePath)) with error: <\(String(describing: error))>")
 			}
 
-			self.webView.loadHTMLString(htmlString, baseURL: NSURL(string: "https://agilebits.com"))
+			self.webView.loadHTMLString(htmlString, baseURL: URL(string: "https://agilebits.com"))
 		}
 	}
-	@IBAction func goForward(sender: AnyObject) -> Void {
+	@IBAction func goForward(_ sender: AnyObject) -> Void {
 		self.webView.goForward()
 	}
 
 	// UISearchBarDelegate
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-		self.performSearch(searchBar.text)
+		self.performSearch(text: searchBar.text)
 	}
 
 	func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-		self.performSearch(searchBar.text)
+		self.performSearch(text: searchBar.text)
 	}
 
 	func handleSearch(searchBar: UISearchBar) {
-		self.performSearch(searchBar.text)
+		self.performSearch(text: searchBar.text)
 	}
 
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-		self.performSearch(searchBar.text)
+		self.performSearch(text: searchBar.text)
 	}
 
 	// Convenience
 	func performSearch(text: String!) {
-		let lowercaseText = text.lowercaseStringWithLocale(NSLocale.currentLocale())
-		var URL: NSURL?
+		let lowercaseText = text.lowercased(with: NSLocale.current)
+		var url: URL?
 
-		let hasSpaces = lowercaseText.rangeOfString(" ") != nil
-		let hasDots = lowercaseText.rangeOfString(".") != nil
+		let hasSpaces = lowercaseText.range(of: " ") != nil
+		let hasDots = lowercaseText.range(of: ".") != nil
 
 		let search: Bool = !hasSpaces || !hasDots
 		if (search) {
 			let hasScheme = lowercaseText.hasPrefix("http:") || lowercaseText.hasPrefix("https:")
 			if (hasScheme) {
-				URL = NSURL(string: lowercaseText)
+				url = URL(string: lowercaseText)
 			}
 			else {
-				URL = NSURL(string: "https://".stringByAppendingString(lowercaseText))
+				url = URL(string: "https://" + lowercaseText)
 			}
 		}
 
-		if (URL == nil) {
-			let URLComponents = NSURLComponents()
-			URLComponents.scheme = "https"
-			URLComponents.host = "www.google.com"
-			URLComponents.path = "/search"
+		if (url == nil) {
+			let urlComponents = NSURLComponents()
+			urlComponents.scheme = "https"
+			urlComponents.host = "www.google.com"
+			urlComponents.path = "/search"
 			
-			let queryItem = NSURLQueryItem(name: "q", value: text)
-			URLComponents.queryItems = [queryItem]
+			let queryItem = URLQueryItem(name: "q", value: text)
+			urlComponents.queryItems = [queryItem]
 			
-			URL = URLComponents.URL
+			url = urlComponents.url
 		}
 
-		self.searchBar.text = URL?.absoluteString
+		self.searchBar.text = url?.absoluteString
 		self.searchBar.resignFirstResponder()
 
-		let request = NSURLRequest(URL: URL!)
-		self.webView.loadRequest(request)
+		let request = URLRequest(url: url!)
+		self.webView.load(request)
 	}
 	
 	// WKNavigationDelegate
-
-	func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-		self.searchBar.text = webView.URL?.absoluteString
+	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+		self.searchBar.text = webView.url?.absoluteString
 
 		if self.searchBar.text == "about:blank" {
 			self.searchBar.text = ""
