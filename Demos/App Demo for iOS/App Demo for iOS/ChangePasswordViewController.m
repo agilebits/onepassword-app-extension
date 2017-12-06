@@ -7,7 +7,7 @@
 //
 
 #import "ChangePasswordViewController.h"
-#import "OnePasswordExtension.h"
+#import <OnePasswordExtension/OnePasswordExtension.h>
 
 @interface ChangePasswordViewController ()
 
@@ -24,6 +24,9 @@
 	[super viewDidLoad];
 	
 	[self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"login-background.png"]]];
+	NSBundle *onePasswordExtensionBundle = [NSBundle bundleForClass:[OnePasswordExtension class]];
+	UIImage *onePasswordButtonImage = [UIImage imageNamed:@"onepassword-button" inBundle:onePasswordExtensionBundle compatibleWithTraitCollection:self.traitCollection];
+	[self.onepasswordButton setImage:onePasswordButtonImage forState:UIControlStateNormal];
 	[self.onepasswordButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
 }
 

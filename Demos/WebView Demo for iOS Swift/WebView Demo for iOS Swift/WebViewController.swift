@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OnePasswordExtension
 
 class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDelegate {
 

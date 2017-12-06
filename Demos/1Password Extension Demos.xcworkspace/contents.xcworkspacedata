@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../OnePasswordExtension.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:App Demo for iOS/App Demo for iOS.xcodeproj">
    </FileRef>
    <FileRef

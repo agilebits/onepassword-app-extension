@@ -59,7 +59,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="SQq-i8-VvJ"/>
                                 </constraints>
-                                <state key="normal" image="onepassword-toolbar">
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -99,7 +99,4 @@
             <point key="canvasLocation" x="1284" y="795"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="onepassword-toolbar" width="27" height="27"/>
-    </resources>
 </document>
