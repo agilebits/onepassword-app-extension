@@ -22,23 +22,23 @@ class RegisterViewController: UIViewController {
 			self.view.backgroundColor = UIColor(patternImage: patternImage)
 		}
 		
-		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+		onepasswordButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
 	}
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return UIStatusBarStyle.Default
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return UIStatusBarStyle.default
 	}
 
-	@IBAction func saveLoginTo1Password(sender:AnyObject) -> Void {
-		let newLoginDetails:[String: AnyObject] = [
+	@IBAction func saveLoginTo1Password(_ sender:AnyObject) {
+		let newLoginDetails:[String: Any] = [
 			AppExtensionTitleKey: "ACME",
-			AppExtensionUsernameKey: self.usernameTextField.text!,
-			AppExtensionPasswordKey: self.passwordTextField.text!,
+			AppExtensionUsernameKey: usernameTextField.text ?? "",
+			AppExtensionPasswordKey: passwordTextField.text ?? "",
 			AppExtensionNotesKey: "Saved with the ACME app",
 			AppExtensionSectionTitleKey: "ACME Browser",
 			AppExtensionFieldsKey: [
-				"firstname" : self.firstnameTextField.text!,
-				"lastname" : self.lastnameTextField.text!
+				"firstname" : firstnameTextField.text ?? "",
+				"lastname" : lastnameTextField.text ?? ""
 				// Add as many string fields as you please.
 			]
 		]
@@ -46,35 +46,37 @@ class RegisterViewController: UIViewController {
 		// The password generation options are optional, but are very handy in case you have strict rules about password lengths, symbols and digits.
 		let passwordGenerationOptions:[String: AnyObject] = [
 			// The minimum password length can be 4 or more.
-			AppExtensionGeneratedPasswordMinLengthKey: (8),
+			AppExtensionGeneratedPasswordMinLengthKey: (8 as NSNumber),
 			
 			// The maximum password length can be 50 or less.
-			AppExtensionGeneratedPasswordMaxLengthKey: (30),
+			AppExtensionGeneratedPasswordMaxLengthKey: (30 as NSNumber),
 			
 			// If YES, the 1Password will guarantee that the generated password will contain at least one digit (number between 0 and 9). Passing NO will not exclude digits from the generated password.
-			AppExtensionGeneratedPasswordRequireDigitsKey: (true),
+			AppExtensionGeneratedPasswordRequireDigitsKey: (true as NSNumber),
 			
 			// If YES, the 1Password will guarantee that the generated password will contain at least one symbol (See the list below). Passing NO will not exclude symbols from the generated password.
-			AppExtensionGeneratedPasswordRequireSymbolsKey: (true),
+			AppExtensionGeneratedPasswordRequireSymbolsKey: (true as NSNumber),
 			
 			// Here are all the symbols available in the the 1Password Password Generator:
 			// !@#$%^&*()_-+=|[]{}'\";.,>?/~`
 			// The string for AppExtensionGeneratedPasswordForbiddenCharactersKey should contain the symbols and characters that you wish 1Password to exclude from the generated password.
-			AppExtensionGeneratedPasswordForbiddenCharactersKey: "!@#$%/0lIO"
+			AppExtensionGeneratedPasswordForbiddenCharactersKey: "!@#$%/0lIO" as NSString
 		]
 		
-		OnePasswordExtension.sharedExtension().storeLoginForURLString("https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, forViewController: self, sender: sender) { (loginDictionary, error) -> Void in
-			if loginDictionary == nil {
-				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
-					print("Error invoking 1Password App Extension for find login: \(error)")
+		OnePasswordExtension.shared().storeLogin(forURLString: "https://www.acme.com", loginDetails: newLoginDetails, passwordGenerationOptions: passwordGenerationOptions, for: self, sender: sender) { (loginDictionary, error) in
+			guard let loginDictionary = loginDictionary else {
+				if let error = error as NSError?, error.code != AppExtensionErrorCodeCancelledByUser {
+					print("Error invoking 1Password App Extension for find login: \(String(describing: error))")
 				}
 				return
 			}
 
-			self.usernameTextField.text = loginDictionary?[AppExtensionUsernameKey] as? String
-			self.passwordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
-			self.firstnameTextField.text = loginDictionary?[AppExtensionReturnedFieldsKey]?["firstname"] as? String
-			self.lastnameTextField.text = loginDictionary?[AppExtensionReturnedFieldsKey]?["lastname"] as? String
+			self.usernameTextField.text = loginDictionary[AppExtensionUsernameKey] as? String
+			self.passwordTextField.text = loginDictionary[AppExtensionPasswordKey] as? String
+			if let returnedLoginDictionary = loginDictionary[AppExtensionReturnedFieldsKey] as? [String: Any] {
+				self.firstnameTextField.text = returnedLoginDictionary["firstname"] as? String
+				self.lastnameTextField.text = returnedLoginDictionary["lastname"] as? String
+			}
 		}
 	}
 }
