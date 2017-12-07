@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
 			self.view.backgroundColor = UIColor(patternImage: patternImage)
 		}
 		
-		self.onepasswordButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
+		onepasswordButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -42,30 +42,29 @@ class LoginViewController: UIViewController {
 	}
 
 	override var preferredStatusBarStyle: UIStatusBarStyle {
-		return UIStatusBarStyle.lightContent
+		return .lightContent
 	}
 
-	@IBAction func findLoginFrom1Password(_ sender:AnyObject) -> Void {
-		OnePasswordExtension.shared().findLogin(forURLString: "https://www.acme.com", for: self, sender: sender, completion: { (loginDictionary, error) -> Void in
-			if loginDictionary == nil {
-				if error!._code != Int(AppExtensionErrorCodeCancelledByUser) {
+	@IBAction func findLoginFrom1Password(_ sender:AnyObject) {
+		OnePasswordExtension.shared().findLogin(forURLString: "https://www.acme.com", for: self, sender: sender, completion: { (loginDictionary, error) in
+			guard let loginDictionary = loginDictionary else {
+				if let error = error as NSError?, error.code != AppExtensionErrorCodeCancelledByUser {
 					print("Error invoking 1Password App Extension for find login: \(String(describing: error))")
 				}
 				return
 			}
 			
-			self.usernameTextField.text = loginDictionary?[AppExtensionUsernameKey] as? String
-			self.passwordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
+			self.usernameTextField.text = loginDictionary[AppExtensionUsernameKey] as? String
+			self.passwordTextField.text = loginDictionary[AppExtensionPasswordKey] as? String
 
-			if let generatedOneTimePassword = loginDictionary?[AppExtensionTOTPKey] as? String {
+			if let generatedOneTimePassword = loginDictionary[AppExtensionTOTPKey] as? String {
 				self.oneTimePasswordTextField.isHidden = false
 				self.oneTimePasswordTextField.text = generatedOneTimePassword
 
 				// Important: It is recommended that you submit the OTP/TOTP to your validation server as soon as you receive it, otherwise it may expire.
-				let delayTime = DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC)))
-				DispatchQueue.main.asyncAfter(deadline: delayTime, execute: { () -> Void in
-					self.performSegue(withIdentifier: "showThankYouViewController", sender: self)
-				})
+				let delayTime: DispatchTime = .now() + DispatchTimeInterval.milliseconds(500)
+				DispatchQueue.main.asyncAfter(deadline: delayTime) {					self.performSegue(withIdentifier: "showThankYouViewController", sender: self)
+				}
 			}
 
 		})
