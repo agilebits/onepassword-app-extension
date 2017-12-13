@@ -40,7 +40,7 @@ To get started, download the [zip version](https://github.com/AgileBits/onepassw
 
 Inside the downloaded folder, you'll find the resources needed to integrate with 1Password, such as images and sample code. The sample code includes two apps from ACME Corporation: one that demonstrates how to integrate the 1Password Login and Registration features, as well as a web browser that showcases the web view Filling feature.
 
-The 1Password App Extension API is also available via CocoaPods, simply add `pod '1PasswordExtension', '~> 1.8.4'` (for the latest stable release) or `pod '1PasswordExtension', :git => 'https://github.com/AgileBits/onepassword-app-extension.git', :branch => 'master'` (for the latest nightly) to your Podfile, run `pod install` from your project directory and you're ready to go.
+The 1Password App Extension API is also available via CocoaPods, simply add `pod '1PasswordExtension', '~> 1.8.5'` (for the latest stable release) or `pod '1PasswordExtension', :git => 'https://github.com/AgileBits/onepassword-app-extension.git', :branch => 'master'` (for the latest nightly) to your Podfile, run `pod install` from your project directory and you're ready to go.
 
 The 1Password App Extension API is available via Carthage as well. Simply add `github "AgileBits/onepassword-extension" "add-framework-support"` to your Cartfile, then run `carthage update` and add it to your project.
 
@@ -303,7 +303,7 @@ If the **Deployment Target** is `7.1` or earlier in your project or target and y
 * Ensure your `URLString` is set to your actual service so your users can easily find their logins within the main 1Password app.
 * You should only ask for the login information of your own service or one specific to your app. Giving a URL for a service which you do not own or support may seriously break the customer's trust in your service/app.
 * If you don't have a website for your app you should specify your bundle identifier as the `URLString`, like so: `app://bundleIdentifier` (e.g. `app://com.acme.awesome-app`).
-* [Send us an icon](mailto:support+appex@agilebits.com) to use for our Rich Icon service so the user can see your lovely icon after creating new items. Make sure that you also include the URL string that you used, so we can associate it with the icon on our Rich Icons server.
+* [Send us an icon](mailto:support+appex@agilebits.com) to use for our Rich Icon service so the user can see your lovely icon after creating new items. Please send an icon that is 1024x1024px. Make sure that you also include the URL string that you used, so we can associate it with the icon on our Rich Icons server.
 * Use the icons provided in the `1Password.xcassets` asset catalog so users are familiar with what it will do. Contact us if you'd like additional sizes or have other special requirements.
 * Enable users to set 1Password as their default browser for external web links.
 * On your registration page, pre-validate fields before calling 1Password. For example, display a message if the username is not available so the user can fix it before calling the 1Password extension.
