@@ -22,50 +22,49 @@ class LoginViewController: UIViewController {
 			self.view.backgroundColor = UIColor(patternImage: patternImage)
 		}
 		
-		self.onepasswordButton.hidden = (false == OnePasswordExtension.sharedExtension().isAppExtensionAvailable())
+		onepasswordButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
 	}
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		if OnePasswordExtension.sharedExtension().isAppExtensionAvailable() == false {
-			let alertController = UIAlertController(title: "1Password is not installed", message: "Get 1Password from the App Store", preferredStyle: UIAlertControllerStyle.Alert)
+		if OnePasswordExtension.shared().isAppExtensionAvailable() == false {
+			let alertController = UIAlertController(title: "1Password is not installed", message: "Get 1Password from the App Store", preferredStyle: UIAlertControllerStyle.alert)
 
-			let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+			let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 			alertController.addAction(cancelAction)
 
-			let OKAction = UIAlertAction(title: "Get 1Password", style: .Default) { (action) in UIApplication.sharedApplication().openURL(NSURL(string: "https://itunes.apple.com/app/1password-password-manager/id568903335")!)
+			let OKAction = UIAlertAction(title: "Get 1Password", style: .default) { (action) in UIApplication.shared.openURL(URL(string: "https://itunes.apple.com/app/1password-password-manager/id568903335")!)
 			}
 
 			alertController.addAction(OKAction)
-			self.presentViewController(alertController, animated: true, completion: nil)
+			self.present(alertController, animated: true, completion: nil)
 		}
 	}
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return UIStatusBarStyle.LightContent
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
 	}
 
-	@IBAction func findLoginFrom1Password(sender:AnyObject) -> Void {
-		OnePasswordExtension.sharedExtension().findLoginForURLString("https://www.acme.com", forViewController: self, sender: sender, completion: { (loginDictionary, error) -> Void in
-			if loginDictionary == nil {
-				if error!.code != Int(AppExtensionErrorCodeCancelledByUser) {
-					print("Error invoking 1Password App Extension for find login: \(error)")
+	@IBAction func findLoginFrom1Password(_ sender:AnyObject) {
+		OnePasswordExtension.shared().findLogin(forURLString: "https://www.acme.com", for: self, sender: sender, completion: { (loginDictionary, error) in
+			guard let loginDictionary = loginDictionary else {
+				if let error = error as NSError?, error.code != AppExtensionErrorCodeCancelledByUser {
+					print("Error invoking 1Password App Extension for find login: \(String(describing: error))")
 				}
 				return
 			}
 			
-			self.usernameTextField.text = loginDictionary?[AppExtensionUsernameKey] as? String
-			self.passwordTextField.text = loginDictionary?[AppExtensionPasswordKey] as? String
+			self.usernameTextField.text = loginDictionary[AppExtensionUsernameKey] as? String
+			self.passwordTextField.text = loginDictionary[AppExtensionPasswordKey] as? String
 
-			if let generatedOneTimePassword = loginDictionary?[AppExtensionTOTPKey] as? String {
-				self.oneTimePasswordTextField.hidden = false
+			if let generatedOneTimePassword = loginDictionary[AppExtensionTOTPKey] as? String {
+				self.oneTimePasswordTextField.isHidden = false
 				self.oneTimePasswordTextField.text = generatedOneTimePassword
 
 				// Important: It is recommended that you submit the OTP/TOTP to your validation server as soon as you receive it, otherwise it may expire.
-				let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
-				dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-					self.performSegueWithIdentifier("showThankYouViewController", sender: self)
-				})
+				let delayTime: DispatchTime = .now() + DispatchTimeInterval.milliseconds(500)
+				DispatchQueue.main.asyncAfter(deadline: delayTime) {					self.performSegue(withIdentifier: "showThankYouViewController", sender: self)
+				}
 			}
 
 		})
