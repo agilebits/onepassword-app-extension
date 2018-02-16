@@ -53,7 +53,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 - (void) userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
 	NSLog(@"Received message from userContentController: %@", message);
 	if ([message.name isEqualToString:@"onepassword"]) {
-		NSString *fillScript = @"{properties: {}, script: [[\"fill_by_query\", \"input[type=text]\", \"realDonaldTrump\"], [\"fill_by_query\", \"input[type=password]\", \"ThePeeTapeI$real\"]]}";
+		NSString *fillScript = @"{properties: {}, script: [[\"fill_by_query\", \"input[type=text]\", \"ATwitterUser\"], [\"fill_by_query\", \"input[type=password]\", \"Some$ecurePassw0rd\"]]}";
 		NSString *eventScript = [NSString stringWithFormat:@";var e = new CustomEvent(\"passwordManager\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", fillScript];
 		[self.webView evaluateJavaScript:eventScript completionHandler:^(id _Nullable result, NSError * _Nullable error) {
 			NSLog(@"Evaluated fill script in web view %@ with result %@", self.webView, result);
