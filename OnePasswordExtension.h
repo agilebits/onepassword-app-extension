@@ -64,7 +64,7 @@ typedef void (^OnePasswordLoginDictionaryCompletionBlock)(NSDictionary * __nulla
 typedef void (^OnePasswordSuccessCompletionBlock)(BOOL success, NSError * __nullable error);
 typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __nullable extensionItem, NSError * __nullable error);
 
-@interface OnePasswordExtension : NSObject
+@interface OnePasswordExtension : NSObject<WKScriptMessageHandler>
 @property WKWebView *webView;
 
 + (OnePasswordExtension *)sharedExtension;
