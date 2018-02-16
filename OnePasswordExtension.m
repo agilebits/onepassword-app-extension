@@ -22,6 +22,10 @@ static NSString *const kUTTypeAppExtensionFillBrowserAction = @"org.appextension
 static NSString *const AppExtensionWebViewPageFillScript = @"fillScript";
 static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
+@interface OnePasswordExtension() {
+	OnePasswordSuccessCompletionBlock _pendingScriptMessageCallback;
+}
+@end
 @implementation OnePasswordExtension
 
 #pragma mark - Public Methods
@@ -45,6 +49,34 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	return NO;
 }
 
+
+- (void) userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+	NSLog(@"Received message from userContentController: %@", message);
+	if ([message.name isEqualToString:@"onepassword"]) {
+		NSString *fillScript = @"{properties: {}, script: [[\"fill_by_query\", \"input[type=text]\", \"realDonaldTrump\"], [\"fill_by_query\", \"input[type=password]\", \"ThePeeTapeI$real\"]]}";
+		NSString *eventScript = [NSString stringWithFormat:@";var e = new CustomEvent(\"passwordManager\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", fillScript];
+		[self.webView evaluateJavaScript:eventScript completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+			NSLog(@"Evaluated fill script in web view %@ with result %@", self.webView, result);
+		}];
+
+//		if (result == nil) {
+//			NSLog(@"1Password Extension failed to collect web page fields: %@", error);
+//			if (_pendingScriptMessageCallback) {
+//				_pendingScriptMessageCallback(NO,[OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:error]);
+//			}
+//
+//			return;
+//		}
+		
+//		[self findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:message.body forWebViewController:viewController sender:sender withWebView:webView showOnlyLogins:yesOrNo completion:^(BOOL success, NSError *findLoginError) {
+//			if (_pendingScriptMessageCallback) {
+//				_pendingScriptMessageCallback(success, findLoginError);
+//			}
+//		}];
+		
+	}
+	//TODO: Handle message smartly
+}
 - (void)configureContentController:(WKUserContentController *)contentController {
 	WKUserScript *collectScript = [[WKUserScript alloc] initWithSource:OPWebViewCollectFieldsScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
 	WKUserScript *fillScript = [[WKUserScript alloc] initWithSource:OPWebViewFillScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
@@ -258,25 +290,26 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0 || ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW
 	else if ([webView isKindOfClass:[WKWebView class]]) {
 		WKWebView *wkWebView = (WKWebView *)webView;
-		[wkWebView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *evaluateError) {
-			if (result == nil) {
-				NSLog(@"1Password Extension failed to collect web page fields: %@", evaluateError);
-				NSError *failedToCollectFieldsError = [OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:evaluateError];
-				if (completion) {
-					if ([NSThread isMainThread]) {
-						completion(nil, failedToCollectFieldsError);
-					}
-					else {
-						dispatch_async(dispatch_get_main_queue(), ^{
-							completion(nil, failedToCollectFieldsError);
-						});
-					}
-				}
+		[wkWebView evaluateJavaScript:@"var e = new CustomEvent(\"passwordManager\", {detail: {name: \"collectDocuments\"}}); window.dispatchEvent(e);" completionHandler:^(NSString *result, NSError *evaluateError) {
+			NSLog(@"Success dispatching collect event");
+//			if (result == nil) {
+//				NSLog(@"1Password Extension failed to collect web page fields: %@", evaluateError);
+//				NSError *failedToCollectFieldsError = [OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:evaluateError];
+//				if (completion) {
+//					if ([NSThread isMainThread]) {
+//						completion(nil, failedToCollectFieldsError);
+//					}
+//					else {
+//						dispatch_async(dispatch_get_main_queue(), ^{
+//							completion(nil, failedToCollectFieldsError);
+//						});
+//					}
+//				}
+//
+//				return;
+//			}
 
-				return;
-			}
-
-			[self createExtensionItemForURLString:wkWebView.URL.absoluteString webPageDetails:result completion:completion];
+//			[self createExtensionItemForURLString:wkWebView.URL.absoluteString webPageDetails:result completion:completion];
 		}];
 	}
 	#endif
@@ -390,21 +423,23 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0 || ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW
 - (void)fillItemIntoWKWebView:(nonnull WKWebView *)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender showOnlyLogins:(BOOL)yesOrNo completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
-	[webView evaluateJavaScript:OPWebViewCollectFieldsScript completionHandler:^(NSString *result, NSError *error) {
-		if (result == nil) {
-			NSLog(@"1Password Extension failed to collect web page fields: %@", error);
-			if (completion) {
-				completion(NO,[OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:error]);
-			}
-
-			return;
-		}
-
-		[self findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController sender:sender withWebView:webView showOnlyLogins:yesOrNo completion:^(BOOL success, NSError *findLoginError) {
-			if (completion) {
-				completion(success, findLoginError);
-			}
-		}];
+	_pendingScriptMessageCallback = completion;
+	[webView evaluateJavaScript:@"var e = new CustomEvent(\"passwordManager\", {detail: {name: \"collectDocuments\"}}); window.dispatchEvent(e);" completionHandler:^(NSString *result, NSError *error) {
+		NSLog(@"Evaluated collect fields script: %@", result);
+//		if (result == nil) {
+//			NSLog(@"1Password Extension failed to collect web page fields: %@", error);
+//			if (completion) {
+//				completion(NO,[OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:error]);
+//			}
+//
+//			return;
+//		}
+//
+//		[self findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController sender:sender withWebView:webView showOnlyLogins:yesOrNo completion:^(BOOL success, NSError *findLoginError) {
+//			if (completion) {
+//				completion(success, findLoginError);
+//			}
+//		}];
 	}];
 }
 #endif
@@ -429,8 +464,12 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-	NSMutableString *scriptSource = [OPWebViewFillScript mutableCopy];
-	[scriptSource appendFormat:@"(document, %@, undefined);", fillScript];
+//	NSMutableString *scriptSource = [OPWebViewFillScript mutableCopy];
+//	[scriptSource appendFormat:@"(document, %@, undefined);", fillScript];
+	NSString *scriptSource = [NSString stringWithFormat:@"var e = new CustomEvent(\"passwordManager\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", fillScript];
+	[webView evaluateJavaScript:scriptSource completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+		NSLog(@"Evaluated execute fill script in web view");
+	}];
 
 #ifdef __IPHONE_8_0
 	if ([webView isKindOfClass:[UIWebView class]]) {
@@ -659,12 +698,11 @@ function x(b){var a=b.ownerDocument.documentElement,c=b.getBoundingClientRect(),
 (window.innerHeight-a)/2:c.height/2));c&&c!==b&&c!==document;){if(c.tagName&&'string'===typeof c.tagName&&'label'===c.tagName.toLowerCase()&&b.labels&&0<b.labels.length)return 0<=Array.prototype.slice.call(b.labels).indexOf(c);c=c.parentNode}return c===b}\
 function I(b){var a;if(void 0===b||null===b)return null;if(a=FieldCollector.b(b))return a;try{var c=Array.prototype.slice.call(v(document)),f=c.filter(function(a){return a.opid==b});if(0<f.length)a=f[0],1<f.length&&console.warn('More than one element found with opid '+b);else{var e=parseInt(b.split('__')[1],10);isNaN(e)||(a=c[e])}}catch(k){console.error('An unexpected error occurred: '+k)}finally{return a}};function v(b){var a=[];try{a=b.querySelectorAll('input, select, button')}catch(c){console.error('[COMMON] @ag_querySelectorAll Exception in selector \"input, select, button\"')}return a}function t(b,a){if(b){var c;a&&(c=b.value);'function'===typeof b.click&&b.click();'function'===typeof b.focus&&b.focus();a&&b.value!==c&&(b.value=c)}};\
 	\
-	return JSON.stringify(FieldCollector.a(document, 'oneshotUUID'));\
+window.addEventListener(\"passwordManager\", function(e) { console.log(\"Handling passwordManager event:\", e.detail.name); if (e.detail.name === \"collectDocuments\") { window.webkit.messageHandlers.onepassword.postMessage({name: 'collectFieldsResult', payload: FieldCollector.a(document, 'oneshotUUID')}) }}, false);\
 })(document);\
-\
 ";
 
-static NSString *const OPWebViewFillScript = @";(function(document, fillScript, undefined) {\
+static NSString *const OPWebViewFillScript = @"function executeFillScript(document, fillScript, undefined) {\
 \
 	var g=!0,h=!0,k=!0;function m(a){return a?0===a.indexOf('https://')&&'http:'===document.location.protocol&&(a=document.querySelectorAll('input[type=password]'),0<a.length&&(confirmResult=confirm('1Password warning: This is an unsecured HTTP page, and any information you submit can potentially be seen and changed by others. This Login was originally saved on a secure (HTTPS) page.\\n\\nDo you still wish to fill this login?'),0==confirmResult))?!0:!1:!1}\
 function l(a){var b,c=[],d=a.properties,e=1,f=[];d&&d.delay_between_operations&&(e=d.delay_between_operations);if(!m(a.savedURL)){var r=function(a,b){var c=a[0];if(void 0===c)b();else{if('delay'===c.operation||'delay'===c[0])e=c.parameters?c.parameters[0]:c[1];else if(c=n(c))for(var d=0;d<c.length;d++)-1===f.indexOf(c[d])&&f.push(c[d]);setTimeout(function(){r(a.slice(1),b)},e)}};g=k=!0;if(b=a.options)b.hasOwnProperty('animate')&&(h=b.animate),b.hasOwnProperty('markFilling')&&(g=b.markFilling);if((b=\
@@ -681,9 +719,9 @@ window.BACK_TITLES=['back','назад'];window.DIVITIS_BUTTON_CLASSES=['button'
 function z(a){var b;if(void 0===a||null===a)return null;if(b=FieldCollector.b(a))return b;try{var c=Array.prototype.slice.call(B('input, select, button')),d=c.filter(function(b){return b.opid==a});if(0<d.length)b=d[0],1<d.length&&console.warn('More than one element found with opid '+a);else{var e=parseInt(a.split('__')[1],10);isNaN(e)||(b=c[e])}}catch(f){console.error('An unexpected error occurred: '+f)}finally{return b}};function B(a){var b=document,c=[];try{c=b.querySelectorAll(a)}catch(d){console.error('[COMMON] @ag_querySelectorAll Exception in selector \"'+a+'\"')}return c}function C(a,b){if(!a)return!1;var c;b&&(c=a.value);'function'===typeof a.click&&a.click();'function'===typeof a.focus&&a.focus();b&&a.value!==c&&(a.value=c);return'function'===typeof a.click||'function'===typeof a.focus};\
 \
 	l(fillScript);\
-	return JSON.stringify({'success': true});\
-})\
-\
+window.webkit.messageHandlers.onepassword.postMessage({name: 'fillItemResults', payload:  {success: true}});\
+}\
+window.addEventListener(\"passwordManager\", function(e) {  console.log(\"Handling passwordManager event:\", e.detail.name);  if (e.detail.name === \"executeFillScript\") { executeFillScript(document, e.detail.payload); }}, false);\
 ";
 
 
