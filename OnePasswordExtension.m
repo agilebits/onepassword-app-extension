@@ -45,6 +45,14 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	return NO;
 }
 
+- (void)configureContentController:(WKUserContentController *)contentController {
+	WKUserScript *collectScript = [[WKUserScript alloc] initWithSource:OPWebViewCollectFieldsScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+	WKUserScript *fillScript = [[WKUserScript alloc] initWithSource:OPWebViewFillScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+	[contentController addUserScript:collectScript];
+	[contentController addUserScript:fillScript];
+	[contentController addScriptMessageHandler:self name:@"onepassword"];
+}
+
 #pragma mark - Native app Login
 
 - (void)findLoginForURLString:(nonnull NSString *)URLString forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nonnull OnePasswordLoginDictionaryCompletionBlock)completion {
