@@ -201,11 +201,6 @@ typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __null
  */
 - (void)fillReturnedItems:(nullable NSArray *)returnedItems intoWebView:(nonnull id)webView completion:(nonnull OnePasswordSuccessCompletionBlock)completion;
 
-/*!
- Deprecated in version 1.5
- @see Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead
- */
-- (void)fillLoginIntoWebView:(nonnull id)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nonnull OnePasswordSuccessCompletionBlock)completion __attribute__((deprecated("Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead. Deprecated in version 1.5")));
 @end
 
 #if __has_feature(nullability)

@@ -720,15 +720,4 @@ window.webkit.messageHandlers.onepassword.postMessage({name: 'fillItemResults', 
 window.addEventListener(\"passwordManager\", function(e) {  console.log(\"Handling passwordManager event:\", e.detail.name);  if (e.detail.name === \"executeFillScript\") { executeFillScript(document, e.detail.payload); }}, false);\
 ";
 
-
-#pragma mark - Deprecated methods
-
-/*
- Deprecated in version 1.5
- Use fillItemIntoWebView:forViewController:sender:showOnlyLogins:completion: instead
- */
-- (void)fillLoginIntoWebView:(nonnull id)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
-	[self fillItemIntoWebView:webView forViewController:viewController sender:sender showOnlyLogins:YES completion:completion];
-}
-
 @end
