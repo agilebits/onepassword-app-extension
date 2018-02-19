@@ -387,8 +387,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-//	NSMutableString *scriptSource = [OPWebViewFillScript mutableCopy];
-//	[scriptSource appendFormat:@"(document, %@, undefined);", fillScript];
 	NSString *scriptSource = [NSString stringWithFormat:@"var e = new CustomEvent(\"passwordManager\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", fillScript];
 	[webView evaluateJavaScript:scriptSource completionHandler:^(id _Nullable result, NSError * _Nullable evaluationError) {
         BOOL success = (evaluationError == nil);
