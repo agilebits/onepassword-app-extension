@@ -402,7 +402,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	}];
 }
 
-#ifdef __IPHONE_8_0
 - (void)processExtensionItem:(nullable NSExtensionItem *)extensionItem completion:(nonnull OnePasswordLoginDictionaryCompletionBlock)completion {
 	if (extensionItem.attachments.count == 0) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unexpected data returned by App Extension: extension item had no attachments." };
@@ -467,12 +466,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	}
 
 	return controller;
-#else
-	return nil;
-#endif
 }
-
-#endif
 
 - (void)createExtensionItemForURLString:(nonnull NSString *)URLString webPageDetails:(nullable NSString *)webPageDetails completion:(nonnull OnePasswordExtensionItemCompletionBlock)completion {
 	NSError *jsonError = nil;
