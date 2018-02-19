@@ -66,6 +66,7 @@ typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __null
 
 @interface OnePasswordExtension : NSObject<WKScriptMessageHandler>
 @property WKWebView *webView;
+@property UIViewController *viewController;
 
 + (OnePasswordExtension *)sharedExtension;
 

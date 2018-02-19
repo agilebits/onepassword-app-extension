@@ -236,6 +236,8 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #pragma mark - Web View filling Support
 
 - (void)fillItemIntoWebView:(nonnull WKWebView *)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender showOnlyLogins:(BOOL)yesOrNo completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
+    self.webView = webView;
+    self.viewController = viewController;
 	NSAssert(webView != nil, @"webView must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 	NSAssert([webView isKindOfClass:[WKWebView class]], @"webView must be an instance of WKWebView.");
@@ -372,8 +374,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		}];
 	};
 
-	[forViewController presentViewController:activityViewController animated:YES completion:nil];
-}
+	[self.viewController presentViewController:activityViewController animated:YES completion:nil];
 }
 
 - (void)executeFillScript:(NSString * __nullable)fillScript inWebView:(WKWebView *)webView completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
