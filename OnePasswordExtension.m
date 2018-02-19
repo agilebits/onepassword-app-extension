@@ -195,7 +195,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-#ifdef __IPHONE_8_0
 	NSMutableDictionary *item = [NSMutableDictionary new];
 	item[AppExtensionVersionNumberKey] = VERSION_NUMBER;
 	item[AppExtensionURLStringKey] = URLString;
@@ -232,7 +231,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	};
 
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
-#endif
 }
 
 #pragma mark - Web View filling Support
