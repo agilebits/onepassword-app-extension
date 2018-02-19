@@ -48,30 +48,26 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 - (void) userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
 	NSLog(@"Received message from userContentController: %@", message);
-	if ([message.name isEqualToString:@"onepassword"]) {
-		NSString *fillScript = @"{properties: {}, script: [[\"fill_by_query\", \"input[type=text]\", \"ATwitterUser\"], [\"fill_by_query\", \"input[type=password]\", \"Some$ecurePassw0rd\"]]}";
-		NSString *eventScript = [NSString stringWithFormat:@";var e = new CustomEvent(\"passwordManager\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", fillScript];
-		[self.webView evaluateJavaScript:eventScript completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-			NSLog(@"Evaluated fill script in web view %@ with result %@", self.webView, result);
-		}];
+    NSString *name = message.body[@"name"];
+    id payload = message.body[@"payload"];
+    if ([name isEqualToString:@"collectFieldsResults"]) {
+        if ([payload length] > 0) {
+        [self findLoginIn1PasswordWithURLString:self.webView.URL.absoluteString collectedPageDetails:payload withWebView:self.webView showOnlyLogins:YES completion:^(BOOL success, NSError *findLoginError) {
+            NSString *fillScript = @"{properties: {}, script: [[\"fill_by_query\", \"input[type=text]\", \"ATwitterUser\"], [\"fill_by_query\", \"input[type=password]\", \"Some$ecurePassw0rd\"]]}";
+            NSString *eventScript = [NSString stringWithFormat:@";var e = new CustomEvent(\"passwordManager\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", fillScript];
+            [self.webView evaluateJavaScript:eventScript completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+                #warning Delete noisy NSLog
+                NSLog(@"Evaluated fill script in web view %@ with result %@", self.webView, result);
+                if (error != nil) {
 
-//		if (result == nil) {
-//			NSLog(@"1Password Extension failed to collect web page fields: %@", error);
-//			if (_pendingScriptMessageCallback) {
-//				_pendingScriptMessageCallback(NO,[OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:error]);
-//			}
-//
-//			return;
-//		}
-		
-//		[self findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:message.body forWebViewController:viewController sender:sender withWebView:webView showOnlyLogins:yesOrNo completion:^(BOOL success, NSError *findLoginError) {
-//			if (_pendingScriptMessageCallback) {
-//				_pendingScriptMessageCallback(success, findLoginError);
-//			}
-//		}];
-		
+                }
+            }];
+        }];
+    } else if ([name isEqualToString:@"fillItemResults"]) {
+        NSLog(@"Filled item!");
 	}
 	//TODO: Handle message smartly
+}
 }
 - (void)configureContentController:(WKUserContentController *)contentController {
 	WKUserScript *collectScript = [[WKUserScript alloc] initWithSource:OPWebViewCollectFieldsScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
