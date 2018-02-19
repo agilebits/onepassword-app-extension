@@ -374,37 +374,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 	[forViewController presentViewController:activityViewController animated:YES completion:nil];
 }
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0 || ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW
-- (void)fillItemIntoWKWebView:(nonnull WKWebView *)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender showOnlyLogins:(BOOL)yesOrNo completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
-	_pendingScriptMessageCallback = completion;
-	[webView evaluateJavaScript:@"var e = new CustomEvent(\"passwordManager\", {detail: {name: \"collectDocuments\"}}); window.dispatchEvent(e);" completionHandler:^(NSString *result, NSError *error) {
-		NSLog(@"Evaluated collect fields script: %@", result);
-//		if (result == nil) {
-//			NSLog(@"1Password Extension failed to collect web page fields: %@", error);
-//			if (completion) {
-//				completion(NO,[OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:error]);
-//			}
-//
-//			return;
-//		}
-//
-//		[self findLoginIn1PasswordWithURLString:webView.URL.absoluteString collectedPageDetails:result forWebViewController:viewController sender:sender withWebView:webView showOnlyLogins:yesOrNo completion:^(BOOL success, NSError *findLoginError) {
-//			if (completion) {
-//				completion(success, findLoginError);
-//			}
-//		}];
-	}];
-}
-#endif
-
-- (void)fillItemIntoUIWebView:(nonnull UIWebView *)webView webViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender showOnlyLogins:(BOOL)yesOrNo completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
-	NSString *collectedPageDetails = [webView stringByEvaluatingJavaScriptFromString:OPWebViewCollectFieldsScript];
-	[self findLoginIn1PasswordWithURLString:webView.request.URL.absoluteString collectedPageDetails:collectedPageDetails forWebViewController:viewController sender:sender withWebView:webView showOnlyLogins:yesOrNo completion:^(BOOL success, NSError *error) {
-		if (completion) {
-			completion(success, error);
-		}
-	}];
 }
 
 - (void)executeFillScript:(NSString * __nullable)fillScript inWebView:(WKWebView *)webView completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
