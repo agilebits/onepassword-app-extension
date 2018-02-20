@@ -245,6 +245,7 @@ static WKUserScript *fillScript;
 - (void)fillItemIntoWebView:(nonnull WKWebView *)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender showOnlyLogins:(BOOL)yesOrNo completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
     self.webView = webView;
     self.viewController = viewController;
+	self.sender = sender;
 	NSAssert(webView != nil, @"webView must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 	NSAssert([webView isKindOfClass:[WKWebView class]], @"webView must be an instance of WKWebView.");
