@@ -372,9 +372,9 @@ static WKUserScript *fillScript;
 
 		return;
 	}
-
-	NSString *scriptSource = [NSString stringWithFormat:@"var e = new CustomEvent(\"passwordManager\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", fillScript];
-	[webView evaluateJavaScript:scriptSource completionHandler:^(id _Nullable result, NSError * _Nullable evaluationError) {
+	
+	NSString *eventScript = [NSString stringWithFormat:@";var e = new CustomEvent(\"passwordManager\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", fillScript];
+	[webView evaluateJavaScript:eventScript completionHandler:^(id _Nullable result, NSError * _Nullable evaluationError) {
         BOOL success = (evaluationError == nil);
         NSError *error = nil;
         if (evaluationError != nil) {
