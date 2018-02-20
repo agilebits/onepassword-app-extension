@@ -29,12 +29,17 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 #pragma mark - Public Methods
 
+static WKUserScript *collectScript;
+static WKUserScript *fillScript;
+
 + (OnePasswordExtension *)sharedExtension {
 	static dispatch_once_t onceToken;
 	static OnePasswordExtension *__sharedExtension;
 
 	dispatch_once(&onceToken, ^{
 		__sharedExtension = [OnePasswordExtension new];
+		collectScript = [[WKUserScript alloc] initWithSource:OPWebViewCollectFieldsScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+		fillScript = [[WKUserScript alloc] initWithSource:OPWebViewFillScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
 	});
 
 	return __sharedExtension;
