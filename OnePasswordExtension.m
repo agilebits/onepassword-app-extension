@@ -24,6 +24,8 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 @interface OnePasswordExtension() {
 }
+@property WKWebView *webView;
+@property UIViewController *viewController;
 @end
 @implementation OnePasswordExtension
 
