@@ -92,7 +92,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 		return;
 	}
 
-#ifdef __IPHONE_8_0
 	NSDictionary *item = @{ AppExtensionVersionNumberKey: VERSION_NUMBER, AppExtensionURLStringKey: URLString };
 
 	UIActivityViewController *activityViewController = [self activityViewControllerForItem:item viewController:viewController sender:sender typeIdentifier:kUTTypeAppExtensionFindLoginAction];
@@ -122,7 +121,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	};
 
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
-#endif
 }
 
 #pragma mark - New User Registration
@@ -141,7 +139,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	}
 
 
-#ifdef __IPHONE_8_0
 	NSMutableDictionary *newLoginAttributesDict = [NSMutableDictionary new];
 	newLoginAttributesDict[AppExtensionVersionNumberKey] = VERSION_NUMBER;
 	newLoginAttributesDict[AppExtensionURLStringKey] = URLString;
@@ -177,7 +174,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 	};
 
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
-#endif
 }
 
 #pragma mark - Change Password
@@ -305,11 +301,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #pragma mark - Private methods
 
 - (BOOL)isSystemAppExtensionAPIAvailable {
-#ifdef __IPHONE_8_0
 	return [NSExtensionItem class] != nil;
-#else
-	return NO;
-#endif
 }
 
 - (void)findLoginIn1PasswordWithURLString:(nonnull NSString *)URLString collectedPageDetails:(nullable NSString *)collectedPageDetails forWebViewController:(nonnull UIViewController *)forViewController sender:(nullable id)sender withWebView:(nonnull WKWebView *)webView showOnlyLogins:(BOOL)yesOrNo completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
