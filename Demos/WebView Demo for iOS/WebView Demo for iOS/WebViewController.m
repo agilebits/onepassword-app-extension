@@ -27,13 +27,8 @@
 	[super viewDidLoad];
 
 	[self.onepasswordFillButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
-
-	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
-	WKUserContentController *contentController = [WKUserContentController new];
-	[[OnePasswordExtension sharedExtension] configureContentController:contentController];
-	configuration.userContentController = contentController;
+	WKWebViewConfiguration *configuration = [[OnePasswordExtension sharedExtension] webViewConfigurationForConfiguration:nil];
 	self.webView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds configuration:configuration];
-	[OnePasswordExtension sharedExtension].webView = self.webView;
 	self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	self.webView.navigationDelegate = self;
 	[self.webViewContainer addSubview:self.webView];

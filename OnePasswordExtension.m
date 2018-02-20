@@ -68,14 +68,6 @@ static WKUserScript *fillScript;
 	}
 	//TODO: Handle message smartly
 }
-}
-- (void)configureContentController:(WKUserContentController *)contentController {
-	WKUserScript *collectScript = [[WKUserScript alloc] initWithSource:OPWebViewCollectFieldsScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-	WKUserScript *fillScript = [[WKUserScript alloc] initWithSource:OPWebViewFillScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-	[contentController addUserScript:collectScript];
-	[contentController addUserScript:fillScript];
-	[contentController addScriptMessageHandler:self name:@"onepassword"];
-}
 
 #pragma mark - Native app Login
 
@@ -230,7 +222,22 @@ static WKUserScript *fillScript;
 }
 
 #pragma mark - Web View filling Support
+- (WKWebViewConfiguration *)webViewConfigurationForConfiguration: (nullable WKWebViewConfiguration *)configuration {
+	if (configuration == nil) {
+		configuration = [WKWebViewConfiguration new];
+	}
 
+	WKUserContentController *contentController = configuration.userContentController;
+	if (contentController == nil) {
+		contentController = [WKUserContentController new];
+		configuration.userContentController = contentController;
+	}
+
+	[contentController addUserScript:collectScript];
+	[contentController addUserScript:fillScript];
+	[contentController addScriptMessageHandler:self name:@"onepassword"];
+	return configuration;
+}
 - (void)fillItemIntoWebView:(nonnull WKWebView *)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender showOnlyLogins:(BOOL)yesOrNo completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
     self.webView = webView;
     self.viewController = viewController;

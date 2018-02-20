@@ -83,7 +83,7 @@ typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __null
 - (BOOL)isAppExtensionAvailable;
 #endif
 
-- (void)configureContentController:(WKUserContentController *)contentController;
+- (WKWebViewConfiguration *)webViewConfigurationForConfiguration:(nullable WKWebViewConfiguration *)configuration;
 
 /*!
  Called from your login page, this method will find all available logins for the given URLString.
