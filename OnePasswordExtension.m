@@ -59,7 +59,7 @@ static WKUserScript *fillScript;
     id payload = message.body[@"payload"];
     if ([name isEqualToString:@"collectFieldsResult"]) {
         if ([payload count] > 0) {
-			[self findLoginIn1PasswordWithURLString:message.frameInfo.request.URL.absoluteString collectedPageDetails:payload forWebViewController:self.viewController sender:nil withWebView:self.webView showOnlyLogins:YES completion:^(BOOL success, NSError *findLoginError) {
+			[self findLoginIn1PasswordWithURLString:message.frameInfo.request.URL.absoluteString collectedPageDetails:payload forWebViewController:self.viewController sender:self.sender withWebView:self.webView showOnlyLogins:YES completion:^(BOOL success, NSError *findLoginError) {
 				NSLog(@"Found Login and filled? %d", success);
 			}];
 		}
