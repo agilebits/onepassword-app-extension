@@ -250,9 +250,6 @@ static WKUserScript *fillScript;
 	NSAssert(viewController != nil, @"viewController must not be nil");
 	NSAssert([webView isKindOfClass:[WKWebView class]], @"webView must be an instance of WKWebView.");
     [self.webView evaluateJavaScript:@"var e = new CustomEvent(\"passwordManager\", {detail: {name: \"collectDocuments\"}}); window.dispatchEvent(e);" completionHandler:^(NSString *result, NSError *error) {
-
-        #warning Delete noisy NSLog
-        NSLog(@"Evaluated collect fields script: %@", result);
         if (error != nil){
             NSLog(@"1Password Extension failed to collect web page fields: %@", error);
             return;
