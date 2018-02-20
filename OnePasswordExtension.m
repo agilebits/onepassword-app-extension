@@ -67,8 +67,9 @@ static WKUserScript *fillScript;
 		}
     } else if ([name isEqualToString:@"fillItemResults"]) {
         NSLog(@"Filled item!");
+	} else {
+		NSLog(@"Unexpected message: %@", name);
 	}
-	//TODO: Handle message smartly
 }
 
 #pragma mark - Native app Login
