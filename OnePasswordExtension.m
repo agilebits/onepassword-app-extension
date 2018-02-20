@@ -555,7 +555,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 #pragma mark - WebView field collection and filling scripts
 
 static NSString *const OPWebViewCollectFieldsScript = @";(function(document, undefined) {\
-\
 	document.addEventListener('input',function(b){!1!==b.isTrusted&&'input'===b.target.tagName.toLowerCase()&&(b.target.dataset['com.agilebits.onepassword.userEdited']='yes')},!0);\
 (function(b,a,c){a.FieldCollector=new function(){function f(d){return d?d.toString().toLowerCase():''}function e(d,b,a,e){e!==c&&e===a||null===a||a===c||(d[b]=a)}function k(d,b){var a=[];try{a=d.querySelectorAll(b)}catch(J){console.error('[COLLECT FIELDS] @ag_querySelectorAll Exception in selector \"'+b+'\"')}return a}function m(d){var a,c=[];if(d.labels&&d.labels.length&&0<d.labels.length)c=Array.prototype.slice.call(d.labels);else{d.id&&(c=c.concat(Array.prototype.slice.call(k(b,'label[for='+JSON.stringify(d.id)+\
 ']'))));if(d.name){a=k(b,'label[for='+JSON.stringify(d.name)+']');for(var e=0;e<a.length;e++)-1===c.indexOf(a[e])&&c.push(a[e])}for(a=d;a&&a!=b;a=a.parentNode)'label'===f(a.tagName)&&-1===c.indexOf(a)&&c.push(a)}0===c.length&&(a=d.parentNode,'dd'===a.tagName.toLowerCase()&&null!==a.previousElementSibling&&'dt'===a.previousElementSibling.tagName.toLowerCase()&&c.push(a.previousElementSibling));return 0<c.length?c.map(function(d){return l(r(d))}).join(''):null}function n(d){var a;for(d=d.parentElement||\
