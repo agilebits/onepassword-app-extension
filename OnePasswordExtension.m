@@ -23,7 +23,6 @@ static NSString *const AppExtensionWebViewPageFillScript = @"fillScript";
 static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 @interface OnePasswordExtension() {
-	OnePasswordSuccessCompletionBlock _pendingScriptMessageCallback;
 }
 @end
 @implementation OnePasswordExtension
@@ -243,10 +242,6 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
         NSLog(@"Evaluated collect fields script: %@", result);
         if (error != nil){
             NSLog(@"1Password Extension failed to collect web page fields: %@", error);
-            if (_pendingScriptMessageCallback) {
-                _pendingScriptMessageCallback(NO,[OnePasswordExtension failedToCollectFieldsErrorWithUnderlyingError:error]);
-            }
-
             return;
         }
     }];
