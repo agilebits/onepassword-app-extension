@@ -23,6 +23,7 @@ static NSString *const AppExtensionWebViewPageFillScript = @"fillScript";
 static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
 @interface OnePasswordExtension() {
+	OnePasswordExtensionItemCompletionBlock _pendingCompletion;
 }
 @property (weak) WKWebView *webView;
 @property (weak) UIViewController *viewController;
@@ -59,9 +60,13 @@ static WKUserScript *fillScript;
     id payload = message.body[@"payload"];
     if ([name isEqualToString:@"collectFieldsResult"]) {
         if ([payload count] > 0) {
-			[self findLoginIn1PasswordWithURLString:message.frameInfo.request.URL.absoluteString collectedPageDetails:payload forWebViewController:self.viewController sender:self.sender withWebView:self.webView showOnlyLogins:YES completion:^(BOOL success, NSError *findLoginError) {
-				NSLog(@"Found Login and filled? %d", success);
-			}];
+			if (_pendingCompletion) {
+				[self createExtensionItemForURLString:message.frameInfo.request.URL.absoluteString webPageDetails:payload completion:_pendingCompletion];
+			} else {
+				[self findLoginIn1PasswordWithURLString:message.frameInfo.request.URL.absoluteString collectedPageDetails:payload forWebViewController:self.viewController sender:self.sender withWebView:self.webView showOnlyLogins:YES completion:^(BOOL success, NSError *findLoginError) {
+					NSLog(@"Found Login and filled? %d", success);
+				}];
+			}
 		}
 		else {
 			NSLog(@"No fields in payload");
@@ -262,6 +267,7 @@ static WKUserScript *fillScript;
 	NSAssert(webView != nil, @"webView must not be nil");
 	NSAssert([webView isKindOfClass:[WKWebView class]], @"webView must be an instance of WKWebView.");
     self.webView = webView;
+	_pendingCompletion = completion;
     [webView evaluateJavaScript:@"var e = new CustomEvent(\"passwordManager\", {detail: {name: \"collectDocuments\"}}); window.dispatchEvent(e);" completionHandler:^(NSString *result, NSError *evaluateError) {
         NSLog(@"Success dispatching collect event");
     }];
@@ -448,20 +454,9 @@ static WKUserScript *fillScript;
 	return controller;
 }
 
-- (void)createExtensionItemForURLString:(nonnull NSString *)URLString webPageDetails:(nullable NSString *)webPageDetails completion:(nonnull OnePasswordExtensionItemCompletionBlock)completion {
-	NSError *jsonError = nil;
-	NSData *data = [webPageDetails dataUsingEncoding:NSUTF8StringEncoding];
-	NSDictionary *webPageDetailsDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
-
-	if (webPageDetailsDictionary.count == 0) {
-		NSLog(@"Failed to parse JSON collected page details: %@", jsonError);
-		if (completion) {
-			completion(nil, jsonError);
-		}
-		return;
-	}
-
-	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : webPageDetailsDictionary };
+- (void)createExtensionItemForURLString:(nonnull NSString *)URLString webPageDetails:(nullable NSDictionary *)webPageDetails completion:(nonnull OnePasswordExtensionItemCompletionBlock)completion {
+	
+	NSDictionary *item = @{ AppExtensionVersionNumberKey : VERSION_NUMBER, AppExtensionURLStringKey : URLString, AppExtensionWebViewPageDetails : webPageDetails };
 
 	NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:item typeIdentifier:kUTTypeAppExtensionFillBrowserAction];
 
@@ -478,6 +473,7 @@ static WKUserScript *fillScript;
 			});
 		}
 	}
+	_pendingCompletion = nil;
 }
 
 #pragma mark - Errors
