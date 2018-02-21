@@ -226,22 +226,17 @@ static WKUserScript *fillScript;
 }
 
 #pragma mark - Web View filling Support
-- (WKWebViewConfiguration *)webViewConfigurationForConfiguration: (nullable WKWebViewConfiguration *)configuration {
-	if (configuration == nil) {
-		configuration = [WKWebViewConfiguration new];
-	}
-
-	WKUserContentController *contentController = configuration.userContentController;
+- (WKUserContentController *)configureUserContentController:(nullable WKUserContentController *)contentController {
 	if (contentController == nil) {
 		contentController = [WKUserContentController new];
-		configuration.userContentController = contentController;
 	}
 
 	[contentController addUserScript:collectScript];
 	[contentController addUserScript:fillScript];
 	[contentController addScriptMessageHandler:self name:@"onepassword"];
-	return configuration;
+	return contentController;
 }
+
 - (void)fillItemIntoWebView:(nonnull WKWebView *)webView forViewController:(nonnull UIViewController *)viewController sender:(nullable id)sender showOnlyLogins:(BOOL)yesOrNo completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
     self.webView = webView;
     self.viewController = viewController;

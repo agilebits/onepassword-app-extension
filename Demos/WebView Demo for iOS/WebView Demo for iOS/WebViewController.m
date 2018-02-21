@@ -30,7 +30,10 @@
 	UIImage *onePasswordToolbarImage = [UIImage imageNamed:@"onepassword-toolbar" inBundle:onePasswordExtensionBundle compatibleWithTraitCollection:self.traitCollection];
 	[self.onepasswordFillButton setImage:onePasswordToolbarImage forState:UIControlStateNormal];
 	[self.onepasswordFillButton setHidden:![[OnePasswordExtension sharedExtension] isAppExtensionAvailable]];
-	WKWebViewConfiguration *configuration = [[OnePasswordExtension sharedExtension] webViewConfigurationForConfiguration:nil];
+	WKUserContentController *contentController = [WKUserContentController new];
+	[[OnePasswordExtension sharedExtension] configureUserContentController:contentController];
+	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
+	configuration.userContentController = contentController;
 	self.webView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds configuration:configuration];
 	self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	self.webView.navigationDelegate = self;
