@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "OnePasswordExtension.h"
+#import <OnePasswordExtension/OnePasswordExtension.h>
 
 @interface AppDelegate ()
 
