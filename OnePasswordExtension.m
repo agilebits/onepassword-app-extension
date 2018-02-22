@@ -28,6 +28,7 @@ static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 @property (weak) WKWebView *webView;
 @property (weak) UIViewController *viewController;
 @property (weak) id sender;
+@property (readonly) NSString *securityToken;
 @end
 @implementation OnePasswordExtension
 
@@ -42,11 +43,20 @@ static WKUserScript *fillScript;
 
 	dispatch_once(&onceToken, ^{
 		__sharedExtension = [OnePasswordExtension new];
-		collectScript = [[WKUserScript alloc] initWithSource:OPWebViewCollectFieldsScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-		fillScript = [[WKUserScript alloc] initWithSource:OPWebViewFillScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
 	});
 
 	return __sharedExtension;
+}
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _securityToken = [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        NSString *wrappedCollectScript = [NSString stringWithFormat:@";(function() { var securityToken = \"%@\";%@;})()", self.securityToken,   OPWebViewCollectFieldsScript];
+        NSString *wrappedFillScript = [NSString stringWithFormat:@";(function() { var securityToken = \"%@\";%@;})()", self.securityToken,   OPWebViewFillScript];
+        collectScript = [[WKUserScript alloc] initWithSource:wrappedCollectScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+        fillScript = [[WKUserScript alloc] initWithSource:wrappedFillScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    }
+    return self;
 }
 
 - (BOOL)isAppExtensionAvailable {
@@ -238,7 +248,7 @@ static WKUserScript *fillScript;
 
 	[contentController addUserScript:collectScript];
 	[contentController addUserScript:fillScript];
-	[contentController addScriptMessageHandler:self name:@"onepassword"];
+	[contentController addScriptMessageHandler:self name:self.securityToken];
 	return contentController;
 }
 
@@ -249,7 +259,7 @@ static WKUserScript *fillScript;
 	NSAssert(webView != nil, @"webView must not be nil");
 	NSAssert(viewController != nil, @"viewController must not be nil");
 	NSAssert([webView isKindOfClass:[WKWebView class]], @"webView must be an instance of WKWebView.");
-    [self.webView evaluateJavaScript:@"var e = new CustomEvent(\"passwordManager\", {detail: {name: \"collectDocuments\"}}); window.dispatchEvent(e);" completionHandler:^(NSString *result, NSError *error) {
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"var e = new CustomEvent(\"%@\", {detail: {name: \"collectDocuments\"}}); window.dispatchEvent(e);", self.securityToken] completionHandler:^(NSString *result, NSError *error) {
         if (error != nil){
             NSLog(@"1Password Extension failed to collect web page fields: %@", error);
             return;
@@ -268,7 +278,7 @@ static WKUserScript *fillScript;
 	NSAssert([webView isKindOfClass:[WKWebView class]], @"webView must be an instance of WKWebView.");
     self.webView = webView;
 	_pendingCompletion = completion;
-    [webView evaluateJavaScript:@"var e = new CustomEvent(\"passwordManager\", {detail: {name: \"collectDocuments\"}}); window.dispatchEvent(e);" completionHandler:^(NSString *result, NSError *evaluateError) {
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"var e = new CustomEvent(\"%@\", {detail: {name: \"collectDocuments\"}}); window.dispatchEvent(e);", self.securityToken] completionHandler:^(NSString *result, NSError *evaluateError) {
         NSLog(@"Success dispatching collect event");
     }];
 }
@@ -374,7 +384,7 @@ static WKUserScript *fillScript;
 		return;
 	}
 	
-	NSString *eventScript = [NSString stringWithFormat:@";var e = new CustomEvent(\"passwordManager\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", fillScript];
+	NSString *eventScript = [NSString stringWithFormat:@"var e = new CustomEvent(\"%@\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", self.securityToken, fillScript];
 	[webView evaluateJavaScript:eventScript completionHandler:^(id _Nullable result, NSError * _Nullable evaluationError) {
         BOOL success = (evaluationError == nil);
         NSError *error = nil;
@@ -562,7 +572,7 @@ function x(b){var a=b.ownerDocument.documentElement,c=b.getBoundingClientRect(),
 (window.innerHeight-a)/2:c.height/2));c&&c!==b&&c!==document;){if(c.tagName&&'string'===typeof c.tagName&&'label'===c.tagName.toLowerCase()&&b.labels&&0<b.labels.length)return 0<=Array.prototype.slice.call(b.labels).indexOf(c);c=c.parentNode}return c===b}\
 function I(b){var a;if(void 0===b||null===b)return null;if(a=FieldCollector.b(b))return a;try{var c=Array.prototype.slice.call(v(document)),f=c.filter(function(a){return a.opid==b});if(0<f.length)a=f[0],1<f.length&&console.warn('More than one element found with opid '+b);else{var e=parseInt(b.split('__')[1],10);isNaN(e)||(a=c[e])}}catch(k){console.error('An unexpected error occurred: '+k)}finally{return a}};function v(b){var a=[];try{a=b.querySelectorAll('input, select, button')}catch(c){console.error('[COMMON] @ag_querySelectorAll Exception in selector \"input, select, button\"')}return a}function t(b,a){if(b){var c;a&&(c=b.value);'function'===typeof b.click&&b.click();'function'===typeof b.focus&&b.focus();a&&b.value!==c&&(b.value=c)}};\
 	\
-window.addEventListener(\"passwordManager\", function(e) { console.log(\"Handling passwordManager event:\", e.detail.name); if (e.detail.name === \"collectDocuments\") { window.webkit.messageHandlers.onepassword.postMessage({name: 'collectFieldsResult', payload: FieldCollector.a(document, 'oneshotUUID')}) }}, false);\
+window.addEventListener(securityToken, function(e) { console.log(\"Handling passwordManager event with securityToken:\", e.detail.name); if (e.detail.name === \"collectDocuments\") { window.webkit.messageHandlers[securityToken].postMessage({name: 'collectFieldsResult', payload: FieldCollector.a(document, 'oneshotUUID')}) }}, false);\
 })(document);\
 ";
 
@@ -583,9 +593,9 @@ window.BACK_TITLES=['back','назад'];window.DIVITIS_BUTTON_CLASSES=['button'
 function z(a){var b;if(void 0===a||null===a)return null;if(b=FieldCollector.b(a))return b;try{var c=Array.prototype.slice.call(B('input, select, button')),d=c.filter(function(b){return b.opid==a});if(0<d.length)b=d[0],1<d.length&&console.warn('More than one element found with opid '+a);else{var e=parseInt(a.split('__')[1],10);isNaN(e)||(b=c[e])}}catch(f){console.error('An unexpected error occurred: '+f)}finally{return b}};function B(a){var b=document,c=[];try{c=b.querySelectorAll(a)}catch(d){console.error('[COMMON] @ag_querySelectorAll Exception in selector \"'+a+'\"')}return c}function C(a,b){if(!a)return!1;var c;b&&(c=a.value);'function'===typeof a.click&&a.click();'function'===typeof a.focus&&a.focus();b&&a.value!==c&&(a.value=c);return'function'===typeof a.click||'function'===typeof a.focus};\
 \
 	l(fillScript);\
-window.webkit.messageHandlers.onepassword.postMessage({name: 'fillItemResults', payload:  {success: true}});\
+window.webkit.messageHandlers[securityToken].postMessage({name: 'fillItemResults', payload:  {success: true}});\
 }\
-window.addEventListener(\"passwordManager\", function(e) {  console.log(\"Handling passwordManager event:\", e.detail.name);  if (e.detail.name === \"executeFillScript\") { executeFillScript(document, e.detail.payload); }}, false);\
+window.addEventListener(securityToken, function(e) {  console.log(\"Handling passwordManager event with security token:\", e.detail.name);  if (e.detail.name === \"executeFillScript\") { executeFillScript(document, e.detail.payload); }}, false);\
 ";
 
 @end
