@@ -22,6 +22,12 @@ static NSString *const kUTTypeAppExtensionFillBrowserAction = @"org.appextension
 static NSString *const AppExtensionWebViewPageFillScript = @"fillScript";
 static NSString *const AppExtensionWebViewPageDetails = @"pageDetails";
 
+// WKUserScript message names
+static NSString *const kWKUserScriptMessageCollectDocuments = @"collectDocuments";
+static NSString *const kWKUserScriptMessageCollectFieldsResult = @"collectFieldsResult";
+static NSString *const kWKUserScriptMessageExecuteFillScript = @"executeFillScript";
+static NSString *const kWKUserScriptMessageFillItemResults = @"fillItemResults";
+
 @interface OnePasswordExtension() {
 	OnePasswordExtensionItemCompletionBlock _pendingCompletion;
 }
@@ -51,8 +57,8 @@ static WKUserScript *fillScript;
     self = [super init];
     if (self) {
         _securityToken = [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        NSString *wrappedCollectScript = [NSString stringWithFormat:@";(function() { var securityToken = \"%@\";%@;})()", self.securityToken,   OPWebViewCollectFieldsScript];
-        NSString *wrappedFillScript = [NSString stringWithFormat:@";(function() { var securityToken = \"%@\";%@;})()", self.securityToken,   OPWebViewFillScript];
+		NSString *wrappedCollectScript = [NSString stringWithFormat:@";(function() { var securityToken = \"%@\";%@;})()", self.securityToken,   [NSString stringWithFormat:OPWebViewCollectFieldsScript, kWKUserScriptMessageCollectDocuments]];
+		NSString *wrappedFillScript = [NSString stringWithFormat:@";(function() { var securityToken = \"%@\";%@;})()", self.securityToken,   [NSString stringWithFormat:OPWebViewFillScript, kWKUserScriptMessageExecuteFillScript]];
         collectScript = [[WKUserScript alloc] initWithSource:wrappedCollectScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
         fillScript = [[WKUserScript alloc] initWithSource:wrappedFillScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
     }
@@ -68,7 +74,7 @@ static WKUserScript *fillScript;
 	NSLog(@"Received message from userContentController: %@", message);
     NSString *name = message.body[@"name"];
     id payload = message.body[@"payload"];
-    if ([name isEqualToString:@"collectFieldsResult"]) {
+    if ([name isEqualToString:kWKUserScriptMessageCollectFieldsResult]) {
         if ([payload count] > 0) {
 			if (_pendingCompletion) {
 				[self createExtensionItemForURLString:message.frameInfo.request.URL.absoluteString webPageDetails:payload completion:_pendingCompletion];
@@ -81,7 +87,7 @@ static WKUserScript *fillScript;
 		else {
 			NSLog(@"No fields in payload");
 		}
-    } else if ([name isEqualToString:@"fillItemResults"]) {
+    } else if ([name isEqualToString:kWKUserScriptMessageFillItemResults]) {
         NSLog(@"Filled item!");
 	} else {
 		NSLog(@"Unexpected message: %@", name);
@@ -572,7 +578,7 @@ function x(b){var a=b.ownerDocument.documentElement,c=b.getBoundingClientRect(),
 (window.innerHeight-a)/2:c.height/2));c&&c!==b&&c!==document;){if(c.tagName&&'string'===typeof c.tagName&&'label'===c.tagName.toLowerCase()&&b.labels&&0<b.labels.length)return 0<=Array.prototype.slice.call(b.labels).indexOf(c);c=c.parentNode}return c===b}\
 function I(b){var a;if(void 0===b||null===b)return null;if(a=FieldCollector.b(b))return a;try{var c=Array.prototype.slice.call(v(document)),f=c.filter(function(a){return a.opid==b});if(0<f.length)a=f[0],1<f.length&&console.warn('More than one element found with opid '+b);else{var e=parseInt(b.split('__')[1],10);isNaN(e)||(a=c[e])}}catch(k){console.error('An unexpected error occurred: '+k)}finally{return a}};function v(b){var a=[];try{a=b.querySelectorAll('input, select, button')}catch(c){console.error('[COMMON] @ag_querySelectorAll Exception in selector \"input, select, button\"')}return a}function t(b,a){if(b){var c;a&&(c=b.value);'function'===typeof b.click&&b.click();'function'===typeof b.focus&&b.focus();a&&b.value!==c&&(b.value=c)}};\
 	\
-window.addEventListener(securityToken, function(e) { console.log(\"Handling passwordManager event with securityToken:\", e.detail.name); if (e.detail.name === \"collectDocuments\") { window.webkit.messageHandlers[securityToken].postMessage({name: 'collectFieldsResult', payload: FieldCollector.a(document, 'oneshotUUID')}) }}, false);\
+window.addEventListener(securityToken, function(e) { console.log(\"Handling passwordManager event with securityToken:\", e.detail.name); if (e.detail.name === \"%@\") { window.webkit.messageHandlers[securityToken].postMessage({name: 'collectFieldsResult', payload: FieldCollector.a(document, 'oneshotUUID')}) }}, false);\
 })(document);\
 ";
 
@@ -595,7 +601,7 @@ function z(a){var b;if(void 0===a||null===a)return null;if(b=FieldCollector.b(a)
 	l(fillScript);\
 window.webkit.messageHandlers[securityToken].postMessage({name: 'fillItemResults', payload:  {success: true}});\
 }\
-window.addEventListener(securityToken, function(e) {  console.log(\"Handling passwordManager event with security token:\", e.detail.name);  if (e.detail.name === \"executeFillScript\") { executeFillScript(document, e.detail.payload); }}, false);\
+window.addEventListener(securityToken, function(e) {  console.log(\"Handling passwordManager event with security token:\", e.detail.name);  if (e.detail.name === \"%@\") { executeFillScript(document, e.detail.payload); }}, false);\
 ";
 
 @end
