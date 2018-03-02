@@ -19,7 +19,10 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 		super.viewDidLoad()
 		onepasswordFillButton.isHidden = (false == OnePasswordExtension.shared().isAppExtensionAvailable())
 
+		let contentController = WKUserContentController()
+		OnePasswordExtension.shared().configureUserContentController(contentController)
 		let configuration = WKWebViewConfiguration()
+		configuration.userContentController = contentController
 		
 		webView = WKWebView(frame: webViewContainer.bounds, configuration: configuration)
 		webView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -44,7 +47,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 	}
 
 	@IBAction func fillUsing1Password(_ sender: AnyObject) {
-		OnePasswordExtension.shared().fillItem(intoWebView: webView, for: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
+		OnePasswordExtension.shared().fillItem(into: webView, for: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
 			if success == false {
 				print("Failed to fill into webview: <\(String(describing: error))>")
 			}
