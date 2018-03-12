@@ -268,16 +268,16 @@ The 1Password App Extension is not limited to filling native UIs. With just a li
 First, setup your WKWebView's WKUserContentController using the following:
 
 ```objective-c
-	WKUserContentController *contentController = [WKUserContentController new];
-	[[OnePasswordExtension sharedExtension] configureUserContentController:contentController];
-	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
-	configuration.userContentController = contentController;
+WKUserContentController *contentController = [WKUserContentController new];
+[[OnePasswordExtension sharedExtension] configureUserContentController:contentController];
+WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
+configuration.userContentController = contentController;
 ````
 
 This configures 1Password's extension so it can inject the necessary WKUserScripts into your WKWebViews. Then make sure you use that new configuration when initializing your WKWebView.
 
 ```objective-c
-	self.webView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds configuration:configuration];
+self.webView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds configuration:configuration];
 ```
 
 Then simply add a button to your UI with its action assigned to this method in your web view's UIViewController:
