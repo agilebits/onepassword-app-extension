@@ -263,9 +263,24 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 
 ### Use Case #4: Web View Filling
 
-The 1Password App Extension is not limited to filling native UIs. With just a little bit of extra effort, users can fill `UIWebView`s and `WKWebView`s within your application as well.
+The 1Password App Extension is not limited to filling native UIs. With just a little bit of extra effort, users can fill into `WKWebView`s within your application as well.
 
-Simply add a button to your UI with its action assigned to this method in your web view's UIViewController:
+First, setup your WKWebView's WKUserContentController using the following:
+
+```objective-c
+	WKUserContentController *contentController = [WKUserContentController new];
+	[[OnePasswordExtension sharedExtension] configureUserContentController:contentController];
+	WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
+	configuration.userContentController = contentController;
+````
+
+This configures 1Password's extension so it can inject the necessary WKUserScripts into your WKWebViews. Then make sure you use that new configuration when initializing your WKWebView.
+
+```objective-c
+	self.webView = [[WKWebView alloc] initWithFrame:self.webViewContainer.bounds configuration:configuration];
+```
+
+Then simply add a button to your UI with its action assigned to this method in your web view's UIViewController:
 
 ```objective-c
 - (IBAction)fillUsing1Password:(id)sender {
@@ -284,18 +299,6 @@ If you use a web view to login (i.e. OAuth) and you do not want other activities
 #### SFSafariViewController
 
 If your app uses `SFSafariViewController`, the 1Password App Extension will show up in the share sheet on devices running iOS 9.2 or later just like it does in Safari. No implementation is required.
- 
-## Projects supporting iOS 7.1 and earlier
-
-If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link the `MobileCoreServices` and the `WebKit` frameworks as follows:
-
-<a href="https://vimeo.com/102142106" target="_blank"><img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/Projects_Targeting_iOS_7.1_Or_Earlier.png" width="640"></a>
-
-#### WKWebView support for projects with iOS 7.1 or earlier as the Deployment Target
-
-If the **Deployment Target** is `7.1` or earlier in your project or target and you are using `WKWebViews` (runtime checks for iOS 8 devices), you simply need to add `ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW=1` to your `Preprocessor Macros`.
-
-<a href="https://vimeo.com/102142106" target="_blank"><img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW.png" width="640"></a>
 
 ## Best Practices
 
