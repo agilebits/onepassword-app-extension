@@ -7,6 +7,26 @@
 
 #import "OnePasswordExtension.h"
 
+NSString *const AppExtensionURLStringKey                            = @"url_string";
+NSString *const AppExtensionUsernameKey                             = @"username";
+NSString *const AppExtensionPasswordKey                             = @"password";
+NSString *const AppExtensionTOTPKey                                 = @"totp";
+NSString *const AppExtensionTitleKey                                = @"login_title";
+NSString *const AppExtensionNotesKey                                = @"notes";
+NSString *const AppExtensionSectionTitleKey                         = @"section_title";
+NSString *const AppExtensionFieldsKey                               = @"fields";
+NSString *const AppExtensionReturnedFieldsKey                       = @"returned_fields";
+NSString *const AppExtensionOldPasswordKey                          = @"old_password";
+NSString *const AppExtensionPasswordGeneratorOptionsKey             = @"password_generator_options";
+
+NSString *const AppExtensionGeneratedPasswordMinLengthKey           = @"password_min_length";
+NSString *const AppExtensionGeneratedPasswordMaxLengthKey           = @"password_max_length";
+NSString *const AppExtensionGeneratedPasswordRequireDigitsKey       = @"password_require_digits";
+NSString *const AppExtensionGeneratedPasswordRequireSymbolsKey      = @"password_require_symbols";
+NSString *const AppExtensionGeneratedPasswordForbiddenCharactersKey = @"password_forbidden_characters";
+
+NSString *const AppExtensionErrorDomain                             = @"OnePasswordExtension";
+
 // Version
 #define VERSION_NUMBER @(185)
 static NSString *const AppExtensionVersionNumberKey = @"version_number";
