@@ -76,7 +76,7 @@ static WKUserScript *injectedUserScript;
 			if (_pendingCompletion) {
 				[self createExtensionItemForURLString:message.frameInfo.request.URL.absoluteString webPageDetails:payload completion:_pendingCompletion];
 			} else {
-				[self findLoginIn1PasswordWithURLString:message.frameInfo.request.URL.absoluteString collectedPageDetails:payload forWebViewController:self.viewController sender:self.sender withWebView:self.webView showOnlyLogins:YES completion:^(BOOL success, NSError *findLoginError) {
+				[self findLoginIn1PasswordWithURLString:message.frameInfo.request.URL.absoluteString collectedPageDetails:payload forWebViewController:self.viewController sender:self.sender withWebView:self.webView showOnlyLogins:NO completion:^(BOOL success, NSError *findLoginError) {
 					NSLog(@"Found Login and filled? %d", success);
 				}];
 			}
