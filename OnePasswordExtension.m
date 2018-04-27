@@ -307,7 +307,7 @@ static WKUserScript *injectedUserScript;
 			return;
 		}
 
-		NSString *fillScript = itemDictionary[AppExtensionWebViewPageFillScript];
+		NSDictionary *fillScript = itemDictionary[AppExtensionWebViewPageFillScript];
 		[self executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *executeFillScriptError) {
 			if (completion) {
 				completion(success, executeFillScriptError);
@@ -363,7 +363,7 @@ static WKUserScript *injectedUserScript;
 				return;
 			}
 
-			NSString *fillScript = itemDictionary[AppExtensionWebViewPageFillScript];
+			NSDictionary *fillScript = itemDictionary[AppExtensionWebViewPageFillScript];
 			[self executeFillScript:fillScript inWebView:webView completion:^(BOOL success, NSError *executeFillScriptError) {
 				if (completion) {
 					completion(success, executeFillScriptError);
@@ -375,7 +375,7 @@ static WKUserScript *injectedUserScript;
 	[self.viewController presentViewController:activityViewController animated:YES completion:nil];
 }
 
-- (void)executeFillScript:(NSString * __nullable)fillScript inWebView:(WKWebView *)webView completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
+- (void)executeFillScript:(NSDictionary * __nullable)fillScript inWebView:(WKWebView *)webView completion:(nonnull OnePasswordSuccessCompletionBlock)completion {
 
 	if (fillScript == nil) {
 		NSLog(@"Failed to executeFillScript, fillScript is missing");
@@ -385,8 +385,13 @@ static WKUserScript *injectedUserScript;
 
 		return;
 	}
-	
-	NSString *eventScript = [NSString stringWithFormat:@"var e = new CustomEvent(\"%@\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", self.securityToken, fillScript];
+	NSError *fillScriptSerializationError;
+	NSData *fillScriptData = [NSJSONSerialization dataWithJSONObject:fillScript options:0 error:&fillScriptSerializationError];
+	if (fillScriptSerializationError != nil) {
+		NSLog(@"Failed to serialize password manager fill script: %@", fillScriptSerializationError);
+	}
+	NSString *fillScriptJSONString = [[NSString alloc] initWithData:fillScriptData encoding:NSUTF8StringEncoding];
+	NSString *eventScript = [NSString stringWithFormat:@"var e = new CustomEvent(\"%@\", {detail: {name: \"executeFillScript\", payload: %@}}); window.dispatchEvent(e)", self.securityToken, fillScriptJSONString];
 	[webView evaluateJavaScript:eventScript completionHandler:^(id _Nullable result, NSError * _Nullable evaluationError) {
         BOOL success = (evaluationError == nil);
         NSError *error = nil;
