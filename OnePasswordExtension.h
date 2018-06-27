@@ -23,36 +23,39 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 
 // Login Dictionary keys - Used to get or set the properties of a 1Password Login
-#define AppExtensionURLStringKey                            @"url_string"
-#define AppExtensionUsernameKey                             @"username"
-#define AppExtensionPasswordKey                             @"password"
-#define AppExtensionTOTPKey                                 @"totp"
-#define AppExtensionTitleKey                                @"login_title"
-#define AppExtensionNotesKey                                @"notes"
-#define AppExtensionSectionTitleKey                         @"section_title"
-#define AppExtensionFieldsKey                               @"fields"
-#define AppExtensionReturnedFieldsKey                       @"returned_fields"
-#define AppExtensionOldPasswordKey                          @"old_password"
-#define AppExtensionPasswordGeneratorOptionsKey             @"password_generator_options"
+
+FOUNDATION_EXPORT NSString *const AppExtensionURLStringKey;
+FOUNDATION_EXPORT NSString *const AppExtensionUsernameKey;
+FOUNDATION_EXPORT NSString *const AppExtensionPasswordKey;
+FOUNDATION_EXPORT NSString *const AppExtensionTOTPKey;
+FOUNDATION_EXPORT NSString *const AppExtensionTitleKey;
+FOUNDATION_EXPORT NSString *const AppExtensionNotesKey;
+FOUNDATION_EXPORT NSString *const AppExtensionSectionTitleKey;
+FOUNDATION_EXPORT NSString *const AppExtensionFieldsKey;
+FOUNDATION_EXPORT NSString *const AppExtensionReturnedFieldsKey;
+FOUNDATION_EXPORT NSString *const AppExtensionOldPasswordKey;
+FOUNDATION_EXPORT NSString *const AppExtensionPasswordGeneratorOptionsKey;
 
 // Password Generator options - Used to set the 1Password Password Generator options when saving a new Login or when changing the password for for an existing Login
-#define AppExtensionGeneratedPasswordMinLengthKey           @"password_min_length"
-#define AppExtensionGeneratedPasswordMaxLengthKey           @"password_max_length"
-#define AppExtensionGeneratedPasswordRequireDigitsKey       @"password_require_digits"
-#define AppExtensionGeneratedPasswordRequireSymbolsKey      @"password_require_symbols"
-#define AppExtensionGeneratedPasswordForbiddenCharactersKey @"password_forbidden_characters"
+FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMinLengthKey;
+FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordMaxLengthKey;
+FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordRequireDigitsKey;
+FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordRequireSymbolsKey;
+FOUNDATION_EXPORT NSString *const AppExtensionGeneratedPasswordForbiddenCharactersKey;
 
 // Errors codes
-#define AppExtensionErrorDomain                             @"OnePasswordExtension"
+FOUNDATION_EXPORT NSString *const AppExtensionErrorDomain;
 
-#define AppExtensionErrorCodeCancelledByUser                    0
-#define AppExtensionErrorCodeAPINotAvailable                    1
-#define AppExtensionErrorCodeFailedToContactExtension           2
-#define AppExtensionErrorCodeFailedToLoadItemProviderData       3
-#define AppExtensionErrorCodeCollectFieldsScriptFailed          4
-#define AppExtensionErrorCodeFillFieldsScriptFailed             5
-#define AppExtensionErrorCodeUnexpectedData                     6
-#define AppExtensionErrorCodeFailedToObtainURLStringFromWebView 7
+FOUNDATION_EXPORT NS_ENUM(NSUInteger, AppExtensionErrorCode) {
+    AppExtensionErrorCodeCancelledByUser                    = 0,
+    AppExtensionErrorCodeAPINotAvailable                    = 1,
+    AppExtensionErrorCodeFailedToContactExtension           = 2,
+    AppExtensionErrorCodeFailedToLoadItemProviderData       = 3,
+    AppExtensionErrorCodeCollectFieldsScriptFailed          = 4,
+    AppExtensionErrorCodeFillFieldsScriptFailed             = 5,
+    AppExtensionErrorCodeUnexpectedData                     = 6,
+    AppExtensionErrorCodeFailedToObtainURLStringFromWebView = 7
+};
 
 // Note to creators of libraries or frameworks:
 // If you include this code within your library, then to prevent potential duplicate symbol
