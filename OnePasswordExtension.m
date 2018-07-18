@@ -57,7 +57,7 @@ static WKUserScript *injectedUserScript;
     if (self) {
         _securityToken = [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
         NSString *wrappedUserScript = [OPUserScript stringByReplacingOccurrencesOfString:@"$SECURITY_TOKEN" withString:self.securityToken];
-        injectedUserScript = [[WKUserScript alloc] initWithSource:wrappedUserScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+        injectedUserScript = [[WKUserScript alloc] initWithSource:wrappedUserScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
     }
     return self;
 }
