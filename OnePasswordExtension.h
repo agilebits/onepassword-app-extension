@@ -155,13 +155,13 @@ typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __null
 
 /*!
  Called from your web view controller, this method will show all the saved logins for the active page in the provided web
- view, and automatically fill the HTML form fields. Supports both WKWebView and UIWebView.
+ view, and automatically fill the HTML form fields. Supports both WKWebView.
  
  @discussion 1Password will show all matching Login for the naked domain of the current website. For example if the user has an item in your 1Password vault with "subdomain1.domain.com” as the website and another one with "subdomain2.domain.com”, and the current website is "https://domain.com", 1Password will show both items.
  
  However, if no matching login is found for "https://domain.com", the 1Password Extension will display the "New Login" button so that the user can create a new Login for the current website.
  
- @param webView The web view which displays the form to be filled. The active UIWebView Or WKWebView. Must not be nil.
+ @param webView The web view which displays the form to be filled. The active WKWebView. Must not be nil.
  
  @param viewController The view controller from which the 1Password Extension is invoked. Usually `self`
  
@@ -185,7 +185,7 @@ typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __null
 /*!
  The returned NSExtensionItem can be used to create your own UIActivityViewController. Use `isOnePasswordExtensionActivityType:` and `fillReturnedItems:intoWebView:completion:` in the activity view controller completion block to process the result. The completion block is guaranteed to be called on the main thread.
  
- @param webView The web view which displays the form to be filled. The active UIWebView Or WKWebView. Must not be nil.
+ @param webView The web view which displays the form to be filled. The active WKWebView. Must not be nil.
  
  @param completion Completion block called on completion with extensionItem and error. The extensionItem reply parameter that is contains all the info required by the 1Password extension if has been successfully completed or nil otherwise. The error reply parameter that is nil if the 1Password extension item has been successfully created, or it contains error information about the completion failure.
  */
@@ -195,7 +195,7 @@ typedef void (^OnePasswordExtensionItemCompletionBlock)(NSExtensionItem * __null
  Method used in the UIActivityViewController completion block to fill information into a web view.
  
  @param returnedItems Array which contains the selected activity in the share sheet. Empty array if the share sheet is cancelled by the user.
- @param webView The web view which displays the form to be filled. The active UIWebView Or WKWebView. Must not be nil.
+ @param webView The web view which displays the form to be filled. The active WKWebView. Must not be nil.
  
  @param completion Completion block called on completion with parameters success, and error. The success reply parameter that is YES if the 1Password Extension has been successfully completed or NO otherwise. The error reply parameter that is nil if the 1Password Extension has been successfully completed, or it contains error information about the completion failure.
  */
