@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OnePasswordExtension
 
 class LoginViewController: UIViewController {
 
@@ -48,12 +49,12 @@ class LoginViewController: UIViewController {
 	@IBAction func findLoginFrom1Password(_ sender:AnyObject) {
 		OnePasswordExtension.shared().findLogin(forURLString: "https://www.acme.com", for: self, sender: sender, completion: { (loginDictionary, error) in
 			guard let loginDictionary = loginDictionary else {
-				if let error = error as NSError?, error.code != AppExtensionErrorCodeCancelledByUser {
+                if let error = error as NSError?, error.code != AppExtensionErrorCode.cancelledByUser.rawValue {
 					print("Error invoking 1Password App Extension for find login: \(String(describing: error))")
 				}
 				return
 			}
-			
+
 			self.usernameTextField.text = loginDictionary[AppExtensionUsernameKey] as? String
 			self.passwordTextField.text = loginDictionary[AppExtensionPasswordKey] as? String
 

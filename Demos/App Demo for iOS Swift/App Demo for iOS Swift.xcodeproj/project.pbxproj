@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		16027A9D232024CC003603B9 /* OnePasswordExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16027A9C232024CC003603B9 /* OnePasswordExtension.framework */; };
 		16027A9E232024CC003603B9 /* OnePasswordExtension.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 16027A9C232024CC003603B9 /* OnePasswordExtension.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		849D625F1BA71BBA005825E0 /* OnePasswordExtension.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 849D625D1BA71BAB005825E0 /* OnePasswordExtension.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C061C0491B052B0400B9DF97 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C061C0461B052B0400B9DF97 /* 1Password.xcassets */; };
 		C06F58DF1B054C03005045B2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06F58DE1B054C03005045B2 /* RegisterViewController.swift */; };
 		C06F58E11B054D80005045B2 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06F58E01B054D80005045B2 /* ChangePasswordViewController.swift */; };
@@ -45,7 +44,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				16027A9E232024CC003603B9 /* OnePasswordExtension.framework in Embed Frameworks */,
-				849D625F1BA71BBA005825E0 /* OnePasswordExtension.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
