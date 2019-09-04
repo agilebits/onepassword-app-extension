@@ -44,7 +44,7 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 	}
 
 	@IBAction func fillUsing1Password(_ sender: AnyObject) {
-		OnePasswordExtension.shared().fillItem(intoWebView: webView, for: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
+        OnePasswordExtension.shared().fillItem(intoWebView: webView as Any, for: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
 			if success == false {
 				print("Failed to fill into webview: <\(String(describing: error))>")
 			}

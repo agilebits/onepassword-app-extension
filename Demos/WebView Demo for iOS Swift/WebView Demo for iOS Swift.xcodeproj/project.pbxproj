@@ -166,6 +166,7 @@
 				TargetAttributes = {
 					C0525F661B05831F003613F5 = {
 						CreatedOnToolsVersion = 6.3.1;
+						LastSwiftMigration = 1100;
 					};
 				};
 			};
@@ -363,7 +364,7 @@
 				PRODUCT_NAME = "WebView Demo for iOS Swift";
 				SWIFT_OBJC_BRIDGING_HEADER = "WebView Demo for iOS Swift/WebView Demo for iOS Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -378,7 +379,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "WebView Demo for iOS Swift";
 				SWIFT_OBJC_BRIDGING_HEADER = "WebView Demo for iOS Swift/WebView Demo for iOS Swift-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
