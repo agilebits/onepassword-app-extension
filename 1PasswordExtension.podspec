@@ -2,7 +2,7 @@ Pod::Spec.new do |spec|
 
   spec.name             = "1PasswordExtension"
   spec.module_name      = "OnePasswordExtension"
-  spec.version          = "1.8.5"
+  spec.version          = "1.8.6"
   spec.summary          = "With just a few lines of code, your app can add 1Password support."
   spec.description      = <<-DESC
  							With just a few lines of code, your app can add 1Password support, enabling your users to:
@@ -16,11 +16,11 @@ Pod::Spec.new do |spec|
 
   spec.homepage         = "https://github.com/AgileBits/onepassword-app-extension"
   spec.license          = { :type => 'MIT', :file => 'LICENSE.txt' }
-  spec.authors          = [ "Dave Teare", "Michael Fey", "Rad Azzouz", "Roustem Karimov" ]
+  spec.authors          = [ "Dave Teare", "Michael Fey", "Roustem Karimov" ]
   spec.social_media_url = "https://twitter.com/1Password"
 
   spec.source           = { :git => "https://github.com/AgileBits/onepassword-app-extension.git", :tag => spec.version }
-  spec.platform         = :ios, 7.0
+  spec.platform         = :ios, 9.0
   spec.source_files     = "*.{h,m}"
   spec.frameworks       = [ 'Foundation', 'MobileCoreServices', 'UIKit' ]
   spec.weak_framework   = "WebKit"
