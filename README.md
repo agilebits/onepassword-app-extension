@@ -52,7 +52,7 @@ The sample project depends upon having the latest version of Xcode, as well as t
 If you are developing for OS X, you can enable betas within the 1Password > Preferences > Updates window (as shown [here](i.agilebits.com/Preferences_197C0C6B.png)) and enabling the _Include beta builds_ checkbox. Mac App Store users should [download the web store version](https://agilebits.com/downloads) in order to enable betas.
 -->
 
-To install 1Password, you will need to download it from the [App Store](http://j.mp/1PasSITE). 
+To install 1Password, you will need to download it from the [App Store](https://1pw.ca/download/ios). 
 
 Let us know that you're an app developer and planning to add 1Password support by emailing us to [support+appex@agilebits.com](mailto:support+appex@agilebits.com).
 
@@ -103,7 +103,7 @@ Note that `isAppExtensionAvailable` looks to see if any app is installed that su
 
 <img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/LSApplicationQueriesSchemes.png" width="640">
 
-For more information about URL schemes in iOS 9, please refer to the [Privacy and Your Apps session](https://developer.apple.com/videos/wwdc/2015/?id=703) from WWDC 2015 at around the the 9th minute mark.
+For more information about URL schemes in iOS 9, please refer to the [Privacy and Your Apps session](https://developer.apple.com/videos/play/wwdc2015/703/) from WWDC 2015 at around the the 9th minute mark.
 
 Next we need to wire up the action for this button to this method in your UIViewController:
 
@@ -263,7 +263,7 @@ Adding 1Password to your change password screen is very similar to adding 1Passw
 
 ### Use Case #4: Web View Filling
 
-The 1Password App Extension is not limited to filling native UIs. With just a little bit of extra effort, users can fill `UIWebView`s and `WKWebView`s within your application as well.
+The 1Password App Extension is not limited to filling native UIs. With just a little bit of extra effort, users can fill `WKWebView`s within your application as well.
 
 Simply add a button to your UI with its action assigned to this method in your web view's UIViewController:
 
@@ -285,18 +285,6 @@ If you use a web view to login (i.e. OAuth) and you do not want other activities
 
 If your app uses `SFSafariViewController`, the 1Password App Extension will show up in the share sheet on devices running iOS 9.2 or later just like it does in Safari. No implementation is required.
  
-## Projects supporting iOS 7.1 and earlier
-
-If your project's Deployment Target is earlier than iOS 8.0, please make sure that you link the `MobileCoreServices` and the `WebKit` frameworks as follows:
-
-<a href="https://vimeo.com/102142106" target="_blank"><img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/Projects_Targeting_iOS_7.1_Or_Earlier.png" width="640"></a>
-
-#### WKWebView support for projects with iOS 7.1 or earlier as the Deployment Target
-
-If the **Deployment Target** is `7.1` or earlier in your project or target and you are using `WKWebViews` (runtime checks for iOS 8 devices), you simply need to add `ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW=1` to your `Preprocessor Macros`.
-
-<a href="https://vimeo.com/102142106" target="_blank"><img src="https://com-agilebits-users.s3.amazonaws.com/rad/onepassword-app-extension/images/ONE_PASSWORD_EXTENSION_ENABLE_WK_WEB_VIEW.png" width="640"></a>
-
 ## Best Practices
 
 * Use the same `URLString` during Registration and Login.
@@ -313,8 +301,8 @@ If the **Deployment Target** is `7.1` or earlier in your project or target and y
 
 If you open up OnePasswordExtension.m and start poking around, you'll be interested in these references.
 
-* [Apple Extension Guide](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/ExtensibilityPG/index.html#//apple_ref/doc/uid/TP40014214)
-* [NSItemProvider](https://developer.apple.com/library/prerelease/ios/documentation/Foundation/Reference/NSItemProvider_Class/index.html#//apple_ref/doc/uid/TP40014351), [NSExtensionItem](https://developer.apple.com/library/prerelease/ios/documentation/Foundation/Reference/NSExtensionItem_Class/index.html#//apple_ref/doc/uid/TP40014375), and [UIActivityViewController](https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIActivityViewController_Class/index.html#//apple_ref/doc/uid/TP40011976) class references.
+* [Apple Extension Guide](https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/index.html#//apple_ref/doc/uid/TP40014214)
+* [NSItemProvider](https://developer.apple.com/documentation/foundation/nsitemprovider#//apple_ref/doc/uid/TP40014351), [NSExtensionItem](https://developer.apple.com/documentation/foundation/nsextensionitem#//apple_ref/doc/uid/TP40014375), and [UIActivityViewController](https://developer.apple.com/documentation/uikit/uiactivityviewcontroller#//apple_ref/doc/uid/TP40011976) class references.
 
 
 ## Contact Us
@@ -322,5 +310,3 @@ If you open up OnePasswordExtension.m and start poking around, you'll be interes
 Contact us, please! We'd love to hear from you about how you integrated 1Password within your app, how we can further improve things, and add your app to [apps that integrate with 1Password](https://blog.agilebits.com/1password-apps/).
 
 You can reach us at support+appex@agilebits.com, or if you prefer, [@1Password](https://twitter.com/1Password) on Twitter.
-
-You can also [subscribe to our 1Password App Extension Developers newsletter](https://blog.agilebits.com/1password-extension-developers-newsletter/). We’ll send you an occasional newsletter containing 1Password App Extension news, updates, and tricks, to help you realize the full potential of the 1Password Extension API in your iOS apps.
