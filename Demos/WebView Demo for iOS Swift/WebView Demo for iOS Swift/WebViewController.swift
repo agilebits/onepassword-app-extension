@@ -30,21 +30,21 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 			return
 		}
 		
-		var htmlString: String?
 		do {
-			htmlString = try String(contentsOfFile: htmlFilePath, encoding: .utf8)
+			let htmlString = try String(contentsOfFile: htmlFilePath, encoding: .utf8)
+			webView.loadHTMLString(htmlString, baseURL: URL(string: "https://agilebits.com"))
 		}
 		catch {
 			print("Failed to obtain the html string from file \(htmlFilePath) with error: <\(String(describing: error))>")
 		}
-		
-		if let htmlString = htmlString {
-			webView.loadHTMLString(htmlString, baseURL: URL(string: "https://agilebits.com"))
-		}
 	}
 
 	@IBAction func fillUsing1Password(_ sender: AnyObject) {
-		OnePasswordExtension.shared().fillItem(intoWebView: webView, for: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
+		guard let webView = webView else {
+			return
+		}
+
+		OnePasswordExtension.shared().fillItem(into: webView, for: self, sender: sender, showOnlyLogins: false) { (success, error) -> Void in
 			if success == false {
 				print("Failed to fill into webview: <\(String(describing: error))>")
 			}
@@ -56,17 +56,16 @@ class WebViewController: UIViewController, UISearchBarDelegate, WKNavigationDele
 
 		if navigation == nil {
 			let htmlFilePath = Bundle.main.path(forResource: "welcome", ofType: "html")
-			var htmlString : String!
 			do {
-				htmlString = try String(contentsOfFile: htmlFilePath!, encoding: String.Encoding.utf8)
+				let htmlString = try String(contentsOfFile: htmlFilePath!, encoding: String.Encoding.utf8)
+				webView.loadHTMLString(htmlString, baseURL: URL(string: "https://agilebits.com"))
 			}
 			catch {
 				print("Failed to obtain the html string from file \(String(describing: htmlFilePath)) with error: <\(String(describing: error))>")
 			}
-
-			webView.loadHTMLString(htmlString, baseURL: URL(string: "https://agilebits.com"))
 		}
 	}
+
 	@IBAction func goForward(_ sender: AnyObject) {
 		webView.goForward()
 	}
