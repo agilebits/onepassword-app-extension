@@ -3,12 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		849D625E1BA71BBA005825E0 /* OnePasswordExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 849D625D1BA71BAB005825E0 /* OnePasswordExtension.framework */; };
-		849D625F1BA71BBA005825E0 /* OnePasswordExtension.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 849D625D1BA71BAB005825E0 /* OnePasswordExtension.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C061C0491B052B0400B9DF97 /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C061C0461B052B0400B9DF97 /* 1Password.xcassets */; };
 		C06F58DF1B054C03005045B2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06F58DE1B054C03005045B2 /* RegisterViewController.swift */; };
 		C06F58E11B054D80005045B2 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06F58E01B054D80005045B2 /* ChangePasswordViewController.swift */; };
@@ -20,14 +18,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		849D625C1BA71BAB005825E0 /* PBXContainerItemProxy */ = {
+		9397584F2416D8B900BF83A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 849D62581BA71BAB005825E0 /* OnePasswordExtension.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9C3F4D8C1A59ACDC004B3ECE;
 			remoteInfo = OnePasswordExtension;
 		};
-		849D62601BA71BBA005825E0 /* PBXContainerItemProxy */ = {
+		939758532416D93200BF83A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 849D62581BA71BAB005825E0 /* OnePasswordExtension.xcodeproj */;
 			proxyType = 1;
@@ -43,7 +41,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				849D625F1BA71BBA005825E0 /* OnePasswordExtension.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -51,8 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		849D62581BA71BAB005825E0 /* OnePasswordExtension.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OnePasswordExtension.xcodeproj; path = "/Volumes/AgileBits/git/onepassword-app-extension/Demos/../OnePasswordExtension.xcodeproj"; sourceTree = "<absolute>"; };
-		C061C0441B052A6800B9DF97 /* App Demo for iOS Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App Demo for iOS Swift-Bridging-Header.h"; sourceTree = "<group>"; };
+		849D62581BA71BAB005825E0 /* OnePasswordExtension.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OnePasswordExtension.xcodeproj; path = ../../OnePasswordExtension.xcodeproj; sourceTree = SOURCE_ROOT; };
 		C061C0461B052B0400B9DF97 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../../1Password.xcassets; sourceTree = "<group>"; };
 		C06F58DE1B054C03005045B2 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C06F58E01B054D80005045B2 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
@@ -70,27 +66,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				849D625E1BA71BBA005825E0 /* OnePasswordExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		849D62591BA71BAB005825E0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				849D625D1BA71BAB005825E0 /* OnePasswordExtension.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		849D626F1BA71C1E005825E0 /* External */ = {
 			isa = PBXGroup;
 			children = (
 				849D62581BA71BAB005825E0 /* OnePasswordExtension.xcodeproj */,
 			);
 			name = External;
+			sourceTree = "<group>";
+		};
+		939758432416D8B900BF83A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				939758502416D8B900BF83A7 /* OnePasswordExtension.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		F1B11CDE1ACA827600BBB963 = {
@@ -129,7 +124,6 @@
 		F1B11CEA1ACA827600BBB963 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C061C0441B052A6800B9DF97 /* App Demo for iOS Swift-Bridging-Header.h */,
 				F1B11CEB1ACA827600BBB963 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -150,7 +144,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				849D62611BA71BBA005825E0 /* PBXTargetDependency */,
+				939758542416D93200BF83A7 /* PBXTargetDependency */,
 			);
 			name = ACME;
 			productName = "App Demo for iOS Swift";
@@ -174,7 +168,7 @@
 				};
 			};
 			buildConfigurationList = F1B11CE21ACA827600BBB963 /* Build configuration list for PBXProject "App Demo for iOS Swift" */;
-			compatibilityVersion = "Xcode 11.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -186,7 +180,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 849D62591BA71BAB005825E0 /* Products */;
+					ProductGroup = 939758432416D8B900BF83A7 /* Products */;
 					ProjectRef = 849D62581BA71BAB005825E0 /* OnePasswordExtension.xcodeproj */;
 				},
 			);
@@ -198,11 +192,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		849D625D1BA71BAB005825E0 /* OnePasswordExtension.framework */ = {
+		939758502416D8B900BF83A7 /* OnePasswordExtension.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = OnePasswordExtension.framework;
-			remoteRef = 849D625C1BA71BAB005825E0 /* PBXContainerItemProxy */;
+			remoteRef = 9397584F2416D8B900BF83A7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -236,10 +230,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		849D62611BA71BBA005825E0 /* PBXTargetDependency */ = {
+		939758542416D93200BF83A7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = OnePasswordExtension;
-			targetProxy = 849D62601BA71BBA005825E0 /* PBXContainerItemProxy */;
+			targetProxy = 939758532416D93200BF83A7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -380,7 +374,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "App Demo for iOS Swift";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "App Demo for iOS Swift/App Demo for iOS Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -403,7 +396,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "App Demo for iOS Swift";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "App Demo for iOS Swift/App Demo for iOS Swift-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

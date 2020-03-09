@@ -7,7 +7,7 @@
 //
 
 #import "ChangePasswordViewController.h"
-#import <OnePasswordExtension/OnePasswordExtension.h>
+@import OnePasswordExtension;
 
 @interface ChangePasswordViewController ()
 

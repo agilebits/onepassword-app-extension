@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import OnePasswordExtension
 
 class ChangePasswordViewController: UIViewController {
 	@IBOutlet weak var onepasswordButton: UIButton!

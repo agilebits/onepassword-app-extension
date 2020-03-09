@@ -3,12 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		849D62691BA71BFE005825E0 /* OnePasswordExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 849D62681BA71BF0005825E0 /* OnePasswordExtension.framework */; };
-		849D626A1BA71BFE005825E0 /* OnePasswordExtension.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 849D62681BA71BF0005825E0 /* OnePasswordExtension.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C0525F8F1B0583E5003613F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0525F8E1B0583E5003613F5 /* AppDelegate.swift */; };
 		C0525F911B0583F6003613F5 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0525F901B0583F6003613F5 /* WebViewController.swift */; };
 		C0525F941B058428003613F5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0525F931B058428003613F5 /* Images.xcassets */; };
@@ -18,14 +16,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		849D62671BA71BF0005825E0 /* PBXContainerItemProxy */ = {
+		939758462416D8B900BF83A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 849D62631BA71BF0005825E0 /* OnePasswordExtension.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9C3F4D8C1A59ACDC004B3ECE;
 			remoteInfo = OnePasswordExtension;
 		};
-		849D626B1BA71BFE005825E0 /* PBXContainerItemProxy */ = {
+		939758512416D92A00BF83A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 849D62631BA71BF0005825E0 /* OnePasswordExtension.xcodeproj */;
 			proxyType = 1;
@@ -41,7 +39,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				849D626A1BA71BFE005825E0 /* OnePasswordExtension.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,7 +46,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		849D62631BA71BF0005825E0 /* OnePasswordExtension.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OnePasswordExtension.xcodeproj; path = "/Volumes/AgileBits/git/onepassword-app-extension/Demos/../OnePasswordExtension.xcodeproj"; sourceTree = "<absolute>"; };
+		849D62631BA71BF0005825E0 /* OnePasswordExtension.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OnePasswordExtension.xcodeproj; path = ../../OnePasswordExtension.xcodeproj; sourceTree = SOURCE_ROOT; };
 		C0525F671B05831F003613F5 /* WebView Demo for iOS Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WebView Demo for iOS Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0525F8E1B0583E5003613F5 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "WebView Demo for iOS Swift/AppDelegate.swift"; sourceTree = SOURCE_ROOT; };
 		C0525F901B0583F6003613F5 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebViewController.swift; path = "WebView Demo for iOS Swift/WebViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -58,7 +55,6 @@
 		C0525FA21B05866A003613F5 /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = welcome.html; path = "WebView Demo for iOS Swift/welcome.html"; sourceTree = SOURCE_ROOT; };
 		C0525FBA1B059825003613F5 /* 1Password.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = 1Password.xcassets; path = ../../1Password.xcassets; sourceTree = SOURCE_ROOT; };
 		C0525FC21B059DC5003613F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "WebView Demo for iOS Swift/Info.plist"; sourceTree = SOURCE_ROOT; };
-		C0525FC61B059E40003613F5 /* WebView Demo for iOS Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WebView Demo for iOS Swift-Bridging-Header.h"; path = "WebView Demo for iOS Swift/WebView Demo for iOS Swift-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,27 +62,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				849D62691BA71BFE005825E0 /* OnePasswordExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		849D62641BA71BF0005825E0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				849D62681BA71BF0005825E0 /* OnePasswordExtension.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		849D626E1BA71C05005825E0 /* External */ = {
 			isa = PBXGroup;
 			children = (
 				849D62631BA71BF0005825E0 /* OnePasswordExtension.xcodeproj */,
 			);
 			name = External;
+			sourceTree = "<group>";
+		};
+		9397583D2416D8B900BF83A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				939758472416D8B900BF83A7 /* OnePasswordExtension.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		C0525F5E1B05831F003613F5 = {
@@ -125,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				C0525FC21B059DC5003613F5 /* Info.plist */,
-				C0525FC61B059E40003613F5 /* WebView Demo for iOS Swift-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -145,7 +139,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				849D626C1BA71BFE005825E0 /* PBXTargetDependency */,
+				939758522416D92A00BF83A7 /* PBXTargetDependency */,
 			);
 			name = "ACME Browser";
 			productName = "ACME Browser Swift";
@@ -170,7 +164,7 @@
 				};
 			};
 			buildConfigurationList = C0525F621B05831F003613F5 /* Build configuration list for PBXProject "WebView Demo for iOS Swift" */;
-			compatibilityVersion = "Xcode 11.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -183,7 +177,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 849D62641BA71BF0005825E0 /* Products */;
+					ProductGroup = 9397583D2416D8B900BF83A7 /* Products */;
 					ProjectRef = 849D62631BA71BF0005825E0 /* OnePasswordExtension.xcodeproj */;
 				},
 			);
@@ -195,11 +189,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		849D62681BA71BF0005825E0 /* OnePasswordExtension.framework */ = {
+		939758472416D8B900BF83A7 /* OnePasswordExtension.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = OnePasswordExtension.framework;
-			remoteRef = 849D62671BA71BF0005825E0 /* PBXContainerItemProxy */;
+			remoteRef = 939758462416D8B900BF83A7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -231,10 +225,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		849D626C1BA71BFE005825E0 /* PBXTargetDependency */ = {
+		939758522416D92A00BF83A7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = OnePasswordExtension;
-			targetProxy = 849D626B1BA71BFE005825E0 /* PBXContainerItemProxy */;
+			targetProxy = 939758512416D92A00BF83A7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -303,7 +297,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "WebView Demo for iOS Swift/WebView Demo for iOS Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
 			};
@@ -355,7 +348,6 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "WebView Demo for iOS Swift/WebView Demo for iOS Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 2.3;
 				VALIDATE_PRODUCT = YES;
@@ -377,7 +369,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "WebView Demo for iOS Swift";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "WebView Demo for iOS Swift/WebView Demo for iOS Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -399,7 +390,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.agilebits.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "WebView Demo for iOS Swift";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "WebView Demo for iOS Swift/WebView Demo for iOS Swift-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

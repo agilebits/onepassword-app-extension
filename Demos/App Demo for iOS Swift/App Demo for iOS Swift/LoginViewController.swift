@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import OnePasswordExtension
 
 class LoginViewController: UIViewController {
 

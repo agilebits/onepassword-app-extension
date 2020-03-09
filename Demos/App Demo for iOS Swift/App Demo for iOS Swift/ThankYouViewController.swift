@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ThankYouViewController: UIViewController {
 	override func viewDidLoad() {
